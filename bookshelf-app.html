@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Folio — Tu biblioteca inteligente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- 
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            ink: {
+              950: '#0C0C12', 900: '#13131C', 800: '#1C1C2A',
+              700: '#272738', 600: '#343450', 400: '#6B6B8A', 200: '#A8A8C0', 50: '#F2F2FA',
+            },
+            gold: { 500: '#C9963A', 400: '#E8B84B', 300: '#F0CC74', 200: '#F7E2A8' },
+            sage: { 500: '#3D7A5F', 400: '#52A07E', 300: '#74BFA0' },
+            coral: { 400: '#E07168', 300: '#EE9990' },
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background-color: #0C0C12; color: #F2F2FA; min-height: 100vh; }
+    .font-display { font-family: 'Playfair Display', Georgia, serif; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #13131C; }
+    ::-webkit-scrollbar-thumb { background: #343450; border-radius: 3px; }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999;
+    }
+
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 80% at 30% 50%, rgba(232,184,75,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 75% 40%, rgba(82,160,126,0.10) 0%, transparent 55%),
+        linear-gradient(135deg, #1C1A2E 0%, #13131C 50%, #0C1A18 100%);
+      overflow: hidden;
+    }
+
+    .book-cover { border-radius: 3px 6px 6px 3px; box-shadow: 5px 5px 0 rgba(0,0,0,0.5), inset -3px 0 8px rgba(0,0,0,0.35); }
+
+    .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
+
+    .star-on { color: #E8B84B; }
+    .star-off { color: #343450; }
+
+    .gold-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(232,184,75,0.35), transparent); }
+
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .anim-1 { animation: fadeSlideUp 0.5s ease 0.1s both; }
+    .anim-2 { animation: fadeSlideUp 0.5s ease 0.25s both; }
+    .anim-3 { animation: fadeSlideUp 0.5s ease 0.4s both; }
+    .anim-4 { animation: fadeSlideUp 0.5s ease 0.55s both; }
+
+    input:focus { outline: none; box-shadow: 0 0 0 2px rgba(232,184,75,0.45); }
+
+    .badge { display: inline-block; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; }
+
+    .news-img { position: relative; overflow: hidden; border-radius: 10px; }
+    .news-img img { transition: transform 0.3s ease; }
+    .news-img:hover img { transform: scale(1.04); }
+  </style>
+   -->
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<header class="sticky top-0 z-50 border-b border-ink-800 bg-ink-950/90 backdrop-blur-md">
+  <div class="w-full max-w-[1400px] mx-auto px-6 h-14 flex items-center justify-between gap-8">
+    
+    <a href="#" class="flex items-center gap-3 shrink-0 group">
+      <div class="w-9 h-9 rounded-xl bg-gold-400 flex items-center justify-center shadow-lg shadow-gold-400/10">
+        <svg class="w-5 h-5 text-ink-950" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="font-display text-xl font-black text-ink-50 group-hover:text-gold-300 transition-colors tracking-tight">Folio</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-2 text-base shrink-0">
+      <a href="#" class="px-4 py-2 rounded-lg text-gold-400 bg-gold-400/10 font-normal">Inicio</a>
+      <a href="#" class="px-4 py-2 rounded-lg text-ink-300 hover:text-ink-50 hover:bg-ink-800 transition-all font-normal">Explorar</a>
+      <a href="#" class="px-4 py-2 rounded-lg text-ink-300 hover:text-ink-50 hover:bg-ink-800 transition-all font-normal">Noticias</a>
+      <a href="#" class="px-4 py-2 rounded-lg text-ink-300 hover:text-ink-50 hover:bg-ink-800 transition-all font-normal">Comunidad</a>
+      <a href="#" class="px-4 py-2 rounded-lg text-ink-300 hover:text-ink-50 hover:bg-ink-800 transition-all font-normal">Listas</a>
+    </nav>
+
+    <div class="flex-1 max-w-md hidden lg:block">
+      <div class="relative">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/>
+        </svg>
+        <input type="search" placeholder="Busca libros, autores…" class="w-full pl-11 pr-4 py-2.5 rounded-xl bg-ink-900/50 border border-ink-700 text-ink-50 text-base placeholder-ink-500 focus:border-gold-400/50 focus:ring-1 focus:ring-gold-400/20 transition-all outline-none"/>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 shrink-0">
+      <button class="p-2.5 rounded-xl text-ink-300 hover:text-gold-400 hover:bg-ink-800 transition-all relative group">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <span class="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-gold-500 rounded-full border-2 border-ink-950"></span>
+      </button>
+      
+      <button class="p-2.5 rounded-xl text-ink-300 hover:text-gold-400 hover:bg-ink-800 transition-all">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+      </button>
+
+      <button class="p-2.5 rounded-xl text-ink-300 hover:text-gold-400 hover:bg-ink-800 transition-all">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13.471 10a5.016 5.016 0 011.028 3M11 7.017a4 4 0 012.828 2.827"/></svg>
+      </button>
+
+      <button class="ml-2 p-0.5 rounded-full border-2 border-ink-700 hover:border-gold-400 transition-all transform hover:scale-105">
+        <img src="https://ui-avatars.com/api/?name=User&background=dbad69&color=121212" alt="Perfil" class="w-9 h-9 rounded-full">
+      </button>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- ═══ HERO BANNER ═══ -->
+<section class="hero-bg w-full relative">
+  <div class="w-full max-w-[1400px] mx-auto px-6 flex flex-col lg:flex-row items-stretch min-h-[340px]">
+
+    <!-- Left: challenge content -->
+    <div class="flex-1 flex flex-col justify-center py-12 lg:py-16 pr-0 lg:pr-16 anim-1 relative">
+      <!-- Decorative lightning -->
+      <div class="absolute top-6 left-0 text-4xl opacity-10 text-gold-400 select-none pointer-events-none" aria-hidden>⚡</div>
+      <div class="absolute bottom-8 left-24 text-2xl opacity-8 text-gold-400 select-none pointer-events-none" aria-hidden>⚡</div>
+      <div class="absolute top-20 right-20 text-3xl opacity-6 text-gold-400 select-none pointer-events-none" aria-hidden>⚡</div>
+
+      <div class="flex items-center gap-6 mb-5">
+        <!-- Badge año -->
+        <div class="relative flex flex-col items-center justify-center w-28 h-28 rounded-2xl bg-gradient-to-br from-ink-700 to-ink-800 border border-ink-600 shadow-2xl shrink-0">
+          <span class="font-display text-2xl font-bold text-gold-400 leading-none">2026</span>
+          <svg class="w-10 h-10 text-ink-200 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          <span class="absolute -top-2 -right-2 text-gold-400/50 text-lg select-none">⚡</span>
+          <span class="absolute -bottom-2 -left-2 text-gold-400/30 text-sm select-none">⚡</span>
+        </div>
+        <div>
+          <p class="text-xs font-semibold text-ink-400 tracking-widest uppercase mb-1">Reto anual de lectura</p>
+          <h1 class="font-display text-4xl lg:text-5xl font-bold text-ink-50 leading-tight">
+            Reading<br/><em class="text-gold-400 italic">Challenge</em>
+          </h1>
+        </div>
+      </div>
+
+      <p class="text-ink-300 text-sm max-w-xs leading-relaxed mb-6">
+        ¿Cuántos libros leerás este año? Fija tu meta, lleva el seguimiento y comparte tu progreso con la comunidad.
+      </p>
+      <a href="#" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gold-400 hover:bg-gold-300 text-ink-950 text-sm font-bold transition-all self-start shadow-lg">
+        Unirme al reto →
+      </a>
+    </div>
+
+    <!-- Right: signup card -->
+    <div class="lg:w-80 xl:w-96 shrink-0 lg:border-l border-ink-700/50 flex items-center justify-center py-8 lg:py-0 lg:pl-12 anim-2">
+      <div class="w-full max-w-sm bg-ink-900 border border-ink-700 rounded-2xl p-6 shadow-2xl">
+        <h2 class="font-display text-xl font-bold text-ink-50 text-center mb-5">Descubre y lee más</h2>
+
+        <button class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-[#FF9900]/12 
+        hover:bg-[#FF9900]/22 border border-[#FF9900]/30 text-[#FF9900] text-sm font-medium mb-3 transition-all">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M13.23 10.56V10c-1.94.02-3.99.25-3.99 2.18 0 .95.49 1.59 1.33 1.59.62 0 1.17-.38 1.52-.99.43-.73.14-1.47.14-2.22zm2.7 3.28c-.18.16-.43.17-.63.06-1.22-.98-1.44-1.44-2.11-2.38-1.01 1.03-1.73 1.34-3.04 1.34-1.55 0-2.76-.96-2.76-2.88 0-1.5.81-2.52 1.97-3.02.55-.24 1.33-.43 1.97-.6.91-.26 1.67-.49 1.67-1.28 0-.79-.7-1.28-1.64-1.28-1.16 0-1.78.56-1.97 1.47-.05.24-.22.47-.48.46l-2.15-.23c-.23-.05-.5-.24-.43-.59.5-2.67 2.73-3.47 4.89-3.47 1.08 0 2.48.28 3.33.99 1.08.95 1 2.22 1 3.6v3.25c0 .98.4 1.41.79 1.94.13.18.16.41-.01.55-.43.36-1.19 1.02-1.61 1.39l-.25-.22zm4.07 2.67c-3.58 3.09-8.79 2.27-11.75-.37-2.87-2.57-3.26-6.65-.78-9.6.09-.11.25-.04.23.11-.56 1.9-.04 3.72 1.21 5.17 2.28 2.7 6.14 3.59 9.18 2.04.12-.07.24.04.17.16-.09.16-.19.34-.26.49z"/></svg>
+          Continuar con Amazon
+        </button>
+
+        <button class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-ink-800 hover:bg-ink-700 border border-ink-600 text-ink-50 text-sm font-medium mb-4 transition-all">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Continuar con Apple
+        </button>
+
+        <div class="relative my-4">
+          <div class="gold-line"></div>
+          <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-ink-900 px-3 text-xs text-ink-400">o</span>
+        </div>
+
+        <button class="w-full px-4 py-2.5 rounded-xl bg-ink-800 hover:bg-ink-700 border border-ink-600 text-ink-50 text-sm font-semibold mb-4 transition-all">
+          Registrarse con email
+        </button>
+
+        <p class="text-[10px] text-ink-400 text-center leading-relaxed mb-4">
+          Al crear una cuenta aceptas los <a href="#" class="text-gold-400 hover:underline">Términos de servicio</a> y la <a href="#" class="text-gold-400 hover:underline">Política de privacidad</a> de Folio.
+        </p>
+
+        <div class="gold-line mb-4"></div>
+        <p class="text-sm text-ink-400 text-center">
+          ¿Ya eres miembro? <a href="#" class="text-gold-400 hover:text-gold-300 font-medium transition-colors ml-1">Inicia sesión</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom decorative lightning row -->
+  <div class="flex justify-around px-8 pb-2 pt-1 opacity-10 text-gold-400 text-xl pointer-events-none select-none" aria-hidden>
+    <span>⚡</span><span>⚡</span><span>⚡</span><span>⚡</span><span>⚡</span><span>⚡</span><span>⚡</span>
+  </div>
+</section>
+
+
+<!-- ═══ MAIN LAYOUT: content + right sidebar ═══ -->
+<div class="w-full max-w-[1400px] mx-auto px-6 py-10">
+  <div class="flex flex-col lg:flex-row gap-10">
+
+    <!-- ─── LEFT: Main wide content ─── -->
+    <main class="flex-1 min-w-0 space-y-12">
+
+      <!-- Value prop 2-col -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 anim-3">
+        <div class="p-5 rounded-2xl bg-ink-900 border border-ink-800 hover:border-ink-600 transition-all group cursor-pointer">
+          <h3 class="font-display text-lg font-semibold text-ink-50 group-hover:text-gold-300 transition-colors mb-2">¿Decidiendo qué leer a continuación?</h3>
+          <p class="text-sm text-ink-400 leading-relaxed">
+            Cuéntanos los títulos o géneros que has disfrutado en el pasado y te daremos recomendaciones sorprendentemente acertadas.
+          </p>
+        </div>
+        <div class="p-5 rounded-2xl bg-ink-900 border border-ink-800 hover:border-ink-600 transition-all group cursor-pointer">
+          <h3 class="font-display text-lg font-semibold text-ink-50 group-hover:text-gold-300 transition-colors mb-2">¿Qué están leyendo tus amigos?</h3>
+          <p class="text-sm text-ink-400 leading-relaxed">
+            Es probable que tus amigos estén discutiendo sus libros favoritos (y los que menos) en Folio ahora mismo.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── Discovery section ── -->
+      <div class="anim-4">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h2 class="font-display text-2xl font-bold text-ink-50">¿Qué <em class="text-gold-400 italic">descubrirás</em>?</h2>
+            <p class="text-sm text-ink-400 mt-0.5">Lo que la comunidad está encontrando</p>
+          </div>
+          <a href="#" class="text-sm text-gold-400 hover:text-gold-300 font-medium hidden sm:block">Ver todo →</a>
+        </div>
+
+        <div class="space-y-3">
+
+          <!-- Discovery row 1 -->
+          <div class="rounded-2xl bg-ink-900 border border-ink-800 hover:border-ink-600 transition-all p-4 sm:p-5">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div class="flex-1 min-w-0">
+                <p class="text-xs text-ink-400 mb-3">Porque a <span class="text-gold-300 font-semibold">Valentina</span> le gustó…</p>
+                <div class="flex gap-2 overflow-x-auto pb-1">
+                  <img src="https://covers.openlibrary.org/b/id/8739161-M.jpg" alt="" class="book-cover w-12 h-18 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                  <img src="https://covers.openlibrary.org/b/id/8373426-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                  <img src="https://covers.openlibrary.org/b/id/8225261-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                  <img src="https://covers.openlibrary.org/b/id/8114459-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                </div>
+              </div>
+              <div class="hidden sm:flex items-center gap-1 px-3 shrink-0 text-gold-400">
+                <div class="w-6 h-px bg-ink-600"></div>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <p class="text-xs text-ink-400">Descubrió…</p>
+                <img src="https://covers.openlibrary.org/b/id/9255566-M.jpg" alt="" class="book-cover w-12 object-cover hover-lift" style="height:4.5rem"/>
+                <div class="flex flex-col gap-1">
+                  <span class="badge bg-ink-700 text-ink-200">No ficción</span>
+                  <span class="badge bg-ink-700 text-ink-200">Historia</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Discovery row 2 -->
+          <div class="rounded-2xl bg-ink-900 border border-ink-800 hover:border-ink-600 transition-all p-4 sm:p-5">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div class="flex-1 min-w-0">
+                <p class="text-xs text-ink-400 mb-3">Porque a <span class="text-gold-300 font-semibold">Marcos</span> le gustó…</p>
+                <div class="flex gap-2 overflow-x-auto pb-1">
+                  <img src="https://covers.openlibrary.org/b/id/12818862-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                  <img src="https://covers.openlibrary.org/b/id/10521270-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                  <img src="https://covers.openlibrary.org/b/id/8373426-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                </div>
+              </div>
+              <div class="hidden sm:flex items-center gap-1 px-3 shrink-0 text-gold-400">
+                <div class="w-6 h-px bg-ink-600"></div>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <p class="text-xs text-ink-400">Descubrió…</p>
+                <img src="https://covers.openlibrary.org/b/id/8225261-M.jpg" alt="" class="book-cover w-12 object-cover hover-lift" style="height:4.5rem"/>
+                <span class="badge bg-coral-400/20 text-coral-300">Ficción contemporánea</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Discovery row 3 -->
+          <div class="rounded-2xl bg-ink-900 border border-ink-800 hover:border-ink-600 transition-all p-4 sm:p-5">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div class="flex-1 min-w-0">
+                <p class="text-xs text-ink-400 mb-3">Porque a <span class="text-gold-300 font-semibold">Lucía</span> le gustó…</p>
+                <div class="flex gap-2 overflow-x-auto pb-1">
+                  <img src="https://covers.openlibrary.org/b/id/9255566-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                  <img src="https://covers.openlibrary.org/b/id/8739161-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                  <img src="https://covers.openlibrary.org/b/id/8114459-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                  <img src="https://covers.openlibrary.org/b/id/12818862-M.jpg" alt="" class="book-cover w-12 object-cover shrink-0 hover-lift" style="height:4.5rem"/>
+                </div>
+              </div>
+              <div class="hidden sm:flex items-center gap-1 px-3 shrink-0 text-gold-400">
+                <div class="w-6 h-px bg-ink-600"></div>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </div>
+              <div class="flex items-center gap-3 shrink-0">
+                <p class="text-xs text-ink-400">Descubrió…</p>
+                <img src="https://covers.openlibrary.org/b/id/10521270-M.jpg" alt="" class="book-cover w-12 object-cover hover-lift" style="height:4.5rem"/>
+                <span class="badge bg-sage-400/20 text-sage-300">Fantasía épica</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Trending books ── -->
+      <div>
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h2 class="font-display text-2xl font-bold text-ink-50">Tendencias esta semana</h2>
+            <p class="text-sm text-ink-400 mt-0.5">Los más añadidos por la comunidad</p>
+          </div>
+          <a href="#" class="text-sm text-gold-400 hover:text-gold-300 font-medium hidden sm:block">Ver todos →</a>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4">
+          <!-- 5 book cards -->
+          <article class="group bg-ink-900 rounded-xl border border-ink-800 hover:border-ink-600 transition-all overflow-hidden hover-lift">
+            <a href="#" class="block relative aspect-[2/3] bg-ink-800 overflow-hidden">
+              <img src="https://covers.openlibrary.org/b/id/8739161-M.jpg" alt="" class="book-cover w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <span class="absolute top-2 left-2 badge bg-ink-950/80 text-gold-300 backdrop-blur-sm">Ficción</span>
+            </a>
+            <div class="p-3">
+              <h3 class="font-display text-sm font-semibold text-ink-50 group-hover:text-gold-300 transition-colors line-clamp-2 leading-snug mb-0.5">Cien años de soledad</h3>
+              <p class="text-xs text-ink-400 mb-2">García Márquez</p>
+              <div class="flex gap-0.5 mb-3"><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs" style="opacity:.5">★</span><span class="text-[10px] text-ink-400 ml-1">4.5</span></div>
+              <div class="flex gap-1">
+                <button class="flex-1 py-1.5 rounded-lg bg-ink-800 hover:bg-gold-400/15 border border-ink-700 hover:border-gold-400/40 text-[10px] font-semibold text-ink-300 hover:text-gold-400 transition-all">Guardar</button>
+                <button class="flex-1 py-1.5 rounded-lg bg-sage-500/12 hover:bg-sage-500/20 border border-sage-500/20 text-[10px] font-semibold text-sage-300 transition-all">Leído</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="group bg-ink-900 rounded-xl border border-ink-800 hover:border-ink-600 transition-all overflow-hidden hover-lift">
+            <a href="#" class="block relative aspect-[2/3] bg-ink-800 overflow-hidden">
+              <img src="https://covers.openlibrary.org/b/id/8373426-M.jpg" alt="" class="book-cover w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <span class="absolute top-2 left-2 badge bg-ink-950/80 text-gold-300 backdrop-blur-sm">Sci-Fi</span>
+            </a>
+            <div class="p-3">
+              <h3 class="font-display text-sm font-semibold text-ink-50 group-hover:text-gold-300 transition-colors line-clamp-2 leading-snug mb-0.5">Dune</h3>
+              <p class="text-xs text-ink-400 mb-2">Frank Herbert</p>
+              <div class="flex gap-0.5 mb-3"><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="text-[10px] text-ink-400 ml-1">4.8</span></div>
+              <div class="flex gap-1">
+                <button class="flex-1 py-1.5 rounded-lg bg-gold-400/12 border border-gold-400/30 text-[10px] font-semibold text-gold-300">✓ Guardado</button>
+                <button class="flex-1 py-1.5 rounded-lg bg-sage-500/12 hover:bg-sage-500/20 border border-sage-500/20 text-[10px] font-semibold text-sage-300 transition-all">Leído</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="group bg-ink-900 rounded-xl border border-ink-800 hover:border-ink-600 transition-all overflow-hidden hover-lift">
+            <a href="#" class="block relative aspect-[2/3] bg-ink-800 overflow-hidden">
+              <img src="https://covers.openlibrary.org/b/id/8114459-M.jpg" alt="" class="book-cover w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <span class="absolute top-2 left-2 badge bg-ink-950/80 text-gold-300 backdrop-blur-sm">Historia</span>
+            </a>
+            <div class="p-3">
+              <h3 class="font-display text-sm font-semibold text-ink-50 group-hover:text-gold-300 transition-colors line-clamp-2 leading-snug mb-0.5">Sapiens: De animales a dioses</h3>
+              <p class="text-xs text-ink-400 mb-2">Yuval Noah Harari</p>
+              <div class="flex gap-0.5 mb-3"><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-off text-xs">★</span><span class="text-[10px] text-ink-400 ml-1">4.2</span></div>
+              <div class="flex gap-1">
+                <button class="flex-1 py-1.5 rounded-lg bg-ink-800 hover:bg-gold-400/15 border border-ink-700 hover:border-gold-400/40 text-[10px] font-semibold text-ink-300 hover:text-gold-400 transition-all">Guardar</button>
+                <button class="flex-1 py-1.5 rounded-lg bg-sage-500/25 border border-sage-500/30 text-[10px] font-semibold text-sage-300">✓ Leído</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="group bg-ink-900 rounded-xl border border-ink-800 hover:border-ink-600 transition-all overflow-hidden hover-lift">
+            <a href="#" class="block relative aspect-[2/3] bg-ink-800 overflow-hidden">
+              <img src="https://covers.openlibrary.org/b/id/9255566-M.jpg" alt="" class="book-cover w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <span class="absolute top-2 left-2 badge bg-ink-950/80 text-gold-300 backdrop-blur-sm">Fantasía</span>
+            </a>
+            <div class="p-3">
+              <h3 class="font-display text-sm font-semibold text-ink-50 group-hover:text-gold-300 transition-colors line-clamp-2 leading-snug mb-0.5">El nombre del viento</h3>
+              <p class="text-xs text-ink-400 mb-2">Patrick Rothfuss</p>
+              <div class="flex gap-0.5 mb-3"><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs" style="opacity:.6">★</span><span class="text-[10px] text-ink-400 ml-1">4.6</span></div>
+              <div class="flex gap-1">
+                <button class="flex-1 py-1.5 rounded-lg bg-ink-800 hover:bg-gold-400/15 border border-ink-700 hover:border-gold-400/40 text-[10px] font-semibold text-ink-300 hover:text-gold-400 transition-all">Guardar</button>
+                <button class="flex-1 py-1.5 rounded-lg bg-sage-500/12 hover:bg-sage-500/20 border border-sage-500/20 text-[10px] font-semibold text-sage-300 transition-all">Leído</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="group bg-ink-900 rounded-xl border border-ink-800 hover:border-ink-600 transition-all overflow-hidden hover-lift">
+            <a href="#" class="block relative aspect-[2/3] bg-ink-800 overflow-hidden">
+              <img src="https://covers.openlibrary.org/b/id/12818862-M.jpg" alt="" class="book-cover w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+              <span class="absolute top-2 left-2 badge bg-ink-950/80 text-gold-300 backdrop-blur-sm">Distopía</span>
+            </a>
+            <div class="p-3">
+              <h3 class="font-display text-sm font-semibold text-ink-50 group-hover:text-gold-300 transition-colors line-clamp-2 leading-snug mb-0.5">1984</h3>
+              <p class="text-xs text-ink-400 mb-2">George Orwell</p>
+              <div class="flex gap-0.5 mb-3"><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-on text-xs">★</span><span class="star-off text-xs">★</span><span class="text-[10px] text-ink-400 ml-1">4.3</span></div>
+              <div class="flex gap-1">
+                <button class="flex-1 py-1.5 rounded-lg bg-ink-800 hover:bg-gold-400/15 border border-ink-700 hover:border-gold-400/40 text-[10px] font-semibold text-ink-300 hover:text-gold-400 transition-all">Guardar</button>
+                <button class="flex-1 py-1.5 rounded-lg bg-sage-500/12 hover:bg-sage-500/20 border border-sage-500/20 text-[10px] font-semibold text-sage-300 transition-all">Leído</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- ── IA Recommendations ── -->
+      <div class="rounded-2xl p-6 border border-sage-500/20 bg-gradient-to-br from-sage-500/8 to-gold-400/5">
+        <div class="flex items-center justify-between mb-5">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-sage-500/20 flex items-center justify-center text-lg">✨</div>
+            <div>
+              <h2 class="font-display text-xl font-bold text-ink-50">Recomendado para ti por IA</h2>
+              <p class="text-xs text-ink-400">Folio analiza tus lecturas · actualizado hoy</p>
+            </div>
+          </div>
+          <span class="badge bg-sage-500/20 text-sage-300">Beta</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="flex gap-3 p-3 rounded-xl bg-ink-900/60 border border-ink-800 hover:border-sage-500/30 transition-all cursor-pointer hover-lift">
+            <img src="https://covers.openlibrary.org/b/id/8225261-M.jpg" alt="" class="w-14 object-cover rounded-md book-cover shrink-0" style="height:5rem"/>
+            <div><p class="font-display text-sm font-semibold text-ink-50">Fundación</p><p class="text-xs text-ink-400 mb-1">Isaac Asimov</p><p class="text-xs text-sage-300">«Si te gustó Dune…»</p></div>
+          </div>
+          <div class="flex gap-3 p-3 rounded-xl bg-ink-900/60 border border-ink-800 hover:border-sage-500/30 transition-all cursor-pointer hover-lift">
+            <img src="https://covers.openlibrary.org/b/id/10521270-M.jpg" alt="" class="w-14 object-cover rounded-md book-cover shrink-0" style="height:5rem"/>
+            <div><p class="font-display text-sm font-semibold text-ink-50">El Hobbit</p><p class="text-xs text-ink-400 mb-1">J.R.R. Tolkien</p><p class="text-xs text-sage-300">«Fantasía clásica»</p></div>
+          </div>
+          <div class="flex gap-3 p-3 rounded-xl bg-ink-900/60 border border-ink-800 hover:border-sage-500/30 transition-all cursor-pointer hover-lift">
+            <img src="https://covers.openlibrary.org/b/id/9255566-M.jpg" alt="" class="w-14 object-cover rounded-md book-cover shrink-0" style="height:5rem"/>
+            <div><p class="font-display text-sm font-semibold text-ink-50">La sombra del viento</p><p class="text-xs text-ink-400 mb-1">Carlos Ruiz Zafón</p><p class="text-xs text-sage-300">«Por tu historial»</p></div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+    <!-- /LEFT -->
+
+
+    <!-- ─── RIGHT sidebar ─── -->
+    <aside class="w-full lg:w-72 xl:w-80 shrink-0 space-y-8">
+
+      <!-- Noticias -->
+      <div>
+        <h2 class="font-display text-lg font-bold text-ink-50 mb-4">Noticias y entrevistas</h2>
+
+        <article class="mb-5">
+          <a href="#" class="news-img block mb-3 aspect-video">
+            <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="" class="w-full h-full object-cover"/>
+          </a>
+          <a href="#" class="font-display text-base font-semibold text-ink-50 hover:text-gold-300 transition-colors leading-snug block mb-1">
+            100 libros épicos para elevar tu lectura de primavera
+          </a>
+          <p class="text-xs text-ink-400">386 me gusta · hace 2 días</p>
+        </article>
+
+        <div class="gold-line mb-5"></div>
+
+        <div class="space-y-4">
+          <article class="flex gap-3">
+            <img src="https://covers.openlibrary.org/b/id/8373426-M.jpg" alt="" class="w-12 object-cover rounded-lg book-cover shrink-0" style="height:4rem"/>
+            <div>
+              <a href="#" class="text-sm font-semibold text-ink-50 hover:text-gold-300 transition-colors leading-snug block">Entrevista exclusiva con Patrick Rothfuss</a>
+              <p class="text-xs text-ink-400 mt-1">124 me gusta · hace 4 días</p>
+            </div>
+          </article>
+          <article class="flex gap-3">
+            <img src="https://covers.openlibrary.org/b/id/12818862-M.jpg" alt="" class="w-12 object-cover rounded-lg book-cover shrink-0" style="height:4rem"/>
+            <div>
+              <a href="#" class="text-sm font-semibold text-ink-50 hover:text-gold-300 transition-colors leading-snug block">Los mejores debuts literarios del año</a>
+              <p class="text-xs text-ink-400 mt-1">89 me gusta · hace 1 semana</p>
+            </div>
+          </article>
+          <article class="flex gap-3">
+            <img src="https://covers.openlibrary.org/b/id/8114459-M.jpg" alt="" class="w-12 object-cover rounded-lg book-cover shrink-0" style="height:4rem"/>
+            <div>
+              <a href="#" class="text-sm font-semibold text-ink-50 hover:text-gold-300 transition-colors leading-snug block">Ciencia ficción española: una nueva ola</a>
+              <p class="text-xs text-ink-400 mt-1">210 me gusta · hace 1 semana</p>
+            </div>
+          </article>
+        </div>
+        <a href="#" class="block mt-4 text-sm text-gold-400 hover:text-gold-300 transition-colors font-medium">Ver todas →</a>
+      </div>
+
+      <div class="gold-line"></div>
+
+      <!-- Listas -->
+      <div>
+        <h2 class="font-display text-lg font-bold text-ink-50 mb-1">¿Te gustan las listas?</h2>
+        <p class="text-sm text-ink-400 mb-4">Los mejores libros del siglo XXI según la comunidad</p>
+        <div class="grid grid-cols-4 gap-2 mb-4">
+          <img src="https://covers.openlibrary.org/b/id/8739161-M.jpg" alt="" class="book-cover w-full object-cover rounded-md hover-lift" style="aspect-ratio:2/3"/>
+          <img src="https://covers.openlibrary.org/b/id/9255566-M.jpg" alt="" class="book-cover w-full object-cover rounded-md hover-lift" style="aspect-ratio:2/3"/>
+          <img src="https://covers.openlibrary.org/b/id/8373426-M.jpg" alt="" class="book-cover w-full object-cover rounded-md hover-lift" style="aspect-ratio:2/3"/>
+          <img src="https://covers.openlibrary.org/b/id/8225261-M.jpg" alt="" class="book-cover w-full object-cover rounded-md hover-lift" style="aspect-ratio:2/3"/>
+        </div>
+        <div class="space-y-2 mb-4">
+          <a href="#" class="flex items-center gap-2 text-sm text-ink-300 hover:text-gold-300 transition-colors"><span class="w-1.5 h-1.5 rounded-full bg-gold-400 shrink-0"></span>Mejores libros del siglo XXI</a>
+          <a href="#" class="flex items-center gap-2 text-sm text-ink-300 hover:text-gold-300 transition-colors"><span class="w-1.5 h-1.5 rounded-full bg-sage-400 shrink-0"></span>Fantasía épica imprescindible</a>
+          <a href="#" class="flex items-center gap-2 text-sm text-ink-300 hover:text-gold-300 transition-colors"><span class="w-1.5 h-1.5 rounded-full bg-coral-400 shrink-0"></span>No ficción que cambia vidas</a>
+          <a href="#" class="flex items-center gap-2 text-sm text-ink-300 hover:text-gold-300 transition-colors"><span class="w-1.5 h-1.5 rounded-full bg-ink-400 shrink-0"></span>Clásicos para leer antes de los 30</a>
+        </div>
+        <a href="#" class="block text-sm text-gold-400 hover:text-gold-300 transition-colors font-medium">Explorar todas las listas →</a>
+      </div>
+
+      <div class="gold-line"></div>
+
+      <!-- Géneros -->
+      <div>
+        <h2 class="font-display text-lg font-bold text-ink-50 mb-4">Explorar por género</h2>
+        <div class="flex flex-wrap gap-2">
+          <a href="#" class="badge bg-ink-800 text-ink-300 hover:bg-gold-400/12 hover:text-gold-300 border border-ink-700 hover:border-gold-400/30 transition-all normal-case text-xs py-1.5 px-3">📖 Ficción literaria</a>
+          <a href="#" class="badge bg-ink-800 text-ink-300 hover:bg-gold-400/12 hover:text-gold-300 border border-ink-700 hover:border-gold-400/30 transition-all normal-case text-xs py-1.5 px-3">🔬 Ciencia ficción</a>
+          <a href="#" class="badge bg-ink-800 text-ink-300 hover:bg-gold-400/12 hover:text-gold-300 border border-ink-700 hover:border-gold-400/30 transition-all normal-case text-xs py-1.5 px-3">🧙 Fantasía</a>
+          <a href="#" class="badge bg-ink-800 text-ink-300 hover:bg-gold-400/12 hover:text-gold-300 border border-ink-700 hover:border-gold-400/30 transition-all normal-case text-xs py-1.5 px-3">🕵️ Misterio</a>
+          <a href="#" class="badge bg-ink-800 text-ink-300 hover:bg-gold-400/12 hover:text-gold-300 border border-ink-700 hover:border-gold-400/30 transition-all normal-case text-xs py-1.5 px-3">🏛️ Historia</a>
+          <a href="#" class="badge bg-ink-800 text-ink-300 hover:bg-gold-400/12 hover:text-gold-300 border border-ink-700 hover:border-gold-400/30 transition-all normal-case text-xs py-1.5 px-3">🧠 No ficción</a>
+          <a href="#" class="badge bg-ink-800 text-ink-300 hover:bg-gold-400/12 hover:text-gold-300 border border-ink-700 hover:border-gold-400/30 transition-all normal-case text-xs py-1.5 px-3">💘 Romance</a>
+          <a href="#" class="badge bg-ink-800 text-ink-300 hover:bg-gold-400/12 hover:text-gold-300 border border-ink-700 hover:border-gold-400/30 transition-all normal-case text-xs py-1.5 px-3">😱 Terror</a>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="border-t border-ink-800 mt-16 py-8">
+  <div class="w-full max-w-[1400px] mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <div class="w-6 h-6 rounded-md bg-gold-400 flex items-center justify-center">
+        <svg class="w-3 h-3 text-ink-950" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="font-display font-bold text-ink-50">Folio</span>
+      <span class="text-ink-600 text-sm">© 2026</span>
+    </div>
+    <div class="flex flex-wrap justify-center gap-4 text-xs text-ink-400">
+      <a href="#" class="hover:text-gold-400 transition-colors">Ayuda</a>
+      <a href="#" class="hover:text-gold-400 transition-colors">Términos</a>
+      <a href="#" class="hover:text-gold-400 transition-colors">Privacidad</a>
+      <a href="#" class="hover:text-gold-400 transition-colors">API</a>
+      <a href="#" class="hover:text-gold-400 transition-colors">Blog</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
