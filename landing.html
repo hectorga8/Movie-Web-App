@@ -116,7 +116,7 @@
 
     <section
       id="main"
-      class="relative overflow-hidden border-b border-[#606C38]/10 bg-[radial-gradient(ellipse_70%_90%_at_20%_60%,rgba(96,108,56,0.08)_0%,transparent_60%), radial-gradient(ellipse_55%_70%_at_80%_35%,rgba(96,108,56,0.04)_0%,transparent_55%), linear-gradient(150deg,#FDFCF7_0%,#F4F3ED_100%)]"
+      class="relative overflow-hidden bg-[radial-gradient(ellipse_70%_90%_at_20%_60%,rgba(96,108,56,0.08)_0%,transparent_60%), radial-gradient(ellipse_55%_70%_at_80%_35%,rgba(96,108,56,0.04)_0%,transparent_55%), linear-gradient(150deg,#FDFCF7_0%,#F4F3ED_100%)]"
     >
       <div
         class="pointer-events-none absolute -top-24 -left-24 w-72 h-72 rounded-full bg-[#606C38]/5 blur-3xl"
@@ -146,8 +146,11 @@
         </div>
 
         <div
-          class="flex-1 flex flex-col justify-center py-10 xl:py-20 xl:px-24 xl:border-r border-[#606C38]/10"
+          class="relative flex-1 flex flex-col justify-center py-10 xl:py-20 xl:px-24"
         >
+          <div
+            class="hidden xl:block absolute right-0 top-[5%] bottom-[5%] w-px bg-gradient-to-b from-transparent via-[#606C38]/20 to-transparent"
+          ></div>
           <p
             class="fade-up delay-3 text-[#283618]/80 text-base max-w-sm leading-relaxed mb-10"
           >
@@ -193,7 +196,7 @@
               style="height: 5.5rem"
             />
             <span
-              class="text-xs text-[#606C38]/70 font-medium self-center ml-8 whitespace-nowrap"
+              class="text-xs text-[#283618] font-medium self-center ml-8 whitespace-nowrap"
               >+2M libros</span
             >
           </div>
@@ -203,72 +206,66 @@
           class="xl:w-96 shrink-0 flex items-start xl:items-start justify-center pt-8 xl:pt-10 pb-10 xl:pl-12"
         >
           <div
-            class="fade-up delay-5 w-full max-w-sm bg-white/90 backdrop-blur-sm border border-[#606C38]/40 rounded-2xl p-6 shadow-xl shadow-[#283618]/5"
+            class="fade-up delay-5 w-full max-w-sm bg-white/90 backdrop-blur-sm border border-[#606C38]/30 rounded-2xl p-6 shadow-xl shadow-[#283618]/5"
           >
-            <div
-              class="flex gap-1 bg-[#F4F3ED] rounded-xl p-1 mb-8 border border-[#606C38]/5"
-            >
-              <button
-                class="tab-btn active flex-1 text-sm font-bold py-2 rounded-lg transition-all"
-              >
-                Registrarse
-              </button>
-              <button
-                class="tab-btn flex-1 text-sm font-bold py-2 rounded-lg text-[#283618] hover:bg-white transition-all shadow-sm"
-              >
-                Iniciar sesión
-              </button>
+            <div class="text-[#283618] p-1 mb-6 text-center font-bold text-xl">
+              <p class="">Registrarse</p>
             </div>
 
-            <div class="space-y-3 mb-8">
+            <div class="space-y-4 mb-8">
               <button
-                class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm"
+                class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-md bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm"
               >
                 <svg class="w-6 h-6 shrink-0" viewBox="0 0 32 32">
                   <use xlink:href="./assets/sprite.svg#google"></use>
                 </svg>
-                Registrarse con Google
+                Continuar con Google
               </button>
 
               <button
-                class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F4F3ED] 
-                border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm"
+                class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-md bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm"
               >
                 <svg class="w-6 h-6 shrink-0" fill="currentColor">
                   <use xlink:href="./assets/sprite.svg#apple"></use>
                 </svg>
-                Registrarse con Apple
+                Continuar con Apple
               </button>
-            </div>
 
-            <div class=" mb-8">
-              <div class=" h-px bg-[#606C38]/15"></div>
-              
-              
-            </div>
-
-            <div class="space-y-3 mb-5">
               <button
-                class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-[#BC6C25] hover:bg-[#9A581E]
-                 border border-[#606C38]/20 text-white text-sm font-semibold transition-all shadow-sm"
+                class="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-md bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm"
               >
-                 
-                Registrarse con email
+                Continuar con email
               </button>
+
+              <p
+                class="text-[0.7rem] text-[#606C38]/70 text-center leading-relaxed"
+              >
+                Al registrarte aceptas los
+                <a href="#" class="underline text-[#1b1bff] hover:text-[#0707ff]] font-bold"
+                  >Términos de servicio</a
+                >
+                y la
+                <a href="#" class="underline text-[#1b1bff] hover:text-[#0707ff] font-bold"
+                  >Política de privacidad</a
+                >.
+              </p>
             </div>
 
-            <p
-              class="text-[0.7rem] text-[#606C38]/70 text-center leading-relaxed"
-            >
-              Al registrarte aceptas los
-              <a href="#" class="underline hover:text-[#283618] font-bold"
-                >Términos de servicio</a
-              >
-              y la
-              <a href="#" class="underline hover:text-[#283618] font-bold"
-                >Política de privacidad</a
-              >.
-            </p>
+            <div class="mb-8">
+              <div class="h-px bg-[#606C38]/15"></div>
+            </div>
+
+            <div class="mb-5">
+              <p class="text-sm text-[#606C38] text-center">
+                ¿Ya tienes una cuenta?
+                <a
+                  href="login.html"
+                  class="text-[#1b1bff] hover:text-[#0707ff] hover:underline  ml-1 transition-colors"
+                >
+                  Iniciar sesión
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -378,7 +375,8 @@
             </svg>
           </div>
           <div
-            class="inline-flex items-center gap-1.5 bg-[#BC6C25] text-white text-[0.65rem] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full mb-3"
+            class="inline-flex items-center gap-1.5 bg-[#BC6C25] text-white text-[0.65rem] 
+            font-bold tracking-widest uppercase px-2.5 py-1 rounded-full mb-3"
           >
             <span
               class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"
@@ -549,7 +547,7 @@
 
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div
-            class="bg-white border border-[#606C38]/15 rounded-3xl p-8 transition-all hover:shadow-lg"
+            class="bg-white border border-[#606C38]/15 rounded-3xl p-8 transition-all hover:shadow-lg hover:duration-500"
           >
             <h3
               class="font-['Playfair_Display',Georgia,serif] text-3xl font-bold text-[#283618] mb-7 text-center"
@@ -616,7 +614,8 @@
 
             <a
               href="#"
-              class="block text-center py-3 px-6 rounded-xl border border-[#606C38] text-[#606C38] font-bold hover:bg-[#283618] hover:text-white hover:border-[#283618] transition-all"
+              class="block text-center py-3 px-6 rounded-xl border border-[#606C38] text-[#606C38] font-bold 
+              hover:bg-[#283618] hover:text-white hover:border-[#283618] transition-all hover:duration-200"
             >
               Empezar ahora
             </a>
@@ -709,7 +708,8 @@
 
             <a
               href="#"
-              class="block text-center py-3 px-6 rounded-xl bg-[#BC6C25] text-white font-bold hover:bg-[#9A581E] transition-all shadow-lg shadow-[#BC6C25]/20"
+              class="block text-center py-3 px-6 rounded-xl bg-[#BC6C25] text-white font-bold hover:bg-[#9A581E] 
+              hover:duration-300 transition-all shadow-lg shadow-[#BC6C25]/20"
             >
               Suscribirme
             </a>
@@ -739,12 +739,15 @@
 
       <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
         <button
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#BC6C25] hover:bg-[#9A581E] text-white text-sm font-bold transition-all shadow-lg shadow-[#BC6C25]/20"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 
+          rounded-xl bg-[#BC6C25] hover:bg-[#9A581E] hover:duration-300 text-white text-sm font-bold transition-all shadow-lg shadow-[#BC6C25]/20"
         >
           Crear cuenta gratuita →
         </button>
         <button
-          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-[#606C38]/30 hover:border-[#283618] hover:bg-[#283618] text-[#283618] hover:text-white text-sm font-bold transition-all"
+          class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 
+          rounded-xl border border-[#606C38]/30 hover:border-[#283618] hover:bg-[#283618] 
+          text-[#283618] hover:text-white hover:duration-300 text-sm font-bold transition-all"
         >
           Explorar libros
         </button>
