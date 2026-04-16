@@ -1,29 +1,23 @@
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // Footer.jsx
-// Pie de página compartido en todas las páginas
-// ─────────────────────────────────────────────
+// Pie de página global con diseño completo de Folio
+// ─────────────────────────────────────────────────────────────
 
 function Footer() {
   return (
     <footer className="bg-[#283618] text-[#FDFCF7]">
-
-      {/* ── Grid principal ── */}
       <div className="w-full max-w-[1400px] mx-auto px-8 pt-16 pb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-40 text-center lg:text-left">
-
+ 
         {/* Marca + newsletter */}
         <div className="lg:col-span-2">
           <a href="#" className="flex items-center gap-3 mb-5 group w-fit lg:mx-0 mx-auto">
-            <span className="font-['Playfair_Display',Georgia,serif] text-xl font-black text-[#FDFCF7] group-hover:text-white transition-colors">
-              Folio
-            </span>
+            <span className="font-['Playfair_Display',Georgia,serif] text-xl font-black text-[#FDFCF7] group-hover:text-white transition-colors">Folio</span>
           </a>
           <p className="text-sm text-[#FDFCF7]/70 leading-relaxed mb-6 max-w-xs text-center lg:text-left mx-auto lg:mx-0">
             Tu biblioteca personal inteligente. Descubre, organiza y disfruta más de tus lecturas con la ayuda de la IA.
           </p>
-
-          <p className="text-xs font-bold text-[#FDFCF7]/60 uppercase tracking-widest mb-3">
-            Newsletter semanal
-          </p>
+ 
+          <p className="text-xs font-bold text-[#FDFCF7]/60 uppercase tracking-widest mb-3">Newsletter semanal</p>
           <div className="flex gap-2 mb-6">
             <input
               type="email"
@@ -34,8 +28,7 @@ function Footer() {
               Suscribir
             </button>
           </div>
-
-          {/* Redes sociales */}
+ 
           <div className="flex gap-3 justify-center lg:justify-start">
             <a href="#" className="w-9 h-9 rounded-lg bg-[#606C38]/30 hover:bg-[#606C38] flex items-center justify-center transition-all text-[#FDFCF7]/80 hover:text-white">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -49,65 +42,55 @@ function Footer() {
             </a>
           </div>
         </div>
-
+ 
         {/* Producto */}
         <div>
-          <h4 className="font-['Playfair_Display',Georgia,serif] text-sm font-bold text-[#FDFCF7] uppercase tracking-widest mb-5">
-            Producto
-          </h4>
+          <h4 className="font-['Playfair_Display',Georgia,serif] text-sm font-bold text-[#FDFCF7] uppercase tracking-widest mb-5">Producto</h4>
           <ul className="space-y-3 text-sm">
-            {["Características", "Planes y precios", "Folio AI", "Reading Challenge", "Comunidad"].map((item) => (
-              <li key={item}>
-                <a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">{item}</a>
-              </li>
-            ))}
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Características</a></li>
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Planes y precios</a></li>
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Folio AI</a></li>
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Reading Challenge</a></li>
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Comunidad</a></li>
           </ul>
         </div>
-
+ 
         {/* Explorar */}
         <div>
-          <h4 className="font-['Playfair_Display',Georgia,serif] text-sm font-bold text-[#FDFCF7] uppercase tracking-widest mb-5">
-            Explorar
-          </h4>
+          <h4 className="font-['Playfair_Display',Georgia,serif] text-sm font-bold text-[#FDFCF7] uppercase tracking-widest mb-5">Explorar</h4>
           <ul className="space-y-3 text-sm">
-            {["Ficción", "No ficción", "Fantasía y Sci-Fi", "Misterio y thriller", "Todos los géneros →"].map((item) => (
-              <li key={item}>
-                <a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">{item}</a>
-              </li>
-            ))}
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Ficción</a></li>
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">No ficción</a></li>
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Fantasía y Sci-Fi</a></li>
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Misterio y thriller</a></li>
+            <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Todos los géneros →</a></li>
           </ul>
         </div>
-
+ 
         {/* Empresa + Soporte */}
         <div>
-          <h4 className="font-['Playfair_Display',Georgia,serif] text-sm font-bold text-[#FDFCF7] uppercase tracking-widest mb-5">
-            Empresa
-          </h4>
+          <h4 className="font-['Playfair_Display',Georgia,serif] text-sm font-bold text-[#FDFCF7] uppercase tracking-widest mb-5">Empresa</h4>
           <ul className="space-y-3 text-sm mb-8">
             <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Sobre nosotros</a></li>
           </ul>
-          <h4 className="font-['Playfair_Display',Georgia,serif] text-sm font-bold text-[#FDFCF7] uppercase tracking-widest mb-4">
-            Soporte
-          </h4>
+          <h4 className="font-['Playfair_Display',Georgia,serif] text-sm font-bold text-[#FDFCF7] uppercase tracking-widest mb-4">Soporte</h4>
           <ul className="space-y-3 text-sm">
             <li><a href="#" className="text-[#FDFCF7]/70 hover:text-white transition-colors">Contacto</a></li>
           </ul>
         </div>
-
+ 
       </div>
-
-      {/* ── Separador ── */}
+ 
       <div className="w-full max-w-[1400px] mx-auto px-8">
         <div className="h-px bg-[#606C38]/30"></div>
       </div>
-
-      {/* ── Barra inferior ── */}
+ 
       <div className="w-full max-w-[1400px] mx-auto px-8 py-6 flex flex-col sm:flex-row items-center justify-center lg:justify-between gap-4">
         <p className="text-xs text-[#FDFCF7]/50">© 2026 Folio. Todos los derechos reservados.</p>
         <div className="flex flex-wrap justify-center gap-5 text-xs text-[#FDFCF7]/60">
-          {["Términos de servicio", "Política de privacidad", "Cookies"].map((item) => (
-            <a key={item} href="#" className="hover:text-white transition-colors">{item}</a>
-          ))}
+          <a href="#" className="hover:text-white transition-colors">Términos de servicio</a>
+          <a href="#" className="hover:text-white transition-colors">Política de privacidad</a>
+          <a href="#" className="hover:text-white transition-colors">Cookies</a>
         </div>
         <div className="flex items-center gap-2 text-xs text-[#FDFCF7]/60">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -116,9 +99,8 @@ function Footer() {
           <span>Español (ES)</span>
         </div>
       </div>
-
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
