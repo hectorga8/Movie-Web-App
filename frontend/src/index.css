@@ -1,1 +1,53 @@
 @import "tailwindcss";
+
+/* ── Scrollbar ─────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #fdfcf7; }
+::-webkit-scrollbar-thumb { background: #606c38; border-radius: 3px; opacity: 0.5; }
+::-webkit-scrollbar-thumb:hover { background: #283618; }
+
+/* ── Animaciones y Delays ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { 
+  animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; 
+  will-change: opacity, transform;
+}
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.2s; }
+.delay-5 { animation-delay: 0.25s; }
+
+/* ── Sombras de libros y tarjetas ─────────────────────── */
+.book-spine {
+  border-radius: 2px 6px 6px 2px;
+  box-shadow: 2px 2px 8px rgba(40, 54, 24, 0.1), inset -1px 0 3px rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease;
+}
+.book-spine:hover {
+  transform: translateY(-4px) rotate(-1deg);
+}
+
+.feature-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  backface-visibility: hidden;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(40, 54, 24, 0.08);
+}
+
+/* ── Efecto Grano OPTIMIZADO ────────── */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  transform: translateZ(0);
+}
