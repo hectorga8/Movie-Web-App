@@ -7,11 +7,11 @@ import Libro from './pages/Libro';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
-// Creamos un pequeño componente para decidir qué Header mostrar
+// Componente para decidir qué Header mostrar según la página
 function HeaderWrapper() {
   const location = useLocation();
-  // Si estamos en la raíz (/), el login o el registro, usamos la variante "landing"
   const landingPaths = ['/', '/login', '/registro'];
   const variant = landingPaths.includes(location.pathname) ? 'landing' : 'app';
   
@@ -22,22 +22,34 @@ function App() {
   return (
     <Router>
       <div className="flex flex-col min-h-screen bg-[#FDFCF7]">
-        
-        {/* El Header ahora vive aquí, fuera de las rutas, para que sea global */}
         <HeaderWrapper />
         
         <main className="flex-1">
           <Routes>
+            {/* Rutas Públicas */}
             <Route path="/" element={<Landing />} />
-            <Route path="/inicio" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/libro/:id" element={<Libro />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Register />} />
+
+            {/* Rutas Protegidas (Solo logueados) */}
+            <Route path="/inicio" element={
+              <ProtectedRoute>
+                <Index />
+              </ProtectedRoute>
+            } />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/libro/:id" element={
+              <ProtectedRoute>
+                <Libro />
+              </ProtectedRoute>
+            } />
           </Routes>
         </main>
 
-        {/* El Footer también es global */}
         <Footer />
       </div>
     </Router>

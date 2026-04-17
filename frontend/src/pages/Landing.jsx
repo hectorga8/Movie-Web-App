@@ -1,5 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FeatureCard from '../components/landing/FeatureCard'
+import { useAuth } from '../context/AuthContext'
+import { useEffect } from 'react'
+import { useGoogleLogin } from '@react-oauth/google'
 
 // ═══════════════════════════════════════════════════════════════
 // Landing.jsx
@@ -7,6 +10,41 @@ import FeatureCard from '../components/landing/FeatureCard'
 // ═══════════════════════════════════════════════════════════════
 
 function Landing() {
+  const { user, login } = useAuth();
+  const navigate = useNavigate();
+
+  // Si el usuario ya está logueado, lo mandamos al inicio
+  useEffect(() => {
+    if (user) {
+      navigate('/inicio');
+    }
+  }, [user, navigate]);
+
+  // Función para manejar el login de Google
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/google', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: tokenResponse.access_token })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          login(data.user, data.token);
+          navigate('/inicio');
+        } else {
+          alert('Error al autenticar con Google: ' + data.message);
+        }
+      } catch (error) {
+        console.error('Error de red:', error);
+        alert('No se pudo conectar con el servidor.');
+      }
+    },
+    onError: (error) => console.log('Login Failed:', error)
+  });
+
   // ── Datos de las features ──────────────────────────────────────
   const features = [
     {
@@ -99,7 +137,7 @@ function Landing() {
         "3 Listas personalizadas",
       ],
       cta: "Empezar ahora",
-      path: "/registro",
+      path: "/login", // Cambiado a login
       highlighted: false,
     },
     {
@@ -115,7 +153,7 @@ function Landing() {
         "Listas y notas ilimitadas",
       ],
       cta: "Suscribirme",
-      path: "/registro",
+      path: "/login", // Cambiado a login
       highlighted: true,
     },
   ]
@@ -161,7 +199,7 @@ function Landing() {
               <img src="https://covers.openlibrary.org/b/id/8739161-M.jpg" alt="Portada de libro" width="40" height="88" loading="eager" className="book-spine w-10 object-cover" style={{ height: '5.5rem' }} />
               <img src="https://covers.openlibrary.org/b/id/9255566-M.jpg" alt="Portada de libro" width="40" height="72" loading="eager" className="book-spine w-10 object-cover" style={{ height: '4.5rem' }} />
               <img src="https://covers.openlibrary.org/b/id/8373426-M.jpg" alt="Portada de libro" width="40" height="96" loading="eager" className="book-spine w-10 object-cover" style={{ height: '6rem' }} />
-              <img src="https://covers.openlibrary.org/b/id/8225261-M.jpg" alt="Portada de libro" width="40" height="80" loading="eager" className="book-spine w-10 object-cover" style={{ height: '5rem' }} />
+              <img src="https://covers.openlibrary.org/b/id/8225261-L.jpg" alt="Portada de libro" width="40" height="80" loading="eager" className="book-spine w-10 object-cover" style={{ height: '5rem' }} />
               <img src="https://covers.openlibrary.org/b/id/12818862-M.jpg" alt="Portada de libro" width="40" height="64" loading="eager" className="book-spine w-10 object-cover" style={{ height: '4rem' }} />
               <img src="https://covers.openlibrary.org/b/id/10527843-M.jpg" alt="Portada de libro" width="40" height="88" loading="eager" className="book-spine w-10 object-cover" style={{ height: '5.5rem' }} />
               <span className="text-xs text-[#283618] font-medium self-center ml-8 whitespace-nowrap">+2M libros</span>
@@ -176,7 +214,10 @@ function Landing() {
               </div>
 
               <div className="space-y-4 mb-8">
-                <button className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm">
+                <button 
+                  onClick={() => handleGoogleLogin()}
+                  className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm"
+                >
                   <svg className="w-6 h-6 shrink-0" viewBox="0 0 32 32">
                     <use xlinkHref="/assets/sprite.svg#google" />
                   </svg>
@@ -190,6 +231,7 @@ function Landing() {
                   Continuar con Apple
                 </button>
 
+                {/* Botón Verde: Directo a Registro */}
                 <Link 
                   to="/registro" 
                   className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-[#283618] hover:bg-[#606C38] text-white text-sm font-bold transition-all shadow-lg shadow-[#283618]/10"
@@ -228,9 +270,7 @@ function Landing() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════
-          FEATURES SECTION
-      ═══════════════════════════════════════════════════════════ */}
+      {/* SECCIÓN FEATURES... */}
       <section className="w-full max-w-[1400px] mx-auto px-6 py-20 content-visibility-auto">
         <div className="text-center mb-14">
           <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#606C38] mb-3">
@@ -243,7 +283,6 @@ function Landing() {
           </h2>
         </div>
 
-        {/* Grid primera fila (3 features) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {features.slice(0, 3).map((feature) => (
             <FeatureCard
@@ -257,7 +296,6 @@ function Landing() {
           ))}
         </div>
 
-        {/* Grid segunda fila (3 features) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.slice(3, 6).map((feature) => (
             <FeatureCard
@@ -272,9 +310,7 @@ function Landing() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════
-          STATS SECTION
-      ═══════════════════════════════════════════════════════════ */}
+      {/* SECCIÓN STATS... */}
       <section className="border-y border-[#606C38]/10 bg-[#F4F3ED] content-visibility-auto">
         <div className="w-full max-w-[1400px] mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {stats.map((stat, index) => (
@@ -288,9 +324,7 @@ function Landing() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════
-          PRICING SECTION
-      ═══════════════════════════════════════════════════════════ */}
+      {/* SECCIÓN PRICING */}
       <section className="py-20 bg-[#FDFCF7] content-visibility-auto">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="text-center mb-16">
@@ -357,6 +391,7 @@ function Landing() {
                   ))}
                 </ul>
 
+                {/* Cambiado a plan.path que ahora es /login */}
                 <Link
                   to={plan.path}
                   className={`block text-center py-3 px-6 rounded-xl font-bold transition-all ${
@@ -373,9 +408,7 @@ function Landing() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════════════════════
-          CTA SECTION
-      ═══════════════════════════════════════════════════════════ */}
+      {/* SECCIÓN CTA FINAL */}
       <section className="w-full max-w-[1400px] mx-auto px-6 py-24 text-center content-visibility-auto">
         <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#606C38] mb-4">
           Gratis para siempre
@@ -390,8 +423,9 @@ function Landing() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {/* Cambiado a /login */}
           <Link 
-            to="/registro" 
+            to="/login" 
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#BC6C25] hover:bg-[#9A581E] hover:duration-300 text-white text-sm font-bold transition-all shadow-lg shadow-[#BC6C25]/20"
           >
             Crear cuenta gratuita →

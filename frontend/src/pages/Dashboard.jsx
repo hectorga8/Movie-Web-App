@@ -4,6 +4,7 @@ import DashboardBanner from '../components/dashboard/DashboardBanner';
 import Sidebar from '../components/dashboard/Sidebar';
 import RecommendationCard from '../components/dashboard/RecommendationCard';
 import StatCard from '../components/dashboard/StatCard';
+import { useAuth } from '../context/AuthContext'; // Importamos el hook de autenticación
 
 // ═══════════════════════════════════════════════════════════════
 // Dashboard.jsx
@@ -11,7 +12,12 @@ import StatCard from '../components/dashboard/StatCard';
 // ═══════════════════════════════════════════════════════════════
 
 function Dashboard() {
-  const userData = { name: "Elena", booksGoal: 12, year: 2026 };
+  const { user } = useAuth(); // Extraemos el usuario logueado
+  
+  // Si hay usuario, usamos su nombre. Si no, Elena por defecto.
+  const userName = user ? user.name.split(' ')[0] : "Elena";
+
+  const userData = { name: userName, booksGoal: 12, year: 2026 };
 
   const libros = [
     { id: 1, title: "Dune", author: "Frank Herbert", image: "https://covers.openlibrary.org/b/id/10527843-L.jpg", status: "reading", progress: 45, favorite: false, rating: 0 },
