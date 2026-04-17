@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import FeatureCard from '../components/landing/FeatureCard'
 
 // ═══════════════════════════════════════════════════════════════
@@ -98,6 +99,7 @@ function Landing() {
         "3 Listas personalizadas",
       ],
       cta: "Empezar ahora",
+      path: "/registro",
       highlighted: false,
     },
     {
@@ -113,6 +115,7 @@ function Landing() {
         "Listas y notas ilimitadas",
       ],
       cta: "Suscribirme",
+      path: "/registro",
       highlighted: true,
     },
   ]
@@ -173,47 +176,50 @@ function Landing() {
               </div>
 
               <div className="space-y-4 mb-8">
-                <button className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-md bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm">
+                <button className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm">
                   <svg className="w-6 h-6 shrink-0" viewBox="0 0 32 32">
                     <use xlinkHref="/assets/sprite.svg#google" />
                   </svg>
                   Continuar con Google
                 </button>
 
-                <button className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-md bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm">
+                <button className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm">
                   <svg className="w-6 h-6 shrink-0" fill="currentColor">
                     <use xlinkHref="/assets/sprite.svg#apple" />
                   </svg>
                   Continuar con Apple
                 </button>
 
-                <button className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-md bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm">
+                <Link 
+                  to="/registro" 
+                  className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-[#283618] hover:bg-[#606C38] text-white text-sm font-bold transition-all shadow-lg shadow-[#283618]/10"
+                >
                   Continuar con email
-                </button>
+                </Link>
 
-                <p className="text-[0.7rem] text-[#606C38]/70 text-center leading-relaxed">
+                <p className="text-[0.7rem] text-[#606C38]/70 text-center leading-relaxed px-2">
                   Al registrarte aceptas los{' '}
-                  <a href="#" className="underline text-[#1b1bff] hover:text-[#0707ff] font-bold">
-                    Términos de servicio
+                  <a href="#" className="underline text-[#BC6C25] font-bold">
+                    Términos
                   </a>
                   {' '}y la{' '}
-                  <a href="#" className="underline text-[#1b1bff] hover:text-[#0707ff] font-bold">
-                    Política de privacidad
+                  <a href="#" className="underline text-[#BC6C25] font-bold">
+                    Privacidad
                   </a>
                   .
                 </p>
               </div>
 
-              <div className="mb-8">
+              <div className="mb-8 px-4">
                 <div className="h-px bg-[#606C38]/15" />
               </div>
 
-              <div className="mb-5">
+              <div className="mb-2">
                 <p className="text-sm text-[#606C38] text-center">
                   ¿Ya tienes una cuenta?
-                  <a href="/login" className="text-[#1b1bff] hover:text-[#0707ff] hover:underline ml-1 transition-colors">
+                  <Link to="/login" className="text-[#BC6C25] font-bold hover:underline ml-1.5 transition-colors">
                     Iniciar sesión
-                  </a>
+                  </Link>
                 </p>
               </div>
             </div>
@@ -351,8 +357,8 @@ function Landing() {
                   ))}
                 </ul>
 
-                <a
-                  href="#"
+                <Link
+                  to={plan.path}
                   className={`block text-center py-3 px-6 rounded-xl font-bold transition-all ${
                     plan.highlighted
                       ? 'bg-[#BC6C25] text-white hover:bg-[#9A581E] hover:duration-300 shadow-lg shadow-[#BC6C25]/20'
@@ -360,7 +366,7 @@ function Landing() {
                   }`}
                 >
                   {plan.cta}
-                </a>
+                </Link>
               </div>
             ))}
           </div>
@@ -384,12 +390,18 @@ function Landing() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#BC6C25] hover:bg-[#9A581E] hover:duration-300 text-white text-sm font-bold transition-all shadow-lg shadow-[#BC6C25]/20">
+          <Link 
+            to="/registro" 
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-[#BC6C25] hover:bg-[#9A581E] hover:duration-300 text-white text-sm font-bold transition-all shadow-lg shadow-[#BC6C25]/20"
+          >
             Crear cuenta gratuita →
-          </button>
-          <button className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-[#606C38]/30 hover:border-[#283618] hover:bg-[#283618] text-[#283618] hover:text-white hover:duration-300 text-sm font-bold transition-all">
+          </Link>
+          <Link 
+            to="/inicio" 
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-[#606C38]/30 hover:border-[#283618] hover:bg-[#283618] text-[#283618] hover:text-white hover:duration-300 text-sm font-bold transition-all"
+          >
             Explorar libros
-          </button>
+          </Link>
         </div>
       </section>
       
