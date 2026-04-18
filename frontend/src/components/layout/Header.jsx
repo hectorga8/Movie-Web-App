@@ -4,6 +4,7 @@
 // ─────────────────────────────────────────────────────────────
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import SearchBar from '../common/SearchBar';
 
 function Header({ variant = "landing" }) {
   const { user, logout } = useAuth(); 
@@ -11,7 +12,7 @@ function Header({ variant = "landing" }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(); // Al borrar la sesión, el ProtectedRoute nos echará automáticamente a /
+    logout(); 
   };
 
   const handleLogoClick = () => {
@@ -36,18 +37,9 @@ function Header({ variant = "landing" }) {
         {/* TODO LO DEMÁS solo aparece si es variante "app" o si el usuario está logueado */}
         {(isApp || user) && (
           <>
-            {/* Buscador central (Desktop) */}
+            {/* Buscador funcional central (Desktop) */}
             <div className="flex-1 max-w-md hidden md:block">
-              <div className="relative">
-                <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#606C38]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-4.35-4.35M17 11A6 6 0 115 11a6 6 0 0112 0z"/>
-                </svg>
-                <input
-                  type="search"
-                  placeholder="Busca libros, autores…"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#F4F3ED] border border-[#606C38]/15 text-[#283618] placeholder-[#606C38]/50 text-sm focus:outline-none focus:border-[#606C38]/50 transition-all"
-                />
-              </div>
+              <SearchBar />
             </div>
 
             {/* Nav links (App) */}

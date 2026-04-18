@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// 1. Definimos el Esquema (la "forma" del usuario)
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -9,18 +8,34 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, 'El email es obligatorio'],
-    unique: true, // No permite emails duplicados
-    lowercase: true, // Lo guarda siempre en minúsculas
+    unique: true,
+    lowercase: true,
   },
   password: {
     type: String,
-    // Eliminamos 'required: true' para permitir usuarios de Google
+    required: true,
+  },
+  // --- CAMPOS DE PERFIL / ONBOARDING ---
+  onboardingCompleted: {
+    type: Boolean,
+    default: false,
+  },
+  readingHabits: {
+    type: String,
+    default: '',
+  },
+  genres: {
+    type: [String],
+    default: [],
+  },
+  favoriteBooks: {
+    type: [String],
+    default: [],
   },
 }, {
-  timestamps: true // Añade createdAt y updatedAt automáticamente
+  timestamps: true
 });
 
-// 2. Creamos el Modelo basado en el Esquema
 const User = mongoose.model('User', UserSchema);
 
 module.exports = User;

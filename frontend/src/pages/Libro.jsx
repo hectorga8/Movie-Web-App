@@ -1,31 +1,58 @@
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import ReviewCard from '../components/libro/ReviewCard';
 import InteractiveRating from '../components/libro/InteractiveRating';
 import RatingDistribution from '../components/libro/RatingDistribution';
 
 // ═══════════════════════════════════════════════════════════════
 // Libro.jsx
-// Página de detalle profundo de un libro individual
+// Página de detalle profundo de un libro individual (Datos Reales)
 // ═══════════════════════════════════════════════════════════════
 
 function Libro() {
-  // ── Datos del libro ────────────────────────────────────────────
-  const bookData = {
-    title: "Cien años de soledad",
-    author: "Gabriel García Márquez",
-    image: "https://covers.openlibrary.org/b/id/8739161-L.jpg",
-    rating: 4.5,
-    reviewsCount: "24,502",
-    pages: 496,
-    published: "Mayo 1967",
-    publisher: "Sudamericana",
-    language: "Español",
-    isbn: "9788497592208",
-    genres: ["Ficción", "Realismo mágico", "Clásico", "Premio Nobel"],
-    synopsis: [
-      "«Muchos años después, frente al pelotón de fusilamiento, el coronel Aureliano Buendía había de recordar aquella tarde remota en que su padre lo llevó a conocer el hielo.»",
-      "Con esta cita comienza una de las novelas más importantes del siglo XX y una de las aventuras literarias más fascinantes de todos los tiempos. Millones de ejemplares de Cien años de soledad leídos en todas las lenguas y el Premio Nobel de Literatura coronando una obra que se había abierto paso 'boca a boca'.",
-      "La fabulosa historia de la familia Buendía-Iguarán, con sus milagros, fantasías, obsesiones, tragedias e incestos, representa al mismo tiempo el mito y la historia, la tragedia y el amor del mundo entero."
-    ],
+  const { id } = useParams(); // Obtenemos el ID de Google de la URL
+  const [book, setBook] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // ── Cargar datos del libro ─────────────────────────────────────
+  useEffect(() => {
+    const fetchBookDetail = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`${import.meta.env.VITE_BOOKS_API_URL}/${id}`);
+        const data = await res.json();
+        
+        if (!res.ok) throw new Error(data.message || 'No se encontró el libro');
+        
+        setBook(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) fetchBookDetail();
+  }, [id]);
+
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+      <div className="w-12 h-12 border-4 border-[#BC6C25]/20 border-t-[#BC6C25] rounded-full animate-spin"></div>
+      <p className="text-[#606C38] font-bold animate-pulse">Consultando a la biblioteca de Google...</p>
+    </div>
+  );
+
+  if (error) return (
+    <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-6">
+      <h2 className="text-2xl font-bold text-[#283618] mb-2">¡Vaya! Algo ha fallado</h2>
+      <p className="text-[#606C38] mb-6">{error}</p>
+      <Link to="/inicio" className="px-6 py-2 bg-[#283618] text-white rounded-xl font-bold">Volver al inicio</Link>
+    </div>
+  );
+
+  // ── Datos complementarios (Próximamente de otros servicios) ───
+  const extraData = {
     ratingDistribution: [
       { stars: 5, percentage: 62 },
       { stars: 4, percentage: 22 },
@@ -35,13 +62,10 @@ function Libro() {
     ],
     aiSuggestions: [
       { id: 1, title: "La casa de los espíritus", author: "Isabel Allende", image: "https://covers.openlibrary.org/b/id/8225261-M.jpg", rating: 4.1 },
-      { id: 2, title: "Pedro Páramo", author: "Juan Rulfo", image: "https://covers.openlibrary.org/b/id/10521270-M.jpg", rating: 4.3 },
-      { id: 3, title: "Rayuela", author: "Julio Cortázar", image: "https://covers.openlibrary.org/b/id/8373426-M.jpg", rating: 4.0 },
-      { id: 4, title: "El amor en los tiempos del cólera", author: "Gabriel García Márquez", image: "https://covers.openlibrary.org/b/id/9255566-M.jpg", rating: 4.4 }
+      { id: 2, title: "Pedro Páramo", author: "Juan Rulfo", image: "https://covers.openlibrary.org/b/id/10521270-M.jpg", rating: 4.3 }
     ],
     reviews: [
-      { id: 1, name: "Ana García", date: "Hace 3 días", rating: 5, comment: "Una novela que te cambia la perspectiva de la literatura para siempre. García Márquez construye un universo completamente propio donde lo imposible se vuelve cotidiano." },
-      { id: 2, name: "Carlos Méndez", date: "Hace 1 semana", rating: 4, comment: "Al principio me costó entrar por la cantidad de personajes con el mismo nombre, pero cuando te sumerges en Macondo ya no puedes salir. La prosa es hipnótica." }
+      { id: 1, name: "Ana García", date: "Hace 3 días", rating: 5, comment: "Una novela que te cambia la perspectiva de la literatura para siempre." }
     ]
   };
 
@@ -50,11 +74,11 @@ function Libro() {
       
       {/* Breadcrumb */}
       <nav className="fade-up text-xs font-semibold text-[#606C38]/60 mb-10 uppercase tracking-[0.15em] flex items-center gap-2">
-        <a href="#" className="hover:text-[#283618] transition-colors">Explorar</a>
+        <Link to="/inicio" className="hover:text-[#283618] transition-colors">Explorar</Link>
         <span className="text-[#606C38]/30">›</span>
-        <a href="#" className="hover:text-[#283618] transition-colors">Ficción</a>
+        <span className="text-[#606C38]/40">{book.categories[0] || 'Libro'}</span>
         <span className="text-[#606C38]/30">›</span>
-        <span className="text-[#283618]">{bookData.title}</span>
+        <span className="text-[#283618] truncate max-w-[200px]">{book.title}</span>
       </nav>
 
       <div className="flex flex-col md:flex-row gap-12 lg:gap-20 mb-20">
@@ -62,31 +86,23 @@ function Libro() {
         {/* COLUMNA IZQUIERDA: Portada + Acciones */}
         <aside className="w-full md:w-[260px] shrink-0 flex flex-col items-center md:items-start">
           <div className="fade-up delay-1 mb-8 w-full flex justify-center md:justify-start">
-            <img src={bookData.image} alt={bookData.title} className="book-cover w-full max-w-[220px] object-cover transition-transform hover:scale-[1.02] duration-300" />
+            <img src={book.thumbnail} alt={book.title} className="book-cover w-full max-w-[220px] object-cover rounded-xl shadow-2xl transition-transform hover:scale-[1.02] duration-300" />
           </div>
 
           <div className="fade-up delay-2 w-full text-center md:text-left mb-6">
             <div className="flex items-center justify-center md:justify-start gap-0.5 mb-1.5">
               {[...Array(5)].map((_, i) => (
-                <span key={i} className="text-[#BC6C25] text-xl" style={{ opacity: i < 4 ? 1 : 0.45 }}>★</span>
+                <span key={i} className="text-[#BC6C25] text-xl" style={{ opacity: i < Math.floor(book.averageRating) ? 1 : 0.45 }}>★</span>
               ))}
-              <span className="font-bold text-lg text-[#283618] ml-2">{bookData.rating}</span>
+              <span className="font-bold text-lg text-[#283618] ml-2">{book.averageRating || 'N/A'}</span>
             </div>
-            <p className="text-xs text-[#606C38]/70">Basado en {bookData.reviewsCount} valoraciones</p>
+            <p className="text-xs text-[#606C38]/70">Puntuación media en Google Books</p>
           </div>
 
           <div className="fade-up delay-3 w-full space-y-3">
             <button className="w-full py-3.5 rounded-xl bg-[#283618] hover:bg-[#606C38] text-[#FDFCF7] font-bold text-sm transition-all shadow-lg shadow-[#283618]/15 flex items-center justify-center gap-2">
               <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width:18}}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"/></svg>
               Añadir a mi biblioteca
-            </button>
-            <button className="w-full py-3.5 rounded-xl bg-white border border-[#606C38]/20 hover:bg-[#BC6C25] hover:border-[#BC6C25] hover:text-white text-[#283618] font-bold text-sm transition-all flex items-center justify-center gap-2 group">
-              <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width:18}}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-              Añadir a favoritos
-            </button>
-            <button className="w-full py-3.5 rounded-xl bg-white border border-[#606C38]/20 hover:border-[#283618] hover:bg-[#F4F3ED] text-[#283618] font-bold text-sm transition-all flex items-center justify-center gap-2">
-              <svg className="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{width:18}}><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-              Marcar como leído
             </button>
           </div>
 
@@ -98,11 +114,10 @@ function Libro() {
 
           <div className="fade-up delay-5 w-full space-y-3 text-sm">
             {[
-              { label: "Páginas", value: bookData.pages },
-              { label: "Publicación", value: bookData.published },
-              { label: "Editorial", value: bookData.publisher },
-              { label: "Idioma", value: bookData.language },
-              { label: "ISBN", value: bookData.isbn }
+              { label: "Páginas", value: book.pageCount },
+              { label: "Publicación", value: book.publishedDate },
+              { label: "ISBN", value: book.isbn || 'No disponible' },
+              { label: "Categoría", value: book.categories[0] || 'N/A' }
             ].map((info, i) => (
               <div key={i} className="flex justify-between items-baseline">
                 <span className="text-[#606C38]/60 text-xs uppercase tracking-wider font-semibold">{info.label}</span>
@@ -116,15 +131,15 @@ function Libro() {
         <div className="flex-1 min-w-0">
           <div className="fade-up delay-1 mb-6">
             <h1 className="font-['Playfair_Display',Georgia,serif] text-4xl md:text-5xl lg:text-6xl font-bold text-[#283618] leading-[1.05] mb-3">
-              {bookData.title}
+              {book.title}
             </h1>
             <p className="text-lg md:text-xl font-medium text-[#606C38]">
-              por <a href="#" className="text-[#283618] underline decoration-[#606C38]/25 hover:decoration-[#283618] font-semibold">{bookData.author}</a>
+              por <span className="text-[#283618] font-semibold">{book.author}</span>
             </p>
           </div>
 
           <div className="fade-up delay-2 flex flex-wrap gap-2 mb-10">
-            {bookData.genres.map((genre, i) => (
+            {book.categories.map((genre, i) => (
               <span key={i} className="text-[10px] font-bold tracking-[0.08em] uppercase py-1.5 px-3.5 rounded-full bg-white border border-[#606C38]/20 text-[#283618]">
                 {genre}
               </span>
@@ -133,15 +148,13 @@ function Libro() {
 
           <section className="fade-up delay-3 mb-10">
             <h2 className="font-['Playfair_Display',Georgia,serif] text-2xl font-bold text-[#283618] mb-4">Sinopsis</h2>
-            <div className="space-y-4 text-[#283618]/85 leading-relaxed text-base">
-              {bookData.synopsis.map((para, i) => (
-                <p key={i} className={i === 0 ? "italic border-l-2 border-[#BC6C25]/40 pl-4 text-[#283618]/70" : ""}>
-                  {para}
-                </p>
-              ))}
-            </div>
+            <div 
+              className="space-y-4 text-[#283618]/85 leading-relaxed text-base"
+              dangerouslySetInnerHTML={{ __html: book.description }}
+            />
           </section>
 
+          {/* AI SUGGESTIONS (Estatico por ahora) */}
           <section className="fade-up delay-4 mb-10 rounded-2xl border border-[#606C38]/15 bg-gradient-to-br from-[#F4F3ED] to-[#FDFCF7] p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-8 h-8 rounded-lg bg-[#283618] flex items-center justify-center text-white shrink-0">
@@ -150,14 +163,14 @@ function Libro() {
               <h3 className="font-['Playfair_Display',Georgia,serif] text-lg font-bold text-[#283618]">Folio AI sugiere</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {bookData.aiSuggestions.map((sug) => (
+              {extraData.aiSuggestions.map((sug) => (
                 <div key={sug.id} className="card-hover flex gap-3 p-3.5 rounded-xl bg-white border border-[#606C38]/10 hover:border-[#606C38]/40 shadow-sm cursor-pointer transition-all">
                   <img src={sug.image} alt={sug.title} className="w-12 h-[72px] object-cover rounded-md shadow-sm shrink-0" />
                   <div className="min-w-0">
                     <p className="font-bold text-sm text-[#283618] leading-tight mb-0.5 truncate">{sug.title}</p>
                     <p className="text-xs text-[#606C38]/75 mb-2 truncate">{sug.author}</p>
                     <div className="flex items-center gap-0.5">
-                      <span className="text-[#BC6C25] text-xs">★</span><span className="text-[#BC6C25]/40 text-xs">★★★★</span>
+                      <span className="text-[#BC6C25] text-xs">★</span>
                       <span className="text-[10px] text-[#606C38]/60 ml-1">{sug.rating}</span>
                     </div>
                   </div>
@@ -170,18 +183,15 @@ function Libro() {
             <h2 className="font-['Playfair_Display',Georgia,serif] text-2xl font-bold text-[#283618] mb-6">Valoraciones de la comunidad</h2>
             
             <RatingDistribution 
-              average={bookData.rating} 
-              totalReviews={bookData.reviewsCount} 
-              distribution={bookData.ratingDistribution}
+              average={book.averageRating || 0} 
+              totalReviews="Consultando Google..." 
+              distribution={extraData.ratingDistribution}
             />
 
             <div className="space-y-5">
-              {bookData.reviews.map((rev) => (
+              {extraData.reviews.map((rev) => (
                 <ReviewCard key={rev.id} {...rev} />
               ))}
-              <button className="w-full py-3 rounded-xl border border-[#606C38]/20 hover:bg-[#F4F3ED] text-[#283618] text-sm font-bold transition-all">
-                Ver todas las reseñas ({bookData.reviewsCount})
-              </button>
             </div>
           </section>
         </div>

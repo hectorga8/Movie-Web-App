@@ -22,7 +22,7 @@ function Login() {
     onSuccess: async (tokenResponse) => {
       setLoading(true);
       try {
-        const res = await fetch('http://localhost:5000/api/auth/google', {
+        const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token: tokenResponse.access_token })
@@ -61,7 +61,7 @@ function Login() {
     setLoading(true);
     
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

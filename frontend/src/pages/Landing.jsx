@@ -24,7 +24,7 @@ function Landing() {
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        const res = await fetch('http://localhost:5000/api/auth/google', {
+        const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token: tokenResponse.access_token })
@@ -218,25 +218,23 @@ function Landing() {
                   onClick={() => handleGoogleLogin()}
                   className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm"
                 >
-                  <svg className="w-6 h-6 shrink-0" viewBox="0 0 32 32">
-                    <use xlinkHref="/assets/sprite.svg#google" />
+                  <svg className="w-5 h-5 shrink-0" viewBox="0 0 32 32">
+                    <path d="M31.107 16.31c0-1.072-.096-2.102-.275-3.093H15.867v5.85h8.552c-.368 1.986-1.442 3.668-3.123 4.843v4.025h5.059c2.96-2.724 4.752-6.735 4.752-11.625z" fill="#4285F4"/>
+                    <path d="M15.867 31.81c4.312 0 7.923-1.432 10.564-3.875l-5.059-4.025c-1.401.938-3.193 1.493-5.505 1.493-4.234 0-7.817-2.861-9.094-6.711H1.54v4.156c2.64 5.244 8.044 8.962 14.327 8.962z" fill="#34A853"/>
+                    <path d="M6.773 18.692a9.605 9.605 0 0 1 0-6.113V8.423H1.54a15.875 15.875 0 0 0 0 14.425l5.233-4.156z" fill="#FBBC05"/>
+                    <path d="M15.867 5.143c2.345 0 4.452.806 6.108 2.393l4.581-4.581C23.784.806 20.179 0 15.867 0 9.584 0 4.18 3.718 1.54 8.962l5.233 4.156c1.277-3.85 4.86-6.711 9.094-6.711z" fill="#EA4335"/>
                   </svg>
                   Continuar con Google
                 </button>
 
-                <button className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-white hover:bg-[#F4F3ED] border border-[#606C38]/20 text-[#283618] text-sm font-semibold transition-all shadow-sm">
-                  <svg className="w-6 h-6 shrink-0" fill="currentColor">
-                    <use xlinkHref="/assets/sprite.svg#apple" />
-                  </svg>
-                  Continuar con Apple
-                </button>
+        
 
                 {/* Botón Verde: Directo a Registro */}
                 <Link 
                   to="/registro" 
                   className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-[#283618] hover:bg-[#606C38] text-white text-sm font-bold transition-all shadow-lg shadow-[#283618]/10"
                 >
-                  Continuar con email
+                  Registrarse con email
                 </Link>
 
                 <p className="text-[0.7rem] text-[#606C38]/70 text-center leading-relaxed px-2">
