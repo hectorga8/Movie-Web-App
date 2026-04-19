@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function LandingHero() {
+function LandingHero({ onSearch }) {
+  const [query, setQuery] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch(query);
+  };
+
   return (
     <section className="relative w-full min-h-[500px] flex items-center bg-[#032541] py-20 px-6">
       <div className="absolute inset-0 z-0 opacity-40">
@@ -21,17 +28,21 @@ function LandingHero() {
             Millones de películas, series y gente que las ama. Explora ahora.
           </h2>
 
-          <div className="relative w-full max-w-[1000px] mt-8 group">
+          <form onSubmit={handleSubmit} className="relative w-full max-w-[1000px] mt-8 group">
             <input 
               type="text" 
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               placeholder="Buscar películas, series, personas..." 
               className="w-full h-12 md:h-14 px-6 rounded-full text-black/70 text-lg outline-none pr-32 bg-white"
             />
-            <button className="absolute right-0 top-0 h-full px-8 rounded-full bg-gradient-to-r from-[#1ed5a9] to-[#01b4e4] 
-            text-white font-bold text-lg hover:text-black transition-all cursor-pointer">
+            <button 
+              type="submit"
+              className="absolute right-0 top-0 h-full px-8 rounded-full bg-gradient-to-r from-mds-color-waypoint to-mds-color-action text-white font-bold text-lg hover:text-black transition-all cursor-pointer"
+            >
               Search
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </section>

@@ -22,14 +22,21 @@ function MovieSection({ title, items, variant = "light" }) {
     }
   };
 
+  // Función para obtener el color del rating basado en DESIGN.md
+  const getRatingColor = (rating) => {
+    if (rating >= 70) return 'border-mds-color-waypoint'; // Teal para notas altas
+    if (rating >= 40) return 'border-mds-color-vault';    // Amarillo para notas medias
+    return 'border-mds-red';                             // Rojo para notas bajas
+  };
+
   return (
     <section className={`w-full py-14 relative group ${isDark ? 'bg-[#032541] text-white' : 'bg-[#fcfcfc] text-black'}`}>
       <div className="w-full max-w-[1200px] mx-auto px-6 relative">
         
         <div className="flex items-center gap-6 mb-8">
           <h3 className="text-2xl md:text-3xl font-bold tracking-tighter">{title}</h3>
-          <div className={`flex border rounded-full overflow-hidden ${isDark ? 'border-[#1ed5a9]' : 'border-[#032541]'}`}>
-            <button className={`px-6 py-1.5 font-bold text-sm cursor-pointer transition-colors ${isDark ? 'bg-[#1ed5a9] text-[#032541]' : 'bg-[#032541] text-[#1ed5a9]'}`}>
+          <div className={`flex border rounded-full overflow-hidden ${isDark ? 'border-mds-color-waypoint' : 'border-[#032541]'}`}>
+            <button className={`px-6 py-1.5 font-bold text-sm cursor-pointer transition-colors ${isDark ? 'bg-mds-color-waypoint text-[#032541]' : 'bg-[#032541] text-mds-color-waypoint'}`}>
               Hoy
             </button>
             <button className={`px-6 py-1.5 font-bold text-sm cursor-pointer transition-colors hover:bg-black/10 ${isDark ? 'text-white' : 'text-[#032541]'}`}>
@@ -75,11 +82,11 @@ function MovieSection({ title, items, variant = "light" }) {
                     className="w-full h-[270px] object-cover group-hover/card:opacity-90 transition-opacity" 
                   />
                   <div className="absolute -bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <div className="absolute bottom-3 left-3 w-10 h-10 bg-[#081c22] border-2 border-[#21d07a] rounded-full flex items-center justify-center text-white text-[11px] font-bold shadow-md">
+                  <div className={`absolute bottom-3 left-3 w-10 h-10 bg-[#081c22] border-2 ${getRatingColor(movie.rating)} rounded-full flex items-center justify-center text-white text-[11px] font-bold shadow-md`}>
                     {movie.rating}<span className="text-[6px] font-normal">%</span>
                   </div>
                 </div>
-                <h4 className="font-bold text-[16px] leading-snug hover:text-[#01b4e4] line-clamp-2 transition-colors">
+                <h4 className="font-bold text-[16px] leading-snug hover:text-mds-color-action line-clamp-2 transition-colors">
                   {movie.title}
                 </h4>
                 <p className="opacity-50 text-sm mt-1 font-medium">{movie.date}</p>
