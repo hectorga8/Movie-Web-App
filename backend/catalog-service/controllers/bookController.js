@@ -1,81 +1,150 @@
-const Book = require('../models/Book');
+// ─────────────────────────────────────────────────────────────
+// bookController.js (OPEN LIBRARY EDITION - ENGLISH)
+// ─────────────────────────────────────────────────────────────
 
-// 🔍 BUSCAR LIBROS EN GOOGLE BOOKS (CON FILTRO DE CALIDAD)
+const cache = new Map();
+const CACHE_TTL = 1000 * 60 * 30; // 30 minutos
+
+function getFromCache(key) {
+  const entry = cache.get(key);
+  if (!entry) return null;
+  if (Date.now() - entry.timestamp > CACHE_TTL) {
+    cache.delete(key);
+    return null;
+  }
+  return entry.value;
+}
+
+function setToCache(key, value) {
+  cache.set(key, { value, timestamp: Date.now() });
+}
+
+const normalize = (str) => (str || "").toLowerCase().trim().replace(/\s+/g, "-");
+
+// ─────────────────────────────────────────────────────────────
+// SEARCH BOOKS (Búsqueda General)
+// ─────────────────────────────────────────────────────────────
 exports.searchBooks = async (req, res) => {
   try {
-    const { q } = req.query; 
-    if (!q) return res.status(400).json({ message: 'Debes proporcionar un término de búsqueda' });
+    const { q } = req.query;
+    if (!q) return res.status(400).json({ message: "Search query (q) is required" });
 
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=40&printType=books&orderBy=relevance`;
-    
-    const googleRes = await fetch(url);
-    const data = await googleRes.json();
+    const cacheKey = `search-ol-${normalize(q)}`;
+    const cached = getFromCache(cacheKey);
+    if (cached) return res.status(200).json(cached);
 
-    if (!data.items) return res.status(200).json([]);
+    // Open Library Search API
+    // Reducimos el límite a 12 para ganar velocidad
+    const fields = "key,title,author_name,cover_i,ratings_average,ratings_count,first_publish_year,subject";
+    const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(q)}&limit=12&fields=${fields}`;
 
-    const uniqueBooks = new Map();
-    const noiseKeywords = ['resumen', 'guía', 'summary', 'guide', 'workbook', 'notebook', 'cuaderno', 'estudio'];
+    const response = await fetch(url);
+    const data = await response.json();
 
-    data.items.forEach(item => {
-      const info = item.volumeInfo;
-      const title = info.title || '';
-      const author = info.authors ? info.authors[0] : 'Desconocido';
+    if (!data.docs || data.docs.length === 0) {
+      setToCache(cacheKey, []);
+      return res.status(200).json([]);
+    }
+
+    // Mapeamos al formato de nuestra App
+    const books = data.docs.map(doc => {
+      // Open Library devuelve el ID como "/works/OL12345W", lo limpiamos
+      const id = doc.key.replace("/works/", "");
       
-      // 1. FILTRAR RUIDO (Si el título contiene palabras como "Resumen" o "Guía", lo saltamos)
-      const isNoise = noiseKeywords.some(word => title.toLowerCase().includes(word));
-      if (isNoise) return;
-
-      // 2. DEDUPLICACIÓN (Usamos "Título + Autor" como clave única)
-      const key = `${title.toLowerCase().trim()}-${author.toLowerCase().trim()}`;
-      
-      // Si ya tenemos este libro, solo lo sustituimos si el nuevo tiene mejor pinta (más descripción)
-      if (!uniqueBooks.has(key) || (info.description && !uniqueBooks.get(key).description)) {
-        if (info.imageLinks && info.imageLinks.thumbnail) {
-          uniqueBooks.set(key, {
-            googleId: item.id,
-            title: title,
-            author: info.authors ? info.authors.join(', ') : 'Autor desconocido',
-            thumbnail: info.imageLinks.thumbnail.replace('http:', 'https:'),
-            description: info.description || '',
-            categories: info.categories || []
-          });
-        }
-      }
+      return {
+        id: id,
+        title: doc.title,
+        author: doc.author_name ? doc.author_name.join(", ") : "Unknown Author",
+        thumbnail: doc.cover_i 
+          ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg` 
+          : "https://via.placeholder.com/128x192?text=No+Cover",
+        categories: (doc.subject || []).slice(0, 3),
+        averageRating: doc.ratings_average ? parseFloat(doc.ratings_average.toFixed(1)) : 0,
+        ratingsCount: doc.ratings_count || 0,
+        publishedDate: doc.first_publish_year?.toString() || "N/A"
+      };
     });
 
-    // Convertimos el Map de nuevo a un Array y limitamos a los 10 mejores
-    const results = Array.from(uniqueBooks.values()).slice(0, 10);
+    setToCache(cacheKey, books);
+    res.status(200).json(books);
 
-    res.status(200).json(results);
   } catch (error) {
-    console.error('Error al buscar en Google Books:', error);
-    res.status(500).json({ message: 'Error al conectar con la API de libros' });
+    console.error("OpenLibrary Search Error:", error.message);
+    res.status(500).json({ message: "Error searching books in Open Library" });
   }
 };
 
-// 📖 OBTENER DETALLE DE UN LIBRO POR ID DE GOOGLE
+// ─────────────────────────────────────────────────────────────
+// GET BOOK DETAIL (Detalle por ID)
+// ─────────────────────────────────────────────────────────────
 exports.getBookByGoogleId = async (req, res) => {
   try {
-    const { id } = req.params;
-    const googleRes = await fetch(`https://www.googleapis.com/books/v1/volumes/${id}`);
-    const item = await googleRes.json();
+    const { id } = req.params; // Sigue llamándose igual en la ruta por compatibilidad
+    
+    if (!id || id === "undefined") {
+      return res.status(400).json({ message: "Invalid Book ID" });
+    }
 
-    if (item.error) return res.status(404).json({ message: 'Libro no encontrado' });
+    const cacheKey = `detail-ol-${id}`;
+    const cached = getFromCache(cacheKey);
+    if (cached) return res.status(200).json(cached);
 
-    const bookDetail = {
-      googleId: item.id,
-      title: item.volumeInfo.title,
-      author: item.volumeInfo.authors ? item.volumeInfo.authors.join(', ') : 'Autor desconocido',
-      description: item.volumeInfo.description || 'Sin descripción.',
-      thumbnail: item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.large || item.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/300x450?text=No+Cover',
-      categories: item.volumeInfo.categories || [],
-      pageCount: item.volumeInfo.pageCount || 0,
-      averageRating: item.volumeInfo.averageRating || 0,
-      publishedDate: item.volumeInfo.publishedDate || 'N/A'
+    // Lanzamos 2 peticiones en paralelo: El libro y sus ratings
+    const [workRes, ratingsRes] = await Promise.all([
+      fetch(`https://openlibrary.org/works/${id}.json`),
+      fetch(`https://openlibrary.org/works/${id}/ratings.json`)
+    ]);
+
+    if (!workRes.ok) {
+      return res.status(404).json({ message: "Book not found in Open Library" });
+    }
+
+    const work = await workRes.json();
+    const ratings = await ratingsRes.json().catch(() => ({}));
+
+    // Obtener nombres de autores (Open Library devuelve solo sus IDs)
+    let authorNames = "Unknown Author";
+    if (work.authors && work.authors.length > 0) {
+      const authorPromises = work.authors.slice(0, 2).map(a => 
+        fetch(`https://openlibrary.org${a.author.key}.json`)
+          .then(r => r.json())
+          .then(d => d.name || "")
+          .catch(() => "")
+      );
+      const names = await Promise.all(authorPromises);
+      authorNames = names.filter(n => n).join(", ") || authorNames;
+    }
+
+    // Procesar la descripción (Open Library la devuelve como string o como objeto)
+    let description = "No description available.";
+    if (work.description) {
+      description = typeof work.description === 'string' 
+        ? work.description 
+        : work.description.value || description;
+    }
+
+    const result = {
+      id: id,
+      title: work.title,
+      author: authorNames,
+      description: description,
+      thumbnail: work.covers 
+        ? `https://covers.openlibrary.org/b/id/${work.covers[0]}-L.jpg` 
+        : "https://via.placeholder.com/300x450?text=No+Cover",
+      categories: (work.subjects || []).slice(0, 5),
+      pageCount: work.number_of_pages || 0,
+      averageRating: ratings.summary?.average ? parseFloat(ratings.summary.average.toFixed(1)) : 0,
+      ratingsCount: ratings.summary?.count || 0,
+      publishedDate: work.first_publish_date || "N/A",
+      publisher: "Open Library Community",
+      isbn: work.identifiers?.isbn_13?.[0] || work.identifiers?.isbn_10?.[0] || "N/A"
     };
 
-    res.status(200).json(bookDetail);
+    setToCache(cacheKey, result);
+    res.status(200).json(result);
+
   } catch (error) {
-    res.status(500).json({ message: 'Error al obtener detalle del libro' });
+    console.error("OpenLibrary Detail Error:", error.message);
+    res.status(500).json({ message: "Error fetching book details from Open Library" });
   }
 };
