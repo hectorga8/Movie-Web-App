@@ -41,6 +41,7 @@ function Header({ variant = "landing" }) {
               <Link to="/inicio" className="hover:text-[#1060ff] transition-colors">Inicio</Link>
               <Link to="/dashboard" className="hover:text-[#1060ff] transition-colors">Explorar</Link>
               <Link to="/dashboard" className="hover:text-[#1060ff] transition-colors">Mis Películas</Link>
+              
             </nav>
 
             {/* Acciones de Usuario */}

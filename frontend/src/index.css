@@ -1,38 +1,36 @@
+@import "tailwindcss";
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
+@theme {
   /* HashiCorp Design Tokens */
-  --mds-bg-light: #ffffff;
-  --mds-bg-off-white: #f1f2f3;
-  --mds-bg-dark: #15181e;
-  --mds-bg-deep: #0d0e12;
+  --color-mds-bg-light: #ffffff;
+  --color-mds-bg-off-white: #f1f2f3;
+  --color-mds-bg-dark: #15181e;
+  --color-mds-bg-deep: #0d0e12;
   
-  --mds-text-primary: #000000;
-  --mds-text-secondary: #3b3d45;
-  --mds-text-helper: #656a76;
-  --mds-text-on-dark: #efeff1;
-  --mds-text-muted-dark: #d5d7db;
+  --color-mds-text-primary: #000000;
+  --color-mds-text-secondary: #3b3d45;
+  --color-mds-text-helper: #656a76;
+  --color-mds-text-on-dark: #efeff1;
+  --color-mds-text-muted-dark: #d5d7db;
   
-  --mds-color-action: #1060ff;
-  --mds-color-action-hover: #2b89ff;
+  --color-mds-color-action: #1060ff;
+  --color-mds-color-action-hover: #2b89ff;
   
   /* Product Accent Colors */
-  --mds-color-terraform: #7b42bc;
-  --mds-color-vault: #ffcf25;
-  --mds-color-waypoint: #14c6cb;
-  --mds-color-vagrant: #1868f2;
+  --color-mds-color-terraform: #7b42bc;
+  --color-mds-color-vault: #ffcf25;
+  --color-mds-color-waypoint: #14c6cb;
+  --color-mds-color-vagrant: #1868f2;
   
   /* Shadows - Whisper Level (0.05) */
-  --mds-shadow-whisper: rgba(97, 104, 117, 0.05) 0px 1px 1px, rgba(97, 104, 117, 0.05) 0px 2px 2px;
-  --mds-shadow-medium: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  --shadow-mds-shadow-whisper: 0px 1px 1px rgba(97, 104, 117, 0.05), 0px 2px 2px rgba(97, 104, 117, 0.05);
+  --shadow-mds-shadow-medium: 0px 4px 12px rgba(0, 0, 0, 0.1);
 
-  --mds-radius-sm: 4px;
-  --mds-radius-md: 5px;
-  --mds-radius-lg: 8px;
+  --radius-mds-radius-sm: 4px;
+  --radius-mds-radius-md: 5px;
+  --radius-mds-radius-lg: 8px;
 }
 
 @layer base {
@@ -43,7 +41,7 @@
 
   h1, h2, h3, h4, .font-brand {
     @apply tracking-tighter;
-    font-family: 'Playfair Display', serif; /* Usamos Playfair como alternativa elegante a Hashicorp Sans */
+    font-family: 'Playfair Display', serif;
     font-variant-ligatures: common-ligatures;
     font-kerning: normal;
   }
@@ -61,7 +59,7 @@
 
   .btn-primary-dark {
     @apply bg-[#15181e] text-[#d5d7db] px-[15px] py-[9px] rounded-[5px] border border-[#b2b6bd]/40 font-bold text-[13px] hover:bg-black transition-all active:scale-[0.98];
-    box-shadow: var(--mds-shadow-whisper);
+    box-shadow: var(--shadow-mds-shadow-whisper);
   }
 
   .btn-secondary-white {
@@ -78,13 +76,28 @@
 
   .card-mds {
     @apply bg-white border border-[#d5d7db]/60 rounded-[8px] p-6 transition-all;
-    box-shadow: var(--mds-shadow-whisper);
+    box-shadow: var(--shadow-mds-shadow-whisper);
   }
 
   .label-uppercase {
     @apply text-[13px] font-bold uppercase tracking-[1.3px] text-[#656a76];
   }
 }
+
+/* Animaciones */
+.fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+
 
 /* Animaciones */
 .fade-up {
