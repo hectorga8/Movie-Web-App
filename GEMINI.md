@@ -1,31 +1,31 @@
-# Contexto del Proyecto: App de Libros (SaaS)
+# Contexto del Proyecto: App de Películas (CineSaaS)
 
 ## 🎯 Objetivo del Proyecto
-Desarrollar desde cero una aplicación de gestión de libros bajo un modelo de suscripción. El propósito principal es el **APRENDIZAJE activo** del desarrollador.
+Desarrollar desde cero una plataforma de gestión y descubrimiento de cine bajo un modelo de suscripción (SaaS). El foco principal es el **APRENDIZAJE activo** del desarrollador en arquitecturas modernas y monetización.
 
 ## 🏗️ Arquitectura del Sistema (Microservicios)
-Hemos optado por una arquitectura de microservicios para garantizar la escalabilidad y facilitar la futura migración a **AWS (Serverless/Lambda)**.
+Se mantiene la estructura de microservicios para facilitar la futura transición a **AWS (Lambda/API Gateway/DynamoDB)**.
 
 ### 🧩 Servicios Definidos:
-1.  **Auth Service (Puerto 5001):** Gestión de usuarios, registro, login (JWT) y OAuth con Google.
-2.  **Catalog Service:** (Pendiente) Gestión del inventario de libros, búsqueda y filtros.
-3.  **Library Service:** (Pendiente) Progreso de lectura y biblioteca personal del usuario.
-4.  **Billing Service:** (Pendiente) Suscripciones y pagos con Stripe.
-5.  **Review Service:** (Pendiente) Reseñas, valoraciones y sistema social.
+1.  **Auth Service (Puerto 5001):** Gestión de identidades, JWT, perfiles de usuario y Google OAuth.
+2.  **Movie Service:** Gestión del catálogo. Conexión con la **API de TMDb** para obtener datos en español, gestión de caché y filtros avanzados.
+3.  **Watchlist Service:** Biblioteca personal (Películas guardadas, "vistas", listas personalizadas del usuario).
+4.  **Billing Service (Suscripción 5€):** Integración con Stripe para gestionar el acceso premium y pagos recurrentes.
+5.  **Social/Review Service:** Sistema de valoraciones, comentarios y la función de "compartir listas con amigos".
 
 ### 🛠 Stack Tecnológico Actual
-- **Frontend:** React (Vite) + Tailwind CSS.
-- **Backend:** Node.js + Express (Estructura Multiservicio).
-- **Base de Datos:** MongoDB (NoSQL) - Ideal para transicionar a DynamoDB.
-- **Contenedores:** Docker (Próximamente para orquestar los servicios).
+- **Frontend:** React (Vite) + Tailwind CSS + Framer Motion (para una UI tipo Netflix).
+- **Backend:** Node.js + Express (Arquitectura desacoplada).
+- **Base de Datos:** MongoDB Atlas (Persistencia de usuarios y preferencias).
+- **API Externa:** TMDb (The Movie Database) para el 100% de los datos de cine.
 
 ## 🧠 Filosofía de Desarrollo (IMPORTANTE)
-1.  **Modo Mentor:** No generes el código completo del tirón. Explica los conceptos antes de implementarlos.
-2.  **Paso a Paso:** Vamos a construir la app por módulos. No avances al siguiente paso hasta que yo confirme que he entendido el anterior.
-3.  **Aprendizaje de React & Node:** Explica el porqué de los Hooks (`useState`, `useEffect`), el sistema de rutas y cómo funciona la arquitectura cliente-servidor.
-4.  **Refactorización:** Cuando propongas código, señala las mejores prácticas para que aprenda a escribir código limpio desde el principio.
+1.  **Modo Mentor:** Gemini no entrega código "sin alma". Explica la lógica, los patrones de diseño y los conceptos antes de la implementación.
+2.  **Aprendizaje Progresivo:** Construcción módulo a módulo. No se avanza al siguiente microservicio hasta que el anterior esté testeadoy comprendido.
+3.  **Foco en el Desarrollador:** Explicación profunda de Hooks de React, Context API para el estado global y Middleware de Node.js para seguridad.
+4.  **Calidad sobre Cantidad:** Prioridad absoluta a Clean Code, manejo de errores profesional y principios SOLID.
 
 ## 📋 Reglas de Interacción
-- Prioriza la enseñanza sobre la entrega rápida de archivos.
-- Siempre que introduzcas una librería nueva de Node o React, explica para qué sirve.
-- Usa español para todas las explicaciones y comentarios de código.
+- Toda la comunicación, explicaciones y comentarios de código deben ser en **Español**.
+- Al introducir nuevas herramientas (ej. Axios para TMDb, Stripe SDK), explicar su función y alternativas.
+- El objetivo final es un producto que pueda generar ingresos de 5€/mes, por lo que la experiencia de usuario (UX) es clave.
