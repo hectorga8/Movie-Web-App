@@ -8,7 +8,7 @@ function Footer() {
 
   return (
     <footer className="w-full bg-[#15181e] text-[#efeff1] border-t border-[#d5d7db]/10 pt-16 pb-8">
-      <div className="w-full max-w-[1150px] mx-auto px-6">
+      <div className="w-full max-w-[1200px] mx-auto px-6">
         
         {/* Grid Principal de Navegación */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
@@ -24,11 +24,7 @@ function Footer() {
             <p className="text-[15px] text-[#d5d7db] leading-[1.63] max-w-[300px]">
               La infraestructura definitiva para la gestión de colecciones cinematográficas a escala global.
             </p>
-            {/* Status Indicator (Hashicorp Style) */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-[5px] bg-[#34A853]/10 border border-[#34A853]/20">
-              <span className="w-2 h-2 bg-[#34A853] rounded-full animate-pulse shadow-[0_0_8px_#34A853]"></span>
-              <span className="text-[11px] font-bold uppercase tracking-[1px] text-[#34A853]">All Systems Operational</span>
-            </div>
+            
           </div>
 
           {/* Columna 2: Plataforma */}
