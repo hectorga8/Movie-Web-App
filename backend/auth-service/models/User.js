@@ -10,17 +10,18 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'El email es obligatorio'],
     unique: true,
     lowercase: true,
+    trim: true,
   },
   password: {
     type: String,
     required: true,
   },
-  // --- CAMPOS DE PERFIL / ONBOARDING ---
+  // --- CAMPOS DE PERFIL / ONBOARDING (CineBox) ---
   onboardingCompleted: {
     type: Boolean,
     default: false,
   },
-  readingHabits: {
+  watchingHabits: {
     type: String,
     default: '',
   },
@@ -28,7 +29,7 @@ const UserSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
-  favoriteBooks: {
+  favoriteMovies: {
     type: [String],
     default: [],
   },

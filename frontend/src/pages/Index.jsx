@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-// Index.jsx
+// Index.jsx - Versión CineBox
 // Página principal para usuarios registrados
 // ─────────────────────────────────────────────────────────────
 import Header from "../components/layout/Header";
@@ -9,16 +9,13 @@ import FriendActivity from "../components/index/FriendActivity";
 import TrendingGrid from "../components/index/TrendingGrid";
 import AIRecommendation from "../components/index/AIRecommendation";
 import IndexAside from "../components/index/IndexAside";
-
-import ReadingStreak from "../components/index/ReadingStreak";
+import WatchingStreak from "../components/index/WatchingStreak";
 
 function Index() {
   return (
     <div className="grain bg-[#FDFCF7] text-[#606C38] font-['DM_Sans',sans-serif] min-h-screen">
-      {/* Header con variante 'app' para mostrar buscador y perfil */}
       
-
-      {/* Banner con Reto de Lectura y Continuar Leyendo */}
+      {/* Banner con Reto de Cine y Continuar Viendo */}
       <IndexBanner />
 
       {/* Contenido Principal */}
@@ -32,18 +29,18 @@ function Index() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 fade-up">
               <div className="p-6 rounded-2xl bg-white border border-[#606C38]/15 hover:border-[#606C38]/40 transition-all group cursor-pointer shadow-sm">
                 <h3 className="font-['Playfair_Display',Georgia,serif] text-lg lg:text-xl font-bold text-[#283618] group-hover:text-[#606C38] transition-colors mb-2">
-                  ¿Decidiendo qué leer a continuación?
+                  ¿Decidiendo qué ver esta noche?
                 </h3>
                 <p className="text-sm text-[#606C38]/80 leading-relaxed">
-                  Revisa tu lista de pendientes, Folio ha ordenado automáticamente los libros que mejor encajan con tu estado de ánimo actual.
+                  Revisa tu lista de pendientes, CineBox ha ordenado automáticamente las películas que mejor encajan con tu estado de ánimo actual.
                 </p>
               </div>
               <div className="p-6 rounded-2xl bg-white border border-[#606C38]/15 hover:border-[#606C38]/40 transition-all group cursor-pointer shadow-sm">
                 <h3 className="font-['Playfair_Display',Georgia,serif] text-lg lg:text-xl font-bold text-[#283618] group-hover:text-[#606C38] transition-colors mb-2">
-                  ¿Qué están leyendo tus amigos?
+                  ¿Qué están viendo tus amigos?
                 </h3>
                 <p className="text-sm text-[#606C38]/80 leading-relaxed">
-                  Descubre qué títulos están discutiendo tus amigos (y cuáles han abandonado) en nuestra comunidad lectora.
+                  Descubre qué títulos están discutiendo tus amigos en nuestra comunidad cinéfila.
                 </p>
               </div>
             </div>
@@ -51,7 +48,7 @@ function Index() {
             {/* Rejilla de Actividad y Racha */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <FriendActivity />
-              <ReadingStreak />
+              <WatchingStreak />
             </div>
 
             {/* Tendencias */}
@@ -66,8 +63,6 @@ function Index() {
           <IndexAside />
         </div>
       </div>
-
-      
     </div>
   );
 }

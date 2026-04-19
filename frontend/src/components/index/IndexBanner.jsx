@@ -1,62 +1,67 @@
 // ─────────────────────────────────────────────────────────────
-// IndexBanner.jsx
-// Banner principal de la página de inicio (Reading Challenge + Continue Reading)
+// IndexBanner.jsx - Versión CineBox (Inspirado en Hashicorp)
+// Banner principal - Hero Mode Oscuro (#15181e)
 // ─────────────────────────────────────────────────────────────
 
 function IndexBanner() {
   return (
-    <section className="w-full relative border-b border-[#606C38]/10 overflow-hidden bg-[radial-gradient(ellipse_70%_80%_at_30%_50%,rgba(96,108,56,0.08)_0%,transparent_60%),radial-gradient(ellipse_50%_60%_at_75%_40%,rgba(244,243,237,0.8)_0%,transparent_55%),linear-gradient(135deg,#FDFCF7_0%,#F4F3ED_100%)]">
-      <div className="w-full max-w-[1400px] mx-auto px-6 flex flex-col lg:flex-row items-stretch min-h-[340px]">
-        
-        {/* Reading Challenge */}
-        <div className="flex-1 flex flex-col justify-center py-12 lg:py-16 pr-0 lg:pr-16 relative">
-          <div className="fade-up flex items-center gap-6 mb-5">
-            <div className="relative flex flex-col items-center justify-center w-28 h-28 rounded-2xl bg-white border border-[#606C38]/15 shadow-xl shrink-0">
-              <span className="font-['Playfair_Display',Georgia,serif] text-2xl font-bold text-[#283618] leading-none">2026</span>
-              <svg className="w-10 h-10 text-[#606C38] mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs font-bold text-[#BC6C25] tracking-widest uppercase mb-1">Reto anual de lectura</p>
-              <h1 className="font-['Playfair_Display',Georgia,serif] text-4xl lg:text-5xl font-bold text-[#283618] leading-tight">
-                Reading<br /><em className="text-[#606C38] italic">Challenge</em>
-              </h1>
-            </div>
-          </div>
+    <section className="w-full relative overflow-hidden bg-[#15181e] text-[#efeff1] py-20 lg:py-24">
+      {/* Elementos Decorativos - Gradientes Estilo Vault/Terraform */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,rgba(123,66,188,0.15),transparent_70%)] pointer-events-none"></div>
+      <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-[radial-gradient(circle_at_center,rgba(255,207,37,0.1),transparent_70%)] pointer-events-none"></div>
 
-          <p className="fade-up delay-1 text-[#283618]/80 text-base max-w-sm leading-relaxed mb-6">
-            ¿Cuántos libros leerás este año? Llevas 7 de 12 libros leídos. Estás un 15% por delante de tu objetivo.
+      <div className="w-full max-w-[1150px] mx-auto px-6 flex flex-col lg:flex-row items-center gap-16 relative z-10">
+        
+        {/* Lado Izquierdo: Mensaje de Marca (Hero Headline 82px tight) */}
+        <div className="flex-1 text-center lg:text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-[5px] border border-[#ffcf25]/40 bg-[#ffcf25]/5 text-[#ffcf25] text-[13px] font-bold uppercase tracking-[1.3px] mb-8">
+            <span className="w-2 h-2 bg-[#ffcf25] rounded-full animate-pulse shadow-[0_0_8px_#ffcf25]"></span>
+            CineBox Infrastructure
+          </div>
+          
+          <h1 className="font-['Playfair_Display',Georgia,serif] text-5xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.1] mb-8 tracking-tighter">
+            Build your<br />
+            <span className="text-[#ffcf25]">Watchlist.</span>
+          </h1>
+
+          <p className="text-[20px] font-normal text-[#d5d7db] leading-[1.50] max-w-xl mb-10">
+            Gestiona tu colección de cine con el rigor de un ingeniero. Sincroniza, analiza y descubre nuevas obras maestras en la red de CineBox.
           </p>
-          <a href="#" className="fade-up delay-2 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-[#BC6C25] hover:bg-[#9A581E] text-white text-sm font-bold transition-all self-start shadow-lg shadow-[#BC6C25]/20">
-            Ver mis estadísticas →
-          </a>
+
+          <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+            <a href="#" className="px-6 py-3 rounded-[5px] bg-[#1060ff] text-white text-[15px] font-bold hover:bg-[#2b89ff] transition-all shadow-lg shadow-[#1060ff]/20">
+              Ver cartelera hoy
+            </a>
+            <a href="#" className="px-6 py-3 rounded-[5px] border border-[#d5d7db]/40 text-[#efeff1] text-[15px] font-bold hover:bg-white/5 transition-all">
+              Documentación API →
+            </a>
+          </div>
         </div>
 
-        {/* Continue Reading */}
-        <div className="lg:w-80 xl:w-96 shrink-0 lg:border-l border-[#606C38]/10 flex items-center justify-center py-8 lg:py-0 lg:pl-12">
-          <div className="fade-up delay-3 w-full max-w-sm bg-white/80 backdrop-blur-sm border border-[#606C38]/15 rounded-2xl p-6 shadow-xl">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-['Playfair_Display',Georgia,serif] text-xl font-bold text-[#283618]">
-                Continuar leyendo
-              </h2>
-              <span className="text-[#BC6C25] text-xs font-bold">🔥 3 días seguidos</span>
-            </div>
+        {/* Lado Derecho: Preview de "Continuar Viendo" (Vault Yellow accent) */}
+        <div className="w-full max-w-[400px] shrink-0">
+          <div className="bg-[#0d0e12] border border-[#d5d7db]/10 rounded-lg p-6 shadow-2xl relative overflow-hidden group">
+            {/* Destello de color Vault */}
+            <div className="absolute top-0 right-0 w-24 h-24 bg-[#ffcf25]/10 blur-2xl group-hover:bg-[#ffcf25]/20 transition-all"></div>
             
-            <div className="flex gap-4">
-              <img src="https://covers.openlibrary.org/b/id/10527843-M.jpg" alt="Dune" className="book-cover w-16 h-24 lg:w-20 lg:h-28 object-cover shrink-0" />
+            <h3 className="text-[13px] font-bold uppercase tracking-[1.3px] text-[#ffcf25] mb-6">Continuar Visualización</h3>
+            
+            <div className="flex gap-5 mb-8">
+              <img src="https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg" alt="Dune" className="w-24 h-36 object-cover rounded shadow-2xl border border-white/5" />
               <div className="flex-1 flex flex-col justify-center">
-                <h3 className="font-bold text-[#283618] text-sm lg:text-base xl:text-lg line-clamp-1 hover:text-[#606C38] cursor-pointer transition-colors">Dune</h3>
-                <p className="text-xs lg:text-sm text-[#606C38]/80 mb-3">Frank Herbert</p>
-                <div className="w-full bg-[#606C38]/10 rounded-full h-1.5 mb-1.5">
-                  <div className="bg-[#606C38] h-full rounded-full" style={{ width: '45%' }}></div>
+                <h4 className="text-xl font-bold text-white leading-tight mb-2">Dune: Parte Dos</h4>
+                <p className="text-[14px] text-[#d5d7db] mb-4">Denis Villeneuve</p>
+                
+                <div className="w-full bg-white/5 rounded-full h-1 overflow-hidden mb-2">
+                  <div className="bg-[#ffcf25] h-full" style={{ width: '65%' }}></div>
                 </div>
-                <p className="text-[10px] lg:text-xs text-[#606C38]/60 font-medium">45% completado (Pág. 312)</p>
+                <p className="text-[11px] font-medium text-[#d5d7db]/60">65% COMPLETADO</p>
               </div>
             </div>
 
-            <button className="w-full mt-5 py-2.5 rounded-xl bg-[#283618] hover:bg-[#606C38] text-white text-sm font-bold transition-all shadow-md shadow-[#283618]/20">
-              Actualizar progreso
+            <button className="w-full py-3 rounded-[5px] bg-white text-[#15181e] text-[13px] font-bold hover:bg-[#f1f2f3] transition-all flex items-center justify-center gap-2">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              RESUMIR SESIÓN
             </button>
           </div>
         </div>

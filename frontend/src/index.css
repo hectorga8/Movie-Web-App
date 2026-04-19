@@ -1,67 +1,101 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 
-/* ── Scrollbar ─────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #fdfcf7; }
-::-webkit-scrollbar-thumb { background: #606c38; border-radius: 3px; opacity: 0.5; }
-::-webkit-scrollbar-thumb:hover { background: #283618; }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* ── Animaciones y Delays ── */
+:root {
+  /* HashiCorp Design Tokens */
+  --mds-bg-light: #ffffff;
+  --mds-bg-off-white: #f1f2f3;
+  --mds-bg-dark: #15181e;
+  --mds-bg-deep: #0d0e12;
+  
+  --mds-text-primary: #000000;
+  --mds-text-secondary: #3b3d45;
+  --mds-text-helper: #656a76;
+  --mds-text-on-dark: #efeff1;
+  --mds-text-muted-dark: #d5d7db;
+  
+  --mds-color-action: #1060ff;
+  --mds-color-action-hover: #2b89ff;
+  
+  /* Product Accent Colors */
+  --mds-color-terraform: #7b42bc;
+  --mds-color-vault: #ffcf25;
+  --mds-color-waypoint: #14c6cb;
+  --mds-color-vagrant: #1868f2;
+  
+  /* Shadows - Whisper Level (0.05) */
+  --mds-shadow-whisper: rgba(97, 104, 117, 0.05) 0px 1px 1px, rgba(97, 104, 117, 0.05) 0px 2px 2px;
+  --mds-shadow-medium: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+  --mds-radius-sm: 4px;
+  --mds-radius-md: 5px;
+  --mds-radius-lg: 8px;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-black antialiased;
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-brand {
+    @apply tracking-tighter;
+    font-family: 'Playfair Display', serif; /* Usamos Playfair como alternativa elegante a Hashicorp Sans */
+    font-variant-ligatures: common-ligatures;
+    font-kerning: normal;
+  }
+}
+
+@layer components {
+  /* Headings con ritmo Hashicorp (Tight) */
+  .h-tight {
+    @apply leading-[1.17] font-bold;
+  }
+  
+  .body-relaxed {
+    @apply leading-[1.63] text-[#3b3d45];
+  }
+
+  .btn-primary-dark {
+    @apply bg-[#15181e] text-[#d5d7db] px-[15px] py-[9px] rounded-[5px] border border-[#b2b6bd]/40 font-bold text-[13px] hover:bg-black transition-all active:scale-[0.98];
+    box-shadow: var(--mds-shadow-whisper);
+  }
+
+  .btn-secondary-white {
+    @apply bg-white text-[#3b3d45] px-4 py-2 rounded-[4px] border border-[#d5d7db] font-bold text-[13px] hover:bg-[#f1f2f3] transition-all;
+  }
+
+  .input-mds {
+    @apply w-full bg-[#f1f2f3] border border-[#d5d7db] rounded-[5px] px-3 py-2.5 text-sm text-black focus:outline-none focus:border-[#1060ff] focus:ring-2 focus:ring-[#1060ff]/10 transition-all;
+  }
+
+  .input-mds-dark {
+    @apply w-full bg-[#0d0e12] border border-[#656a76] rounded-[5px] px-3 py-2.5 text-sm text-[#efeff1] focus:outline-none focus:border-[#1060ff] transition-all;
+  }
+
+  .card-mds {
+    @apply bg-white border border-[#d5d7db]/60 rounded-[8px] p-6 transition-all;
+    box-shadow: var(--mds-shadow-whisper);
+  }
+
+  .label-uppercase {
+    @apply text-[13px] font-bold uppercase tracking-[1.3px] text-[#656a76];
+  }
+}
+
+/* Animaciones */
+.fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.fade-up { 
-  animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; 
-  will-change: opacity, transform;
-}
-.delay-1 { animation-delay: 0.05s; }
-.delay-2 { animation-delay: 0.1s; }
-.delay-3 { animation-delay: 0.15s; }
-.delay-4 { animation-delay: 0.2s; }
-.delay-5 { animation-delay: 0.25s; }
 
-/* ── Sombras de libros y tarjetas ─────────────────────── */
-.book-spine {
-  border-radius: 2px 6px 6px 2px;
-  box-shadow: 2px 2px 8px rgba(40, 54, 24, 0.1), inset -1px 0 3px rgba(255, 255, 255, 0.6);
-  transition: transform 0.3s ease;
-}
-.book-spine:hover {
-  transform: translateY(-4px) rotate(-1deg);
-}
-
-.feature-card {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-  backface-visibility: hidden;
-}
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(40, 54, 24, 0.08);
-}
-
-/* ── Portadas de libros ────────────────────────────────────── */
-.book-cover {
-  border-radius: 3px 6px 6px 3px;
-  box-shadow: 4px 4px 10px rgba(40, 54, 24, 0.15), inset -2px 0 5px rgba(255, 255, 255, 0.5);
-}
-
-.card-hover {
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
-}
-.card-hover:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(40, 54, 24, 0.1);
-}
-
-/* ── Efecto Grano OPTIMIZADO ────────── */
-.grain::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.02;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  transform: translateZ(0);
-}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }

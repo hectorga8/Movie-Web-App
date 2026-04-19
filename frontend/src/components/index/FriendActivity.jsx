@@ -1,47 +1,46 @@
 // ─────────────────────────────────────────────────────────────
-// FriendActivity.jsx
-// Versión para Rejilla (Mitad de ancho)
+// FriendActivity.jsx - Versión CineBox
+// Actividad de amigos cinematográfica
 // ─────────────────────────────────────────────────────────────
 
 function FriendActivity() {
   return (
-    <div className="fade-up delay-1 h-full">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 rounded-full bg-[#606C38]/10 flex items-center justify-center text-[#606C38]">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-          </svg>
-        </div>
-        <h2 className="font-['Playfair_Display',Georgia,serif] text-xl lg:text-2xl font-bold text-[#283618]">
-          Actividad de amigos
-        </h2>
-      </div>
-
-      <div className="rounded-2xl bg-white border border-[#606C38]/10 p-5 h-[calc(100%-2.5rem)] flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
-        <div className="mb-4">
-          <p className="text-sm text-[#606C38]/80 mb-3">
-            A <span className="text-[#283618] font-bold">Valentina</span> le gustó una trilogía y eso la llevó a descubrir algo nuevo:
-          </p>
+    <div className="fade-up delay-2">
+      <h2 className="font-['Playfair_Display',Georgia,serif] text-xl lg:text-2xl font-bold text-[#283618] mb-4">
+        Actividad de amigos
+      </h2>
+      <div className="rounded-2xl bg-white border border-[#606C38]/10 p-5 shadow-sm">
+        <div className="space-y-6">
           
-          <div className="flex items-center gap-3">
-            <div className="flex -space-x-4">
-              <img src="https://covers.openlibrary.org/b/id/8739161-M.jpg" alt="" className="book-cover w-10 h-14 object-cover border-2 border-white ring-1 ring-[#606C38]/10" />
-              <img src="https://covers.openlibrary.org/b/id/8373426-M.jpg" alt="" className="book-cover w-10 h-14 object-cover border-2 border-white ring-1 ring-[#606C38]/10" />
-              <img src="https://covers.openlibrary.org/b/id/8225261-M.jpg" alt="" className="book-cover w-10 h-14 object-cover border-2 border-white ring-1 ring-[#606C38]/10" />
+          {/* Actividad 1 */}
+          <div className="flex gap-4">
+            <div className="relative shrink-0">
+              <img src="https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg" alt="" className="movie-poster w-10 h-14 object-cover border-2 border-white ring-1 ring-[#606C38]/10 rounded shadow-sm" />
+              <img src="https://image.tmdb.org/t/p/w200/811CcaulbxxDswZpXh9IuuIyS6H.jpg" alt="" className="movie-poster w-10 h-14 object-cover border-2 border-white ring-1 ring-[#606C38]/10 absolute -right-4 top-0 z-10 rounded shadow-sm" />
+              <img src="https://image.tmdb.org/t/p/w200/8GxvynZpEJq9S1nOzSLnfbvMvS9.jpg" alt="" className="movie-poster w-10 h-14 object-cover border-2 border-white ring-1 ring-[#606C38]/10 absolute -right-8 top-0 z-20 rounded shadow-sm" />
             </div>
-            <div className="text-[#606C38]/30">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/></svg>
+            <div className="flex-1 min-w-0 pl-10">
+              <p className="text-xs text-[#606C38]/80 leading-relaxed">
+                <span className="font-bold text-[#283618]">Carlos</span> y 2 amigos más han guardado <span className="font-bold text-[#283618]">Dune: Parte Dos</span> en sus listas.
+              </p>
+              <span className="text-[10px] text-[#606C38]/40 font-bold uppercase tracking-wider mt-1 block">Hace 15 min</span>
             </div>
-            <img src="https://covers.openlibrary.org/b/id/9255566-M.jpg" alt="" className="book-cover w-12 h-16 object-cover shadow-md" />
           </div>
-        </div>
 
-        <div className="pt-4 border-t border-[#606C38]/5 flex items-center justify-between">
-          <div className="flex flex-wrap gap-1.5">
-            <span className="text-[10px] font-bold uppercase py-1 px-2 rounded bg-[#283618] text-white">Ficción</span>
-            <span className="text-[10px] font-bold uppercase py-1 px-2 rounded bg-[#F4F3ED] text-[#283618] border border-[#606C38]/10">Clásico</span>
+          <div className="h-px bg-[#606C38]/5"></div>
+
+          {/* Actividad 2 */}
+          <div className="flex gap-4">
+            <img src="https://image.tmdb.org/t/p/w200/8Vtpi9BDTeC9mSjXmYpYp9S1sQ3.jpg" alt="" className="movie-poster w-12 h-16 object-cover shadow-md rounded" />
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-[#606C38]/80 leading-relaxed">
+                <span className="font-bold text-[#283618]">Ana</span> ha puntuado <span className="font-bold text-[#283618]">Across the Spider-Verse</span> con 5 estrellas.
+              </p>
+              <div className="flex text-[#BC6C25] text-[10px] mt-1">★★★★★</div>
+              <span className="text-[10px] text-[#606C38]/40 font-bold uppercase tracking-wider mt-1 block">Ayer</span>
+            </div>
           </div>
-          <button className="text-[11px] lg:text-[13px] font-bold text-[#BC6C25] hover:underline">Ver más →</button>
+
         </div>
       </div>
     </div>

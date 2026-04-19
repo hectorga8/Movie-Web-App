@@ -2,14 +2,14 @@
 // StatCard.jsx
 // ─────────────────────────────────────────────────────────────
 
-function StatCard({ icon, value, label, bgColor = "bg-[#606C38]/10", iconColor = "text-[#606C38]" }) {
+function StatCard({ icon, value, label, bgColor = "bg-[#f1f2f3]", iconColor = "text-[#656a76]" }) {
   return (
-    <div className="feature-card bg-white border border-[#606C38]/10 rounded-2xl p-5 shadow-sm">
-      <div className={`w-9 h-9 rounded-xl ${bgColor} flex items-center justify-center mb-3`}>
+    <div className="bg-white border border-[#d5d7db]/60 rounded-[8px] p-5 shadow-whisper transition-all hover:shadow-medium">
+      <div className={`w-9 h-9 rounded-[4px] ${bgColor} flex items-center justify-center mb-4`}>
         <span className={iconColor}>{icon}</span>
       </div>
-      <p className="font-['Playfair_Display',Georgia,serif] text-3xl font-bold text-[#283618] leading-none">{value}</p>
-      <p className="text-xs text-[#606C38]/70 mt-1">{label}</p>
+      <p className="font-brand h-tight text-3xl text-black leading-none">{value}</p>
+      <p className="label-uppercase text-[11px] mt-2 opacity-80">{label}</p>
     </div>
   );
 }

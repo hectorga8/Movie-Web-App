@@ -1,6 +1,5 @@
 // ─────────────────────────────────────────────────────────────
-// Header.jsx
-// Barra de navegación superior inteligente con redirección al salir
+// Header.jsx - Versión CineBox (Inspirado en Hashicorp)
 // ─────────────────────────────────────────────────────────────
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -13,60 +12,58 @@ function Header({ variant = "landing" }) {
 
   const handleLogout = () => {
     logout(); 
-  };
-
-  const handleLogoClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigate('/');
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md border-b border-[#606C38]/10 bg-[#FDFCF7]/85">
-      <div className="w-full max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between gap-6">
+    <header className="sticky top-0 z-50 w-full border-b border-[#d5d7db]/40 bg-white/95 backdrop-blur-sm">
+      <div className="w-full max-w-[1150px] mx-auto px-6 h-16 flex items-center justify-between gap-8">
 
-        {/* Logo - Destino dinámico con scroll arriba */}
+        {/* Logo - Solo Texto (Hashicorp Style) */}
         <Link 
           to={user ? "/inicio" : "/"} 
-          onClick={handleLogoClick}
           className="shrink-0 group"
         >
-          <span className="font-['Playfair_Display',Georgia,serif] text-3xl font-black text-[#283618] tracking-tight group-hover:text-[#606C38] transition-colors">
-            Folio
+          <span className="font-['Playfair_Display',Georgia,serif] text-3xl font-bold text-black tracking-tighter group-hover:text-[#1060ff] transition-colors">
+            CineBox
           </span>
         </Link>
 
-        {/* TODO LO DEMÁS solo aparece si es variante "app" o si el usuario está logueado */}
         {(isApp || user) && (
           <>
-            {/* Buscador funcional central (Desktop) */}
+            {/* Buscador Central (Hashicorp Style) */}
             <div className="flex-1 max-w-md hidden md:block">
               <SearchBar />
             </div>
 
-            {/* Nav links (App) */}
-            <nav className="hidden lg:flex items-center gap-1 text-sm shrink-0">
-              <Link to="/inicio" className="px-3.5 py-2 rounded-lg text-[#283618] hover:bg-[#606C38]/8 font-medium transition-all">Inicio</Link>
-              <Link to="/dashboard" className="px-3.5 py-2 rounded-lg text-[#283618] hover:bg-[#606C38]/8 font-medium transition-all">Explorar</Link>
-              <Link to="/dashboard" className="px-3.5 py-2 rounded-lg text-[#283618] hover:bg-[#606C38]/8 font-medium transition-all">Mis libros</Link>
+            {/* Nav Links (system-ui 15px weight 500) */}
+            <nav className="hidden lg:flex items-center gap-6 text-[15px] font-medium text-[#3b3d45] shrink-0">
+              <Link to="/inicio" className="hover:text-[#1060ff] transition-colors">Inicio</Link>
+              <Link to="/dashboard" className="hover:text-[#1060ff] transition-colors">Explorar</Link>
+              <Link to="/dashboard" className="hover:text-[#1060ff] transition-colors">Mis Películas</Link>
             </nav>
 
-            {/* Perfil (App) */}
+            {/* Acciones de Usuario */}
             <div className="flex items-center gap-4 shrink-0">
               {user ? (
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-bold text-[#283618]">
-                    Hola, {user.name.split(' ')[0]}
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-semibold text-black hidden sm:block">
+                    {user.name}
                   </span>
                   <button 
                     onClick={handleLogout}
-                    className="px-3 py-1.5 rounded-lg border border-[#606C38]/20 text-[#606C38] text-xs font-bold hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all"
+                    className="px-4 py-2 rounded-[5px] border border-[#d5d7db] text-[#3b3d45] text-[13px] font-bold hover:bg-[#f1f2f3] transition-all"
                   >
                     Salir
                   </button>
                 </div>
               ) : (
-                <Link to="/login" className="px-4 py-2 rounded-xl bg-[#283618] hover:bg-[#606C38] text-white text-sm font-bold transition-all">
-                  Entrar
-                </Link>
+                <div className="flex items-center gap-4">
+                  <Link to="/login" className="text-[15px] font-medium text-[#3b3d45] hover:text-[#1060ff]">Entrar</Link>
+                  <Link to="/registro" className="px-4 py-2 rounded-[5px] bg-black text-white text-[13px] font-bold hover:bg-[#3b3d45] transition-all shadow-sm">
+                    Empezar
+                  </Link>
+                </div>
               )}
             </div>
           </>

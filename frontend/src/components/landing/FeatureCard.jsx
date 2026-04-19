@@ -1,16 +1,29 @@
 // ─────────────────────────────────────────────────────────────
-// FeatureCard.jsx
+// FeatureCard.jsx - Versión CineBox (Inspirado en Hashicorp)
 // ─────────────────────────────────────────────────────────────
-function FeatureCard({ icon, title, description, dark = false, badge }) {
+
+function FeatureCard({ icon, title, description, accentColor = "#1060ff" }) {
   return (
-    <div className={`feature-card relative rounded-2xl p-7 shadow-sm overflow-hidden transition-all ${dark ? "bg-[#283618] border border-[#283618] shadow-lg shadow-[#283618]/20" : "bg-white border border-[#606C38]/10"}`}>
-      <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-5 ${dark ? "bg-white/10" : "bg-[#606C38]/10"}`}>
-        <span className={dark ? "text-white" : "text-[#606C38]"}>{icon}</span>
+    <div className="card-mds group hover:border-[#b2b6bd] transition-all duration-300 flex flex-col items-start h-full">
+      {/* Icono con color de acento de producto */}
+      <div 
+        className="w-12 h-12 rounded-[5px] flex items-center justify-center mb-6 transition-transform group-hover:scale-110 shadow-sm"
+        style={{ backgroundColor: `${accentColor}15`, color: accentColor, border: `1px solid ${accentColor}40` }}
+      >
+        {icon}
       </div>
-      {badge && <div className="inline-flex items-center gap-1.5 bg-[#BC6C25] text-white text-[0.65rem] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full mb-3">{badge}</div>}
-      <h3 className={`font-['Playfair_Display',Georgia,serif] text-xl font-bold mb-2 ${dark ? "text-white" : "text-[#283618]"}`}>{title}</h3>
-      <p className={`text-sm leading-relaxed ${dark ? "text-white/70" : "text-[#606C38]/80"}`}>{description}</p>
+
+      {/* Título de tarjeta (26px tight) */}
+      <h3 className="text-[22px] lg:text-[26px] font-bold text-black h-tight mb-4 group-hover:text-[#1060ff] transition-colors">
+        {title}
+      </h3>
+
+      {/* Cuerpo de texto (16px relaxed) */}
+      <p className="text-[16px] text-[#3b3d45] leading-[1.63]">
+        {description}
+      </p>
     </div>
   );
 }
+
 export default FeatureCard;

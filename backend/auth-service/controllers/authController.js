@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto'); // Nativo de Node.js para seguridad
+const crypto = require('crypto');
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -12,8 +12,13 @@ const createToken = (id) => {
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    console.log(`📝 Intentando registro para: ${email}`);
+
     const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: 'El usuario ya existe' });
+    if (existingUser) {
+        console.warn(`⚠️ El usuario ${email} ya existe.`);
+        return res.status(400).json({ message: 'El usuario ya existe' });
+    }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -21,9 +26,11 @@ exports.register = async (req, res) => {
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
+    console.log(`✅ Usuario registrado con éxito: ${email}`);
     const token = createToken(newUser._id);
     res.status(201).json({ token, user: { id: newUser._id, name, email, onboardingCompleted: false } });
   } catch (error) {
+    console.error('❌ Error en el registro:', error);
     res.status(500).json({ message: 'Error en el registro' });
   }
 };
@@ -31,15 +38,25 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(`🔑 Intentando login para: ${email}`);
+
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Usuario no encontrado' });
+    if (!user) {
+        console.warn(`❌ Usuario no encontrado: ${email}`);
+        return res.status(400).json({ message: 'Usuario no encontrado' });
+    }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Contraseña incorrecta' });
+    if (!isMatch) {
+        console.warn(`❌ Contraseña incorrecta para: ${email}`);
+        return res.status(400).json({ message: 'Contraseña incorrecta' });
+    }
 
+    console.log(`✅ Login exitoso para: ${email}`);
     const token = createToken(user._id);
     res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, onboardingCompleted: user.onboardingCompleted } });
   } catch (error) {
+    console.error('❌ Error en el login:', error);
     res.status(500).json({ message: 'Error en el login' });
   }
 };
@@ -56,12 +73,9 @@ exports.googleAuth = async (req, res) => {
 
     const { email, name } = googleUser;
     let user = await User.findOne({ email });
-    let isNewUser = false;
-
+    
     if (!user) {
-      isNewUser = true;
-      // 🎲 GENERAR CONTRASEÑA ALEATORIA SEGURA
-      // El usuario no la conocerá, pero su cuenta siempre tendrá una.
+      console.log(`📝 Creando nuevo usuario de Google: ${email}`);
       const randomPassword = crypto.randomBytes(32).toString('hex');
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(randomPassword, salt);
@@ -70,11 +84,12 @@ exports.googleAuth = async (req, res) => {
         name, 
         email, 
         password: hashedPassword,
-        onboardingCompleted: false // Importante para el flujo futuro
+        onboardingCompleted: false 
       });
       await user.save();
     }
 
+    console.log(`✅ Google Auth exitoso: ${email}`);
     const ourToken = createToken(user._id);
     res.status(200).json({ 
       token: ourToken, 
@@ -82,12 +97,11 @@ exports.googleAuth = async (req, res) => {
         id: user._id, 
         name, 
         email, 
-        onboardingCompleted: user.onboardingCompleted,
-        isNewUser // Útil para que el frontend sepa si redirigir al onboarding
+        onboardingCompleted: user.onboardingCompleted
       } 
     });
   } catch (error) {
-    console.error('Error Google Auth:', error);
+    console.error('❌ Error Google Auth:', error);
     res.status(500).json({ message: 'Error en autenticación con Google' });
   }
 };

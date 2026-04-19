@@ -1,9 +1,12 @@
+import { Link } from "react-router-dom";
+
 // ─────────────────────────────────────────────────────────────
-// BookCard.jsx
-// Tarjeta de libro para el Dashboard
+// MovieCard.jsx - Versión CineBox
+// Tarjeta de película para el Dashboard
 // ─────────────────────────────────────────────────────────────
 
-function BookCard({ 
+function MovieCard({ 
+  id,
   image, 
   title, 
   author, 
@@ -21,7 +24,7 @@ function BookCard({
         {[...Array(5)].map((_, i) => (
           <span 
             key={i} 
-            className={i < count ? "text-[#BC6C25] text-xs" : "text-[#BC6C25]/30 text-xs"}
+            className={i < count ? "text-[#ffcf25] text-xs" : "text-[#d5d7db] text-xs"}
           >
             ★
           </span>
@@ -32,25 +35,27 @@ function BookCard({
 
   return (
     <div className="group relative flex flex-col">
-      {/* Contenedor de la Portada */}
+      {/* Contenedor del Póster */}
       <div className="relative w-full aspect-[2/3] mb-3">
-        <img 
-          src={image} 
-          alt={title} 
-          className="book-cover w-full h-full object-cover card-hover cursor-pointer"
-          loading="lazy"
-        />
+        <Link to={`/pelicula/${id}`}>
+          <img 
+            src={image} 
+            alt={title} 
+            className="movie-poster w-full h-full object-cover cursor-pointer rounded-[8px] shadow-whisper transition-transform group-hover:scale-[1.02] duration-300"
+            loading="lazy"
+          />
+        </Link>
         
-        {/* Badge: Leyendo */}
+        {/* Badge: Viendo */}
         {status === "reading" && (
-          <span className="absolute top-2 left-2 bg-[#FDFCF7]/95 backdrop-blur-sm text-[#283618] text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-md shadow-sm">
-            Leyendo
+          <span className="absolute top-2 left-2 bg-white/95 backdrop-blur-sm text-black label-uppercase px-2 py-1 rounded-[2px] shadow-whisper text-[9px]">
+            Viendo
           </span>
         )}
 
         {/* Icono Favorito */}
         {favorite && (
-          <div className="absolute top-2 right-2 w-6 h-6 bg-[#FDFCF7]/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm text-[#BC6C25]">
+          <div className="absolute top-2 right-2 w-6 h-6 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-whisper text-[#ffcf25]">
             <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
@@ -59,7 +64,7 @@ function BookCard({
 
         {/* Botón de opciones (aparece en hover) */}
         {showOptions && (
-          <button className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-[#283618] text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-md hover:bg-[#BC6C25]">
+          <button className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-[#15181e] text-[#efeff1] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-medium hover:bg-black">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
             </svg>
@@ -67,35 +72,35 @@ function BookCard({
         )}
       </div>
 
-      {/* Información del Libro */}
-      <a 
-        href="#" 
-        className="font-bold text-[#283618] text-sm leading-tight hover:text-[#606C38] transition-colors line-clamp-1"
+      {/* Información de la Película */}
+      <Link 
+        to={`/pelicula/${id}`} 
+        className="font-brand text-black text-sm leading-tight hover:text-[#1060ff] transition-colors line-clamp-1"
       >
         {title}
-      </a>
-      <p className="text-xs text-[#606C38]/80 mt-0.5 line-clamp-1">
+      </Link>
+      <p className="text-xs text-[#656a76] mt-1 line-clamp-1">
         {author}
       </p>
 
-      {/* Barra de progreso (solo si está leyendo) */}
+      {/* Barra de progreso (solo si está viendo) */}
       {status === "reading" && (
-        <div className="mt-2">
-          <div className="w-full bg-[#606C38]/10 rounded-full h-1.5 overflow-hidden">
+        <div className="mt-3">
+          <div className="w-full bg-[#f1f2f3] rounded-full h-1 overflow-hidden">
             <div 
-              className="bg-[#606C38] h-full rounded-full transition-all duration-500" 
+              className="bg-[#14c6cb] h-full rounded-full transition-all duration-500" 
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-          <p className="text-[10px] text-[#606C38]/60 mt-1 font-medium">
-            {progress}% completado
+          <p className="text-[10px] text-[#656a76] mt-1.5 font-bold uppercase tracking-tight">
+            {progress}% visto
           </p>
         </div>
       )}
 
       {/* Badge Pendiente */}
       {status === "pending" && (
-        <p className="text-[10px] uppercase font-bold text-[#BC6C25] mt-2 tracking-wider">
+        <p className="label-uppercase text-[9px] text-[#1060ff] mt-2">
           Pendiente
         </p>
       )}
@@ -106,4 +111,4 @@ function BookCard({
   );
 }
 
-export default BookCard;
+export default MovieCard;

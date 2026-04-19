@@ -3,7 +3,7 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
-import Libro from './pages/Libro';
+import Pelicula from './pages/Pelicula';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -21,17 +21,17 @@ function HeaderWrapper() {
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-[#FDFCF7]">
+      {/* Contenedor principal flex para asegurar centrado vertical y footer al fondo */}
+      <div className="flex flex-col min-h-screen bg-[#0d0e12]">
         <HeaderWrapper />
         
-        <main className="flex-1">
+        {/* El main crece para ocupar todo el espacio, permitiendo centrar su contenido */}
+        <main className="flex-1 flex flex-col">
           <Routes>
-            {/* Rutas Públicas */}
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registro" element={<Register />} />
 
-            {/* Rutas Protegidas (Solo logueados) */}
             <Route path="/inicio" element={
               <ProtectedRoute>
                 <Index />
@@ -42,9 +42,9 @@ function App() {
                 <Dashboard />
               </ProtectedRoute>
             } />
-            <Route path="/libro/:id" element={
+            <Route path="/pelicula/:id" element={
               <ProtectedRoute>
-                <Libro />
+                <Pelicula />
               </ProtectedRoute>
             } />
           </Routes>
