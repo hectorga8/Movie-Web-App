@@ -17,7 +17,7 @@ function Footer() {
           <div className="col-span-2 lg:col-span-2 space-y-6">
             <Link to="/" className="flex items-center gap-2 group">
               <div className="w-8 h-8 bg-white rounded-[4px] flex items-center justify-center text-black font-bold text-xl">C</div>
-              <span className="font-['Playfair_Display',Georgia,serif] text-2xl font-bold text-white tracking-tighter">
+              <span className="font-brand text-2xl font-bold text-white">
                 CineBox
               </span>
             </Link>
@@ -29,7 +29,7 @@ function Footer() {
 
           {/* Columna 2: Plataforma */}
           <div>
-            <h3 className="text-[13px] font-bold uppercase tracking-[1.3px] text-[#656a76] mb-6">Plataforma</h3>
+            <h3 className="mb-6">Plataforma</h3>
             <ul className="space-y-4">
               <li><Link to="/inicio" className="text-[15px] text-[#d5d7db] hover:text-[#1060ff] transition-colors">Inicio</Link></li>
               <li><Link to="/dashboard" className="text-[15px] text-[#d5d7db] hover:text-[#1060ff] transition-colors">Explorar</Link></li>
@@ -39,7 +39,7 @@ function Footer() {
 
           {/* Columna 3: Ecosistema */}
           <div>
-            <h3 className="text-[13px] font-bold uppercase tracking-[1.3px] text-[#656a76] mb-6">Ecosistema</h3>
+            <h3 className="mb-6">Ecosistema</h3>
             <ul className="space-y-4">
               <li><a href="#" className="text-[15px] text-[#d5d7db] hover:text-[#1060ff] transition-colors">CineBox API</a></li>
               <li><a href="#" className="text-[15px] text-[#d5d7db] hover:text-[#1060ff] transition-colors">Documentación</a></li>
@@ -49,7 +49,7 @@ function Footer() {
 
           {/* Columna 4: Compañía */}
           <div>
-            <h3 className="text-[13px] font-bold uppercase tracking-[1.3px] text-[#656a76] mb-6">Legal</h3>
+            <h3 className="mb-6">Legal</h3>
             <ul className="space-y-4">
               <li><a href="#" className="text-[15px] text-[#d5d7db] hover:text-[#1060ff] transition-colors">Privacidad</a></li>
               <li><a href="#" className="text-[15px] text-[#d5d7db] hover:text-[#1060ff] transition-colors">Términos</a></li>

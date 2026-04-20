@@ -19,7 +19,7 @@ function Header({ variant = "landing" }) {
         {/* Lado Izquierdo: Logo + Nav */}
         <div className="flex items-center">
           <Link to={user ? "/inicio" : "/"} className="mr-10 group">
-            <span className="font-['Playfair_Display',serif] text-[28px] font-bold text-black tracking-tighter group-hover:text-[#1060ff] transition-colors leading-none">
+            <span className="font-brand text-[28px] font-bold text-black tracking-tighter group-hover:text-[#1060ff] transition-colors leading-none">
               CineBox
             </span>
           </Link>

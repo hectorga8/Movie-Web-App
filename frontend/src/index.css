@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -39,15 +39,27 @@
 
 @layer base {
   body {
-    @apply bg-white text-black antialiased;
-    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    @apply bg-white text-black antialiased tracking-normal;
+    font-family: 'Roboto Flex', sans-serif;
   }
 
-  h1, h2, h3, h4, .font-brand {
-    @apply tracking-tighter;
-    font-family: 'Playfair Display', serif;
+  h1, h2, h4 {
+    @apply tracking-wide;
+    font-family: 'Roboto Flex', sans-serif;
     font-variant-ligatures: common-ligatures;
     font-kerning: normal;
+  }
+
+  h3 {
+    @apply tracking-wider;
+    font-family: 'Roboto Flex', sans-serif;
+    font-variant-ligatures: common-ligatures;
+    font-kerning: normal;
+  }
+
+  .font-brand {
+    @apply tracking-widest;
+    font-family: 'Roboto Flex', sans-serif;
   }
 }
 

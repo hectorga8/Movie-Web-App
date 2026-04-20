@@ -68,7 +68,7 @@ function Landing() {
 
   return (
     <motion.div 
-      className="w-full bg-white overflow-hidden font-['DM_Sans',sans-serif]"
+      className="w-full bg-white overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={containerVariants}

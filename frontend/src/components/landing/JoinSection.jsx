@@ -8,7 +8,7 @@ function JoinSection() {
       
       <div className="w-full max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-16 relative z-10">
         <div className="max-w-[650px]">
-          <h2 className="text-[36px] md:text-[48px] font-bold text-white mb-8 leading-tight tracking-tighter">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
             Únete hoy mismo.
           </h2>
           <div className="space-y-6 text-white/80 text-[18px] leading-relaxed">

@@ -38,11 +38,11 @@ function LandingHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h1 className="text-6xl md:text-7xl font-bold mb-3 tracking-tighter">Bienvenidos.</h1>
-          <h2 className="text-2xl md:text-3xl font-semibold mb-12 opacity-90 leading-tight">
+          <h1 className="text-6xl md:text-7xl font-bold mb-3">Bienvenidos.</h1>
+          <h4 className="text-3xl md:text-4xl font-normal mb-12 leading-tight">
             Millones de películas, series y gente por descubrir. <br className="hidden md:block" /> 
             Explora ahora.
-          </h2>
+          </h4>
         </motion.div>
 
         {/* Buscador con entrada sutil */}
