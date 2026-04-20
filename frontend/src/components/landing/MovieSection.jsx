@@ -1,6 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function MovieSection({ title, items, variant = "light" }) {
+function MovieSection({ title, items, variant = "light", type = "pelicula" }) {
   const isDark = variant === "dark";
   const scrollRef = useRef(null);
   const [showLeftBtn, setShowLeftBtn] = useState(false);
@@ -73,24 +74,28 @@ function MovieSection({ title, items, variant = "light" }) {
             onScroll={handleScroll}
             className="flex overflow-x-auto gap-8 pb-8 no-scrollbar scroll-smooth outline-none relative z-10"
           >
-            {items.map(movie => (
-              <div key={movie.id} className="min-w-[180px] max-w-[180px] group/card cursor-pointer shrink-0">
+            {items.map(item => (
+              <Link 
+                to={`/${type}/${item.id}`} 
+                key={item.id} 
+                className="min-w-[180px] max-w-[180px] group/card cursor-pointer shrink-0"
+              >
                 <div className="relative mb-6 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 group-hover/card:scale-105">
                   <img 
-                    src={movie.image} 
-                    alt={movie.title} 
+                    src={item.image} 
+                    alt={item.title} 
                     className="w-full h-[270px] object-cover group-hover/card:opacity-90 transition-opacity" 
                   />
                   <div className="absolute -bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
-                  <div className={`absolute bottom-3 left-3 w-10 h-10 bg-[#081c22] border-2 ${getRatingColor(movie.rating)} rounded-full flex items-center justify-center text-white text-[11px] font-bold shadow-md`}>
-                    {movie.rating}<span className="text-[6px] font-normal">%</span>
+                  <div className={`absolute bottom-3 left-3 w-10 h-10 bg-[#081c22] border-2 ${getRatingColor(item.rating)} rounded-full flex items-center justify-center text-white text-[11px] font-bold shadow-md`}>
+                    {item.rating}<span className="text-[6px] font-normal">%</span>
                   </div>
                 </div>
-                <h4 className="font-bold text-[16px] leading-snug hover:text-mds-color-action line-clamp-2 transition-colors">
-                  {movie.title}
+                <h4 className="font-bold text-[16px] leading-snug group-hover/card:text-mds-color-action line-clamp-2 transition-colors">
+                  {item.title}
                 </h4>
-                <p className="opacity-50 text-sm mt-1 font-medium">{movie.date}</p>
-              </div>
+                <p className={`opacity-50 text-sm mt-1 font-medium ${isDark ? 'text-white' : 'text-black'}`}>{item.date}</p>
+              </Link>
             ))}
           </div>
         </div>

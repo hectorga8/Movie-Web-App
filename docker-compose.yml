@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build: ./backend/auth-service
+    container_name: cinesaas-auth
+    ports:
+      - "5001:5001"
+    env_file:
+      - ./backend/auth-service/.env
+    volumes:
+      - ./backend/auth-service:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - cinesaas-network
+
+  movie-service:
+    build: ./backend/movie-service
+    container_name: cinesaas-movies
+    ports:
+      - "5002:5002"
+    env_file:
+      - ./backend/movie-service/.env
+    volumes:
+      - ./backend/movie-service:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - cinesaas-network
+
+  frontend:
+    build: ./frontend
+    container_name: cinesaas-frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - cinesaas-network
+
+networks:
+  cinesaas-network:
+    driver: bridge

@@ -8,6 +8,7 @@ import movieService from '../services/movieService';
 function Landing() {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
+  const [trendingTV, setTrendingTV] = useState([]);
   const [searchResults, setSearchResults] = useState(null);
 
   const mapResults = (items) => items.map(m => ({
@@ -25,15 +26,25 @@ function Landing() {
 
   useEffect(() => {
     const fetchInitialData = async () => {
+      // Películas en tendencia
       try {
-        const [trendingData, popularData] = await Promise.all([
-          movieService.getTrending(),
-          movieService.getPopular()
-        ]);
+        const trendingData = await movieService.getTrending();
         setTrendingMovies(mapResults(trendingData));
+      } catch (e) { console.warn("Fallo trending movies"); }
+
+      // Películas populares
+      try {
+        const popularData = await movieService.getPopular();
         setPopularMovies(mapResults(popularData));
-      } catch (error) {
-        console.warn("Error cargando datos iniciales.");
+      } catch (e) { console.warn("Fallo popular movies"); }
+
+      // Series en tendencia
+      try {
+        const tvData = await movieService.getTVTrending();
+        console.log("📦 Series recibidas:", tvData);
+        setTrendingTV(mapResults(tvData));
+      } catch (e) { 
+        console.error("❌ Fallo trending TV:", e); 
       }
     };
     fetchInitialData();
@@ -63,6 +74,7 @@ function Landing() {
           <MovieSection title="Tendencias" items={trendingMovies} />
           {/* Le pasamos las películas en tendencia para que muestre sus trailers/backdrops */}
           <TrailerSection movies={trendingMovies.slice(0, 10)} />
+          <MovieSection title="Series más populares" items={trendingTV} type="serie" />
           <MovieSection title="Lo más popular" items={popularMovies} />
         </>
       )}

@@ -4,6 +4,7 @@ import Footer from './components/layout/Footer';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Pelicula from './pages/Pelicula';
+import Serie from './pages/Serie';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -42,11 +43,8 @@ function App() {
                 <Dashboard />
               </ProtectedRoute>
             } />
-            <Route path="/pelicula/:id" element={
-              <ProtectedRoute>
-                <Pelicula />
-              </ProtectedRoute>
-            } />
+            <Route path="/pelicula/:id" element={<Pelicula />} />
+            <Route path="/serie/:id" element={<Serie />} />
           </Routes>
         </main>
 
