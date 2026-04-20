@@ -66,6 +66,15 @@ function Landing() {
     }
   };
 
+  // Combinar todo el contenido para un fondo de Hero masivo y único
+  const allHeroContent = React.useMemo(() => {
+    const combined = [...trendingMovies, ...popularMovies, ...trendingTV];
+    // Eliminar duplicados por ID
+    const unique = Array.from(new Map(combined.map(item => [item.id, item])).values());
+    // Aleatorizar el orden
+    return unique.sort(() => Math.random() - 0.5);
+  }, [trendingMovies, popularMovies, trendingTV]);
+
   return (
     <motion.div 
       className="w-full bg-white overflow-hidden"
@@ -73,9 +82,9 @@ function Landing() {
       animate="visible"
       variants={containerVariants}
     >
-      {/* 1. HERO (Entra primero) */}
+      {/* 1. HERO (Ahora con contenido masivo y único) */}
       <motion.div variants={itemVariants}>
-        <LandingHero />
+        <LandingHero movies={allHeroContent} />
       </motion.div>
       
       {/* 2. TENDENCIAS (Entra segundo) */}

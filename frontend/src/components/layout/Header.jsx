@@ -45,11 +45,9 @@ function Header({ variant = "landing" }) {
 
         {/* Lado Derecho: Buscador + Acciones */}
         <div className="flex items-center gap-6">
-          {(isApp || user) && (
-            <div className="max-w-[280px] hidden md:block">
-              <SearchBar />
-            </div>
-          )}
+          <div className="max-w-[280px] hidden md:block">
+            <SearchBar />
+          </div>
 
           <div className="flex items-center gap-6">
             {user ? (

@@ -50,7 +50,7 @@ export const movieService = {
 
   getBackdropUrl: (path) => {
     if (!path) return 'https://via.placeholder.com/1280x720?text=No+Video';
-    return `https://image.tmdb.org/t/p/w780${path}`;
+    return `https://image.tmdb.org/t/p/w1280${path}`;
   }
 };
 
