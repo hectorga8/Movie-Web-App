@@ -1,7 +1,7 @@
 import React from 'react';
 import movieService from '../../services/movieService';
 
-const SeasonSection = ({ seasons }) => {
+const SeasonSection = ({ seasons, seriesOverview }) => {
   if (!seasons || seasons.length === 0) return null;
 
   const currentSeason = seasons[seasons.length - 1];
@@ -48,8 +48,8 @@ const SeasonSection = ({ seasons }) => {
               </span>
             </div>
 
-            <p className="body-relaxed text-[15px] text-[#656a76] mb-8 line-clamp-3 leading-[1.6]">
-              {currentSeason.overview || "No hay una descripción disponible para esta temporada."}
+            <p className="body-relaxed text-[15px] text-[#656a76] mb-8 line-clamp-4 leading-[1.6]">
+              {currentSeason.overview || seriesOverview || `La descripción para la ${currentSeason.name} se está sincronizando actualmente.`}
             </p>
             
             <div className="flex flex-wrap gap-4">

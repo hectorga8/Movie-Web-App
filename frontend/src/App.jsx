@@ -5,6 +5,7 @@ import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Pelicula from './pages/Pelicula';
 import Serie from './pages/Serie';
+import SearchResults from './pages/SearchResults';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -45,6 +46,7 @@ function App() {
             } />
             <Route path="/pelicula/:id" element={<Pelicula />} />
             <Route path="/serie/:id" element={<Serie />} />
+            <Route path="/search" element={<SearchResults />} />
           </Routes>
         </main>
 

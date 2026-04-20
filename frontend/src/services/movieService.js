@@ -21,6 +21,11 @@ export const movieService = {
     return data;
   },
 
+  searchMulti: async (query, sortBy = 'relevance') => {
+    const { data } = await axios.get(`${BASE_URL}/search/multi?query=${query}&sortBy=${sortBy}`);
+    return data;
+  },
+
   getMovieDetail: async (id) => {
     const { data } = await axios.get(`${BASE_URL}/movies/${id}`);
     return data;

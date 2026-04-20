@@ -50,34 +50,18 @@ function Landing() {
     fetchInitialData();
   }, []);
 
-  const handleSearch = async (query) => {
-    if (!query) {
-      setSearchResults(null);
-      return;
-    }
-    try {
-      const results = await movieService.searchMovies(query);
-      setSearchResults(mapResults(results));
-    } catch (error) {
-      console.error("Error en búsqueda");
-    }
-  };
-
   return (
     <div className="w-full bg-white overflow-hidden font-['DM_Sans',sans-serif]">
-      <LandingHero onSearch={handleSearch} />
+      <LandingHero />
       
-      {searchResults ? (
-        <MovieSection title="Resultados de búsqueda" items={searchResults} />
-      ) : (
-        <>
-          <MovieSection title="Tendencias" items={trendingMovies} />
-          {/* Le pasamos las películas en tendencia para que muestre sus trailers/backdrops */}
-          <TrailerSection movies={trendingMovies.slice(0, 10)} />
-          <MovieSection title="Series más populares" items={trendingTV} type="serie" />
-          <MovieSection title="Lo más popular" items={popularMovies} />
-        </>
-      )}
+      <>
+        <MovieSection title="Tendencias" items={trendingMovies} />
+        {/* Le pasamos las películas en tendencia para que muestre sus trailers/backdrops */}
+        <TrailerSection movies={trendingMovies.slice(0, 10)} />
+        <MovieSection title="Series más populares" items={trendingTV} type="serie" />
+        <MovieSection title="Lo más popular" items={popularMovies} />
+      </>
+      
       <JoinSection />
     </div>
   );

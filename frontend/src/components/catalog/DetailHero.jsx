@@ -9,9 +9,28 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
   const title = item.title || item.name;
   const releaseDate = item.release_date || item.first_air_date;
   const year = releaseDate?.split('-')[0] || 'N/R';
-  const creatorOrDirector = type === 'movie' 
-    ? item.credits?.crew?.find(p => p.job === 'Director')?.name 
-    : item.created_by?.[0]?.name;
+  
+  // LÓGICA DE BÚSQUEDA DEFINITIVA
+  const findResponsible = () => {
+    // 1. Creadores de TV (estándar)
+    if (type === 'tv' && item.created_by?.length > 0) return item.created_by[0].name;
+
+    // 2. Si no, buscamos en el equipo técnico (Crew)
+    if (item.credits?.crew) {
+      const roles = [
+        'director', 'original story', 'author', 'writer', 
+        'executive producer', 'series creator'
+      ];
+      
+      for (let role of roles) {
+        const found = item.credits.crew.find(p => p.job?.toLowerCase().includes(role));
+        if (found) return found.name;
+      }
+    }
+    return null;
+  };
+
+  const creatorOrDirector = findResponsible();
 
   const trailer = item.videos?.results?.find(v => v.type === 'Trailer' && v.iso_639_1 === 'es') 
     || item.videos?.results?.find(v => v.type === 'Trailer') 
@@ -33,7 +52,7 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
             </div>
           </div>
 
-          <div className="flex-1 text-white text-center md:text-left">
+          <div className="flex-1 text-white text-center md:text-left text-pretty">
             <nav className="label-uppercase text-[10px] mb-4 flex items-center justify-center md:justify-start gap-2 opacity-60 font-bold tracking-[2px]">
               <Link to="/" className="hover:text-white">Infraestructura</Link>
               <span>/</span>
@@ -77,20 +96,12 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
             </div>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-              <button onClick={onActionClick} title="Favoritos" className="w-11 h-11 rounded-full bg-[#15181e] border border-white/20 flex items-center justify-center text-white hover:bg-[#db2360] transition-all cursor-pointer shadow-lg">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-              </button>
-              <button onClick={onActionClick} title="Mi lista" className="w-11 h-11 rounded-full bg-[#15181e] border border-white/20 flex items-center justify-center text-white hover:bg-[#1060ff] transition-all cursor-pointer shadow-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
-              </button>
-              <button onClick={onActionClick} title="Seguimiento" className="w-11 h-11 rounded-full bg-[#15181e] border border-white/20 flex items-center justify-center text-white hover:bg-[#21d07a] transition-all cursor-pointer shadow-lg">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-              </button>
+              <button onClick={onActionClick} className="w-11 h-11 rounded-full bg-[#15181e] border border-white/20 flex items-center justify-center text-white hover:bg-[#db2360] transition-all cursor-pointer"><svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+              <button onClick={onActionClick} className="w-11 h-11 rounded-full bg-[#15181e] border border-white/20 flex items-center justify-center text-white hover:bg-[#1060ff] transition-all cursor-pointer"><svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg></button>
+              <button onClick={onActionClick} className="w-11 h-11 rounded-full bg-[#15181e] border border-white/20 flex items-center justify-center text-white hover:bg-[#21d07a] transition-all cursor-pointer"><svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
               {trailer && (
                 <button onClick={() => window.open(`https://www.youtube.com/watch?v=${trailer.key}`)} className="ml-4 flex items-center gap-3 group text-[11px] font-bold label-uppercase tracking-[2px] opacity-70 hover:opacity-100 transition-all cursor-pointer">
-                  <div className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center group-hover:border-[#1060ff]">
-                    <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                  </div>
+                  <div className="w-9 h-9 rounded-full border border-white/30 flex items-center justify-center group-hover:border-[#1060ff]"><svg className="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                   VER TRÁILER
                 </button>
               )}

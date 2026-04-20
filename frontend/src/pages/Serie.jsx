@@ -85,7 +85,7 @@ function Serie() {
 
           <hr className="border-[#f1f2f3] mb-12" />
 
-          <SeasonSection seasons={serie.seasons} />
+          <SeasonSection seasons={serie.seasons} seriesOverview={serie.overview} />
 
           <hr className="border-[#f1f2f3] mb-12" />
 
