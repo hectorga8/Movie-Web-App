@@ -29,7 +29,7 @@ const ResultCard = ({ item }) => {
            </span>
            <div className="flex items-center gap-1 text-[11px] font-bold text-[#21d07a]">
              <span>★</span>
-             <span>{item.vote_average > 0 ? `${Math.round(item.vote_average * 10)}%` : 'S/P'}</span>
+             <span>{item.vote_average > 0 ? `${Math.round(item.vote_average * 10)}%` : 'S/C'}</span>
            </div>
         </div>
         <p className="body-relaxed text-sm text-[#3b3d45] line-clamp-2 md:line-clamp-3 opacity-80 italic leading-relaxed">
@@ -69,13 +69,18 @@ function SearchResults() {
     fetchAndSort();
   }, [query, sortBy]);
 
-  // Filtrado (sobre los resultados ya ordenados globalmente por el backend)
+  // RESET DE PÁGINA: Si el usuario cambia el filtro, lo mandamos a la página 1
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeFilter]);
+
+  // Filtrado
   const filteredData = activeFilter === 'all' 
     ? allResults 
     : allResults.filter(r => r.media_type === activeFilter);
 
-  // Paginación local para los resultados cargados
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  // Paginación local
+  const totalPages = Math.max(1, Math.ceil(filteredData.length / itemsPerPage));
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentResults = filteredData.slice(startIndex, startIndex + itemsPerPage);
 
@@ -164,13 +169,12 @@ function SearchResults() {
                   {currentResults.map(item => <ResultCard key={item.id} item={item} />)}
                 </div>
 
-                {/* PAGINACIÓN LOCAL */}
                 {totalPages > 1 && (
                   <div className="mt-12 flex items-center justify-center gap-2">
                     <button 
                       disabled={currentPage === 1}
                       onClick={() => handlePageChange(currentPage - 1)}
-                      className="w-10 h-10 rounded-full flex items-center justify-center border border-[#d5d7db] bg-white hover:bg-[#f1f2f3] disabled:opacity-30 transition-all cursor-pointer"
+                      className="w-10 h-10 rounded-full flex items-center justify-center border border-[#d5d7db] bg-white hover:bg-[#f1f2f3] disabled:opacity-30 transition-all cursor-pointer shadow-sm"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" /></svg>
                     </button>
@@ -184,7 +188,7 @@ function SearchResults() {
                     <button 
                       disabled={currentPage >= totalPages}
                       onClick={() => handlePageChange(currentPage + 1)}
-                      className="w-10 h-10 rounded-full flex items-center justify-center border border-[#d5d7db] bg-white hover:bg-[#f1f2f3] disabled:opacity-30 transition-all cursor-pointer"
+                      className="w-10 h-10 rounded-full flex items-center justify-center border border-[#d5d7db] bg-white hover:bg-[#f1f2f3] disabled:opacity-30 transition-all cursor-pointer shadow-sm"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" /></svg>
                     </button>
@@ -193,8 +197,8 @@ function SearchResults() {
               </>
             ) : (
               <div className="bg-white border border-[#d5d7db]/50 rounded-[8px] p-12 text-center shadow-whisper">
-                <p className="text-2xl font-brand mb-4 opacity-30">No se han encontrado coincidencias</p>
-                <p className="text-sm text-[#656a76]">Intenta con otros términos.</p>
+                <p className="text-2xl font-brand mb-4 opacity-30">No hay contenido bajo este filtro</p>
+                <p className="text-sm text-[#656a76]">Intenta cambiar el tipo o el criterio de ordenación.</p>
               </div>
             )}
           </main>

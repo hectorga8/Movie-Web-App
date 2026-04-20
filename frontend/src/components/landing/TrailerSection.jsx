@@ -5,6 +5,24 @@ function TrailerSection({ movies = [] }) {
   const scrollRef = useRef(null);
   const [showLeftBtn, setShowLeftBtn] = useState(false);
 
+  const handlePlayTrailer = async (movieId) => {
+    try {
+      // Pedimos el detalle de la película para obtener sus vídeos
+      const detail = await movieService.getMovieDetail(movieId);
+      const trailer = detail.videos?.results?.find(v => v.type === 'Trailer' && v.iso_639_1 === 'es') 
+        || detail.videos?.results?.find(v => v.type === 'Trailer') 
+        || detail.videos?.results?.[0];
+      
+      if (trailer) {
+        window.open(`https://www.youtube.com/watch?v=${trailer.key}`, '_blank');
+      } else {
+        alert("Tráiler no disponible en este momento.");
+      }
+    } catch (error) {
+      console.error("Error cargando trailer:", error);
+    }
+  };
+
   const scroll = (direction) => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
@@ -66,7 +84,11 @@ function TrailerSection({ movies = [] }) {
             className="flex overflow-x-auto gap-8 pb-8 no-scrollbar scroll-smooth outline-none relative z-10"
           >
             {movies.map(movie => (
-              <div key={movie.id} className="min-w-[300px] md:min-w-[350px] h-auto group cursor-pointer shrink-0">
+              <div 
+                key={movie.id} 
+                onClick={() => handlePlayTrailer(movie.id)}
+                className="min-w-[300px] md:min-w-[350px] h-auto group cursor-pointer shrink-0"
+              >
                 <div className="h-[200px] relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-300 group-hover:scale-[1.03]">
                   <img 
                     src={movie.backdrop} 

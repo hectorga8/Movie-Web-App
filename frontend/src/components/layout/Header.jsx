@@ -35,6 +35,9 @@ function Header({ variant = "landing" }) {
               Explorar
             </Link>
             <Link to="/dashboard" className="text-[15px] font-bold text-[#3b3d45] hover:text-[#1060ff] transition-colors leading-none">
+              Mis listas
+            </Link>
+            <Link to="/dashboard" className="text-[15px] font-bold text-[#3b3d45] hover:text-[#1060ff] transition-colors leading-none">
               Más
             </Link>
           </nav>
