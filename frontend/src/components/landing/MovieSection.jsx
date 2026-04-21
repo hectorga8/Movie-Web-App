@@ -31,16 +31,16 @@ function MovieSection({ title, items, type = "pelicula" }) {
   };
 
   return (
-    <section className="w-full py-14 relative group bg-[#0d0e12] text-white">
-      <div className="w-full max-w-[1200px] mx-auto px-6 relative">
+    <section className="w-full py-8 md:py-14 relative group bg-[#0d0e12] text-white">
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 relative">
         
-        <div className="flex items-center gap-6 mb-8 text-left">
-          <h3 className="text-2xl md:text-3xl font-bold tracking-tighter">{title}</h3>
-          <div className="flex border border-white/10 rounded-full overflow-hidden bg-white/5">
-            <button className="px-6 py-1.5 font-bold text-sm cursor-pointer transition-colors bg-[#1060ff] text-white">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6 mb-6 md:mb-8 text-left">
+          <h3 className="text-xl md:text-3xl font-bold tracking-tight md:tracking-tighter">{title}</h3>
+          <div className="flex border border-white/10 rounded-full overflow-hidden bg-white/5 w-fit">
+            <button className="px-4 md:px-6 py-1 md:py-1.5 bg-[#1060ff] text-white font-bold text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
               Hoy
             </button>
-            <button className="px-6 py-1.5 font-bold text-sm cursor-pointer transition-colors text-white/60 hover:text-white">
+            <button className="px-4 md:px-6 py-1 md:py-1.5 text-white/60 hover:text-white font-bold text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
               Esta semana
             </button>
           </div>

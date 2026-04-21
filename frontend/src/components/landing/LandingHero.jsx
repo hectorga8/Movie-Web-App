@@ -38,46 +38,47 @@ function LandingHero({ movies = [] }) {
       />
 
       {/* CAPA 3: CONTENIDO PRINCIPAL CENTRADO */}
-      <div className="relative z-20 w-full max-w-[1200px] mx-auto px-6 text-center text-white -mt-16">
+      <div className="relative z-20 w-full max-w-[1200px] mx-auto px-4 sm:px-6 text-center text-white -mt-10 md:-mt-16">
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="max-w-[900px] mx-auto"
-        >
-          <h1 className="text-6xl font-bold leading-tight sm:text-7xl lg:text-8xl tracking-tight">
-            Bienvenidos.
-          </h1>
-          <p className="mt-8 text-2xl md:text-3xl font-medium leading-relaxed max-w-[700px] mx-auto">
-            Millones de películas, series y gente por descubrir. <br className="hidden md:block" />
-            <span className="text-[#01b4e4] font-bold">Explora ahora</span> la infraestructura de cine definitiva.
-          </p>
-        </motion.div>
-
-        {/* ESTADÍSTICAS */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-col sm:flex-row items-center justify-center mt-16 gap-10 sm:gap-24"
-        >
-          <div className="flex items-center">
-            <p className="text-5xl font-bold text-white tracking-tight">+1M</p>
-            <p className="ml-4 text-sm text-white/60 font-bold leading-tight text-left uppercase tracking-widest">
-              Películas &<br />Series
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="max-w-[900px] mx-auto"
+          >
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight">
+              Bienvenidos.
+            </h1>
+            <p className="mt-4 md:mt-8 text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed max-w-[700px] mx-auto opacity-90">
+              Millones de películas, series y gente por descubrir. <br className="hidden md:block" />
+              <span className="text-[#01b4e4] font-bold">Explora ahora</span> la infraestructura definitiva.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="flex items-center">
-            <p className="text-5xl font-bold text-white tracking-tight">12,480</p>
-            <p className="ml-4 text-sm text-white/60 font-bold leading-tight text-left uppercase tracking-widest">
-              Usuarios<br />Activos
-            </p>
-          </div>
-        </motion.div>
+          {/* ESTADÍSTICAS */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex flex-row items-center justify-center mt-10 md:mt-16 gap-8 sm:gap-16 md:gap-24"
+          >
+            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
+              <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">+1M</p>
+              <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-bold leading-tight text-center sm:text-left uppercase tracking-widest">
+                Películas <br className="hidden sm:block" /> & Series
+              </p>
+            </div>
 
-      </div>
+            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
+              <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">12k</p>
+              <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-bold leading-tight text-center sm:text-left uppercase tracking-widest">
+                Usuarios <br className="hidden sm:block" /> Activos
+              </p>
+            </div>
+          </motion.div>
+
+        </div>
+
     </section>
   );
 }

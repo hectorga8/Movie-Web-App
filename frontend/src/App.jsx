@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/layout/Header';
+
 import Footer from './components/layout/Footer';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
@@ -10,9 +12,20 @@ import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ProtectedRoute from './components/common/ProtectedRoute';
+// ... (resto de imports)
+
+// Utilidad para subir al inicio en cada cambio de ruta
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 // Componente para decidir qué Header mostrar según la página
 function HeaderWrapper() {
+// ...
   const location = useLocation();
   const landingPaths = ['/', '/login', '/registro'];
   const variant = landingPaths.includes(location.pathname) ? 'landing' : 'app';

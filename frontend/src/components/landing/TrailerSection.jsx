@@ -41,20 +41,20 @@ function TrailerSection({ movies = [] }) {
   };
 
   return (
-    <section className="w-full py-14 bg-[#0d0e12] text-white relative overflow-hidden">
+    <section className="w-full py-8 md:py-14 bg-[#0d0e12] text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="w-full h-full bg-[radial-gradient(circle_at_center,rgba(1,180,228,0.3),transparent_70%)]"></div>
       </div>
       
-      <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
-        <div className="flex items-center gap-6 mb-8">
-          <h3 className="text-2xl md:text-3xl font-bold tracking-tighter">Últimos trailers</h3>
-          <div className="flex border border-white/10 rounded-full overflow-hidden bg-white/5">
-            <button className="px-6 py-1.5 bg-[#1060ff] text-white font-bold text-sm cursor-pointer transition-colors">
+      <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 relative z-10">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6 mb-6 md:mb-8">
+          <h3 className="text-xl md:text-3xl font-bold tracking-tight md:tracking-tighter">Últimos trailers</h3>
+          <div className="flex border border-white/10 rounded-full overflow-hidden bg-white/5 w-fit">
+            <button className="px-4 md:px-6 py-1 md:py-1.5 bg-[#1060ff] text-white font-bold text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
               Streaming
             </button>
-            <button className="px-6 py-1.5 text-white/60 font-bold text-sm cursor-pointer hover:text-white transition-colors">
-              En televisión
+            <button className="px-4 md:px-6 py-1 md:py-1.5 text-white/60 font-bold text-[12px] md:text-sm cursor-pointer hover:text-white transition-colors whitespace-nowrap">
+              En TV
             </button>
           </div>
         </div>
