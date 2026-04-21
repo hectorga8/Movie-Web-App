@@ -2,9 +2,12 @@
 // Footer.jsx - Versión CineBox (Inspirado en Hashicorp)
 // ─────────────────────────────────────────────────────────────
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 function Footer() {
+  const { user } = useAuth();
   const currentYear = new Date().getFullYear();
+  const logoPath = user ? "/inicio" : "/";
 
   return (
     <footer className="w-full bg-[#15181e] text-[#efeff1] border-t border-[#d5d7db]/10 pt-16 pb-8">
@@ -15,7 +18,7 @@ function Footer() {
           
           {/* Columna 1: Brand & Status */}
           <div className="col-span-2 lg:col-span-2 space-y-6">
-            <Link to="/" className="flex items-center gap-2 group">
+            <Link to={logoPath} className="flex items-center gap-2 group">
               <div className="w-8 h-8 bg-white rounded-[4px] flex items-center justify-center text-black font-bold text-xl">C</div>
               <span className="font-brand text-2xl font-bold text-white">
                 CineBox
