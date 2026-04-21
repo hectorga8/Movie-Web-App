@@ -8,9 +8,9 @@ function SearchBar() {
   const [isFocused, setIsFocused] = useState(false);
   const [results, setResults] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
+  const [trending, setTrending] = useState([]);
   const [inputStyle, setInputStyle] = useState({});
   const [panelStyle, setPanelStyle] = useState({});
-  const [trendingTags] = useState(['Acción', 'Marvel', 'Netflix', 'Oscar 2024', 'Terror']);
   const navigate = useNavigate();
   const anchorRef = useRef(null);
   const portalRef = useRef(null);
@@ -47,6 +47,17 @@ function SearchBar() {
   }, [isFocused]);
 
   useEffect(() => {
+    const fetchTrending = async () => {
+      try {
+        const data = await movieService.getTrending();
+        // El backend devuelve el array directamente, no un objeto con .results
+        setTrending(data?.slice(0, 8) || []);
+      } catch (error) {
+        console.error("Error cargando tendencias:", error);
+      }
+    };
+    fetchTrending();
+
     const saved = sessionStorage.getItem('recentSearches');
     if (saved) setRecentSearches(JSON.parse(saved));
   }, []);
@@ -101,14 +112,17 @@ function SearchBar() {
     setIsFocused(false);
   };
 
+  const handleTrendingClick = (item) => {
+    setIsFocused(false);
+    navigate(`/${item.media_type === 'tv' ? 'serie' : 'pelicula'}/${item.id}`);
+  };
+
   return (
     <>
-      {/* ANCHOR invisible — ocupa el espacio en el header */}
       <div ref={anchorRef} className="relative w-full h-10" />
 
       {createPortal(
         <div ref={portalRef}>
-          {/* OVERLAY */}
           {isFocused && (
             <div
               className="fixed inset-0 bg-[#0d0e12]/60 pointer-events-none"
@@ -116,7 +130,6 @@ function SearchBar() {
             />
           )}
 
-          {/* INPUT — flotando encima de todo */}
           <div style={inputStyle}>
             <form onSubmit={handleSearchSubmit} className="relative h-full">
               <input
@@ -135,7 +148,6 @@ function SearchBar() {
             </form>
           </div>
 
-          {/* PANEL DESPLEGABLE */}
           {isFocused && (
             <div
               className="bg-[#1a1b23] border border-[#1060ff]/30 rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.8)] overflow-hidden"
@@ -144,9 +156,9 @@ function SearchBar() {
               <div className="p-4">
                 {query.length === 0 ? (
                   <div className="space-y-5">
-                    {recentSearches.length > 0 && (
-                      <div>
-                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-3">Recientes</p>
+                    <div>
+                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-3">Recientes</p>
+                      {recentSearches.length > 0 ? (
                         <div className="space-y-1">
                           {recentSearches.map((term, i) => (
                             <button
@@ -161,20 +173,29 @@ function SearchBar() {
                             </button>
                           ))}
                         </div>
-                      </div>
-                    )}
+                      ) : (
+                        <p className="px-3 py-2 text-white/20 text-[13px] italic">No hay búsquedas recientes</p>
+                      )}
+                    </div>
+
                     <div>
-                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-3">Tendencias hoy</p>
+                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-3">Tendencias</p>
                       <div className="flex flex-wrap gap-2">
-                        {trendingTags.map((tag, i) => (
-                          <button
-                            key={i}
-                            onClick={() => handleTagClick(tag)}
-                            className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[12px] font-bold text-white/60 hover:bg-[#1060ff] hover:text-white hover:border-transparent transition-all"
-                          >
-                            {tag}
-                          </button>
-                        ))}
+                        {trending.length > 0 ? (
+                          trending.map((item) => (
+                            <button
+                              key={item.id}
+                              onClick={() => handleTrendingClick(item)}
+                              className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[12px] font-bold text-white/60 hover:bg-[#1060ff] hover:text-white hover:border-transparent transition-all"
+                            >
+                              {item.title || item.name}
+                            </button>
+                          ))
+                        ) : (
+                          <div className="flex gap-2 animate-pulse">
+                            {[1, 2, 3].map(i => <div key={i} className="h-7 w-20 bg-white/5 rounded-full" />)}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

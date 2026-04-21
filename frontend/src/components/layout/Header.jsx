@@ -50,7 +50,7 @@ function Header({ variant = "landing" }) {
           </div>
 
           {/* CENTRO: Buscador (Visible siempre) */}
-          <div className="flex-1 max-w-[400px]">
+          <div className="flex-1 max-w-[260px] px-4 md:mx-8">
             <SearchBar />
           </div>
 
