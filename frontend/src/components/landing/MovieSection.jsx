@@ -68,7 +68,7 @@ function MovieSection({ title, items, type = "pelicula" }) {
           <div 
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex overflow-x-auto gap-8 pb-8 no-scrollbar scroll-smooth outline-none relative z-10"
+            className="flex overflow-x-auto gap-8 pt-10 pb-8 no-scrollbar scroll-smooth outline-none relative z-10 -mt-10"
           >
             {items.map(item => (
               <Link 

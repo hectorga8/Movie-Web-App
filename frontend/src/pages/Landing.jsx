@@ -79,7 +79,8 @@ function Landing() {
     if (trendingMovies.length === 0 || popularMovies.length === 0 || trendingTV.length === 0) return;
 
     const unique = Array.from(new Map(combined.map(item => [item.id, item])).values());
-    setHeroContent(unique.sort(() => Math.random() - 0.5));
+    // Orden estático basado en popularidad (ya viene ordenado de la API) y limitado a 24 ítems
+    setHeroContent(unique.slice(0, 24));
   }, [trendingMovies, popularMovies, trendingTV]);
 
   return (

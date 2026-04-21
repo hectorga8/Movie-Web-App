@@ -81,7 +81,7 @@ function TrailerSection({ movies = [] }) {
           <div 
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex overflow-x-auto gap-6 pb-8 no-scrollbar scroll-smooth outline-none relative z-10"
+            className="flex overflow-x-auto gap-6 pt-10 pb-8 no-scrollbar scroll-smooth outline-none relative z-10 -mt-10"
           >
             {movies.map(movie => (
               <div 
