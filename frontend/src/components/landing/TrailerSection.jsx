@@ -41,7 +41,7 @@ function TrailerSection({ movies = [] }) {
   };
 
   return (
-    <section className="w-full py-14 bg-[#032541] text-white relative overflow-hidden">
+    <section className="w-full py-14 bg-[#0d0e12] text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="w-full h-full bg-[radial-gradient(circle_at_center,rgba(1,180,228,0.3),transparent_70%)]"></div>
       </div>
@@ -49,11 +49,11 @@ function TrailerSection({ movies = [] }) {
       <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
         <div className="flex items-center gap-6 mb-8">
           <h3 className="text-2xl md:text-3xl font-bold tracking-tighter">Últimos trailers</h3>
-          <div className="flex border border-mds-color-waypoint rounded-full overflow-hidden">
-            <button className="px-6 py-1.5 bg-mds-color-waypoint text-[#032541] font-bold text-sm cursor-pointer transition-colors">
+          <div className="flex border border-white/10 rounded-full overflow-hidden bg-white/5">
+            <button className="px-6 py-1.5 bg-[#1060ff] text-white font-bold text-sm cursor-pointer transition-colors">
               Streaming
             </button>
-            <button className="px-6 py-1.5 text-white font-bold text-sm cursor-pointer hover:bg-white/10 transition-colors">
+            <button className="px-6 py-1.5 text-white/60 font-bold text-sm cursor-pointer hover:text-white transition-colors">
               En televisión
             </button>
           </div>
@@ -63,7 +63,7 @@ function TrailerSection({ movies = [] }) {
           {showLeftBtn && (
             <button 
               onClick={() => scroll('left')}
-              className="absolute left-0 top-[100px] -translate-y-1/2 -ml-4 z-40 w-11 h-11 rounded-full bg-white shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-black border border-gray-200"
+              className="absolute left-0 top-[100px] -translate-y-1/2 -ml-4 z-40 w-11 h-11 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" /></svg>
             </button>
@@ -71,25 +71,25 @@ function TrailerSection({ movies = [] }) {
 
           <button 
             onClick={() => scroll('right')}
-            className="absolute right-0 top-[100px] -translate-y-1/2 -mr-4 z-40 w-11 h-11 rounded-full bg-white shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-black border border-gray-200"
+            className="absolute right-0 top-[100px] -translate-y-1/2 -mr-4 z-40 w-11 h-11 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
           </button>
 
-          <div className="absolute -right-2 top-0 h-full w-40 z-20 pointer-events-none bg-gradient-to-l from-[#032541] via-[#032541]/80 to-transparent"></div>
+          <div className="absolute -right-2 top-0 h-full w-40 z-20 pointer-events-none bg-gradient-to-l from-[#0d0e12] via-[#0d0e12]/80 to-transparent"></div>
 
           <div 
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex overflow-x-auto gap-8 pb-8 no-scrollbar scroll-smooth outline-none relative z-10"
+            className="flex overflow-x-auto gap-6 pb-8 no-scrollbar scroll-smooth outline-none relative z-10"
           >
             {movies.map(movie => (
               <div 
                 key={movie.id} 
                 onClick={() => handlePlayTrailer(movie.id)}
-                className="min-w-[300px] md:min-w-[350px] h-auto group cursor-pointer shrink-0"
+                className="min-w-[240px] md:min-w-[275px] h-auto group cursor-pointer shrink-0"
               >
-                <div className="h-[200px] relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-300 group-hover:scale-[1.03]">
+                <div className="h-[160px] relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-300 group-hover:scale-[1.03]">
                   <img 
                     src={movie.backdrop} 
                     alt={movie.title} 
