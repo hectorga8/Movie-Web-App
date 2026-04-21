@@ -8,27 +8,28 @@ function LandingHero({ movies = [] }) {
     <section className="relative w-full h-[420px] md:h-[700px] flex items-center justify-center overflow-hidden bg-black">
 
       {/* CAPA 1: MURO DE PÓSTERS EN DIAGONAL */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
         <div
           className="flex flex-wrap justify-center gap-4 w-[200%] opacity-20 -rotate-12 scale-150 blur-xs"
-          style={{ transformOrigin: 'center center' }}
+          style={{ transformOrigin: 'center center', minHeight: '100%' }}
         >
           {backgroundPosters.map((movie, idx) => (
             <div
               key={`${movie.id}-${idx}`}
-              className="w-[140px] md:w-[200px] aspect-[2/3] shrink-0 overflow-hidden rounded-xl shadow-2xl border border-white/5"
+              className="w-[140px] md:w-[200px] aspect-[2/3] shrink-0 overflow-hidden rounded-xl shadow-2xl border border-white/5 bg-white/5"
             >
               <img
                 src={movie.image}
                 alt=""
                 className="w-full h-full object-cover"
+                loading="eager"
               />
             </div>
           ))}
         </div>
       </div>
 
-      {/* CAPA 2: UN SOLO GRADIENTE — sin overlay sólido encima */}
+      {/* CAPA 2: UN SOLO GRADIENTE */}
       <div
         className="absolute inset-0 z-10"
         style={{
@@ -67,7 +68,7 @@ function LandingHero({ movies = [] }) {
               Películas &<br />Series
             </p>
           </div>
-          
+
           <div className="flex items-center">
             <p className="text-5xl font-bold text-white tracking-tight">12,480</p>
             <p className="ml-4 text-sm text-white/60 font-bold leading-tight text-left uppercase tracking-widest">

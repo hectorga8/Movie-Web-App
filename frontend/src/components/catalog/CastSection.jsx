@@ -25,38 +25,38 @@ const CastSection = ({ cast }) => {
 
   return (
     <div className="mb-16 relative">
-      <h3 className="font-brand text-3xl text-black mb-8 leading-tight font-bold">Reparto Principal</h3>
+      <h3 className="font-brand text-3xl text-white mb-8 leading-tight font-bold">Reparto Principal</h3>
       
       <div className="relative group/scroll">
         {showLeftArrow && (
-          <button onClick={() => handleScroll('left')} className="absolute left-[-15px] top-[95px] z-30 w-10 h-10 bg-white shadow-xl rounded-full flex items-center justify-center border border-[#d5d7db]/40 hover:scale-110 transition-all cursor-pointer">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" /></svg>
+          <button onClick={() => handleScroll('left')} className="absolute left-[-15px] top-[95px] z-30 w-11 h-11 bg-white/10 backdrop-blur-md shadow-2xl rounded-full flex items-center justify-center border border-white/10 hover:scale-110 transition-all cursor-pointer text-white">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" /></svg>
           </button>
         )}
         
         {!isAtEnd && (
-          <button onClick={() => handleScroll('right')} className="absolute right-[-15px] top-[95px] z-30 w-10 h-10 bg-white shadow-xl rounded-full flex items-center justify-center border border-[#d5d7db]/40 hover:scale-110 transition-all cursor-pointer">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" /></svg>
+          <button onClick={() => handleScroll('right')} className="absolute right-[-15px] top-[95px] z-30 w-11 h-11 bg-white/10 backdrop-blur-md shadow-2xl rounded-full flex items-center justify-center border border-white/10 hover:scale-110 transition-all cursor-pointer text-white">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
           </button>
         )}
 
-        {!isAtEnd && <div className="absolute right-0 top-0 h-[200px] w-32 z-20 pointer-events-none bg-gradient-to-l from-white via-white/30 to-transparent"></div>}
+        {!isAtEnd && <div className="absolute right-0 top-0 h-[220px] w-40 z-20 pointer-events-none bg-gradient-to-l from-[#0d0e12] via-[#0d0e12]/30 to-transparent"></div>}
         
         <div ref={scrollRef} onScroll={onScroll} className="flex overflow-x-auto gap-6 pb-6 no-scrollbar scroll-smooth snap-x">
           {cast.slice(0, 15).map(person => (
-            <div key={person.id} className="snap-start scale-95 transition-transform hover:scale-100 origin-top">
+            <div key={person.id} className="snap-start transition-transform hover:scale-[1.03] origin-top">
               <CastCard person={person} />
             </div>
           ))}
-          <div className="min-w-[140px] flex items-center justify-center h-[180px]">
-            <button className="text-[11px] font-bold text-black underline underline-offset-8 hover:text-[#1060ff] transition-colors tracking-widest uppercase opacity-60 hover:opacity-100 cursor-pointer">
+          <div className="min-w-[140px] flex items-center justify-center h-[220px]">
+            <button className="text-[11px] font-bold text-white/40 hover:text-white transition-colors tracking-[2px] uppercase cursor-pointer">
               Todo el reparto
             </button>
           </div>
         </div>
       </div>
-      <div className="w-full h-[2px] bg-[#f1f2f3] rounded-full overflow-hidden mt-2">
-        <div className="h-full bg-[#1060ff]/20 w-1/5 rounded-full"></div>
+      <div className="w-full h-[1px] bg-white/5 rounded-full overflow-hidden mt-2">
+        <div className="h-full bg-[#1060ff]/30 w-1/5 rounded-full"></div>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const CastCard = ({ person }) => {
   
   return (
     <div className="min-w-[140px] md:min-w-[160px] group cursor-pointer">
-      <div className="h-[220px] mb-3 rounded-[4px] overflow-hidden border border-[#d5d7db]/40 shadow-whisper bg-[#f1f2f3]">
+      <div className="h-[220px] mb-3 rounded-[8px] overflow-hidden border border-white/10 shadow-2xl bg-black/20">
         <img 
           src={movieService.getImageUrl(person.profile_path, 'w185')} 
           alt={person.name} 
@@ -14,10 +14,10 @@ const CastCard = ({ person }) => {
           loading="lazy"
         />
       </div>
-      <h4 className="font-bold text-[14px] text-black leading-tight mb-0.5 group-hover:text-[#1060ff] transition-colors">
+      <h4 className="font-bold text-[15px] text-white leading-tight mb-1 group-hover:text-[#1060ff] transition-colors">
         {person.name}
       </h4>
-      <p className="text-[12px] text-[#656a76] font-medium leading-tight">
+      <p className="text-[12px] text-white/40 font-medium leading-tight">
         {person.character}
       </p>
     </div>

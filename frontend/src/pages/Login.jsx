@@ -54,19 +54,22 @@ function Login() {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-[#0d0e12] py-8 px-6">
-      <div className="fade-up w-full max-w-[420px]">
+    <div className="flex-1 flex flex-col items-center justify-center bg-[#0d0e12] py-8 px-6 relative overflow-hidden">
+      {/* Fondo decorativo sutil */}
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(16,96,255,0.05),transparent_70%)] pointer-events-none"></div>
+
+      <div className="fade-up w-full max-w-[420px] relative z-10">
         
-        <div className="w-full bg-white rounded-[8px] overflow-hidden shadow-2xl border border-white/10">
+        <div className="w-full bg-white/5 backdrop-blur-xl rounded-[12px] overflow-hidden shadow-2xl border border-white/10">
           {/* Línea de acento color Action Blue */}
-          <div className="h-1 w-full bg-[#1060ff]"></div>
+          <div className="h-1.5 w-full bg-[#1060ff] shadow-[0_0_15px_rgba(16,96,255,0.4)]"></div>
           
           <div className="p-8 md:p-10">
             <header className="mb-8 text-center">
-              <h2 className="text-[28px] font-bold text-black h-tight mb-2 tracking-tight">
+              <h2 className="text-[32px] font-bold text-white h-tight mb-3 tracking-tight">
                 Inicia Sesión
               </h2>
-              <p className="text-[14px] text-[#656a76] leading-relaxed">
+              <p className="text-[14px] text-white/50 leading-relaxed">
                 Accede a tu infraestructura de cine privada.
               </p>
             </header>
@@ -75,8 +78,8 @@ function Login() {
               <button 
                 onClick={() => handleGoogleLogin()}
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-[5px] bg-[#f1f2f3] 
-                hover:bg-[#d5d7db] border border-[#d5d7db] text-black text-[12px] font-bold transition-all active:scale-[0.98]"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 rounded-[8px] bg-white/5 
+                hover:bg-white/10 border border-white/10 text-white text-[12px] font-bold transition-all active:scale-[0.98] cursor-pointer"
               >
                 <svg className="w-4 h-4 shrink-0" viewBox="0 0 32 32">
                   <path d="M31.107 16.31c0-1.072-.096-2.102-.275-3.093H15.867v5.85h8.552c-.368 1.986-1.442 3.668-3.123 4.843v4.025h5.059c2.96-2.724 4.752-6.735 4.752-11.625z" fill="#4285F4"/>
@@ -88,40 +91,38 @@ function Login() {
               </button>
 
               <div className="flex items-center gap-3">
-                <div className="flex-1 h-[1px] bg-[#d5d7db]/60"></div>
-                <span className="text-[9px] font-bold text-[#b2b6bd] uppercase tracking-[2px]">o acceso local</span>
-                <div className="flex-1 h-[1px] bg-[#d5d7db]/60"></div>
+                <div className="flex-1 h-[1px] bg-white/5"></div>
+                <span className="text-[9px] font-bold text-white/20 uppercase tracking-[2px]">o acceso local</span>
+                <div className="flex-1 h-[1px] bg-white/5"></div>
               </div>
 
-              <form className="space-y-4 flex flex-col items-center" onSubmit={handleSubmit}>
+              <form className="space-y-5 flex flex-col items-center" onSubmit={handleSubmit}>
                 {error && (
-                  <div className="w-full p-3 rounded-[4px] bg-red-50 border border-red-100 text-red-600 text-[11px] font-medium text-center">
+                  <div className="w-full p-3 rounded-[6px] bg-red-500/10 border border-red-500/20 text-red-400 text-[11px] font-medium text-center">
                     {error}
                   </div>
                 )}
 
-                <div className="w-full space-y-1.5">
-                  <label className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#656a76] block text-center">Email</label>
+                <div className="w-full space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 block text-center">Email</label>
                   <input 
                     type="email" 
                     placeholder="usuario@ejemplo.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-[4px] bg-[#f8f9fa] border border-[#d5d7db] text-black text-sm focus:outline-none focus:border-[#1060ff] transition-all text-center"
+                    className="w-full px-4 py-3 rounded-[8px] bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#1060ff] focus:bg-white/10 transition-all text-center placeholder:text-white/20"
                     required
                   />
                 </div>
 
-                <div className="w-full space-y-1.5">
-                  <div className="flex justify-center items-center relative">
-                    <label className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#656a76] block text-center">Contraseña</label>
-                  </div>
+                <div className="w-full space-y-2">
+                  <label className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 block text-center">Contraseña</label>
                   <input 
                     type="password" 
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-[4px] bg-[#f8f9fa] border border-[#d5d7db] text-black text-sm focus:outline-none focus:border-[#1060ff] transition-all text-center"
+                    className="w-full px-4 py-3 rounded-[8px] bg-white/5 border border-white/10 text-white text-sm focus:outline-none focus:border-[#1060ff] focus:bg-white/10 transition-all text-center placeholder:text-white/20"
                     required
                   />
                 </div>
@@ -129,24 +130,21 @@ function Login() {
                 <button 
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3.5 rounded-[4px] bg-black hover:bg-[#3b3d45] text-white text-[12px] font-bold transition-all mt-4 tracking-[1.5px] uppercase active:scale-[0.99]"
+                  className="w-full py-4 rounded-[8px] bg-[#1060ff] hover:bg-[#2b89ff] text-white text-[12px] font-bold transition-all mt-4 tracking-[1.5px] uppercase active:scale-[0.99] shadow-lg shadow-[#1060ff]/20 cursor-pointer"
                 >
                   {loading ? 'AUTENTICANDO...' : 'INICIAR SESIÓN'}
                 </button>
               </form>
 
-              <div className="text-center pt-6 border-t border-[#f1f2f3]">
-                <p className="text-[13px] text-[#3b3d45]">
+              <div className="text-center pt-8 border-t border-white/5">
+                <p className="text-[13px] text-white/40">
                   ¿No tienes una cuenta?{' '}
-                  <Link to="/registro" className="text-[#1060ff] font-bold hover:underline">Crear cuenta</Link>
+                  <Link to="/registro" className="text-[#1060ff] font-bold hover:text-[#2b89ff] transition-colors">Crear cuenta</Link>
                 </p>
               </div>
             </div>
           </div>
         </div>
-
-        
-
       </div>
     </div>
   );

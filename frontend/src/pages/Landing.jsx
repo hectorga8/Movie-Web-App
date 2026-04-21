@@ -59,36 +59,41 @@ function Landing() {
   // Configuración de cada sección
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.8, ease: "easeOut" } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" }
     }
   };
 
   // Combinar todo el contenido para un fondo de Hero masivo y único
-  const allHeroContent = React.useMemo(() => {
+  const [heroContent, setHeroContent] = useState(
+    Array(24).fill(null).map((_, i) => ({ id: `placeholder-${i}`, image: '' }))
+  );
+
+  useEffect(() => {
     const combined = [...trendingMovies, ...popularMovies, ...trendingTV];
-    // Eliminar duplicados por ID
+    if (combined.length === 0) return; // Todavía no hay datos, mantener placeholders
+
+    // Solo actualizar si tenemos los 3 arrays cargados
+    if (trendingMovies.length === 0 || popularMovies.length === 0 || trendingTV.length === 0) return;
+
     const unique = Array.from(new Map(combined.map(item => [item.id, item])).values());
-    // Aleatorizar el orden
-    return unique.sort(() => Math.random() - 0.5);
+    setHeroContent(unique.sort(() => Math.random() - 0.5));
   }, [trendingMovies, popularMovies, trendingTV]);
 
   return (
-    <motion.div 
+    <motion.div
       className="w-full bg-[#0d0e12] overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={containerVariants}
     >
-      {/* 1. HERO (Ahora con contenido masivo y único) */}
-      <motion.div variants={itemVariants}>
-        <LandingHero movies={allHeroContent} />
-      </motion.div>
-      
+      {/* 1. HERO (Ahora con contenido masivo y único y sin animación de entrada global) */}
+      <LandingHero movies={heroContent} />
+
       {/* 2. TENDENCIAS (Entra segundo) */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -97,7 +102,7 @@ function Landing() {
       </motion.div>
 
       {/* 3. TRAILERS (Con efecto de revelación al scroll) */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -106,7 +111,7 @@ function Landing() {
       </motion.div>
 
       {/* 4. SERIES (Aparece suavemente) */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -115,16 +120,16 @@ function Landing() {
       </motion.div>
 
       {/* 5. POPULARES */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
       >
         <MovieSection title="Lo más popular" items={popularMovies} />
       </motion.div>
-      
+
       {/* 6. JOIN SECTION (Cierre de página) */}
-      <motion.div 
+      <motion.div
         variants={itemVariants}
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}

@@ -60,7 +60,7 @@ function Serie() {
             || 'N/R';
 
   return (
-    <div className="flex-1 bg-white flex flex-col items-center">
+    <div className="flex-1 bg-[#0d0e12] flex flex-col items-center text-white">
       
       <DetailHero 
         item={serie} 
@@ -74,31 +74,31 @@ function Serie() {
       <div className="w-full max-w-[1200px] px-6 py-12 flex flex-col lg:flex-row gap-12 lg:gap-16">
         <div className="flex-1 min-w-0">
           
-          <div className="mb-10 py-3 px-5 bg-[#7b42bc]/5 border-l-4 border-[#7b42bc] rounded-r-[3px] flex items-center gap-4 text-[13px] font-medium text-[#3b3d45]">
-            <span className="text-xl">🏆</span>
+          <div className="mb-10 py-4 px-6 bg-white/5 border-l-4 border-[#7b42bc] rounded-r-[8px] flex items-center gap-4 text-[14px] font-medium text-white/80">
+            <span className="text-2xl">🏆</span>
             <p><span className="font-bold text-[#7b42bc] uppercase mr-2 tracking-widest text-[11px]">Reconocimiento</span>Esta obra es contenido premium CineBox.</p>
           </div>
 
-          <hr className="border-[#f1f2f3] mb-12" />
+          <hr className="border-white/5 mb-12" />
 
           <CastSection cast={serie.credits?.cast} />
 
-          <hr className="border-[#f1f2f3] mb-12" />
+          <hr className="border-white/5 mb-12" />
 
           <SeasonSection seasons={serie.seasons} seriesOverview={serie.overview} />
 
-          <hr className="border-[#f1f2f3] mb-12" />
+          <hr className="border-white/5 mb-12" />
 
           <div className="mb-16">
-            <h3 className="font-brand text-3xl text-black mb-8 leading-tight font-bold">Reseñas de Usuarios</h3>
+            <h3 className="font-brand text-3xl text-white mb-8 leading-tight font-bold">Reseñas de Usuarios</h3>
             {serie.reviews?.results?.length > 0 ? (
               <div className="space-y-4">
                 {serie.reviews.results.slice(0, 2).map(rev => <ReviewCard key={rev.id} review={rev} />)}
               </div>
-            ) : <p className="text-[14px] text-[#656a76] italic opacity-60">Aún no hay reseñas registradas.</p>}
+            ) : <p className="text-[14px] text-white/40 italic">Aún no hay reseñas registradas.</p>}
           </div>
 
-          <hr className="border-[#f1f2f3] mb-12" />
+          <hr className="border-white/5 mb-12" />
 
           <RecommendationsGrid 
             items={serie.recommendations?.results} 
