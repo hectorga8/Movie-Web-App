@@ -2,9 +2,22 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+const RSSParser = require('rss-parser');
 
 const app = express();
 const PORT = process.env.PORT || 5002;
+
+const parser = new RSSParser({
+  customFields: {
+    item: [
+      ['media:content', 'mediaContent'],
+      ['content:encoded', 'contentEncoded']
+    ]
+  },
+  headers: { 
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+  }
+});
 
 app.use(cors());
 app.use(express.json());
@@ -20,12 +33,73 @@ const tmdbApi = axios.create({
   }
 });
 
-// --- MOVIES ---
+// Middleware para asegurar que siempre enviamos el api_key como fallback si no es un token v4
+tmdbApi.interceptors.request.use(config => {
+  if (TMDB_TOKEN && TMDB_TOKEN.length < 50) { // Probablemente es una API Key v3
+    config.params = { ...config.params, api_key: TMDB_TOKEN };
+  }
+  return config;
+});
+
+// --- NOTICIAS REALES (Espinof - Artículos directos con imágenes) ---
+app.get('/api/movies/news', async (req, res) => {
+  try {
+    const feed = await parser.parseURL('https://www.espinof.com/index.xml');
+    
+    const news = feed.items.slice(0, 5).map(item => {
+      // En Espinof, la imagen suele venir en media:content o enclosure
+      let image = null;
+      if (item.enclosure && item.enclosure.url) image = item.enclosure.url;
+      if (!image && item.mediaContent) image = item.mediaContent.$.url;
+      
+      // Si no, buscamos en el contenido HTML
+      if (!image) {
+        const content = item.contentEncoded || item.content || "";
+        const imgMatch = content.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (imgMatch) image = imgMatch[1];
+      }
+
+      // Imagen por defecto si falla todo
+      if (!image) image = "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop";
+
+      return {
+        id: item.guid || item.link,
+        title: item.title,
+        excerpt: (item.contentSnippet || "").substring(0, 180).replace(/<[^>]*>?/gm, '') + '...',
+        image: image,
+        source: "Espinof", // Crédito a la fuente
+        url: item.link,
+        date: item.pubDate ? new Date(item.pubDate).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }) : "Hoy"
+      };
+    });
+
+    res.status(200).json(news);
+  } catch (error) {
+    console.error("❌ Error RSS:", error.message);
+    res.status(200).json([]); // Fallback al front
+  }
+});
+
+// --- TV SERIES ---
+app.get('/api/tv/list/trending', async (req, res) => {
+  try {
+    const { data } = await tmdbApi.get('/trending/tv/week', { params: { language: 'es-ES' } });
+    res.json(data.results || []);
+  } catch (error) { 
+    console.error("❌ Error TV Trending:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Error obteniendo series' }); 
+  }
+});
+
+// --- PELÍCULAS ---
 app.get('/api/movies/trending', async (req, res) => {
   try {
-    const { data } = await tmdbApi.get('/trending/movie/day', { params: { language: 'es-ES' } });
-    res.json(data.results);
-  } catch (error) { res.status(500).json({ error: 'Error TMDb' }); }
+    const { data } = await tmdbApi.get('/trending/movie/week', { params: { language: 'es-ES' } });
+    res.json(data.results || []);
+  } catch (error) {
+    console.error("❌ Error Movie Trending:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Error TMDb Trending' });
+  }
 });
 
 app.get('/api/movies/popular', async (req, res) => {
@@ -35,91 +109,35 @@ app.get('/api/movies/popular', async (req, res) => {
   } catch (error) { res.status(500).json({ error: 'Error TMDb' }); }
 });
 
+app.get('/api/movies/now-playing', async (req, res) => {
+  try {
+    const { data } = await tmdbApi.get('/movie/now_playing', { params: { language: 'es-ES' } });
+    res.json(data.results);
+  } catch (error) { res.status(500).json({ error: 'Error TMDb' }); }
+});
+
 app.get('/api/movies/:id', async (req, res) => {
   try {
-    const { data } = await tmdbApi.get(`/movie/${req.params.id}`, {
+    // Pedimos el detalle en español pero incluimos vídeos sin filtro de idioma estricto
+    const { data } = await tmdbApi.get(`/movie/${req.params.id}`, { 
       params: { 
-        append_to_response: 'credits,videos,recommendations,external_ids,reviews,release_dates,watch/providers',
         language: 'es-ES',
-        include_video_language: 'es,en,null'
-      }
+        append_to_response: 'videos',
+        include_video_language: 'es,en,null' // Traer español, inglés o sin idioma definido
+      } 
     });
     res.json(data);
-  } catch (error) { res.status(500).json({ error: 'Error' }); }
-});
-
-// --- SEARCH GLOBAL (CON ORDENAMIENTO REAL) ---
-app.get('/api/search/multi', async (req, res) => {
-  try {
-    const { query, sortBy = 'relevance' } = req.query;
-    
-    // Pedimos las primeras 5 páginas de TMDb (100 resultados) para tener una base sólida de ordenamiento
-    const pagesToFetch = [1, 2, 3, 4, 5];
-    const requests = pagesToFetch.map(p => 
-      tmdbApi.get('/search/multi', { params: { query, language: 'es-ES', page: p } })
-    );
-
-    const responses = await Promise.all(requests);
-    let allResults = [];
-    
-    responses.forEach(r => {
-      allResults = [...allResults, ...r.data.results];
-    });
-
-    // 1. Limpieza: Solo películas y series que tengan póster (calidad)
-    let filtered = allResults.filter(item => 
-      (item.media_type === 'movie' || item.media_type === 'tv') && item.poster_path
-    );
-
-    // 2. Eliminar duplicados (a veces TMDb repite en diferentes páginas si el índice cambia)
-    filtered = Array.from(new Map(filtered.map(item => [item.id, item])).values());
-
-    // 3. Ordenamiento Global
-    if (sortBy === 'popularity') {
-      filtered.sort((a, b) => b.popularity - a.popularity);
-    } else if (sortBy === 'rating') {
-      filtered.sort((a, b) => b.vote_average - a.vote_average);
-    } else if (sortBy === 'newest') {
-      filtered.sort((a, b) => {
-        const dateA = a.release_date || a.first_air_date || "0000-00-00";
-        const dateB = b.release_date || b.first_air_date || "0000-00-00";
-        return dateB.localeCompare(dateA);
-      });
-    }
-    // Si es relevance, dejamos el orden original de TMDb (que ya viene mezclado en las 5 páginas)
-
-    res.json({
-      results: filtered,
-      total_results: filtered.length
-    });
-
-  } catch (error) {
-    console.error("❌ Error Search:", error.message);
-    res.status(500).json({ error: 'Error en la búsqueda global' });
+  } catch (error) { 
+    console.error("❌ Error Detalle Película:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Error obteniendo detalles' }); 
   }
-});
-
-// --- TV SERIES ---
-app.get('/api/tv/list/trending', async (req, res) => {
-  try {
-    const { data } = await tmdbApi.get('/trending/tv/day', { params: { language: 'es-ES' } });
-    res.json(data.results);
-  } catch (error) { res.status(500).json({ error: 'Error' }); }
 });
 
 app.get('/api/tv/:id', async (req, res) => {
   try {
-    const { data } = await tmdbApi.get(`/tv/${req.params.id}`, {
-      params: { 
-        append_to_response: 'credits,videos,recommendations,external_ids,reviews,content_ratings,watch/providers',
-        language: 'es-ES',
-        include_video_language: 'es,en,null'
-      }
-    });
+    const { data } = await tmdbApi.get(`/tv/${req.params.id}`, { params: { language: 'es-ES' } });
     res.json(data);
-  } catch (error) {
-    res.status(500).json({ error: 'Error obteniendo serie' });
-  }
+  } catch (error) { res.status(500).json({ error: 'Error obteniendo serie' }); }
 });
 
 app.listen(PORT, () => {

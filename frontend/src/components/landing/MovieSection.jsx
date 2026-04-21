@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 function MovieSection({ title, items, type = "pelicula" }) {
   const scrollRef = useRef(null);
   const [showLeftBtn, setShowLeftBtn] = useState(false);
+  const [showRightBtn, setShowRightBtn] = useState(true);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -18,9 +19,16 @@ function MovieSection({ title, items, type = "pelicula" }) {
 
   const handleScroll = () => {
     if (scrollRef.current) {
-      setShowLeftBtn(scrollRef.current.scrollLeft > 10);
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeftBtn(scrollLeft > 10);
+      setShowRightBtn(scrollLeft + clientWidth < scrollWidth - 50);
     }
   };
+
+  // Comprobar si hay scroll disponible al cargar los items
+  React.useEffect(() => {
+    handleScroll();
+  }, [items]);
 
   // Función para obtener el color del rating basado en DESIGN.md
   const getRatingColor = (rating) => {
@@ -50,25 +58,27 @@ function MovieSection({ title, items, type = "pelicula" }) {
           {showLeftBtn && (
             <button 
               onClick={() => scroll('left')}
-              className="absolute left-0 top-[135px] -translate-y-1/2 -ml-4 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
+              className="absolute left-0 top-[175px] -translate-y-1/2 -ml-4 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" /></svg>
             </button>
           )}
 
-          <button 
-            onClick={() => scroll('right')}
-            className="absolute right-0 top-[135px] -translate-y-1/2 -mr-4 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
-          </button>
+          {showRightBtn && (
+            <button 
+              onClick={() => scroll('right')}
+              className="absolute right-0 top-[175px] -translate-y-1/2 -mr-4 z-30 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
+            </button>
+          )}
 
-          <div className="absolute right-0 top-0 h-[270px] w-32 z-20 pointer-events-none bg-gradient-to-l from-[#0d0e12] to-transparent"></div>
+          {/* ELIMINADO DEFINITIVAMENTE EL DEGRADADO */}
 
           <div 
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex overflow-x-auto gap-8 pt-10 pb-8 no-scrollbar scroll-smooth outline-none relative z-10 -mt-10"
+            className="flex overflow-x-auto gap-8 pt-10 pb-8 no-scrollbar scroll-smooth outline-none relative z-10 -mt-10 pr-8"
           >
             {items.map(item => (
               <Link 
@@ -76,7 +86,7 @@ function MovieSection({ title, items, type = "pelicula" }) {
                 key={item.id} 
                 className="min-w-[180px] max-w-[180px] group/card cursor-pointer shrink-0 text-left"
               >
-                <div className="relative mb-6 rounded-xl overflow-hidden shadow-lg transition-transform duration-300 group-hover/card:scale-105">
+                <div className="relative mb-6 rounded-xl overflow-hidden transition-transform duration-300 group-hover/card:scale-105 group-hover/card:shadow-lg group-hover/card:shadow-black/50">
                   <img 
                     src={item.image} 
                     alt={item.title} 
@@ -95,6 +105,17 @@ function MovieSection({ title, items, type = "pelicula" }) {
                 <p className="opacity-50 text-sm mt-1 font-medium text-white">{item.date}</p>
               </Link>
             ))}
+
+            {/* Enlace simple "Ver más" */}
+            <Link 
+              to="/search" 
+              className="min-w-[140px] flex items-center justify-center group/more h-[270px] pr-4"
+            >
+              <span className="font-bold text-lg text-white/40 group-hover/more:text-[#1060ff] transition-colors whitespace-nowrap flex items-center gap-2">
+                Ver más
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+              </span>
+            </Link>
           </div>
         </div>
       </div>

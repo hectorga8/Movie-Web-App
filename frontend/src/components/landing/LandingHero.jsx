@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 function LandingHero({ movies = [] }) {
   const backgroundPosters = movies;
@@ -18,12 +17,16 @@ function LandingHero({ movies = [] }) {
               key={`${movie.id}-${idx}`}
               className="w-[140px] md:w-[200px] aspect-[2/3] shrink-0 overflow-hidden rounded-xl shadow-2xl border border-white/5 bg-white/5"
             >
-              <img
-                src={movie.image}
-                alt=""
-                className="w-full h-full object-cover"
-                loading="eager"
-              />
+              {movie.image ? (
+                <img
+                  src={movie.image}
+                  alt=""
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+              ) : (
+                <div className="w-full h-full bg-white/5 animate-pulse" />
+              )}
             </div>
           ))}
         </div>
@@ -39,46 +42,33 @@ function LandingHero({ movies = [] }) {
 
       {/* CAPA 3: CONTENIDO PRINCIPAL CENTRADO */}
       <div className="relative z-20 w-full max-w-[1200px] mx-auto px-4 sm:px-6 text-center text-white -mt-10 md:-mt-16">
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-[900px] mx-auto"
-          >
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight">
-              Bienvenidos.
-            </h1>
-            <p className="mt-4 md:mt-8 text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed max-w-[700px] mx-auto opacity-90">
-              Millones de películas, series y gente por descubrir. <br className="hidden md:block" />
-              <span className="text-[#01b4e4] font-bold">Explora ahora</span> la infraestructura definitiva.
-            </p>
-          </motion.div>
-
-          {/* ESTADÍSTICAS */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-row items-center justify-center mt-10 md:mt-16 gap-8 sm:gap-16 md:gap-24"
-          >
-            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
-              <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">+1M</p>
-              <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-bold leading-tight text-center sm:text-left uppercase tracking-widest">
-                Películas <br className="hidden sm:block" /> & Series
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
-              <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">12k</p>
-              <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-bold leading-tight text-center sm:text-left uppercase tracking-widest">
-                Usuarios <br className="hidden sm:block" /> Activos
-              </p>
-            </div>
-          </motion.div>
-
+        <div className="max-w-[900px] mx-auto">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight">
+            Bienvenidos.
+          </h1>
+          <p className="mt-4 md:mt-8 text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed max-w-[700px] mx-auto opacity-90">
+            Millones de películas, series y gente por descubrir. <br className="hidden md:block" />
+            <span className="text-[#01b4e4] font-bold">Explora ahora</span> la infraestructura definitiva.
+          </p>
         </div>
 
+        {/* ESTADÍSTICAS */}
+        <div className="flex flex-row items-center justify-center mt-10 md:mt-16 gap-8 sm:gap-16 md:gap-24">
+          <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">+1M</p>
+            <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-bold leading-tight text-center sm:text-left uppercase tracking-widest">
+              Películas <br className="hidden sm:block" /> & Series
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">12k</p>
+            <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-bold leading-tight text-center sm:text-left uppercase tracking-widest">
+              Usuarios <br className="hidden sm:block" /> Activos
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

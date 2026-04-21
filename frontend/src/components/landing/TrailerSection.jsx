@@ -1,25 +1,47 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import movieService from '../../services/movieService';
 
 function TrailerSection({ movies = [] }) {
   const scrollRef = useRef(null);
   const [showLeftBtn, setShowLeftBtn] = useState(false);
+  const [showRightBtn, setShowRightBtn] = useState(true);
 
   const handlePlayTrailer = async (movieId) => {
+    console.log("🎬 Intentando reproducir trailer para ID:", movieId);
+    
+    // 1. Abrimos una pestaña inmediatamente para evitar el bloqueo del navegador (Pop-up blocker)
+    const newWindow = window.open('about:blank', '_blank');
+    if (!newWindow) {
+      alert("Por favor, permite las ventanas emergentes para ver los trailers.");
+      return;
+    }
+
     try {
-      // Pedimos el detalle de la película para obtener sus vídeos
+      // 2. Pedimos el detalle de la película
       const detail = await movieService.getMovieDetail(movieId);
-      const trailer = detail.videos?.results?.find(v => v.type === 'Trailer' && v.iso_639_1 === 'es') 
-        || detail.videos?.results?.find(v => v.type === 'Trailer') 
-        || detail.videos?.results?.[0];
+      console.log("📦 Datos recibidos de TMDb:", detail);
+
+      const videos = detail.videos?.results || [];
       
-      if (trailer) {
-        window.open(`https://www.youtube.com/watch?v=${trailer.key}`, '_blank');
+      // 3. Buscamos el mejor trailer disponible
+      const trailer = videos.find(v => v.type === 'Trailer' && v.iso_639_1 === 'es') 
+        || videos.find(v => v.type === 'Trailer' && v.iso_639_1 === 'en')
+        || videos.find(v => v.type === 'Trailer') 
+        || videos[0];
+      
+      if (trailer && trailer.key) {
+        console.log("✅ Trailer encontrado:", trailer.key);
+        // 4. Actualizamos la pestaña abierta con la URL de YouTube
+        newWindow.location.href = `https://www.youtube.com/watch?v=${trailer.key}`;
       } else {
-        alert("Tráiler no disponible en este momento.");
+        console.warn("⚠️ No se encontró ningún video para esta película.");
+        newWindow.close();
+        alert("Tráiler no disponible para esta película en este momento.");
       }
     } catch (error) {
-      console.error("Error cargando trailer:", error);
+      console.error("❌ Error cargando trailer:", error);
+      newWindow.close();
+      alert("Hubo un error al conectar con el servidor de cine.");
     }
   };
 
@@ -36,9 +58,15 @@ function TrailerSection({ movies = [] }) {
 
   const handleScroll = () => {
     if (scrollRef.current) {
-      setShowLeftBtn(scrollRef.current.scrollLeft > 10);
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeftBtn(scrollLeft > 10);
+      setShowRightBtn(scrollLeft + clientWidth < scrollWidth - 50);
     }
   };
+
+  useEffect(() => {
+    handleScroll();
+  }, [movies]);
 
   return (
     <section className="w-full py-8 md:py-14 bg-[#0d0e12] text-white relative overflow-hidden">
@@ -63,33 +91,33 @@ function TrailerSection({ movies = [] }) {
           {showLeftBtn && (
             <button 
               onClick={() => scroll('left')}
-              className="absolute left-0 top-[100px] -translate-y-1/2 -ml-4 z-40 w-11 h-11 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
+              className="absolute left-0 top-[120px] -translate-y-1/2 -ml-4 z-40 w-11 h-11 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" /></svg>
             </button>
           )}
 
-          <button 
-            onClick={() => scroll('right')}
-            className="absolute right-0 top-[100px] -translate-y-1/2 -mr-4 z-40 w-11 h-11 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
-          </button>
-
-          <div className="absolute -right-2 top-0 h-full w-40 z-20 pointer-events-none bg-gradient-to-l from-[#0d0e12] via-[#0d0e12]/80 to-transparent"></div>
+          {showRightBtn && (
+            <button 
+              onClick={() => scroll('right')}
+              className="absolute right-0 top-[120px] -translate-y-1/2 -mr-4 z-40 w-11 h-11 rounded-full bg-white/10 backdrop-blur-md shadow-2xl flex items-center justify-center cursor-pointer hover:scale-110 transition-all text-white border border-white/10"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M9 5l7 7-7 7" /></svg>
+            </button>
+          )}
 
           <div 
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex overflow-x-auto gap-6 pt-10 pb-8 no-scrollbar scroll-smooth outline-none relative z-10 -mt-10"
+            className="flex overflow-x-auto gap-6 pt-10 pb-8 no-scrollbar scroll-smooth outline-none relative z-10 -mt-10 pr-8"
           >
             {movies.map(movie => (
               <div 
                 key={movie.id} 
-                onClick={() => handlePlayTrailer(movie.id)}
                 className="min-w-[240px] md:min-w-[275px] h-auto group cursor-pointer shrink-0"
+                onClick={() => handlePlayTrailer(movie.id)}
               >
-                <div className="h-[160px] relative rounded-2xl overflow-hidden shadow-2xl transition-transform duration-300 group-hover:scale-[1.03]">
+                <div className="h-[160px] relative rounded-2xl overflow-hidden transition-transform duration-300 group-hover:scale-[1.03] group-hover:shadow-lg group-hover:shadow-black/50">
                   <img 
                     src={movie.backdrop} 
                     alt={movie.title} 
@@ -114,6 +142,16 @@ function TrailerSection({ movies = [] }) {
                 </div>
               </div>
             ))}
+
+            <div 
+              className="min-w-[140px] flex items-center justify-center group/more h-[160px] cursor-pointer pr-4"
+              onClick={() => window.location.href = '/search'}
+            >
+               <span className="font-bold text-lg text-white/40 group-hover/more:text-mds-color-waypoint transition-colors whitespace-nowrap flex items-center gap-2">
+                Ver más
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+              </span>
+            </div>
           </div>
         </div>
       </div>

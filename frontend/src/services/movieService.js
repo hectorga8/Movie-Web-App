@@ -16,6 +16,21 @@ export const movieService = {
     return data;
   },
 
+  getNowPlaying: async () => {
+    const { data } = await axios.get(`${BASE_URL}/movies/now-playing`);
+    return data;
+  },
+
+  getTopRated: async () => {
+    const { data } = await axios.get(`${BASE_URL}/movies/top-rated`);
+    return data;
+  },
+
+  getMovieDetail: async (id) => {
+    const { data } = await axios.get(`${BASE_URL}/movies/${id}`);
+    return data;
+  },
+
   searchMovies: async (query) => {
     const { data } = await axios.get(`${BASE_URL}/movies/search?query=${query}`);
     return data;
@@ -23,11 +38,6 @@ export const movieService = {
 
   searchMulti: async (query, sortBy = 'relevance') => {
     const { data } = await axios.get(`${BASE_URL}/search/multi?query=${query}&sortBy=${sortBy}`);
-    return data;
-  },
-
-  getMovieDetail: async (id) => {
-    const { data } = await axios.get(`${BASE_URL}/movies/${id}`);
     return data;
   },
 
@@ -40,6 +50,17 @@ export const movieService = {
   getTVTrending: async () => {
     const { data } = await axios.get(`${BASE_URL}/tv/list/trending`);
     return data;
+  },
+
+  // NOTICIAS
+  getNews: async () => {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/movies/news`);
+      return data;
+    } catch (error) {
+      console.error("Error fetching news:", error);
+      return [];
+    }
   },
 
   // HELPERS DE IMÁGENES
