@@ -15,7 +15,7 @@ export const DetailedListCard = ({ list }) => (
         {list.title}
       </h3>
       
-      {/* Meta con Avatar (exacto como en la imagen) */}
+      {/* Meta con Autor en Bold, lo demás en Light */}
       <ListMeta 
         creator={list.creator} 
         moviesCount={list.moviesCount} 
@@ -24,7 +24,7 @@ export const DetailedListCard = ({ list }) => (
         className="mb-3"
       />
 
-      <p className="text-[#8b9bb4] text-[13px] leading-relaxed line-clamp-3 italic opacity-80">
+      <p className="text-[#8b9bb4] text-[13px] leading-relaxed line-clamp-3 italic opacity-80 font-light">
         {list.description}
       </p>
     </div>
