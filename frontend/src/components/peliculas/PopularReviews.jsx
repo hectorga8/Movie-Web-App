@@ -101,9 +101,11 @@ function PopularReviews() {
           </Link>
           
           <div className="flex-1 pt-1">
-            <h3 className="text-[20px] font-bold text-[#fff] leading-tight mb-1 hover:text-[#40bcf4] cursor-pointer transition-colors">
-              {movie?.title || "El Drama"} <span className="text-[18px] text-[#8aa8c2] font-normal hover:text-[#fff]">{movie?.release_date?.split('-')[0] || "2026"}</span>
-            </h3>
+            <Link to={`/pelicula/${movie?.id}`}>
+              <h3 className="text-[20px] font-bold text-[#fff] leading-tight mb-1 hover:text-[#40bcf4] transition-colors">
+                {movie?.title || "El Drama"} <span className="text-[18px] text-[#8aa8c2] font-normal">{movie?.release_date?.split('-')[0] || "2026"}</span>
+              </h3>
+            </Link>
             
             <div className="flex items-center gap-2 mb-3">
               <img src={review.avatar} alt={review.author} className="w-6 h-6 rounded-full" />

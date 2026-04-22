@@ -165,12 +165,12 @@ app.get('/api/movies/now-playing', async (req, res) => {
 
 app.get('/api/movies/:id', async (req, res) => {
   try {
-    // Pedimos el detalle en español pero incluimos vídeos sin filtro de idioma estricto
+    // Pedimos el detalle completo con créditos, fechas de estreno (PEGI), reseñas, recomendaciones, IDs externos y proveedores
     const { data } = await tmdbApi.get(`/movie/${req.params.id}`, { 
       params: { 
         language: 'es-ES',
-        append_to_response: 'videos',
-        include_video_language: 'es,en,null' // Traer español, inglés o sin idioma definido
+        append_to_response: 'credits,videos,images,recommendations,similar,reviews,external_ids,release_dates,watch/providers',
+        include_video_language: 'es,en,null'
       } 
     });
     res.json(data);

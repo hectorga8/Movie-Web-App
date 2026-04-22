@@ -9,6 +9,8 @@ router.get('/public-lists', watchlistController.getPublicLists);
 // Rutas protegidas
 router.use(authMiddleware);
 
+router.post('/custom-list', watchlistController.createCustomList);
+router.get('/list/:id', watchlistController.getCustomListById);
 router.post('/', watchlistController.addItem);
 router.get('/', watchlistController.getUserList);
 router.delete('/:mediaType/:mediaId', watchlistController.removeItem);

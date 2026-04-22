@@ -44,10 +44,10 @@ function Pelicula() {
     </div>
   );
 
-  if (error || !movie) return (
+  if (error || !movie || movie.error) return (
     <div className="flex-1 flex flex-col items-center justify-center bg-[#0d0e12] text-white p-6 text-center min-h-[60vh]">
-      <h2 className="font-brand text-3xl mb-4">Error de Sistema</h2>
-      <button onClick={() => navigate('/')} className="btn-secondary-white text-[12px]">VOLVER AL INICIO</button>
+      <h2 className="font-brand text-3xl mb-4">Película no encontrada</h2>
+      <button onClick={() => navigate('/')} className="bg-white/10 px-4 py-2 hover:bg-white/20 transition-colors">VOLVER AL INICIO</button>
     </div>
   );
 

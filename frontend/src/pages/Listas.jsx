@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import watchlistService from '../services/watchlistService';
 import { ListCard } from '../components/listas/ListCard';
 import { DetailedListCard } from '../components/listas/DetailedListCard';
@@ -49,11 +50,14 @@ function Listas() {
       {/* Header Section */}
       <div className="text-center mb-16">
         <h1 className="text-2xl md:text-[28px] text-[#8b9bb4] font-light mb-4 leading-tight">
-          Colecciona, organiza y comparte. Agrupa tus películas y series en listas.
+          Colecciona, organiza y comparte. Las listas son la forma perfecta de agrupar películas.
         </h1>
-        <button className="bg-[#2c3440]/50 hover:bg-[#445566] text-[#8b9bb4] hover:text-white px-5 py-2 rounded-sm text-[11px] font-bold uppercase tracking-widest transition-colors">
+        <Link 
+          to="/listas/nueva"
+          className="inline-block bg-[#2c3440] hover:bg-[#445566] text-[#8b9bb4] hover:text-white px-5 py-2 rounded-sm text-[11px] font-bold uppercase tracking-widest transition-colors"
+        >
           Crea tu propia lista
-        </button>
+        </Link>
       </div>
 
       {/* Featured Lists */}
@@ -100,7 +104,6 @@ function Listas() {
         </aside>
 
       </div>
-
 
     </div>
   );

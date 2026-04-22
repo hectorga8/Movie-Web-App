@@ -1,4 +1,48 @@
 const WatchlistItem = require('../models/Watchlist');
+const CustomList = require('../models/CustomList');
+
+exports.createCustomList = async (req, res) => {
+  try {
+    const { name, description, tags, isPublic, isRanked, movies } = req.body;
+    const userId = req.user.id;
+
+    if (!name) {
+      return res.status(400).json({ error: 'El nombre de la lista es obligatorio' });
+    }
+
+    const newList = new CustomList({
+      userId,
+      name,
+      description,
+      tags,
+      isPublic,
+      isRanked,
+      movies
+    });
+
+    await newList.save();
+    res.status(201).json(newList);
+  } catch (error) {
+    console.error('Error creating custom list:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+exports.getCustomListById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const list = await CustomList.findById(id);
+    
+    if (!list) {
+      return res.status(404).json({ error: 'Lista no encontrada' });
+    }
+
+    res.status(200).json(list);
+  } catch (error) {
+    console.error('Error fetching custom list:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
 
 exports.addItem = async (req, res) => {
   try {

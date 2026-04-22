@@ -12,6 +12,8 @@ import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Listas from './pages/Listas';
+import CrearLista from './pages/CrearLista';
+import DetalleLista from './pages/DetalleLista';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
@@ -84,6 +86,12 @@ function App() {
             <Route path="/serie/:id" element={<Serie />} />
             <Route path="/search" element={<SearchResults />} />
             <Route path="/listas" element={<Listas />} />
+            <Route path="/listas/nueva" element={
+              <ProtectedRoute>
+                <CrearLista />
+              </ProtectedRoute>
+            } />
+            <Route path="/listas/:id" element={<DetalleLista />} />
           </Routes>
         </main>
 
