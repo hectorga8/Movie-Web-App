@@ -1,13 +1,13 @@
 import React from 'react';
 
-export const PosterStack = ({ posters, size = 'normal', wider = false }) => {
+export const PosterStack = ({ posters, size = 'normal', full = false, wider = false }) => {
   const isLarge = size === 'large';
   const postersToShow = (posters || []).slice(0, 5);
   
-  // Clases computadas basadas en index.css
-  const stackClass = `poster-stack ${isLarge ? 'lg' : ''} ${wider ? 'wider' : ''}`.trim();
+  // Clases dinámicas basadas en index.css
+  const stackClass = `poster-stack ${isLarge ? 'lg' : ''} ${wider ? 'wider' : ''} ${full ? 'sidebar-fill' : ''}`.trim();
   
-  // Dimensiones fijas (Ajustadas para evitar desbordamiento)
+  // Dimensiones
   const pWidth = isLarge ? 125 : 85;
   const pHeight = isLarge ? 185 : 125;
 

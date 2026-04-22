@@ -44,7 +44,7 @@ function Listas() {
   }
 
   return (
-    <div className="w-full max-w-[950px] mx-auto px-4 py-10 md:py-16 text-white font-sans">
+    <div className="w-full max-w-[950px] mx-auto px-6 py-10 md:py-16 text-white font-sans">
       
       {/* Header Section */}
       <div className="text-center mb-16">
@@ -76,23 +76,23 @@ function Listas() {
         </div>
       </section>
 
-      {/* Two Columns Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-16">
+      {/* Two Columns Layout: Sidebar más estrecho para estirar la izquierda */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_230px] gap-12 xl:gap-16">
         
-        {/* Left Column: Recently Liked */}
+        {/* Left Column: Recently Liked (Estirado) */}
         <div className="flex-1">
-          <SectionHeader title="Listas que te gustarán" />
-          <div className="space-y-12">
+          <SectionHeader title="Recently Liked" />
+          <div className="space-y-10">
             {listsData.recentlyLiked.map(list => (
               <DetailedListCard key={list.id} list={list} />
             ))}
           </div>
         </div>
 
-        {/* Right Column: Crew Picks */}
+        {/* Right Column: Crew Picks (Estrecho) */}
         <aside className="w-full">
-          <SectionHeader title="Selección del Staff" />
-          <div className="space-y-12">
+          <SectionHeader title="Crew Picks" />
+          <div className="space-y-10">
             {listsData.crewPicks.map(list => (
               <MiniListCard key={list.id} list={list} />
             ))}
@@ -100,6 +100,7 @@ function Listas() {
         </aside>
 
       </div>
+
 
     </div>
   );

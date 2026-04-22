@@ -105,6 +105,7 @@
   .poster-stack.wider li:not(:first-child) { margin-left: -40px; } /* 45px visible */
   .poster-stack.lg li:not(:first-child) { margin-left: -90px; } /* 35px visible */
   .poster-stack.lg.wider li:not(:first-child) { margin-left: -80px; } /* 45px visible */
+  .poster-stack.sidebar-fill li:not(:first-child) { margin-left: -49px; } /* Ajuste perfecto para 230px */
 }
 
 /* Animaciones */
