@@ -28,7 +28,7 @@ function Header({ variant = "landing" }) {
   };
 
   const navLinks = [
-    { name: 'Películas', path: '/inicio' },
+    { name: 'Películas', path: '/peliculas' },
     { name: 'Series', path: '/dashboard' },
     { name: 'Explorar', path: '/dashboard' },
     { name: 'Mis listas', path: '/dashboard' },

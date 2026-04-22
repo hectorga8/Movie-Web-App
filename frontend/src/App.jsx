@@ -4,6 +4,7 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
+import Peliculas from './pages/Peliculas';
 import Pelicula from './pages/Pelicula';
 import Serie from './pages/Serie';
 import SearchResults from './pages/SearchResults';
@@ -77,6 +78,7 @@ function App() {
             } />
 
             {/* Rutas Públicas / De Contenido */}
+            <Route path="/peliculas" element={<Peliculas />} />
             <Route path="/pelicula/:id" element={<Pelicula />} />
             <Route path="/serie/:id" element={<Serie />} />
             <Route path="/search" element={<SearchResults />} />

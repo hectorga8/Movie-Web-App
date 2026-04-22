@@ -76,7 +76,7 @@ function Index() {
         
         {/* 1. Bienvenida */}
         <section className="mb-12">
-          <h1 className="text-[26px] md:text-[32px] font-medium text-[#efeff1] text-center leading-tight">
+          <h1 className="text-[26px] md:text-[32px] font-light text-[#efeff1] text-center leading-tight">
             Bienvenido, <Link to="/perfil" className="hover:text-[#1060ff] transition-colors">{user?.name.split(' ')[0]}</Link>. Esto es lo que has estado viendo…
           </h1>
           <p className="text-white/40 text-[15px] mt-2 text-center font-light">
