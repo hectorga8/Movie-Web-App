@@ -26,7 +26,7 @@
   /* Semantic Colors */
   --color-mds-red: #731e25;
   --color-mds-amber: #bb5a00;
-  --color-mds-green: #21d07a; /* Mantener un verde por si acaso, pero usaremos los de arriba */
+  --color-mds-green: #21d07a;
   
   /* Shadows - Whisper Level (0.05) */
   --shadow-mds-shadow-whisper: 0px 1px 1px rgba(97, 104, 117, 0.05), 0px 2px 2px rgba(97, 104, 117, 0.05);
@@ -98,6 +98,13 @@
   .label-uppercase {
     @apply text-[13px] font-bold uppercase tracking-[1.3px] text-[#656a76];
   }
+
+  /* Estilos para el Stack de Pósters */
+  .poster-stack { @apply flex list-none p-0 m-0; }
+  .poster-stack li:not(:first-child) { margin-left: -55px; } /* 30px visible */
+  .poster-stack.wider li:not(:first-child) { margin-left: -40px; } /* 45px visible */
+  .poster-stack.lg li:not(:first-child) { margin-left: -90px; } /* 35px visible */
+  .poster-stack.lg.wider li:not(:first-child) { margin-left: -80px; } /* 45px visible */
 }
 
 /* Animaciones */
@@ -108,30 +115,6 @@
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-
-
-/* Animaciones */
-.fade-up {
-  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes dropdownOpen {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 .delay-1 { animation-delay: 0.1s; }

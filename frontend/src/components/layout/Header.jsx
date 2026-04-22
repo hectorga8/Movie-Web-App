@@ -31,7 +31,7 @@ function Header({ variant = "landing" }) {
     { name: 'Películas', path: '/peliculas' },
     { name: 'Series', path: '/dashboard' },
     { name: 'Explorar', path: '/dashboard' },
-    { name: 'Mis listas', path: '/dashboard' },
+    { name: 'Listas', path: '/listas' },
     { name: 'Más', path: '/dashboard' },
   ];
 

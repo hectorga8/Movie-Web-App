@@ -27,6 +27,19 @@ services:
     networks:
       - cinesaas-network
 
+  watchlist-service:
+    build: ./backend/watchlist-service
+    container_name: cinesaas-watchlist
+    ports:
+      - "5003:5003"
+    env_file:
+      - ./backend/watchlist-service/.env
+    volumes:
+      - ./backend/watchlist-service:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - cinesaas-network
+
   frontend:
     build: ./frontend
     container_name: cinesaas-frontend

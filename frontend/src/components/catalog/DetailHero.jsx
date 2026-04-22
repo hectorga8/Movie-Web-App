@@ -1,27 +1,79 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import movieService from '../../services/movieService';
+import watchlistService from '../../services/watchlistService';
+import { useAuth } from '../../context/AuthContext';
 import RatingCircle from '../common/RatingCircle';
 
 const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
+  const { user } = useAuth();
+  const [inWatchlist, setInWatchlist] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [status, setStatus] = useState('plan_to_watch');
+
+  useEffect(() => {
+    if (user && item) {
+      watchlistService.checkStatus(item.id, type).then(data => {
+        setInWatchlist(data.inList);
+        if (data.inList) {
+          setIsFavorite(data.isFavorite);
+          setStatus(data.status);
+        }
+      }).catch(err => console.error("Error al comprobar watchlist", err));
+    }
+  }, [user, item, type]);
+
+  const handleFavoriteToggle = async () => {
+    if (!user) return onActionClick();
+    try {
+      const newFav = !isFavorite;
+      await watchlistService.addItem(item.id, type, status, newFav);
+      setIsFavorite(newFav);
+      setInWatchlist(true); 
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleWatchlistToggle = async () => {
+    if (!user) return onActionClick();
+    try {
+      if (inWatchlist && status === 'plan_to_watch' && !isFavorite) {
+        await watchlistService.removeItem(item.id, type);
+        setInWatchlist(false);
+      } else {
+        const newStatus = inWatchlist ? status : 'plan_to_watch';
+        await watchlistService.addItem(item.id, type, newStatus, isFavorite);
+        setInWatchlist(true);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleWatchedToggle = async () => {
+    if (!user) return onActionClick();
+    try {
+      const newStatus = status === 'watched' ? 'plan_to_watch' : 'watched';
+      await watchlistService.addItem(item.id, type, newStatus, isFavorite);
+      setStatus(newStatus);
+      setInWatchlist(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   if (!item) return null;
 
   const title = item.title || item.name;
   const releaseDate = item.release_date || item.first_air_date;
   const year = releaseDate?.split('-')[0] || 'N/R';
   
-  // LÓGICA DE BÚSQUEDA DEFINITIVA
   const findResponsible = () => {
-    // 1. Creadores de TV (estándar)
     if (type === 'tv' && item.created_by?.length > 0) return item.created_by[0].name;
 
-    // 2. Si no, buscamos en el equipo técnico (Crew)
     if (item.credits?.crew) {
-      const roles = [
-        'director', 'original story', 'author', 'writer', 
-        'executive producer', 'series creator'
-      ];
-      
+      const roles = ['director', 'original story', 'author', 'writer', 'executive producer', 'series creator'];
       for (let role of roles) {
         const found = item.credits.crew.find(p => p.job?.toLowerCase().includes(role));
         if (found) return found.name;
@@ -96,9 +148,34 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
             </div>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-              <button onClick={onActionClick} className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-red-500 transition-all cursor-pointer hover:shadow-[0_0_20px_rgba(239,68,68,0.3)] hover:border-transparent group"><svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-              <button onClick={onActionClick} className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#1060ff] transition-all cursor-pointer hover:shadow-[0_0_20px_rgba(16,96,255,0.3)] hover:border-transparent group"><svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg></button>
-              <button onClick={onActionClick} className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#21d07a] transition-all cursor-pointer hover:shadow-[0_0_20px_rgba(33,208,122,0.3)] hover:border-transparent group"><svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></button>
+              {/* Botón Favorito (Corazón) */}
+              <button 
+                onClick={handleFavoriteToggle} 
+                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all cursor-pointer group ${isFavorite ? 'bg-red-500 border-red-500 text-white shadow-[0_0_20px_rgba(239,68,68,0.3)]' : 'bg-white/5 border-white/10 text-white hover:bg-red-500 hover:border-transparent hover:shadow-[0_0_20px_rgba(239,68,68,0.3)]'}`}
+              >
+                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              </button>
+
+              {/* Botón Lista (Pendientes) - Plus o Check */}
+              <button 
+                onClick={handleWatchlistToggle} 
+                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all cursor-pointer group ${inWatchlist ? 'bg-[#1060ff] border-[#1060ff] text-white shadow-[0_0_20px_rgba(16,96,255,0.3)]' : 'bg-white/5 border-white/10 text-white hover:bg-[#1060ff] hover:border-transparent hover:shadow-[0_0_20px_rgba(16,96,255,0.3)]'}`}
+              >
+                {inWatchlist ? (
+                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                ) : (
+                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg>
+                )}
+              </button>
+
+              {/* Botón Vista (Ojo) */}
+              <button 
+                onClick={handleWatchedToggle} 
+                className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all cursor-pointer group ${status === 'watched' ? 'bg-[#21d07a] border-[#21d07a] text-white shadow-[0_0_20px_rgba(33,208,122,0.3)]' : 'bg-white/5 border-white/10 text-white hover:bg-[#21d07a] hover:border-transparent hover:shadow-[0_0_20px_rgba(33,208,122,0.3)]'}`}
+              >
+                <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+
               {trailer && (
                 <button onClick={() => window.open(`https://www.youtube.com/watch?v=${trailer.key}`)} className="ml-4 flex items-center gap-4 group text-[11px] font-bold label-uppercase tracking-[2px] opacity-60 hover:opacity-100 transition-all cursor-pointer">
                   <div className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center group-hover:border-[#1060ff] group-hover:bg-[#1060ff]/10 transition-all"><svg className="w-4 h-4 fill-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>

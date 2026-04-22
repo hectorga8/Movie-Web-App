@@ -11,6 +11,7 @@ import SearchResults from './pages/SearchResults';
 import Index from './pages/Index';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Listas from './pages/Listas';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
@@ -82,6 +83,7 @@ function App() {
             <Route path="/pelicula/:id" element={<Pelicula />} />
             <Route path="/serie/:id" element={<Serie />} />
             <Route path="/search" element={<SearchResults />} />
+            <Route path="/listas" element={<Listas />} />
           </Routes>
         </main>
 
