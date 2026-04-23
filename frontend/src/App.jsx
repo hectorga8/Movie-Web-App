@@ -16,6 +16,7 @@ import Listas from './pages/Listas';
 import CrearLista from './pages/CrearLista';
 import DetalleLista from './pages/DetalleLista';
 import Perfil from './pages/Perfil';
+import EditarPerfil from './pages/EditarPerfil';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
@@ -85,6 +86,12 @@ function App() {
             <Route path="/perfil" element={
               <ProtectedRoute>
                 <Perfil />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/perfil/editar" element={
+              <ProtectedRoute>
+                <EditarPerfil />
               </ProtectedRoute>
             } />
 

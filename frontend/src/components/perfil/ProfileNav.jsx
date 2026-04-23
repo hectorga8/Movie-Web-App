@@ -18,7 +18,8 @@ function ProfileNav() {
   ];
 
   return (
-    <div className="flex items-center justify-between border-b border-[#2c3440] mb-10 overflow-x-auto no-scrollbar relative bg-[#1c2228] px-4 rounded-[4px]">
+    <div className="flex items-center justify-between border-b border-[#2c3440] mb-10 overflow-x-auto no-scrollbar 
+    relative bg-[#1c2228] px-4 rounded-[4px]">
       <nav className="flex items-center gap-5 mx-auto md:mx-0">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path;
