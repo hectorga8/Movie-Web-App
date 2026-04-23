@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 const ListaComments = () => {
+  const { user } = useAuth();
   const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!comment.trim()) return;
-    console.log('Enviando comentario:', comment);
+    
+    const newComment = {
+      id: Date.now(),
+      author: user?.name || 'Usuario Anónimo',
+      text: comment,
+      date: 'Ahora mismo',
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'Usuario'}`
+    };
+
+    setComments([newComment, ...comments]);
     setComment('');
   };
 
@@ -17,7 +29,11 @@ const ListaComments = () => {
       </h3>
 
       <div className="flex gap-4 items-start mb-12">
-        <div className="w-10 h-10 rounded-full bg-[#2c3440] shrink-0" />
+        <img 
+          src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'Usuario'}`} 
+          alt="Avatar" 
+          className="w-10 h-10 rounded-full border border-white/10 shrink-0 bg-[#2c3440]" 
+        />
         <form onSubmit={handleSubmit} className="flex-1">
           <textarea
             value={comment}
@@ -34,9 +50,23 @@ const ListaComments = () => {
         </form>
       </div>
 
-      {/* Lista de comentarios (Placeholder por ahora) */}
-      <div className="space-y-8 opacity-40">
-        <p className="text-[#8b9bb4] text-[13px] italic">Aún no hay comentarios en esta lista. ¡Sé el primero en decir algo!</p>
+      <div className="space-y-8">
+        {comments.length === 0 ? (
+          <p className="text-[#8b9bb4] text-[13px] italic opacity-40">Aún no hay comentarios en esta lista. ¡Sé el primero en decir algo!</p>
+        ) : (
+          comments.map(c => (
+            <div key={c.id} className="flex gap-4">
+              <img src={c.avatar} alt={c.author} className="w-10 h-10 rounded-full border border-white/10 shrink-0 bg-[#2c3440]" />
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-white font-bold text-[14px]">{c.author}</span>
+                  <span className="text-[#8b9bb4] text-[11px]">{c.date}</span>
+                </div>
+                <p className="text-[#8b9bb4] text-[14px]">{c.text}</p>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ const CustomList = require('../models/CustomList');
 
 exports.createCustomList = async (req, res) => {
   try {
-    const { name, description, tags, isPublic, isRanked, movies } = req.body;
+    const { name, description, tags, isPublic, isRanked, movies, creator } = req.body;
     const userId = req.user.id;
 
     if (!name) {
@@ -12,6 +12,7 @@ exports.createCustomList = async (req, res) => {
 
     const newList = new CustomList({
       userId,
+      creator,
       name,
       description,
       tags,
@@ -37,7 +38,11 @@ exports.getCustomListById = async (req, res) => {
       return res.status(404).json({ error: 'Lista no encontrada' });
     }
 
-    res.status(200).json(list);
+    const listObj = list.toObject();
+    listObj.title = listObj.name;
+    listObj.posters = listObj.movies;
+
+    res.status(200).json(listObj);
   } catch (error) {
     console.error('Error fetching custom list:', error);
     res.status(500).json({ error: 'Error interno del servidor' });

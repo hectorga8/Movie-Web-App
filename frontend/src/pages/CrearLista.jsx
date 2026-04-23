@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MovieSearchAutocomplete from '../components/listas/MovieSearchAutocomplete';
 import watchlistService from '../services/watchlistService';
+import { useAuth } from '../context/AuthContext';
 
 // Iconos SVG internos para estética exacta
 const CloseIcon = () => (

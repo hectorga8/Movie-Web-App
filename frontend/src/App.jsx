@@ -5,6 +5,7 @@ import Footer from './components/layout/Footer';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Peliculas from './pages/Peliculas';
+import Series from './pages/Series';
 import Pelicula from './pages/Pelicula';
 import Serie from './pages/Serie';
 import SearchResults from './pages/SearchResults';
@@ -14,6 +15,7 @@ import Register from './pages/Register';
 import Listas from './pages/Listas';
 import CrearLista from './pages/CrearLista';
 import DetalleLista from './pages/DetalleLista';
+import Perfil from './pages/Perfil';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
@@ -80,8 +82,15 @@ function App() {
               </ProtectedRoute>
             } />
 
+            <Route path="/perfil" element={
+              <ProtectedRoute>
+                <Perfil />
+              </ProtectedRoute>
+            } />
+
             {/* Rutas Públicas / De Contenido */}
             <Route path="/peliculas" element={<Peliculas />} />
+            <Route path="/series" element={<Series />} />
             <Route path="/pelicula/:id" element={<Pelicula />} />
             <Route path="/serie/:id" element={<Serie />} />
             <Route path="/search" element={<SearchResults />} />

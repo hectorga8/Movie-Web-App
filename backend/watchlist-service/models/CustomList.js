@@ -6,6 +6,10 @@ const CustomListSchema = new mongoose.Schema({
     required: true,
     index: true
   },
+  creator: {
+    type: String,
+    default: "Usuario"
+  },
   name: {
     type: String,
     required: true,

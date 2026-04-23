@@ -29,10 +29,9 @@ function Header({ variant = "landing" }) {
 
   const navLinks = [
     { name: 'Películas', path: '/peliculas' },
-    { name: 'Series', path: '/dashboard' },
-    { name: 'Explorar', path: '/dashboard' },
+    { name: 'Series', path: '/series' },
     { name: 'Listas', path: '/listas' },
-    { name: 'Más', path: '/dashboard' },
+    { name: 'Miembros', path: '/dashboard' },
   ];
 
   const logoPath = user ? "/inicio" : "/";
@@ -40,7 +39,7 @@ function Header({ variant = "landing" }) {
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-[#0d0e12]/80 backdrop-blur-md h-16 md:h-20">
-        <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 h-full flex items-center justify-between gap-4">
+        <div className="w-full max-w-[950px] mx-auto px-4 md:px-6 h-full flex items-center justify-between gap-4">
           
           {/* Lado Izquierdo: Logo + Nav Desktop */}
           <div className="flex items-center shrink-0">
