@@ -65,7 +65,7 @@ Interfaz intuitiva para explorar el contenido y las funciones que ofrece la pág
 ### Inicio
 Visualiza estrenos, tendencias, noticias del mundillo y la actividad reciente de la comunidad.
 <div align="center">
-  <img src="https://imgur.com/a/zdpqvrw" alt="CineBox Dashboard" />
+  <img src="https://i.imgur.com/zdpqvrw.png" alt="CineBox Dashboard" />
 </div>
 
 ### Explorador de Películas y Series
