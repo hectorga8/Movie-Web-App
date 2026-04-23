@@ -59,7 +59,7 @@ A continuación se muestra un vistazo a las diferentes secciones de la plataform
 ### Inicio (Dashboard)
 Visualiza estrenos, tendencias, noticias del mundillo y la actividad reciente de la comunidad.
 <div align="center">
-  <img src="https://via.placeholder.com/800x400?text=Captura+Dashboard+Aqui" alt="CineBox Dashboard" />
+  <img src="https://i.imgur.com/zdpqvrw.png" alt="CineBox Dashboard" />
 </div>
 
 ### Explorador de Películas y Series
