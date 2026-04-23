@@ -38,8 +38,8 @@ function Header({ variant = "landing" }) {
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-[#0d0e12]/80 backdrop-blur-md h-16 md:h-20">
-        <div className="w-full max-w-[950px] mx-auto px-4 md:px-6 h-full flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-[110] w-full border-b border-white/5 bg-[#0d0e12]/80 backdrop-blur-md h-16 md:h-20">
+        <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 h-full flex items-center justify-between gap-4">
           
           {/* Lado Izquierdo: Logo + Nav Desktop */}
           <div className="flex items-center shrink-0">
@@ -48,7 +48,7 @@ function Header({ variant = "landing" }) {
               className="mr-2 md:mr-10 group" 
               onClick={() => setIsMenuOpen(false)}
             >
-              <span className="font-brand text-[20px] md:text-[28px] font-bold text-white tracking-tighter group-hover:text-[#1060ff] transition-colors leading-none">
+              <span className="font-brand text-[24px] md:text-[32px] font-bold text-white tracking-tighter group-hover:text-[#1060ff] transition-colors leading-none">
                 CineBox
               </span>
             </Link>
@@ -63,7 +63,7 @@ function Header({ variant = "landing" }) {
           </div>
 
           {/* CENTRO: Buscador */}
-          <div className="flex-1 max-w-[260px] px-4 md:mx-8">
+          <div className="flex-1 px-2 md:max-w-[380px] md:px-8 flex justify-end md:justify-center">
             <SearchBar />
           </div>
 
@@ -135,7 +135,7 @@ function Header({ variant = "landing" }) {
       </header>
 
       {/* Menú Móvil */}
-      <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
+      <div className={`fixed inset-0 z-[100] lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
         <div className="absolute inset-0 bg-[#0d0e12]/95 backdrop-blur-xl pt-24 px-6 pb-10 flex flex-col h-full">
           <nav className="flex flex-col gap-6 mb-12">
             {navLinks.map((link) => (
@@ -153,18 +153,18 @@ function Header({ variant = "landing" }) {
           <div className="mt-auto pt-10 border-t border-white/10">
             {user ? (
               <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-[#1060ff] flex items-center justify-center font-bold text-white text-xl">
+                <Link to="/perfil" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 hover:opacity-80 transition-opacity">
+                  <div className="w-12 h-12 rounded-full bg-[#1060ff] flex items-center justify-center font-bold text-white text-xl shrink-0">
                     {user.name[0].toUpperCase()}
                   </div>
-                  <div>
-                    <p className="text-white font-bold text-lg">{user.name}</p>
-                    <p className="text-white/40 text-sm">{user.email}</p>
+                  <div className="min-w-0">
+                    <p className="text-white font-bold text-lg truncate">{user.name}</p>
+                    <p className="text-white/40 text-sm truncate">{user.email}</p>
                   </div>
-                </div>
+                </Link>
                 <button 
                   onClick={handleLogout}
-                  className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold"
+                  className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-colors"
                 >
                   Cerrar Sesión
                 </button>

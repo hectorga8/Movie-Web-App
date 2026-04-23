@@ -71,7 +71,7 @@ const DetalleLista = () => {
 
   return (
     <div className="w-full bg-gradient-to-b from-[#0d0e12] to-[#1a1c23] min-h-screen">
-      <div className="max-w-[950px] mx-auto px-6 py-12">
+      <div className="max-w-[1200px] mx-auto px-6 py-12">
         {/* Botón de retroceso */}
         <Link 
           to="/listas" 

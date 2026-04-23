@@ -55,7 +55,7 @@ function PopularFilmsWeek() {
               </Link>
               
               {/* Stat Icons Row (Letterboxd style) */}
-              <div className="flex items-center justify-center gap-3 mt-2 text-[11px] font-semibold text-[#8aa8c2]">
+              <div className="hidden md:flex items-center justify-center gap-3 mt-2 text-[11px] font-semibold text-[#8aa8c2]">
                 <div className="flex items-center gap-1">
                   <span className={stats.isOrange ? 'text-[#00e054]' : 'text-[#00e054]'}>
                     <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>

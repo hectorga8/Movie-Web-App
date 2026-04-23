@@ -1,5 +1,5 @@
 import React from 'react';
-import FilmsFilterBar from '../components/peliculas/FilmsFilterBar';
+import ContentFilterBar from '../components/common/ContentFilterBar';
 import PopularFilmsWeek from '../components/peliculas/PopularFilmsWeek';
 import AdBanner from '../components/peliculas/AdBanner';
 import JustReviewed from '../components/peliculas/JustReviewed';
@@ -9,8 +9,8 @@ import RightSidebarPeliculas from '../components/peliculas/RightSidebarPeliculas
 function Peliculas() {
   return (
     <div className="min-h-screen bg-[#14181c] text-[#8aa8c2] font-sans pt-6 pb-20">
-      <div className="max-w-[950px] mx-auto px-4">
-        <FilmsFilterBar />
+      <div className="max-w-[1200px] mx-auto px-4">
+        <ContentFilterBar variant="peliculas" />
         
         <div className="mt-8 mb-4 flex justify-between items-end border-b border-[#445566] pb-2">
           <h2 className="text-[14px] uppercase tracking-[1px] text-[#9ab] hover:text-[#fff] cursor-pointer transition-colors">

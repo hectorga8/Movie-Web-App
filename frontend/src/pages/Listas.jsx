@@ -45,7 +45,7 @@ function Listas() {
   }
 
   return (
-    <div className="w-full max-w-[950px] mx-auto px-6 py-10 md:py-16 text-white font-sans">
+    <div className="w-full max-w-[1200px] mx-auto px-6 py-10 md:py-16 text-white font-sans">
       
       {/* Header Section */}
       <div className="text-center mb-16">

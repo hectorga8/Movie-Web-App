@@ -72,7 +72,7 @@ function Index() {
 
   return (
     <div className="w-full bg-gradient-to-b from-[#0d0e12] to-[#1a1c23] text-white min-h-screen font-['Inter',sans-serif]">
-      <div className="max-w-[950px] mx-auto px-6 py-12">
+      <div className="max-w-[1200px] mx-auto px-6 py-12">
         
         {/* 1. Bienvenida */}
         <section className="mb-12">
@@ -170,56 +170,64 @@ function Index() {
           )}
         </section>
 
-        {/* 5. Reviews Populares */}
-        <section className="mb-16">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Reviews Populares de la Comunidad</h2>
-          </div>
-          <div className="h-[1px] bg-white/10 w-full mb-6"></div>
-          <div className="space-y-4">
-            {[1, 2].map(i => (
-              <div key={i} className="flex gap-4 p-4 bg-white/5 rounded-[4px] border border-white/5">
-                <div className="w-12 h-18 bg-white/10 shrink-0 rounded-[2px] overflow-hidden">
-                   <img src={`https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg`} alt="" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-[14px]">Usuario_{i}</span>
-                    <div className="flex text-[#00e054] text-[10px]">★★★★★</div>
+        {/* 5 y 6. Layout a dos columnas con separador */}
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-0 mb-16 relative">
+          
+          {/* 5. Reviews Populares */}
+          <section className="flex-1 lg:pr-12">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Reviews Populares</h2>
+            </div>
+            <div className="h-[1px] bg-white/10 w-full mb-6"></div>
+            <div className="space-y-4">
+              {[1, 2].map(i => (
+                <div key={i} className="flex gap-4 p-4 bg-white/5 rounded-[4px] border border-white/5">
+                  <div className="w-12 h-18 bg-white/10 shrink-0 rounded-[2px] overflow-hidden">
+                     <img src={`https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg`} alt="" className="w-full h-full object-cover" />
                   </div>
-                  <p className="text-white/60 text-[13px] italic line-clamp-2 font-light">"Una obra maestra absoluta del género. La dirección de fotografía es simplemente espectacular y la banda sonora te sumerge por completo..."</p>
-                  <div className="mt-2 text-[11px] text-white/30 font-light flex items-center gap-3">
-                    <span className="flex items-center gap-1"><span className="text-[#ff4e4e]">❤</span> {120 + i*15} likes</span>
-                    <span>12 comentarios</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* 6. Listas Populares */}
-        <section className="mb-16">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Listas Populares</h2>
-          </div>
-          <div className="h-[1px] bg-white/10 w-full mb-6"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[1, 2].map(i => (
-              <div key={i} className="group cursor-pointer">
-                <div className="flex -space-x-8 mb-3">
-                  {[1, 2, 3, 4, 5].map(j => (
-                    <div key={j} className="w-16 h-24 border border-black rounded-[2px] overflow-hidden shadow-xl transform group-hover:-translate-y-1 transition-transform">
-                       <img src={`https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg`} alt="" className="w-full h-full object-cover" />
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-bold text-[14px]">Usuario_{i}</span>
+                      <div className="flex text-[#00e054] text-[10px]">★★★★★</div>
                     </div>
-                  ))}
+                    <p className="text-white/60 text-[13px] italic line-clamp-2 font-light">"Una obra maestra absoluta del género. La dirección de fotografía es simplemente espectacular y la banda sonora te sumerge por completo..."</p>
+                    <div className="mt-2 text-[11px] text-white/30 font-light flex items-center gap-3">
+                      <span className="flex items-center gap-1"><span className="text-[#ff4e4e]">❤</span> {120 + i*15} likes</span>
+                      <span>12 comentarios</span>
+                    </div>
+                  </div>
                 </div>
-                <h4 className="text-[14px] font-bold text-white group-hover:text-[#1060ff] transition-colors">Las 100 mejores películas de Ciencia Ficción</h4>
-                <p className="text-white/40 text-[11px] uppercase tracking-wider mt-1 font-light">Por Cinefilo_Pro · 1.2k likes</p>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+
+          {/* Separador Vertical */}
+          <div className="hidden lg:block w-[1px] bg-white/10 absolute left-1/2 top-0 bottom-0 -translate-x-1/2"></div>
+
+          {/* 6. Listas Populares */}
+          <section className="flex-1 lg:pl-12">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Listas Populares</h2>
+            </div>
+            <div className="h-[1px] bg-white/10 w-full mb-6"></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[1, 2].map(i => (
+                <div key={i} className="group cursor-pointer">
+                  <div className="flex -space-x-8 mb-3">
+                    {[1, 2, 3, 4, 5].map(j => (
+                      <div key={j} className="w-16 h-24 border border-black rounded-[2px] overflow-hidden shadow-xl transform group-hover:-translate-y-1 transition-transform">
+                         <img src={`https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg`} alt="" className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                  <h4 className="text-[14px] font-bold text-white group-hover:text-[#1060ff] transition-colors line-clamp-1">Las 100 mejores películas de Ciencia Ficción</h4>
+                  <p className="text-white/40 text-[11px] uppercase tracking-wider mt-1 font-light">Por Cinefilo_Pro · 1.2k likes</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+        </div>
 
       </div>
     </div>

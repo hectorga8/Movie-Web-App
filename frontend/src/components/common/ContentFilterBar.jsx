@@ -24,10 +24,10 @@ function Dropdown({ label, options }) {
   );
 }
 
-function FilmsFilterBar() {
+function ContentFilterBar({ variant = 'peliculas' }) {
   const decades = Array.from({ length: 13 }, (_, i) => `Década de ${1900 + i * 10}`);
 
-  const filterConfigs = [
+  const filterConfigsPeliculas = [
     { label: 'AÑO', options: ['Todas las películas', 'Próximamente', ...decades] },
     { label: 'RATING', options: ['Más alto primero', 'Más bajo primero'] },
     { label: 'POPULAR', options: ['Todo', 'Este año', 'Este mes', 'Esta semana'] },
@@ -35,6 +35,17 @@ function FilmsFilterBar() {
     { label: 'SERVICIO', options: ['Netflix', 'Disney+', 'HBO Max', 'Amazon Prime Video', 'Apple TV+', 'Filmin', 'Movistar+', 'Crunchyroll'] },
     { label: 'OTROS', options: ['Orden alfabético', 'Sagas'] },
   ];
+
+  const filterConfigsSeries = [
+    { label: 'AÑO', options: ['Todas las series', 'Próximamente', ...decades] },
+    { label: 'RATING', options: ['Más alto primero', 'Más bajo primero'] },
+    { label: 'POPULAR', options: ['Todo', 'Este año', 'Este mes', 'Esta semana'] },
+    { label: 'GÉNERO', options: ['Acción y Aventura', 'Animación', 'Comedia', 'Crimen', 'Documental', 'Drama', 'Familia', 'Misterio', 'Reality', 'Ciencia ficción y Fantasía', 'Talk', 'Guerra y Política', 'Western'] },
+    { label: 'SERVICIO', options: ['Netflix', 'Disney+', 'HBO Max', 'Amazon Prime Video', 'Apple TV+', 'Filmin', 'Movistar+', 'Crunchyroll'] },
+    { label: 'OTROS', options: ['Orden alfabético'] },
+  ];
+
+  const filterConfigs = variant === 'peliculas' ? filterConfigsPeliculas : filterConfigsSeries;
 
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-center pb-2 mb-6 z-40 relative">
@@ -45,10 +56,8 @@ function FilmsFilterBar() {
           <Dropdown key={index} label={filter.label} options={filter.options} />
         ))}
       </div>
-
-    
     </div>
   );
 }
 
-export default FilmsFilterBar;
+export default ContentFilterBar;

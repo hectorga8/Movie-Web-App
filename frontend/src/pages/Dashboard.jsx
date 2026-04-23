@@ -54,7 +54,7 @@ function Dashboard() {
   const avgRating = ratedPeliculas.length > 0 ? (ratedPeliculas.reduce((acc, p) => acc + p.rating, 0) / ratedPeliculas.length).toFixed(1) : "0.0";
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-6 py-10 flex flex-col md:flex-row gap-8 lg:gap-12 flex-1">
+    <div className="w-full max-w-[1200px] mx-auto px-6 py-10 flex flex-col md:flex-row gap-8 lg:gap-12 flex-1">
       <Sidebar counts={counts} />
       <section className="flex-1 min-w-0">
         <DashboardBanner userName={userData.name} moviesRead={counts.read} moviesGoal={userData.moviesGoal} year={userData.year} />
