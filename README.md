@@ -56,10 +56,16 @@ CineBox es una plataforma Full-Stack (MERN) diseñada con una estética minimali
 
 A continuación se muestra un vistazo a las diferentes secciones de la plataforma:
 
-### Inicio (Dashboard)
+### Landing
+Interfaz intuitiva para explorar el contenido y las funciones que ofrece la página.
+<div align="center">
+  <img src="https://via.placeholder.com/800x400?text=Captura+Creacion+Listas+Aqui" alt="Landing" />
+</div>
+
+### Inicio
 Visualiza estrenos, tendencias, noticias del mundillo y la actividad reciente de la comunidad.
 <div align="center">
-  <img src="https://via.placeholder.com/800x400?text=Captura+Dashboard+Aqui" alt="CineBox Dashboard" />
+  <img src="https://imgur.com/a/zdpqvrw" alt="CineBox Dashboard" />
 </div>
 
 ### Explorador de Películas y Series
@@ -68,17 +74,7 @@ Filtra el contenido por año, rating, popularidad, género y plataforma de strea
   <img src="https://via.placeholder.com/800x400?text=Captura+Filtros+Aqui" alt="Filtros de CineBox" />
 </div>
 
-### Creación de Listas
-Interfaz intuitiva para crear colecciones. Incluye autocompletado de búsqueda y reordenamiento de pósters (Drag & Drop).
-<div align="center">
-  <img src="https://via.placeholder.com/800x400?text=Captura+Creacion+Listas+Aqui" alt="Creación de Listas" />
-</div>
 
-### Perfil de Usuario y Ajustes
-Panel de control para gestionar tu identidad, películas favoritas y preferencias de la cuenta (Account Settings).
-<div align="center">
-  <img src="https://via.placeholder.com/800x400?text=Captura+Perfil+Aqui" alt="Perfil de Usuario" />
-</div>
 
 ---
 
