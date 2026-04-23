@@ -121,7 +121,7 @@ git clone https://github.com/tu-usuario/cinebox.git
 cd cinebox
 ```
 
-### 2. Configurar Variables de Envorno
+### 2. Configurar Variables de Entorno
 Deberás crear un archivo `.env` en cada servicio del backend y en el frontend. (Revisa los archivos `.env.example` de cada carpeta).
 
 Ejemplo para el Frontend (`frontend/.env`):
