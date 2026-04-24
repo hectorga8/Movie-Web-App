@@ -15,6 +15,14 @@ const WatchlistItemSchema = new mongoose.Schema({
     enum: ['movie', 'tv'],
     required: true
   },
+  title: {
+    type: String,
+    required: false
+  },
+  image: {
+    type: String,
+    required: false
+  },
   status: {
     type: String,
     enum: ['plan_to_watch', 'watched', 'dropped'],

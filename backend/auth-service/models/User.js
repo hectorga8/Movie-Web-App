@@ -5,6 +5,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, 'El nombre es obligatorio'],
   },
+  givenName: {
+    type: String,
+    default: '',
+  },
+  familyName: {
+    type: String,
+    default: '',
+  },
   email: {
     type: String,
     required: [true, 'El email es obligatorio'],
@@ -15,6 +23,31 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    enum: ['free', 'pro', 'admin'],
+    default: 'free',
+  },
+  avatar: {
+    type: String,
+    default: '',
+  },
+  bio: {
+    type: String,
+    default: '',
+  },
+  location: {
+    type: String,
+    default: '',
+  },
+  website: {
+    type: String,
+    default: '',
+  },
+  pronoun: {
+    type: String,
+    default: 'They / their',
   },
   // --- CAMPOS DE PERFIL / ONBOARDING (CineBox) ---
   onboardingCompleted: {
@@ -33,6 +66,14 @@ const UserSchema = new mongoose.Schema({
     type: [String],
     default: [],
   },
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  following: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
 }, {
   timestamps: true
 });

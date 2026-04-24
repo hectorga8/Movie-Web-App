@@ -23,11 +23,13 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
     }
   }, [user, item, type]);
 
+  const title = item.title || item.name;
+
   const handleFavoriteToggle = async () => {
     if (!user) return onActionClick();
     try {
       const newFav = !isFavorite;
-      await watchlistService.addItem(item.id, type, status, newFav);
+      await watchlistService.addItem(item.id, type, status, newFav, null, title, item.poster_path);
       setIsFavorite(newFav);
       setInWatchlist(true); 
     } catch (err) {
@@ -43,7 +45,7 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
         setInWatchlist(false);
       } else {
         const newStatus = inWatchlist ? status : 'plan_to_watch';
-        await watchlistService.addItem(item.id, type, newStatus, isFavorite);
+        await watchlistService.addItem(item.id, type, newStatus, isFavorite, null, title, item.poster_path);
         setInWatchlist(true);
       }
     } catch (err) {
@@ -55,17 +57,13 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
     if (!user) return onActionClick();
     try {
       const newStatus = status === 'watched' ? 'plan_to_watch' : 'watched';
-      await watchlistService.addItem(item.id, type, newStatus, isFavorite);
+      await watchlistService.addItem(item.id, type, newStatus, isFavorite, null, title, item.poster_path);
       setStatus(newStatus);
       setInWatchlist(true);
     } catch (err) {
       console.error(err);
     }
   };
-
-  if (!item) return null;
-
-  const title = item.title || item.name;
   const releaseDate = item.release_date || item.first_air_date;
   const year = releaseDate?.split('-')[0] || 'N/R';
   

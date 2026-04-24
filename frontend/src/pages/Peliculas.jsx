@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ContentFilterBar from '../components/common/ContentFilterBar';
 import PopularFilmsWeek from '../components/peliculas/PopularFilmsWeek';
-import AdBanner from '../components/peliculas/AdBanner';
 import JustReviewed from '../components/peliculas/JustReviewed';
 import PopularReviews from '../components/peliculas/PopularReviews';
 import RightSidebarPeliculas from '../components/peliculas/RightSidebarPeliculas';
@@ -16,11 +16,9 @@ function Peliculas() {
           <h2 className="text-[14px] uppercase tracking-[1px] text-[#9ab] hover:text-[#fff] cursor-pointer transition-colors">
             Películas populares esta semana
           </h2>
-          <a href="#" className="text-[11px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</a>
+          <Link to="/peliculas/todas" className="text-[11px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</Link>
         </div>
         <PopularFilmsWeek />
-        
-        <AdBanner />
         
         <div className="mt-8 mb-4 flex justify-between items-end border-b border-[#445566] pb-2">
           <h2 className="text-[14px] uppercase tracking-[1px] text-[#9ab] hover:text-[#fff] cursor-pointer transition-colors">
@@ -36,7 +34,7 @@ function Peliculas() {
               <h2 className="text-[14px] uppercase tracking-[1px] text-[#9ab] hover:text-[#fff] cursor-pointer transition-colors">
                 Reseñas populares esta semana
               </h2>
-              <a href="#" className="text-[11px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</a>
+              <Link to="/peliculas/todas" className="text-[11px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</Link>
             </div>
             <PopularReviews />
           </div>

@@ -81,6 +81,31 @@ app.get('/api/movies/news', async (req, res) => {
 });
 
 // --- TV SERIES ---
+app.get('/api/tv/all', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const tmdbPage1 = (page - 1) * 2 + 1;
+    const tmdbPage2 = (page - 1) * 2 + 2;
+
+    const [res1, res2] = await Promise.all([
+      tmdbApi.get('/discover/tv', { params: { language: 'es-ES', sort_by: 'popularity.desc', page: tmdbPage1 } }),
+      tmdbApi.get('/discover/tv', { params: { language: 'es-ES', sort_by: 'popularity.desc', page: tmdbPage2 } })
+    ]);
+
+    const combinedResults = [...res1.data.results, ...res2.data.results];
+    
+    res.json({
+      page,
+      results: combinedResults,
+      total_pages: Math.ceil(res1.data.total_pages / 2),
+      total_results: res1.data.total_results
+    });
+  } catch (error) {
+    console.error("❌ Error TV All:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Error obteniendo series' });
+  }
+});
+
 app.get('/api/tv/list/trending', async (req, res) => {
   try {
     const { data } = await tmdbApi.get('/trending/tv/week', { params: { language: 'es-ES' } });
@@ -92,6 +117,31 @@ app.get('/api/tv/list/trending', async (req, res) => {
 });
 
 // --- PELÍCULAS ---
+app.get('/api/movies/all', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const tmdbPage1 = (page - 1) * 2 + 1;
+    const tmdbPage2 = (page - 1) * 2 + 2;
+
+    const [res1, res2] = await Promise.all([
+      tmdbApi.get('/discover/movie', { params: { language: 'es-ES', sort_by: 'popularity.desc', page: tmdbPage1 } }),
+      tmdbApi.get('/discover/movie', { params: { language: 'es-ES', sort_by: 'popularity.desc', page: tmdbPage2 } })
+    ]);
+
+    const combinedResults = [...res1.data.results, ...res2.data.results];
+    
+    res.json({
+      page,
+      results: combinedResults,
+      total_pages: Math.ceil(res1.data.total_pages / 2),
+      total_results: res1.data.total_results
+    });
+  } catch (error) {
+    console.error("❌ Error Movie All:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Error obteniendo todas las películas' });
+  }
+});
+
 app.get('/api/search/multi', async (req, res) => {
   try {
     const { query, sortBy } = req.query;

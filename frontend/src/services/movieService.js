@@ -6,6 +6,11 @@ const BASE_URL = `http://${SERVER_IP}:5002/api`;
 
 export const movieService = {
   // PELÍCULAS
+  getAllMovies: async (page = 1) => {
+    const { data } = await axios.get(`${BASE_URL}/movies/all?page=${page}`);
+    return data;
+  },
+
   getTrending: async () => {
     const { data } = await axios.get(`${BASE_URL}/movies/trending`);
     return data;
@@ -42,6 +47,11 @@ export const movieService = {
   },
 
   // SERIES (TV)
+  getAllSeries: async (page = 1) => {
+    const { data } = await axios.get(`${BASE_URL}/tv/all?page=${page}`);
+    return data;
+  },
+
   getTVDetail: async (id) => {
     const { data } = await axios.get(`${BASE_URL}/tv/${id}`);
     return data;

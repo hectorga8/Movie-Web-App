@@ -181,43 +181,40 @@ function SearchBar() {
             />
           )}
 
-          {/* Renderizamos el input si estamos en desktop o si en móvil está expandido */}
-          {(isMobileExpanded || window.innerWidth >= 768) && (
-            <div style={inputStyle}>
-              <form onSubmit={handleSearchSubmit} className="relative h-full">
-                <input
-                  ref={inputRef}
-                  type="text"
-                  placeholder="Buscar películas, series..."
-                  value={query}
-                  onFocus={() => setIsFocused(true)}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className="w-full h-full pl-10 pr-10 md:pr-4 bg-[#1a1b23] md:bg-[#1a1b23] border border-white/10 rounded-full text-[16px] md:text-[13px] font-medium text-white outline-none transition-all duration-200 placeholder:text-white/40 focus:border-[#1060ff]/60 shadow-xl"
-                />
-                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none transition-colors ${isFocused || isMobileExpanded ? 'text-[#1060ff]' : 'text-white/30'}`}>
+          <div style={inputStyle} className={`${!isMobileExpanded ? 'hidden md:block' : ''}`}>
+            <form onSubmit={handleSearchSubmit} className="relative h-full">
+              <input
+                ref={inputRef}
+                type="text"
+                placeholder="Buscar películas, series..."
+                value={query}
+                onFocus={() => setIsFocused(true)}
+                onChange={(e) => setQuery(e.target.value)}
+                className="w-full h-full pl-10 pr-10 md:pr-4 bg-[#1a1b23] md:bg-[#1a1b23] border border-white/10 rounded-full text-[16px] md:text-[13px] font-medium text-white outline-none transition-all duration-200 placeholder:text-white/40 focus:border-[#1060ff]/60 shadow-xl"
+              />
+              <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none transition-colors ${isFocused || isMobileExpanded ? 'text-[#1060ff]' : 'text-white/30'}`}>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              
+              {/* Botón Cerrar en Móvil */}
+              {isMobileExpanded && (
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setIsMobileExpanded(false);
+                    setIsFocused(false);
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-1 md:hidden"
+                >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
-                </div>
-                
-                {/* Botón Cerrar en Móvil */}
-                {isMobileExpanded && (
-                  <button 
-                    type="button" 
-                    onClick={() => {
-                      setIsMobileExpanded(false);
-                      setIsFocused(false);
-                    }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white p-1 md:hidden"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                )}
-              </form>
-            </div>
-          )}
+                </button>
+              )}
+            </form>
+          </div>
 
           {(isFocused || isMobileExpanded) && (
             <div

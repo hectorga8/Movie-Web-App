@@ -85,8 +85,7 @@ function Header({ variant = "landing" }) {
                   {isDropdownOpen && (
                     <div className="absolute right-0 mt-4 w-56 bg-[#1a1c23] border border-white/10 rounded-md shadow-xl py-2 z-[60]">
                       <Link to="/perfil" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mi perfil</Link>
-                      <Link to="/mis-peliculas" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis películas</Link>
-                      <Link to="/mis-series" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis series</Link>
+                      <Link to="/dashboard" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mi Videoteca</Link>
                       <Link to="/mis-reviews" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis reviews</Link>
                       <Link to="/pendientes" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Pendientes</Link>
                       <Link to="/listas" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Listas</Link>
@@ -97,7 +96,6 @@ function Header({ variant = "landing" }) {
                       <div className="my-2 border-t border-white/5"></div>
                       
                       <Link to="/ajustes" className="block px-4 py-2 text-sm text-white/80 hover:bg-white/5 transition-colors">Ajustes</Link>
-                      <Link to="/subscripciones" className="block px-4 py-2 text-sm text-white/80 hover:bg-white/5 transition-colors">Subscripciones</Link>
                       <button 
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 transition-colors"

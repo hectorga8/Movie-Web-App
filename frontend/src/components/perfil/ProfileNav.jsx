@@ -5,16 +5,16 @@ function ProfileNav() {
   const location = useLocation();
   
   const navItems = [
-    { name: 'Profile', path: '/perfil' },
-    { name: 'Activity', path: '/perfil/activity' },
-    { name: 'Films', path: '/perfil/films' },
-    { name: 'Diary', path: '/perfil/diary' },
-    { name: 'Reviews', path: '/perfil/reviews' },
+    { name: 'Perfil', path: '/perfil' },
+    { name: 'Actividad', path: '/perfil/activity' },
+    { name: 'Películas', path: '/perfil/films' },
+    { name: 'Diario', path: '/perfil/diary' },
+    { name: 'Reseñas', path: '/perfil/reviews' },
     { name: 'Watchlist', path: '/perfil/watchlist' },
-    { name: 'Lists', path: '/listas' }, 
-    { name: 'Likes', path: '/perfil/likes' },
-    { name: 'Tags', path: '/perfil/tags' },
-    { name: 'Network', path: '/perfil/network' },
+    { name: 'Listas', path: '/listas' }, 
+    { name: 'Me gusta', path: '/perfil/likes' },
+    { name: 'Etiquetas', path: '/perfil/tags' },
+    { name: 'Red', path: '/perfil/network' },
   ];
 
   return (
@@ -40,7 +40,7 @@ function ProfileNav() {
       </nav>
       {/* Iconos a la derecha */}
       <div className="hidden md:flex items-center gap-4 ml-auto text-[#8b9bb4]">
-        <button className="hover:text-white transition-colors" title="Search profile">
+        <button className="hover:text-white transition-colors" title="Buscar en perfil">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
         </button>
         <button className="hover:text-[#ff8000] transition-colors" title="RSS Feed">

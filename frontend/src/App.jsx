@@ -5,7 +5,9 @@ import Footer from './components/layout/Footer';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Peliculas from './pages/Peliculas';
+import TodasPeliculas from './pages/TodasPeliculas';
 import Series from './pages/Series';
+import TodasSeries from './pages/TodasSeries';
 import Pelicula from './pages/Pelicula';
 import Serie from './pages/Serie';
 import SearchResults from './pages/SearchResults';
@@ -97,7 +99,9 @@ function App() {
 
             {/* Rutas Públicas / De Contenido */}
             <Route path="/peliculas" element={<Peliculas />} />
+            <Route path="/peliculas/todas" element={<TodasPeliculas />} />
             <Route path="/series" element={<Series />} />
+            <Route path="/series/todas" element={<TodasSeries />} />
             <Route path="/pelicula/:id" element={<Pelicula />} />
             <Route path="/serie/:id" element={<Serie />} />
             <Route path="/search" element={<SearchResults />} />
@@ -118,3 +122,4 @@ function App() {
 }
 
 export default App;
+

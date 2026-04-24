@@ -33,13 +33,6 @@ function PopularFilmsWeek() {
 
   return (
     <div className="relative mb-10 group">
-      {/* Carrusel Arrows */}
-      <button className="absolute -left-6 top-1/2 -translate-y-1/2 text-[#678] hover:text-[#fff] transition-colors opacity-0 group-hover:opacity-100">
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
-      </button>
-      <button className="absolute -right-6 top-1/2 -translate-y-1/2 text-[#678] hover:text-[#fff] transition-colors opacity-0 group-hover:opacity-100">
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7-7" /></svg>
-      </button>
 
       <div className="grid grid-cols-4 gap-1.5">
         {movies.map((movie, i) => {

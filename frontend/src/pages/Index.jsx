@@ -24,7 +24,7 @@ function Index() {
     {
       id: 'n2',
       title: "Próximamente: Integración con suscripciones Premium",
-      excerpt: "Estamos trabajando en CineBox Pro, un sistema de suscripción que te permitirá acceder a funciones exclusivas y estadísticas avanzadas de tu perfil.",
+      excerpt: "Estamos construyendo funciones avanzadas para que puedas ver estadísticas detalladas de tu perfil, exportar tus listas y conectar con más amigos.",
       image: "https://images.unsplash.com/photo-1524712245354-2c4e5e7124c5?q=80&w=2070&auto=format&fit=crop",
       url: "#",
       date: "Mañana"
