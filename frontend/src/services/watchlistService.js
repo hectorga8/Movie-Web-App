@@ -22,8 +22,8 @@ export const watchlistService = {
     return data;
   },
 
-  addItem: async (mediaId, mediaType, status = 'plan_to_watch', isFavorite = false, rating = null, title = null, image = null) => {
-    const { data } = await watchlistApi.post('/watchlist', { mediaId, mediaType, status, isFavorite, rating, title, image });
+  addItem: async (mediaId, mediaType, status = 'plan_to_watch', isFavorite = false, rating = null, title = null, image = null, inWatchlist = false) => {
+    const { data } = await watchlistApi.post('/watchlist', { mediaId, mediaType, status, isFavorite, rating, title, image, inWatchlist });
     return data;
   },
 

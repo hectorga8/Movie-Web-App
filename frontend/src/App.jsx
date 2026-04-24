@@ -10,6 +10,8 @@ import Series from './pages/Series';
 import TodasSeries from './pages/TodasSeries';
 import Pelicula from './pages/Pelicula';
 import Serie from './pages/Serie';
+import Persona from './pages/Persona';
+import TodasPersonas from './pages/TodasPersonas';
 import SearchResults from './pages/SearchResults';
 import Index from './pages/Index';
 import Login from './pages/Login';
@@ -104,6 +106,8 @@ function App() {
             <Route path="/series/todas" element={<TodasSeries />} />
             <Route path="/pelicula/:id" element={<Pelicula />} />
             <Route path="/serie/:id" element={<Serie />} />
+            <Route path="/persona/:id" element={<Persona />} />
+            <Route path="/personas/todas" element={<TodasPersonas />} />
             <Route path="/search" element={<SearchResults />} />
             <Route path="/listas" element={<Listas />} />
             <Route path="/listas/nueva" element={

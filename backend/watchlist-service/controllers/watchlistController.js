@@ -51,7 +51,7 @@ exports.getCustomListById = async (req, res) => {
 
 exports.addItem = async (req, res) => {
   try {
-    const { mediaId, mediaType, status, isFavorite, rating, title, image } = req.body;
+    const { mediaId, mediaType, status, isFavorite, rating, title, image, inWatchlist } = req.body;
     const userId = req.user.id;
 
     if (!mediaId || !mediaType) {
@@ -60,7 +60,7 @@ exports.addItem = async (req, res) => {
 
     const item = await WatchlistItem.findOneAndUpdate(
       { userId, mediaId, mediaType },
-      { $set: { status, isFavorite, rating, title, image, addedAt: Date.now() } },
+      { $set: { status, isFavorite, rating, title, image, inWatchlist, addedAt: Date.now() } },
       { new: true, upsert: true }
     );
 
@@ -109,13 +109,14 @@ exports.checkItemStatus = async (req, res) => {
 
     const item = await WatchlistItem.findOne({ userId, mediaId: Number(mediaId), mediaType });
     if (!item) {
-      return res.status(200).json({ inList: false });
+      return res.status(200).json({ inList: false, inWatchlist: false });
     }
     
     res.status(200).json({ 
       inList: true, 
       status: item.status, 
       isFavorite: item.isFavorite, 
+      inWatchlist: item.inWatchlist,
       rating: item.rating 
     });
   } catch (error) {

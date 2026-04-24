@@ -7,7 +7,7 @@ function SearchBar() {
   const [query, setQuery] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [isMobileExpanded, setIsMobileExpanded] = useState(false);
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState({ media: [], people: [] });
   const [recentSearches, setRecentSearches] = useState([]);
   const [trending, setTrending] = useState([]);
   const [inputStyle, setInputStyle] = useState({});
@@ -96,12 +96,16 @@ function SearchBar() {
       if (query.trim().length > 1) {
         try {
           const data = await movieService.searchMulti(query.trim());
-          setResults(data.results?.slice(0, 5) || []);
+          const allResults = data.results || [];
+          setResults({
+            media: allResults.filter(r => r.media_type === 'movie' || r.media_type === 'tv').slice(0, 4),
+            people: allResults.filter(r => r.media_type === 'person').slice(0, 3)
+          });
         } catch (error) {
           console.error("Error en búsqueda rápida:", error);
         }
       } else {
-        setResults([]);
+        setResults({ media: [], people: [] });
       }
     }, 300);
     return () => clearTimeout(timer);
@@ -268,38 +272,75 @@ function SearchBar() {
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-3">
-                    <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px]">Mejores coincidencias</p>
-                    <div className="space-y-1">
-                      {results.length > 0 ? (
-                        results.map((item) => (
-                          <Link
-                            key={item.id}
-                            to={`/${item.media_type === 'movie' ? 'pelicula' : 'serie'}/${item.id}`}
-                            onClick={() => {
-                              setIsFocused(false);
-                              setIsMobileExpanded(false);
-                            }}
-                            className="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-all group"
-                          >
-                            {/* Imagen oculta en móvil */}
-                            <div className="hidden md:block w-10 h-14 shrink-0 rounded-lg overflow-hidden bg-white/5">
-                              <img src={movieService.getImageUrl(item.poster_path, 'w92')} className="w-full h-full object-cover" alt="" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-white font-bold text-sm truncate group-hover:text-[#1060ff] transition-colors">
-                                {item.title || item.name}
-                              </p>
-                              <p className="text-white/40 text-xs mt-0.5">
-                                {(item.release_date || item.first_air_date)?.split('-')[0]} · {item.media_type === 'movie' ? 'Película' : 'Serie'}
-                              </p>
-                            </div>
-                          </Link>
-                        ))
-                      ) : (
-                        <p className="py-4 text-center text-white/30 text-sm italic">No se encontraron resultados...</p>
-                      )}
-                    </div>
+                  <div className="space-y-4">
+                    {results.media.length > 0 && (
+                      <div>
+                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-2">Mejores coincidencias</p>
+                        <div className="space-y-1">
+                          {results.media.map((item) => (
+                            <Link
+                              key={item.id}
+                              to={`/${item.media_type === 'movie' ? 'pelicula' : 'serie'}/${item.id}`}
+                              onClick={() => {
+                                setQuery('');
+                                setIsFocused(false);
+                                setIsMobileExpanded(false);
+                              }}
+                              className="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-all group"
+                            >
+                              <div className="hidden md:block w-10 h-14 shrink-0 rounded-[4px] overflow-hidden bg-white/5">
+                                <img src={movieService.getImageUrl(item.poster_path, 'w92')} className="w-full h-full object-cover" alt="" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-bold text-sm truncate group-hover:text-[#1060ff] transition-colors">
+                                  {item.title || item.name}
+                                </p>
+                                <p className="text-white/40 text-xs mt-0.5">
+                                  {(item.release_date || item.first_air_date)?.split('-')[0]} · {item.media_type === 'movie' ? 'Película' : 'Serie'}
+                                </p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {results.people.length > 0 && (
+                      <div>
+                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-2">Actores y Directores</p>
+                        <div className="space-y-1">
+                          {results.people.map((person) => (
+                            <Link
+                              key={person.id}
+                              to={`/persona/${person.id}`}
+                              onClick={() => {
+                                setQuery('');
+                                setIsFocused(false);
+                                setIsMobileExpanded(false);
+                              }}
+                              className="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-all group"
+                            >
+                              <div className="w-10 h-10 shrink-0 rounded-full overflow-hidden bg-white/5 border border-white/10 group-hover:border-[#1060ff] transition-colors">
+                                <img src={movieService.getImageUrl(person.profile_path, 'w92')} className="w-full h-full object-cover" alt="" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-bold text-sm truncate group-hover:text-[#1060ff] transition-colors">
+                                  {person.name}
+                                </p>
+                                <p className="text-white/40 text-xs mt-0.5 truncate">
+                                  {person.known_for_department}
+                                </p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {results.media.length === 0 && results.people.length === 0 && (
+                      <p className="py-4 text-center text-white/30 text-sm italic">No se encontraron resultados...</p>
+                    )}
+                    
                     <div className="pt-3 border-t border-white/5">
                       <button
                         onClick={handleSearchSubmit}

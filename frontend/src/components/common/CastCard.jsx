@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import movieService from '../../services/movieService';
 
 const CastCard = ({ person }) => {
   if (!person) return null;
   
   return (
-    <div className="min-w-[140px] md:min-w-[160px] group cursor-pointer">
+    <Link to={`/persona/${person.id}`} className="min-w-[140px] md:min-w-[160px] group cursor-pointer block">
       <div className="h-[220px] mb-3 rounded-[8px] overflow-hidden border border-white/10 shadow-2xl bg-black/20">
         <img 
           src={movieService.getImageUrl(person.profile_path, 'w185')} 
@@ -18,9 +19,9 @@ const CastCard = ({ person }) => {
         {person.name}
       </h4>
       <p className="text-[12px] text-white/40 font-medium leading-tight">
-        {person.character}
+        {movieService.translateRole(person.character, person.gender)}
       </p>
-    </div>
+    </Link>
   );
 };
 

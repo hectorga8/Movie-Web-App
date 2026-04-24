@@ -43,7 +43,7 @@ const CastSection = ({ cast }) => {
         {!isAtEnd && <div className="absolute right-0 top-0 h-[220px] w-40 z-20 pointer-events-none bg-gradient-to-l from-[#0d0e12] via-[#0d0e12]/30 to-transparent"></div>}
         
         <div ref={scrollRef} onScroll={onScroll} className="flex overflow-x-auto gap-6 pb-6 no-scrollbar scroll-smooth snap-x">
-          {cast.slice(0, 15).map(person => (
+          {cast.slice(0, 21).map(person => (
             <div key={person.id} className="snap-start transition-transform hover:scale-[1.03] origin-top">
               <CastCard person={person} />
             </div>

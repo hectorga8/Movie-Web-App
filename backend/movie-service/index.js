@@ -80,6 +80,56 @@ app.get('/api/movies/news', async (req, res) => {
   }
 });
 
+// --- PERSONAS (ACTORES/DIRECTORES) ---
+app.get('/api/person/all', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const tmdbPage1 = (page - 1) * 2 + 1;
+    const tmdbPage2 = (page - 1) * 2 + 2;
+
+    const [res1, res2] = await Promise.all([
+      tmdbApi.get('/person/popular', { params: { language: 'es-ES', page: tmdbPage1 } }),
+      tmdbApi.get('/person/popular', { params: { language: 'es-ES', page: tmdbPage2 } })
+    ]);
+
+    const combinedResults = [...res1.data.results, ...res2.data.results];
+    
+    res.json({
+      page,
+      results: combinedResults,
+      total_pages: Math.ceil(res1.data.total_pages / 2),
+      total_results: res1.data.total_results
+    });
+  } catch (error) {
+    console.error("❌ Error Person All:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Error obteniendo personas' });
+  }
+});
+
+app.get('/api/person/:id', async (req, res) => {
+  try {
+    const { data } = await tmdbApi.get(`/person/${req.params.id}`, { 
+      params: { 
+        language: 'es-ES',
+        append_to_response: 'combined_credits,external_ids,images,translations'
+      } 
+    });
+    
+    // Fallback: Si no hay biografía en español, buscar la versión en inglés
+    if (!data.biography && data.translations && data.translations.translations) {
+      const enTranslation = data.translations.translations.find(t => t.iso_639_1 === 'en');
+      if (enTranslation && enTranslation.data && enTranslation.data.biography) {
+        data.biography = enTranslation.data.biography;
+      }
+    }
+
+    res.json(data);
+  } catch (error) { 
+    console.error("❌ Error Detalle Persona:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Error obteniendo detalles de persona' }); 
+  }
+});
+
 // --- TV SERIES ---
 app.get('/api/tv/all', async (req, res) => {
   try {
@@ -151,8 +201,8 @@ app.get('/api/search/multi', async (req, res) => {
     
     let results = data.results || [];
     
-    // Filtramos para asegurar que solo sean películas o series (no personas)
-    results = results.filter(item => item.media_type === 'movie' || item.media_type === 'tv');
+    // Filtramos para asegurar que sean películas, series o personas
+    results = results.filter(item => ['movie', 'tv', 'person'].includes(item.media_type));
 
     if (sortBy === 'popularity') {
       results.sort((a, b) => (b.popularity || 0) - (a.popularity || 0));
@@ -232,7 +282,13 @@ app.get('/api/movies/:id', async (req, res) => {
 
 app.get('/api/tv/:id', async (req, res) => {
   try {
-    const { data } = await tmdbApi.get(`/tv/${req.params.id}`, { params: { language: 'es-ES' } });
+    const { data } = await tmdbApi.get(`/tv/${req.params.id}`, { 
+      params: { 
+        language: 'es-ES',
+        append_to_response: 'credits,videos,images,recommendations,similar,reviews,external_ids,content_ratings,watch/providers',
+        include_video_language: 'es,en,null'
+      } 
+    });
     res.json(data);
   } catch (error) { res.status(500).json({ error: 'Error obteniendo serie' }); }
 });

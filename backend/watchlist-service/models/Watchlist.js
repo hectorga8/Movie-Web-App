@@ -38,6 +38,10 @@ const WatchlistItemSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  inWatchlist: {
+    type: Boolean,
+    default: false
+  },
   addedAt: {
     type: Date,
     default: Date.now

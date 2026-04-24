@@ -14,10 +14,14 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
   useEffect(() => {
     if (user && item) {
       watchlistService.checkStatus(item.id, type).then(data => {
-        setInWatchlist(data.inList);
         if (data.inList) {
-          setIsFavorite(data.isFavorite);
-          setStatus(data.status);
+          setIsFavorite(data.isFavorite || false);
+          setStatus(data.status || 'none');
+          setInWatchlist(data.inWatchlist || false);
+        } else {
+          setIsFavorite(false);
+          setStatus('none');
+          setInWatchlist(false);
         }
       }).catch(err => console.error("Error al comprobar watchlist", err));
     }
@@ -29,9 +33,8 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
     if (!user) return onActionClick();
     try {
       const newFav = !isFavorite;
-      await watchlistService.addItem(item.id, type, status, newFav, null, title, item.poster_path);
+      await watchlistService.addItem(item.id, type, status, newFav, null, title, item.poster_path, inWatchlist);
       setIsFavorite(newFav);
-      setInWatchlist(true); 
     } catch (err) {
       console.error(err);
     }
@@ -40,14 +43,9 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
   const handleWatchlistToggle = async () => {
     if (!user) return onActionClick();
     try {
-      if (inWatchlist && status === 'plan_to_watch' && !isFavorite) {
-        await watchlistService.removeItem(item.id, type);
-        setInWatchlist(false);
-      } else {
-        const newStatus = inWatchlist ? status : 'plan_to_watch';
-        await watchlistService.addItem(item.id, type, newStatus, isFavorite, null, title, item.poster_path);
-        setInWatchlist(true);
-      }
+      const newWatchlist = !inWatchlist;
+      await watchlistService.addItem(item.id, type, status, isFavorite, null, title, item.poster_path, newWatchlist);
+      setInWatchlist(newWatchlist);
     } catch (err) {
       console.error(err);
     }
@@ -56,10 +54,9 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
   const handleWatchedToggle = async () => {
     if (!user) return onActionClick();
     try {
-      const newStatus = status === 'watched' ? 'plan_to_watch' : 'watched';
-      await watchlistService.addItem(item.id, type, newStatus, isFavorite, null, title, item.poster_path);
+      const newStatus = status === 'watched' ? 'none' : 'watched';
+      await watchlistService.addItem(item.id, type, newStatus, isFavorite, null, title, item.poster_path, inWatchlist);
       setStatus(newStatus);
-      setInWatchlist(true);
     } catch (err) {
       console.error(err);
     }
@@ -68,13 +65,13 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
   const year = releaseDate?.split('-')[0] || 'N/R';
   
   const findResponsible = () => {
-    if (type === 'tv' && item.created_by?.length > 0) return item.created_by[0].name;
+    if (type === 'tv' && item.created_by?.length > 0) return item.created_by[0];
 
     if (item.credits?.crew) {
       const roles = ['director', 'original story', 'author', 'writer', 'executive producer', 'series creator'];
       for (let role of roles) {
         const found = item.credits.crew.find(p => p.job?.toLowerCase().includes(role));
-        if (found) return found.name;
+        if (found) return found;
       }
     }
     return null;
@@ -140,7 +137,14 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
               {creatorOrDirector && (
                 <div className="mt-6 flex items-center justify-center md:justify-start gap-4">
                   <div className="w-1 h-6 bg-[#1060ff] rounded-full shadow-[0_0_10px_rgba(16,96,255,0.5)]"></div>
-                  <p className="text-[13px] font-bold text-white"><span className="opacity-40 font-normal uppercase tracking-wider text-[11px] mr-2">{type === 'movie' ? 'Director' : 'Creador'}</span> {creatorOrDirector}</p>
+                  <p className="text-[13px] font-bold text-white flex items-center">
+                    <span className="opacity-40 font-normal uppercase tracking-wider text-[11px] mr-2">
+                      {type === 'movie' ? 'Director' : 'Creador'}
+                    </span> 
+                    <Link to={`/persona/${creatorOrDirector.id}`} className="hover:text-[#1060ff] transition-colors">
+                      {creatorOrDirector.name}
+                    </Link>
+                  </p>
                 </div>
               )}
             </div>
