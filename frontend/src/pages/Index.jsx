@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import HomeMovieCard from "../components/index/HomeMovieCard";
 import movieService from '../services/movieService';
+import { getPopularReviews } from '../services/reviewService';
 
 function Index() {
   const { user } = useAuth();
   const [newMovies, setNewMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
+  const [popularReviews, setPopularReviews] = useState([]);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,20 +48,22 @@ function Index() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [newData, popularData, newsData] = await Promise.all([
+        const [newData, popularData, newsData, reviewsData] = await Promise.all([
           movieService.getNowPlaying().catch(() => ({ results: [] })),
           movieService.getPopular().catch(() => ({ results: [] })),
-          movieService.getNews().catch(() => [])
+          movieService.getNews().catch(() => []),
+          getPopularReviews().catch(() => [])
         ]);
         
-        const newItems = Array.isArray(newData) ? newData : (newData.results || []);
-        const popularItems = Array.isArray(popularData) ? popularData : (popularData.results || []);
+        const newItems = (newData && Array.isArray(newData)) ? newData : (newData?.results || []);
+        const popularItems = (popularData && Array.isArray(popularData)) ? popularData : (popularData?.results || []);
 
         setNewMovies(mapResults(newItems));
         setPopularMovies(mapResults(popularItems));
+        setPopularReviews(reviewsData);
         
         // Si newsData llega vacío, usamos el fallback
-        setNews(newsData.length > 0 ? newsData : fallbackNews);
+        setNews(newsData && newsData.length > 0 ? newsData : fallbackNews);
       } catch (e) {
         console.error("Error fetching data for Index:", e);
         setNews(fallbackNews);
@@ -77,7 +81,7 @@ function Index() {
         {/* 1. Bienvenida */}
         <section className="mb-12">
           <h1 className="text-[26px] md:text-[32px] font-light text-[#efeff1] text-center leading-tight">
-            Bienvenido, <Link to="/perfil" className="hover:text-[#1060ff] transition-colors">{user?.name.split(' ')[0]}</Link>. Esto es lo que has estado viendo…
+            Bienvenido, <Link to="/perfil" className="hover:text-[#1060ff] transition-colors">{user?.name ? user.name.split(' ')[0] : 'Cinéfilo'}</Link>. Esto es lo que has estado viendo…
           </h1>
           <p className="text-white/40 text-[15px] mt-2 text-center font-light">
             Esta página de inicio se personalizará a medida que sigas a los miembros activos de CineBox.
@@ -180,24 +184,30 @@ function Index() {
             </div>
             <div className="h-[1px] bg-white/10 w-full mb-6"></div>
             <div className="space-y-4">
-              {[1, 2].map(i => (
-                <div key={i} className="flex gap-4 p-4 bg-white/5 rounded-[4px] border border-white/5">
-                  <div className="w-12 h-18 bg-white/10 shrink-0 rounded-[2px] overflow-hidden">
-                     <img src={`https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg`} alt="" className="w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-bold text-[14px]">Usuario_{i}</span>
-                      <div className="flex text-[#00e054] text-[10px]">★★★★★</div>
+              {popularReviews.length > 0 ? (
+                popularReviews.map(review => (
+                  <div key={review._id} className="flex gap-4 p-4 bg-white/5 rounded-[4px] border border-white/5 relative overflow-hidden group">
+                    <Link to={`/${review.mediaType}/${review.mediaId}`} className="w-16 md:w-20 shrink-0 rounded-[2px] overflow-hidden aspect-[2/3] block bg-white/10">
+                       <img src={review.mediaPoster ? `https://image.tmdb.org/t/p/w200${review.mediaPoster}` : 'https://via.placeholder.com/200x300?text=No+Poster'} alt={review.mediaTitle} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                    </Link>
+                    <div className="flex-1 min-w-0 flex flex-col justify-center">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="font-bold text-[14px] truncate">{review.username}</span>
+                        <div className="flex text-[#00e054] text-[10px]">
+                          {'★'.repeat(Math.max(0, review.rating || 0))}{'☆'.repeat(Math.max(0, 5 - (review.rating || 0)))}
+                        </div>
+                      </div>
+                      <Link to={`/${review.mediaType}/${review.mediaId}`} className="text-white/80 text-[12px] font-bold mb-1 hover:text-[#1060ff] transition-colors">{review.mediaTitle} <span className="font-normal opacity-50">{review.mediaYear}</span></Link>
+                      <p className="text-white/60 text-[13px] italic line-clamp-2 font-light break-words">"{review.reviewText}"</p>
+                      <div className="mt-2 text-[11px] text-white/30 font-light flex items-center gap-3">
+                        <span className="flex items-center gap-1"><span className="text-[#ff4e4e]">❤</span> {review.likes} likes</span>
+                      </div>
                     </div>
-                    <p className="text-white/60 text-[13px] italic line-clamp-2 font-light">"Una obra maestra absoluta del género. La dirección de fotografía es simplemente espectacular y la banda sonora te sumerge por completo..."</p>
-                    <div className="mt-2 text-[11px] text-white/30 font-light flex items-center gap-3">
-                      <span className="flex items-center gap-1"><span className="text-[#ff4e4e]">❤</span> {120 + i*15} likes</span>
-                      <span>12 comentarios</span>
-                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <div className="text-white/40 text-[13px] italic">Aún no hay reseñas populares.</div>
+              )}
             </div>
           </section>
 

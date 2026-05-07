@@ -40,6 +40,19 @@ services:
     networks:
       - cinesaas-network
 
+  review-service:
+    build: ./backend/review-service
+    container_name: cinesaas-reviews
+    ports:
+      - "5004:5004"
+    env_file:
+      - ./backend/review-service/.env
+    volumes:
+      - ./backend/review-service:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - cinesaas-network
+
   frontend:
     build: ./frontend
     container_name: cinesaas-frontend

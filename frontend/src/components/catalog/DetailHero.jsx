@@ -4,12 +4,14 @@ import movieService from '../../services/movieService';
 import watchlistService from '../../services/watchlistService';
 import { useAuth } from '../../context/AuthContext';
 import RatingCircle from '../common/RatingCircle';
+import ReviewModal from '../common/ReviewModal';
 
 const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
   const { user } = useAuth();
   const [inWatchlist, setInWatchlist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [status, setStatus] = useState('plan_to_watch');
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   useEffect(() => {
     if (user && item) {
@@ -184,10 +186,28 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
                   VER TRÁILER
                 </button>
               )}
+
+              <button 
+                onClick={() => {
+                  if (!user) return onActionClick();
+                  setIsReviewModalOpen(true);
+                }}
+                className="ml-auto md:ml-4 px-6 py-2 bg-white/10 hover:bg-[#1060ff] border border-white/20 hover:border-transparent rounded-full text-[12px] font-bold label-uppercase tracking-[2px] transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(16,96,255,0.4)]"
+              >
+                Escribir Reseña
+              </button>
             </div>
           </div>
         </div>
       </div>
+      
+      {isReviewModalOpen && (
+        <ReviewModal 
+          media={item} 
+          mediaType={type} 
+          onClose={() => setIsReviewModalOpen(false)} 
+        />
+      )}
     </section>
   );
 };
