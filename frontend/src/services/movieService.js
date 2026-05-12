@@ -6,8 +6,16 @@ const BASE_URL = `http://${SERVER_IP}:5002/api`;
 
 export const movieService = {
   // PELÍCULAS
-  getAllMovies: async (page = 1) => {
-    const { data } = await axios.get(`${BASE_URL}/movies/all?page=${page}`);
+  getAllMovies: async (page = 1, filters = {}) => {
+    const params = new URLSearchParams({ page });
+    if (filters.genre) params.append('genre', filters.genre);
+    if (filters.year) params.append('year', filters.year);
+    if (filters.yearStart) params.append('yearStart', filters.yearStart);
+    if (filters.yearEnd) params.append('yearEnd', filters.yearEnd);
+    if (filters.sort_by) params.append('sort_by', filters.sort_by);
+    if (filters.watch_provider) params.append('watch_provider', filters.watch_provider);
+
+    const { data } = await axios.get(`${BASE_URL}/movies/all?${params.toString()}`);
     return data;
   },
 
@@ -58,8 +66,16 @@ export const movieService = {
   },
 
   // SERIES (TV)
-  getAllSeries: async (page = 1) => {
-    const { data } = await axios.get(`${BASE_URL}/tv/all?page=${page}`);
+  getAllSeries: async (page = 1, filters = {}) => {
+    const params = new URLSearchParams({ page });
+    if (filters.genre) params.append('genre', filters.genre);
+    if (filters.year) params.append('year', filters.year);
+    if (filters.yearStart) params.append('yearStart', filters.yearStart);
+    if (filters.yearEnd) params.append('yearEnd', filters.yearEnd);
+    if (filters.sort_by) params.append('sort_by', filters.sort_by);
+    if (filters.watch_provider) params.append('watch_provider', filters.watch_provider);
+
+    const { data } = await axios.get(`${BASE_URL}/tv/all?${params.toString()}`);
     return data;
   },
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createOrUpdateReview } from '../../services/reviewService';
 import { useAuth } from '../../context/AuthContext';
-import { X, Heart } from 'lucide-react'; // Asumiendo lucide-react para iconos
+import { X, Heart } from 'lucide-react'; 
 
 function ReviewModal({ media, mediaType, onClose }) {
   const { user } = useAuth();
@@ -40,7 +40,8 @@ function ReviewModal({ media, mediaType, onClose }) {
         rating,
         reviewText,
         watchedOn,
-        liked: isLiked // Si queremos guardar que le dio like en la review misma, aunque el backend tiene likedBy, mejor añadir "isLiked" a la review si fuera necesario, pero el esquema actual de Review no tiene "isLiked" del user a la peli, tiene likes a la review. Pero adaptemos esto: guardaremos un "like" de la pelicula si hace falta. Para simplificar, la "review" guardará rating y texto. Si quieres que el usuario "añada a favoritos" es otra cosa, pero dejemos el like visual como se pidio, y lo podemos mandar aunque el back no lo use (o modificar el back luego). Modificaremos el back para incluir "mediaLiked".
+        liked: isLiked,
+        username: user?.name || user?.username || 'Usuario'
       });
       onClose(); // Cerrar al terminar
     } catch (err) {
@@ -51,59 +52,59 @@ function ReviewModal({ media, mediaType, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-      <div className="bg-[#FAF8F5] max-w-4xl w-full rounded-2xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+      <div className="bg-[#14181c] border border-white/10 max-w-4xl w-full rounded-[8px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row">
         
         {/* Botón Cerrar */}
-        <button onClick={onClose} className="absolute top-4 right-4 z-10 text-gray-500 hover:text-gray-800 transition-colors">
+        <button onClick={onClose} className="absolute top-4 right-4 z-10 text-white/40 hover:text-white transition-colors cursor-pointer">
           <X className="w-6 h-6" />
         </button>
 
         {/* Izquierda: Portada */}
-        <div className="w-full md:w-1/3 bg-[#E8E6DF] p-6 flex items-center justify-center relative group">
+        <div className="w-full md:w-1/3 bg-[#0d0e12] border-r border-white/10 p-6 flex items-center justify-center relative">
           {posterUrl ? (
-            <div className="relative">
+            <div className="relative w-[180px] md:w-full max-w-[240px]">
               <img 
                 src={posterUrl} 
                 alt={`Portada de ${title}`} 
-                className="w-full rounded-lg shadow-md transition-all duration-300 group-hover:shadow-[0_0_15px_5px_rgba(255,255,255,0.7)] group-hover:border group-hover:border-white"
+                className="w-full rounded-[4px] shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-white/10"
               />
             </div>
           ) : (
-            <div className="w-full aspect-[2/3] bg-gray-300 rounded-lg flex items-center justify-center shadow-md">
-              <span className="text-gray-500">Sin póster</span>
+            <div className="w-full aspect-[2/3] bg-white/5 border border-white/10 border-dashed rounded-[4px] flex items-center justify-center shadow-md">
+              <span className="text-white/40 text-sm font-bold uppercase tracking-widest">Sin póster</span>
             </div>
           )}
         </div>
 
         {/* Derecha/Centro: Formulario */}
         <div className="w-full md:w-2/3 p-8 flex flex-col">
-          <div className="mb-6 border-b border-gray-200 pb-4">
-            <h2 className="text-3xl font-serif text-[#283618] flex items-baseline gap-3">
-              {title} <span className="text-xl text-[#606C38] font-normal">{year}</span>
+          <div className="mb-6 border-b border-white/10 pb-4">
+            <h2 className="text-3xl font-brand text-white flex items-baseline gap-3 tracking-tighter">
+              {title} <span className="text-xl text-white/40 font-normal font-sans">{year}</span>
             </h2>
           </div>
 
           <form onSubmit={handleSubmit} className="flex-1 flex flex-col space-y-5">
             {/* Visto en */}
             <div className="flex flex-col">
-              <label className="text-sm font-bold text-[#606C38] mb-1">Visto en:</label>
+              <label className="text-[10px] font-bold text-white/40 uppercase tracking-[2px] mb-2">Visto en</label>
               <input 
                 type="date" 
                 value={watchedOn}
                 onChange={(e) => setWatchedOn(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#BC6C25] w-max"
+                className="px-4 py-2 bg-[#2c3440] border border-white/10 rounded-[4px] text-white focus:outline-none focus:border-[#1060ff] transition-colors w-max [color-scheme:dark]"
               />
             </div>
 
             {/* Texto de la Review */}
             <div className="flex flex-col flex-1">
-              <label className="text-sm font-bold text-[#606C38] mb-1">Escribe tu reseña:</label>
+              <label className="text-[10px] font-bold text-white/40 uppercase tracking-[2px] mb-2">Escribe tu reseña</label>
               <textarea 
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
                 placeholder="¿Qué te pareció?"
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#BC6C25] resize-none min-h-[150px]"
+                className="flex-1 px-4 py-3 bg-[#2c3440] border border-white/10 rounded-[4px] text-white placeholder-white/20 focus:outline-none focus:border-[#1060ff] transition-colors resize-none min-h-[150px]"
                 required
               />
             </div>
@@ -111,13 +112,13 @@ function ReviewModal({ media, mediaType, onClose }) {
             {/* Puntuación y Like */}
             <div className="flex items-center justify-between mt-4">
               <div className="flex flex-col">
-                <label className="text-sm font-bold text-[#606C38] mb-1">Puntuación:</label>
+                <label className="text-[10px] font-bold text-white/40 uppercase tracking-[2px] mb-2">Puntuación</label>
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button 
                       key={star} 
                       type="button"
-                      className={`text-3xl transition-colors ${star <= (hoverRating || rating) ? "text-[#BC6C25]" : "text-[#d1cfc6]"}`}
+                      className={`text-3xl transition-colors cursor-pointer ${star <= (hoverRating || rating) ? "text-[#00e054]" : "text-white/10"}`}
                       onClick={() => setRating(star)} 
                       onMouseEnter={() => setHoverRating(star)} 
                       onMouseLeave={() => setHoverRating(0)}
@@ -132,22 +133,23 @@ function ReviewModal({ media, mediaType, onClose }) {
                 <button 
                   type="button"
                   onClick={() => setIsLiked(!isLiked)}
-                  className={`flex items-center justify-center p-2 rounded-full transition-colors ${isLiked ? 'text-red-500 bg-red-50' : 'text-gray-400 hover:text-red-400 bg-gray-100'}`}
+                  className={`flex items-center justify-center p-2 rounded-full transition-colors cursor-pointer border ${isLiked ? 'text-red-500 border-red-500/30 bg-red-500/10' : 'text-white/20 border-transparent hover:text-white/60 hover:bg-white/5'}`}
+                  title="Me gusta"
                 >
-                  <Heart className={`w-8 h-8 ${isLiked ? 'fill-current' : ''}`} />
+                  <Heart className={`w-7 h-7 ${isLiked ? 'fill-current' : ''}`} />
                 </button>
 
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="px-6 py-3 bg-[#DDA15E] hover:bg-[#BC6C25] text-white font-bold rounded-lg shadow transition-colors disabled:opacity-50"
+                  className="px-6 py-3 bg-[#1060ff] hover:bg-[#1060ff]/80 text-white text-[12px] font-bold uppercase tracking-[2px] rounded-[4px] shadow-lg transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {loading ? 'Guardando...' : 'Guardar Reseña'}
                 </button>
               </div>
             </div>
             
-            {error && <p className="text-red-500 text-sm font-bold mt-2">{error}</p>}
+            {error && <p className="text-red-500 text-[13px] font-bold mt-2">{error}</p>}
           </form>
         </div>
       </div>

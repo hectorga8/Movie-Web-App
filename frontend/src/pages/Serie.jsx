@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import movieService from '../services/movieService';
+import { getReviewsForMedia } from '../services/reviewService';
 import { useAuth } from '../context/AuthContext';
 import DetailHero from '../components/catalog/DetailHero';
 import CastSection from '../components/catalog/CastSection';
@@ -15,6 +16,7 @@ function Serie() {
   const { user } = useAuth();
   
   const [serie, setSerie] = useState(null);
+  const [internalReviews, setInternalReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -24,6 +26,14 @@ function Serie() {
         setLoading(true);
         const data = await movieService.getTVDetail(id);
         setSerie(data);
+        
+        try {
+          const revs = await getReviewsForMedia('tv', id);
+          setInternalReviews(revs);
+        } catch (e) {
+          console.error('Error fetching internal reviews:', e);
+        }
+        
         setLoading(false);
       } catch (err) {
         setError("Error de red CineBox Cloud.");
@@ -91,11 +101,22 @@ function Serie() {
 
           <div className="mb-16">
             <h3 className="font-brand text-3xl text-white mb-8 leading-tight font-bold">Reseñas de Usuarios</h3>
+            
+            {internalReviews.length > 0 && (
+              <div className="space-y-4 mb-8">
+                <h4 className="text-sm uppercase tracking-widest text-[#1060ff] font-bold mb-4">Comunidad CineBox</h4>
+                {internalReviews.map(rev => <ReviewCard key={rev._id} review={rev} internal={true} />)}
+              </div>
+            )}
+
             {serie.reviews?.results?.length > 0 ? (
               <div className="space-y-4">
+                {internalReviews.length > 0 && <h4 className="text-sm uppercase tracking-widest text-white/40 font-bold mb-4">De toda la red</h4>}
                 {serie.reviews.results.slice(0, 2).map(rev => <ReviewCard key={rev.id} review={rev} />)}
               </div>
-            ) : <p className="text-[14px] text-white/40 italic">Aún no hay reseñas registradas.</p>}
+            ) : (
+              internalReviews.length === 0 && <p className="text-[14px] text-white/40 italic">Aún no hay reseñas registradas para esta serie.</p>
+            )}
           </div>
 
           <hr className="border-white/5 mb-12" />

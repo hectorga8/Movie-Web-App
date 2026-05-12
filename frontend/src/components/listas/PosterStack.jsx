@@ -14,27 +14,33 @@ export const PosterStack = ({ posters, size = 'normal', full = false, wider = fa
   return (
     <div className="list -overlapped -stacked">
       <ul className={stackClass}>
-        {postersToShow.map((poster, index) => (
-          <li 
-            key={index} 
-            className="posteritem relative"
-            style={{ zIndex: 10 - index }}
-          >
-            <div 
-              style={{ width: `${pWidth}px`, height: `${pHeight}px` }}
-              className="poster-container overflow-hidden border-r border-black/40 relative bg-[#1a1c23] rounded-[3px]"
+        {postersToShow.map((poster, index) => {
+          const posterPath = typeof poster === 'string' ? poster : poster?.posterPath;
+          return (
+            <li 
+              key={index} 
+              className="posteritem relative"
+              style={{ zIndex: 10 - index }}
             >
-              <img 
-                src={`https://image.tmdb.org/t/p/w400${poster}`} 
-                alt="Poster" 
-                className="image w-full h-full object-cover block opacity-100"
-                loading="lazy"
-                onError={(e) => { e.target.src = 'https://via.placeholder.com/150x225?text=No+Poster'; }}
-              />
-              <span className="frame absolute inset-0 border border-white/5 pointer-events-none shadow-inner"></span>
-            </div>
-          </li>
-        ))}
+              <div 
+                style={{ width: `${pWidth}px`, height: `${pHeight}px` }}
+                className="poster-container overflow-hidden border-r border-black/40 relative bg-[#1a1c23] rounded-[3px]"
+              >
+                <img 
+                  src={posterPath ? `https://image.tmdb.org/t/p/w400${posterPath}` : 'https://via.placeholder.com/150x225?text=No+Poster'} 
+                  alt="Poster" 
+                  className="image w-full h-full object-cover block opacity-100"
+                  loading="lazy"
+                  onError={(e) => { 
+                    e.target.onerror = null; 
+                    e.target.style.display = 'none'; 
+                  }}
+                />
+                <span className="frame absolute inset-0 border border-white/5 pointer-events-none shadow-inner"></span>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

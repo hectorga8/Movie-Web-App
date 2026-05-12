@@ -8,13 +8,16 @@ import { Link } from "react-router-dom";
 function MovieCardTrending({ id, image, title, author, rating, category, inLibrary = false }) {
   return (
     <article className="group bg-white rounded-[8px] border border-[#d5d7db]/60 hover:border-[#1060ff]/30 transition-all duration-200 hover:shadow-medium overflow-hidden shadow-whisper flex flex-col">
-      <Link to={`/pelicula/${id}`} className="block relative aspect-[2/3] bg-[#f1f2f3] overflow-hidden p-3 pb-0">
+      <Link to={`/pelicula/${id}`} className="block relative aspect-[2/3] bg-[#f1f2f3] overflow-hidden p-3 pb-0 group/poster">
         <img 
           src={image} 
           alt={title} 
-          className="movie-poster w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300 shadow-sm rounded-t-[4px]" 
+          className="movie-poster w-full h-full object-cover group-hover/poster:scale-[1.02] transition-transform duration-300 shadow-sm rounded-t-[4px]" 
         />
-        <span className="absolute top-2 left-2 inline-block label-uppercase py-1 px-2 rounded-[2px] bg-white/95 text-black backdrop-blur-sm shadow-whisper text-[10px]">
+        <div className="absolute inset-x-3 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-3 translate-y-full group-hover/poster:translate-y-0 transition-transform duration-300 flex items-end justify-center rounded-t-[4px]">
+          <span className="text-white text-[12px] text-center line-clamp-2 leading-tight drop-shadow-md w-full">{title}</span>
+        </div>
+        <span className="absolute top-4 left-4 inline-block label-uppercase py-1 px-2 rounded-[2px] bg-white/95 text-black backdrop-blur-sm shadow-whisper text-[10px] z-10">
           {category}
         </span>
       </Link>

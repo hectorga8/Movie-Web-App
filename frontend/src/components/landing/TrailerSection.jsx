@@ -1,21 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 import movieService from '../../services/movieService';
+import TrailerModal from '../common/TrailerModal';
 
 function TrailerSection({ movies = [] }) {
   const scrollRef = useRef(null);
   const [showLeftBtn, setShowLeftBtn] = useState(false);
   const [showRightBtn, setShowRightBtn] = useState(true);
+  const [trailerKey, setTrailerKey] = useState(null);
 
   const handlePlayTrailer = async (movieId) => {
     console.log("🎬 Intentando reproducir trailer para ID:", movieId);
     
-    // 1. Abrimos una pestaña inmediatamente para evitar el bloqueo del navegador (Pop-up blocker)
-    const newWindow = window.open('about:blank', '_blank');
-    if (!newWindow) {
-      alert("Por favor, permite las ventanas emergentes para ver los trailers.");
-      return;
-    }
-
     try {
       // 2. Pedimos el detalle de la película
       const detail = await movieService.getMovieDetail(movieId);
@@ -31,16 +26,14 @@ function TrailerSection({ movies = [] }) {
       
       if (trailer && trailer.key) {
         console.log("✅ Trailer encontrado:", trailer.key);
-        // 4. Actualizamos la pestaña abierta con la URL de YouTube
-        newWindow.location.href = `https://www.youtube.com/watch?v=${trailer.key}`;
+        // 4. Actualizamos el estado con la URL de YouTube
+        setTrailerKey(trailer.key);
       } else {
         console.warn("⚠️ No se encontró ningún video para esta película.");
-        newWindow.close();
         alert("Tráiler no disponible para esta película en este momento.");
       }
     } catch (error) {
       console.error("❌ Error cargando trailer:", error);
-      newWindow.close();
       alert("Hubo un error al conectar con el servidor de cine.");
     }
   };
@@ -155,6 +148,10 @@ function TrailerSection({ movies = [] }) {
           </div>
         </div>
       </div>
+
+      {trailerKey && (
+        <TrailerModal videoKey={trailerKey} onClose={() => setTrailerKey(null)} />
+      )}
     </section>
   );
 }

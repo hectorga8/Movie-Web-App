@@ -124,6 +124,9 @@ exports.updateProfile = async (req, res) => {
     user.bio = req.body.bio !== undefined ? req.body.bio : user.bio;
     user.pronoun = req.body.pronoun || user.pronoun;
     user.avatar = req.body.avatar || user.avatar;
+    if (req.body.favoriteMovies) {
+      user.favoriteMovies = req.body.favoriteMovies;
+    }
 
     const updatedUser = await user.save();
     res.status(200).json(updatedUser);
@@ -132,6 +135,32 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ message: 'Error actualizando perfil' });
   }
 };
+
+// Alternar película favorita (añadir/quitar del array)
+exports.toggleFavoriteMovie = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+
+    const movieId = String(req.params.movieId);
+    const index = user.favoriteMovies.indexOf(movieId);
+
+    if (index === -1) {
+      // Add
+      user.favoriteMovies.unshift(movieId);
+    } else {
+      // Remove
+      user.favoriteMovies.splice(index, 1);
+    }
+
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error('❌ Error toggling favorite movie:', error);
+    res.status(500).json({ message: 'Error al actualizar película favorita' });
+  }
+};
+
 
 // Cambiar contraseña
 exports.changePassword = async (req, res) => {
@@ -163,6 +192,27 @@ exports.deleteAccount = async (req, res) => {
   } catch (error) {
     console.error('❌ Error eliminando cuenta:', error);
     res.status(500).json({ message: 'Error al eliminar cuenta' });
+  }
+};
+
+// Obtener perfil de un usuario por ID o nombre
+exports.getUserProfile = async (req, res) => {
+  try {
+    const { identifier } = req.params;
+    let user;
+    
+    // Si es un ObjectId válido de MongoDB
+    if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
+      user = await User.findById(identifier).select('-password');
+    } else {
+      user = await User.findOne({ name: identifier }).select('-password');
+    }
+
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('❌ Error obteniendo perfil:', error);
+    res.status(500).json({ message: 'Error obteniendo perfil' });
   }
 };
 

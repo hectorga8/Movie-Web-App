@@ -31,7 +31,7 @@ function Header({ variant = "landing" }) {
     { name: 'Películas', path: '/peliculas' },
     { name: 'Series', path: '/series' },
     { name: 'Listas', path: '/listas' },
-    { name: 'Miembros', path: '/dashboard' },
+    { name: 'Miembros', path: '/miembros' },
   ];
 
   const logoPath = user ? "/inicio" : "/";
@@ -86,16 +86,15 @@ function Header({ variant = "landing" }) {
                     <div className="absolute right-0 mt-4 w-56 bg-[#1a1c23] border border-white/10 rounded-md shadow-xl py-2 z-[60]">
                       <Link to="/perfil" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mi perfil</Link>
                       <Link to="/dashboard" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mi Videoteca</Link>
-                      <Link to="/mis-reviews" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis reviews</Link>
-                      <Link to="/pendientes" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Pendientes</Link>
-                      <Link to="/listas" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Listas</Link>
-                      <Link to="/me-gusta" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Me gusta</Link>
-                      <Link to="/tags" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Tags</Link>
+                      <Link to={`/perfil/${user.name}/reviews`} className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis reviews</Link>
+                      <Link to="/watchlist" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Pendientes</Link>
+                      <Link to={`/perfil/${user.name}/lists`} className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis Listas</Link>
+                      <Link to={`/perfil/${user.name}/likes`} className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis me gusta</Link>
                       <Link to="/social" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Social</Link>
                       
                       <div className="my-2 border-t border-white/5"></div>
                       
-                      <Link to="/ajustes" className="block px-4 py-2 text-sm text-white/80 hover:bg-white/5 transition-colors">Ajustes</Link>
+                      <Link to="/perfil/editar" className="block px-4 py-2 text-sm text-white/80 hover:bg-white/5 transition-colors">Ajustes</Link>
                       <button 
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-red-500/10 transition-colors"
@@ -136,7 +135,7 @@ function Header({ variant = "landing" }) {
       <div className={`fixed inset-0 z-[100] lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
         <div className="absolute inset-0 bg-[#0d0e12]/95 backdrop-blur-xl pt-24 px-6 pb-10 flex flex-col h-full">
           <nav className="flex flex-col gap-6 mb-12">
-            {navLinks.map((link) => (
+            {user && navLinks.map((link) => (
               <Link 
                 key={link.name} 
                 to={link.path} 

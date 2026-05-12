@@ -2,26 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import movieService from '../../services/movieService';
 import watchlistService from '../../services/watchlistService';
+import { toggleFavoriteMovie } from '../../services/authService';
 import { useAuth } from '../../context/AuthContext';
 import RatingCircle from '../common/RatingCircle';
 import ReviewModal from '../common/ReviewModal';
+import TrailerModal from '../common/TrailerModal';
 
 const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
-  const { user } = useAuth();
+  const { user, updateUserLocally } = useAuth();
   const [inWatchlist, setInWatchlist] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [status, setStatus] = useState('plan_to_watch');
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [trailerKey, setTrailerKey] = useState(null);
 
   useEffect(() => {
     if (user && item) {
       watchlistService.checkStatus(item.id, type).then(data => {
         if (data.inList) {
-          setIsFavorite(data.isFavorite || false);
+          // Sync with global user profile for favorites if possible
+          setIsFavorite(user.favoriteMovies?.includes(String(item.id)) || false);
           setStatus(data.status || 'none');
           setInWatchlist(data.inWatchlist || false);
         } else {
-          setIsFavorite(false);
+          setIsFavorite(user.favoriteMovies?.includes(String(item.id)) || false);
           setStatus('none');
           setInWatchlist(false);
         }
@@ -36,11 +40,14 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
     try {
       const newFav = !isFavorite;
       await watchlistService.addItem(item.id, type, status, newFav, null, title, item.poster_path, inWatchlist);
+      const updatedUser = await toggleFavoriteMovie(item.id);
+      updateUserLocally(updatedUser);
       setIsFavorite(newFav);
     } catch (err) {
       console.error(err);
     }
   };
+
 
   const handleWatchlistToggle = async () => {
     if (!user) return onActionClick();
@@ -160,15 +167,16 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
                 <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
               </button>
 
-              {/* Botón Lista (Pendientes) - Plus o Check */}
+              {/* Botón Watchlist (Reloj) */}
               <button 
                 onClick={handleWatchlistToggle} 
                 className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all cursor-pointer group ${inWatchlist ? 'bg-[#1060ff] border-[#1060ff] text-white shadow-[0_0_20px_rgba(16,96,255,0.3)]' : 'bg-white/5 border-white/10 text-white hover:bg-[#1060ff] hover:border-transparent hover:shadow-[0_0_20px_rgba(16,96,255,0.3)]'}`}
+                title="Añadir a Watchlist"
               >
                 {inWatchlist ? (
-                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
+                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 11.3V7h1.5v3.8l4.5 4.5-.8.9z"/></svg>
                 ) : (
-                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4"/></svg>
+                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2"/></svg>
                 )}
               </button>
 
@@ -181,7 +189,7 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
               </button>
 
               {trailer && (
-                <button onClick={() => window.open(`https://www.youtube.com/watch?v=${trailer.key}`)} className="ml-4 flex items-center gap-4 group text-[11px] font-bold label-uppercase tracking-[2px] opacity-60 hover:opacity-100 transition-all cursor-pointer">
+                <button onClick={() => setTrailerKey(trailer.key)} className="ml-4 flex items-center gap-4 group text-[11px] font-bold label-uppercase tracking-[2px] opacity-60 hover:opacity-100 transition-all cursor-pointer">
                   <div className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center group-hover:border-[#1060ff] group-hover:bg-[#1060ff]/10 transition-all"><svg className="w-4 h-4 fill-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
                   VER TRÁILER
                 </button>
@@ -207,6 +215,10 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
           mediaType={type} 
           onClose={() => setIsReviewModalOpen(false)} 
         />
+      )}
+
+      {trailerKey && (
+        <TrailerModal videoKey={trailerKey} onClose={() => setTrailerKey(null)} />
       )}
     </section>
   );

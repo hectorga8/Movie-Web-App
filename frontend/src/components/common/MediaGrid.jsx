@@ -15,6 +15,9 @@ function MediaGrid({ items, type }) {
               alt={item.title || item.name} 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-end justify-center">
+              <span className="text-white text-[13px] text-center line-clamp-2 leading-tight drop-shadow-md w-full">{item.title || item.name}</span>
+            </div>
           </div>
         </Link>
       ))}

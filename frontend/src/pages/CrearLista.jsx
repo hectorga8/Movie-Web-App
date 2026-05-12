@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import MovieSearchAutocomplete from '../components/listas/MovieSearchAutocomplete';
 import watchlistService from '../services/watchlistService';
 import { useAuth } from '../context/AuthContext';
@@ -34,15 +34,42 @@ const DotsIcon = () => (
 
 const CrearLista = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const editData = location.state?.listData;
+  const cloneData = location.state?.cloneData;
+  
+  const isEditing = !!editData;
+  const isCloning = !!cloneData;
+  const sourceData = editData || cloneData;
+
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    tags: '',
-    isPublic: true,
-    isRanked: false
+    name: sourceData?.title || sourceData?.name || '',
+    description: sourceData?.description || '',
+    tags: sourceData?.tags?.join(', ') || '',
+    isPublic: sourceData?.isPublic !== undefined ? sourceData.isPublic : true,
+    isRanked: sourceData?.isRanked || false
   });
+
   const [movies, setMovies] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    // Populate movies if editing or cloning
+    if (sourceData) {
+      if (sourceData.movies && sourceData.movies.length > 0 && typeof sourceData.movies[0] === 'object') {
+        setMovies(sourceData.movies);
+      } else if (sourceData.posters) {
+        // If it's mock data or just paths, we fake the movie objects to at least show the posters
+        const mapped = sourceData.posters.map((p, i) => ({
+          movieId: i,
+          title: 'Película',
+          posterPath: typeof p === 'string' ? p : p.posterPath,
+          releaseDate: 'N/A'
+        }));
+        setMovies(mapped);
+      }
+    }
+  }, [sourceData]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -78,21 +105,32 @@ const CrearLista = () => {
         tags: formData.tags.split(',').map(t => t.trim()).filter(t => t),
         movies
       };
-      const response = await watchlistService.createList(payload);
-      if (response && response._id) {
-        navigate(`/listas/${response._id}`);
+
+      let response;
+      if (isEditing) {
+        response = await watchlistService.updateList(editData._id || editData.id, payload);
+      } else {
+        response = await watchlistService.createList(payload);
+      }
+      
+      if (response && (response._id || response.id)) {
+        navigate(`/listas/${response._id || response.id}`);
+      } else {
+         navigate(`/listas`);
       }
     } catch (error) {
-      console.error('Error creating list:', error);
+      console.error('Error saving list:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const pageTitle = isEditing ? 'Edit List' : isCloning ? 'Clone List' : 'New List';
+
   return (
     <div className="min-h-screen bg-[#14181c] text-[#8b9bb4] font-sans pb-20">
       <div className="max-w-[1200px] mx-auto px-6 py-10">
-        <h1 className="text-white text-2xl font-serif mb-6 border-b border-[#2c3440] pb-2 uppercase tracking-wide">New List</h1>
+        <h1 className="text-white text-2xl font-serif mb-6 border-b border-[#2c3440] pb-2 uppercase tracking-wide">{pageTitle}</h1>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_400px] gap-10">
@@ -204,8 +242,11 @@ const CrearLista = () => {
                       <img 
                         src={`https://image.tmdb.org/t/p/w92${movie.posterPath}`} 
                         alt="" 
-                        className="w-[35px] h-[52px] object-cover rounded-sm border border-white/10"
-                        onError={(e) => { e.target.src = 'https://via.placeholder.com/92x138?text=?'; }}
+                        className="w-[35px] h-[52px] object-cover rounded-sm border border-white/10 bg-[#1a1c23]"
+                        onError={(e) => { 
+                          e.target.onerror = null; 
+                          e.target.style.display = 'none'; 
+                        }}
                       />
                       
                       {/* Info y Botón ADD NOTE */}
@@ -248,7 +289,7 @@ const CrearLista = () => {
           <div className="flex justify-end gap-3 pt-6 border-t border-[#2c3440]">
             <button
               type="button"
-              onClick={() => navigate('/listas')}
+              onClick={() => navigate(isEditing ? `/listas/${editData._id || editData.id}` : '/listas')}
               className="bg-[#445566] hover:bg-[#556677] text-[#8b9bb4] hover:text-white font-bold text-[12px] px-6 py-2 rounded-[3px] uppercase tracking-widest transition-colors"
             >
               Cancel

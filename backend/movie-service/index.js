@@ -170,12 +170,31 @@ app.get('/api/tv/list/trending', async (req, res) => {
 app.get('/api/movies/all', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
+    const { genre, year, yearStart, yearEnd, sort_by, watch_provider } = req.query;
+
     const tmdbPage1 = (page - 1) * 2 + 1;
     const tmdbPage2 = (page - 1) * 2 + 2;
 
+    const baseParams = { language: 'es-ES', sort_by: sort_by || 'popularity.desc' };
+
+    if (genre) baseParams.with_genres = genre;
+    if (year) baseParams.primary_release_year = year;
+    if (yearStart && yearEnd) {
+      baseParams['primary_release_date.gte'] = `${yearStart}-01-01`;
+      baseParams['primary_release_date.lte'] = `${yearEnd}-12-31`;
+    }
+    if (watch_provider) {
+      baseParams.with_watch_providers = watch_provider;
+      baseParams.watch_region = 'ES';
+      baseParams.with_watch_monetization_types = 'flatrate';
+    }
+
+    const params1 = { ...baseParams, page: tmdbPage1 };
+    const params2 = { ...baseParams, page: tmdbPage2 };
+
     const [res1, res2] = await Promise.all([
-      tmdbApi.get('/discover/movie', { params: { language: 'es-ES', sort_by: 'popularity.desc', page: tmdbPage1 } }),
-      tmdbApi.get('/discover/movie', { params: { language: 'es-ES', sort_by: 'popularity.desc', page: tmdbPage2 } })
+      tmdbApi.get('/discover/movie', { params: params1 }),
+      tmdbApi.get('/discover/movie', { params: params2 })
     ]);
 
     const combinedResults = [...res1.data.results, ...res2.data.results];

@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { toggleLikeReview } from '../../services/reviewService';
+import { useAuth } from '../../context/AuthContext';
 
-const ReviewCard = ({ review, author, content, created_at, date, rating }) => {
-  // Manejamos tanto reviews de TMDb (objeto review) como props individuales
-  const displayAuthor = review?.author || author || "Usuario CineBox";
-  const displayContent = review?.content || content || "";
-  const displayDate = review?.created_at ? new Date(review.created_at).toLocaleDateString() : date || "Reciente";
-  const displayRating = review?.author_details?.rating || rating || null;
+const ReviewCard = ({ review, author, content, created_at, date, rating, internal = false, onLikeUpdate }) => {
+  const { user } = useAuth();
+  const [likesCount, setLikesCount] = useState(review?.likes || 0);
+  const [isLiked, setIsLiked] = useState(review?.likedBy?.includes(user?._id) || false);
+  const [loadingLike, setLoadingLike] = useState(false);
+
+  // Manejamos tanto reviews de TMDb (objeto review) como props individuales (o internas)
+  const displayAuthor = review?.username || review?.author || author || "Usuario CineBox";
+  const displayContent = review?.reviewText || review?.content || content || "";
+  const displayDate = review?.createdAt || review?.created_at ? new Date(review.createdAt || review.created_at).toLocaleDateString() : date || "Reciente";
+  const displayRating = review?.rating || review?.author_details?.rating || rating || null;
+
+  const handleLike = async () => {
+    if (!user || !internal || loadingLike) return;
+    try {
+      setLoadingLike(true);
+      const data = await toggleLikeReview(review._id);
+      setLikesCount(data.likes);
+      setIsLiked(data.likedBy.includes(user._id));
+      if (onLikeUpdate) onLikeUpdate(data.likes);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingLike(false);
+    }
+  };
 
   return (
     <div className="p-8 bg-white/5 border border-white/10 rounded-[12px] shadow-2xl mb-8 transition-all hover:bg-white/10 group">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-[#1060ff] flex items-center justify-center font-bold text-white text-lg shadow-[0_0_15px_rgba(16,96,255,0.3)]">
-            {displayAuthor[0].toUpperCase()}
+            {displayAuthor[0]?.toUpperCase()}
           </div>
           <div>
             <h5 className="font-bold text-[16px] text-white mb-1">{displayAuthor}</h5>
@@ -38,6 +60,19 @@ const ReviewCard = ({ review, author, content, created_at, date, rating }) => {
           "{displayContent}"
         </p>
       </div>
+
+      {internal && (
+        <div className="mt-4 flex items-center gap-2 justify-end">
+          <button 
+            onClick={handleLike}
+            disabled={!user || loadingLike}
+            className={`flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider transition-colors ${isLiked ? 'text-[#ff4e4e]' : 'text-white/40 hover:text-white'}`}
+          >
+            <span className={`text-[16px] ${isLiked ? '' : 'grayscale'}`}>❤</span>
+            {likesCount} {likesCount === 1 ? 'Like' : 'Likes'}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

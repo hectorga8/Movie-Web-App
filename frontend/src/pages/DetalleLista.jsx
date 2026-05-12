@@ -32,6 +32,12 @@ const DetalleLista = () => {
 
         const selectedMock = mockLists[id] || mockLists['1'];
 
+        const validPosters = [
+          "/qJ2tW6WMUDux911r6m7haRef0WH.jpg", "/8xV47NDrjdZDxaVCQAl3LuRE8iO.jpg", 
+          "/rSPw7tgCH9c6NqICZef4kZjFOQ5.jpg", "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", 
+          "/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg"
+        ];
+
         setList({
           id,
           title: selectedMock.title,
@@ -39,9 +45,9 @@ const DetalleLista = () => {
           description: selectedMock.description,
           likes: 12400,
           posters: [
-            "/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg", "/8739161.jpg", "/7222246.jpg", "/8231856.jpg", "/q6y0Go1tsYKoH6EUQ77SA9CqthP.jpg",
-            "/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg", "/8739161.jpg", "/7222246.jpg", "/8231856.jpg", "/q6y0Go1tsYKoH6EUQ77SA9CqthP.jpg",
-            "/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg", "/8739161.jpg", "/7222246.jpg", "/8231856.jpg", "/q6y0Go1tsYKoH6EUQ77SA9CqthP.jpg"
+            ...validPosters,
+            ...validPosters,
+            ...validPosters
           ]
         });
       } finally {

@@ -35,15 +35,15 @@ const CustomListSchema = new mongoose.Schema({
     title: String,
     posterPath: String,
     releaseDate: String,
+    rating: Number,
     addedAt: {
       type: Date,
       default: Date.now
     }
   }],
-  likesCount: {
-    type: Number,
-    default: 0
-  }
+  likes: [{
+    type: String
+  }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('CustomList', CustomListSchema);

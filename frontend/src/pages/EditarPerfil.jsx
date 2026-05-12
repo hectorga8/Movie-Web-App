@@ -29,6 +29,25 @@ function EditarPerfil() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
 
+  const predefinedAvatars = [
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Oliver',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Jude',
+    'https://api.dicebear.com/7.x/avataaars/svg?seed=Zoey'
+  ];
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, avatar: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       setFormData({

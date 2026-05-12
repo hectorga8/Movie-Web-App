@@ -29,6 +29,59 @@ exports.createCustomList = async (req, res) => {
   }
 };
 
+exports.updateCustomList = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, description, tags, isPublic, isRanked, movies } = req.body;
+    const userId = req.user.id;
+
+    if (!name) {
+      return res.status(400).json({ error: 'El nombre de la lista es obligatorio' });
+    }
+
+    const list = await CustomList.findOneAndUpdate(
+      { _id: id, userId },
+      { name, description, tags, isPublic, isRanked, movies },
+      { new: true }
+    );
+
+    if (!list) {
+      return res.status(404).json({ error: 'Lista no encontrada o no tienes permisos' });
+    }
+
+    res.status(200).json(list);
+  } catch (error) {
+    console.error('Error updating custom list:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+exports.toggleLikeList = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.id;
+
+    const list = await CustomList.findById(id);
+    if (!list) {
+      return res.status(404).json({ error: 'Lista no encontrada' });
+    }
+
+    const index = list.likes.indexOf(userId);
+    if (index === -1) {
+      list.likes.push(userId);
+    } else {
+      list.likes.splice(index, 1);
+    }
+
+    await list.save();
+
+    res.status(200).json({ likes: list.likes.length, isLiked: index === -1 });
+  } catch (error) {
+    console.error('Error toggling list like:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 exports.getCustomListById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -45,6 +98,27 @@ exports.getCustomListById = async (req, res) => {
     res.status(200).json(listObj);
   } catch (error) {
     console.error('Error fetching custom list:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+exports.getUserCustomLists = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const lists = await CustomList.find({ userId }).sort({ createdAt: -1 });
+    
+    const formattedLists = lists.map(list => {
+      const listObj = list.toObject();
+      listObj.title = listObj.name;
+      listObj.posters = listObj.movies;
+      // We assign moviesCount based on length of movies array if present. The schema uses movies.
+      listObj.moviesCount = listObj.movies ? listObj.movies.length : 0;
+      return listObj;
+    });
+
+    res.status(200).json(formattedLists);
+  } catch (error) {
+    console.error('Error fetching user custom lists:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
@@ -74,12 +148,13 @@ exports.addItem = async (req, res) => {
 exports.getUserList = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { status, mediaType, isFavorite } = req.query;
+    const { status, mediaType, isFavorite, inWatchlist } = req.query;
 
     const query = { userId };
     if (status) query.status = status;
     if (mediaType) query.mediaType = mediaType;
     if (isFavorite === 'true') query.isFavorite = true;
+    if (inWatchlist === 'true') query.inWatchlist = true;
 
     const list = await WatchlistItem.find(query).sort({ addedAt: -1 });
     res.status(200).json(list);
@@ -89,15 +164,60 @@ exports.getUserList = async (req, res) => {
   }
 };
 
-exports.removeItem = async (req, res) => {
+exports.getUserListById = async (req, res) => {
   try {
-    const userId = req.user.id;
-    const { mediaId, mediaType } = req.params;
+    const { userId } = req.params;
+    const { inWatchlist, status } = req.query;
+    
+    const query = { userId };
+    if (inWatchlist === 'true') query.inWatchlist = true;
+    if (status) query.status = status;
 
-    await WatchlistItem.findOneAndDelete({ userId, mediaId: Number(mediaId), mediaType });
-    res.status(200).json({ message: 'Elemento eliminado de la lista' });
+    const list = await WatchlistItem.find(query).sort({ addedAt: -1 });
+    res.status(200).json(list);
   } catch (error) {
-    console.error('Error removing item:', error);
+    console.error('Error fetching list by id:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+exports.getUserStats = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const currentYear = new Date().getFullYear();
+    const startOfYear = new Date(currentYear, 0, 1).getTime();
+
+    const watchedFilms = await WatchlistItem.countDocuments({ userId, status: 'watched', mediaType: 'movie' });
+    const watchedThisYear = await WatchlistItem.countDocuments({ 
+      userId, 
+      status: 'watched', 
+      mediaType: 'movie',
+      addedAt: { $gte: startOfYear } 
+    });
+    
+    const listsCount = await CustomList.countDocuments({ creator: userId }); // Assuming creator is username or we should use userId. Wait, schema uses userId.
+    const listsCountById = await CustomList.countDocuments({ userId });
+
+    res.status(200).json({
+      filmsCount: watchedFilms,
+      thisYearCount: watchedThisYear,
+      listsCount: listsCountById
+    });
+  } catch (error) {
+    console.error('Error fetching user stats:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+exports.getMediaStats = async (req, res) => {
+  try {
+    const { mediaId, mediaType } = req.params;
+    const watched = await WatchlistItem.countDocuments({ mediaId: Number(mediaId), mediaType, status: 'watched' });
+    const favorites = await WatchlistItem.countDocuments({ mediaId: Number(mediaId), mediaType, isFavorite: true });
+    
+    res.status(200).json({ watched, favorites });
+  } catch (error) {
+    console.error('Error fetching media stats:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
@@ -125,8 +245,28 @@ exports.checkItemStatus = async (req, res) => {
   }
 };
 
+exports.removeItem = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { mediaId, mediaType } = req.params;
+
+    await WatchlistItem.findOneAndDelete({ userId, mediaId: Number(mediaId), mediaType });
+
+    res.status(200).json({ message: 'Item removed from watchlist' });
+  } catch (error) {
+    console.error('Error removing item:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 exports.getPublicLists = async (req, res) => {
   try {
+    const validPosters = [
+      "/qJ2tW6WMUDux911r6m7haRef0WH.jpg", "/8xV47NDrjdZDxaVCQAl3LuRE8iO.jpg", 
+      "/rSPw7tgCH9c6NqICZef4kZjFOQ5.jpg", "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", 
+      "/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg"
+    ];
+    
     // Datos mockeados con posters únicos y variados para una mejor experiencia visual
     const mockLists = {
       featured: [
@@ -136,13 +276,7 @@ exports.getPublicLists = async (req, res) => {
           creator: "Official Lists",
           moviesCount: 500,
           likes: 0,
-          posters: [
-            "/qJ2tW6WMUDux911r6m7haRef0WH.jpg", // The Dark Knight
-            "/8xV47NDrjdZDxaVCQAl3LuRE8iO.jpg", // 12 Angry Men
-            "/rSPw7tgCH9c6NqICZef4kZjFOQ5.jpg", // The Godfather
-            "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", // The Godfather II
-            "/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg"  // Schindler's List
-          ]
+          posters: validPosters
         },
         {
           id: 2,
@@ -150,13 +284,7 @@ exports.getPublicLists = async (req, res) => {
           creator: "CineBox Staff",
           moviesCount: 42,
           likes: 0,
-          posters: [
-            "/m8eFedsS7vQCZCS8WGp5L1bVDZ1.jpg", // Inception
-            "/6oom5QYQ2yQTMJIhqDirM1yH863.jpg", // The Matrix
-            "/vqzNJRH4YyquRiWxCCOH0aXggHI.jpg", // Terminator 2
-            "/saHP97rTPS5eLmrLQEcANmKrsFl.jpg", // Forrest Gump (Placeholder for variety)
-            "/hZ6YpZ7ZpZ7ZpZ7ZpZ7ZpZ7ZpZ7.jpg"  // Blade Runner 2049 (Simulated)
-          ]
+          posters: validPosters
         },
         {
           id: 3,
@@ -164,13 +292,7 @@ exports.getPublicLists = async (req, res) => {
           creator: "Alexander",
           moviesCount: 25,
           likes: 0,
-          posters: [
-            "/a2tys4sD7EGUQRO4YL24X1p7E6c.jpg", // Parasite (Non-Japanese but East Asian context)
-            "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg", // Spirited Away
-            "/w7WeH0hR31j0qU4w5UaFp8m6tU6.jpg", // Princess Mononoke
-            "/8s4h9rDqjXF2nE1Q1N4M7V9U1T.jpg", // Seven Samurai (Simulated)
-            "/9L4K1Q1Z4s1J8T3W4Z6V9L2T7X.jpg"  // Your Name (Simulated)
-          ]
+          posters: validPosters
         }
       ],
       popular: [
@@ -180,13 +302,7 @@ exports.getPublicLists = async (req, res) => {
           creator: "Alex Fields",
           moviesCount: 56,
           likes: 1500,
-          posters: [
-            "/3g1vHjZWeXn2E5X6E7u8I3J3d2q.jpg", 
-            "/vTDApAIn4nOFM19VnInB7q90vT9.jpg", 
-            "/y2TBEqN2Rly1V8H3n3EwH9mQY9G.jpg",
-            "/4M5A7g4zL9T6t7G4T4Z2G2XqY4Y.jpg",
-            "/1Tj4q8C1v0wQyW0y0x0Q8G3K7I.jpg"
-          ]
+          posters: validPosters
         },
         {
           id: 5,
@@ -194,13 +310,7 @@ exports.getPublicLists = async (req, res) => {
           creator: "Official Lists",
           moviesCount: 150,
           likes: 371000,
-          posters: [
-            "/ld769pS9v6v6v6v6v6v6v6v6v6.jpg", // Toy Story (Simulated)
-            "/uXDpS9v6v6v6v6v6v6v6v6v6v6.jpg", // Spider-Verse (Simulated)
-            "/vXDpS9v6v6v6v6v6v6v6v6v6v6.jpg", // Lion King (Simulated)
-            "/wXDpS9v6v6v6v6v6v6v6v6v6v6.jpg", // Coco (Simulated)
-            "/xXDpS9v6v6v6v6v6v6v6v6v6v6.jpg"  // Wall-E (Simulated)
-          ]
+          posters: validPosters
         },
         {
           id: 6,
@@ -208,13 +318,7 @@ exports.getPublicLists = async (req, res) => {
           creator: "fcbarcelona",
           moviesCount: 88,
           likes: 384000,
-          posters: [
-            "/8m9v6v6v6v6v6v6v6v6v6v6v6v6.jpg", // Hereditary (Simulated)
-            "/9m9v6v6v6v6v6v6v6v6v6v6v6v6.jpg", // Get Out (Simulated)
-            "/am9v6v6v6v6v6v6v6v6v6v6v6v6.jpg", // The Witch (Simulated)
-            "/bm9v6v6v6v6v6v6v6v6v6v6v6v6.jpg", // Midsommar (Simulated)
-            "/cm9v6v6v6v6v6v6v6v6v6v6v6v6.jpg"  // It Follows (Simulated)
-          ]
+          posters: validPosters
         }
       ],
       recentlyLiked: [
@@ -225,7 +329,7 @@ exports.getPublicLists = async (req, res) => {
           moviesCount: 120,
           likes: 420,
           description: "Una selección personal de películas que rompen moldes y desafían al espectador.",
-          posters: ["/4TjD7H1N1YqR4Z6wUvH3W5z9P4b.jpg", "/2o6O5Gf3X5Y8z2v9S1X7W2Z8L2b.jpg", "/8c4a8kE7p1A3t3K9l7U5q3M9R7P.jpg", "/1w6H9Z9R2a8z5X1T7J9V4L9S8M.jpg", "/9m2R4K7X1a3Y6C3T2D9V1H7L2N.jpg"]
+          posters: validPosters
         },
         {
           id: 8,
@@ -234,7 +338,7 @@ exports.getPublicLists = async (req, res) => {
           moviesCount: 45,
           likes: 12000,
           description: "Desde los clásicos del noir hasta las producciones modernas más frenéticas.",
-          posters: ["/rSPw7tgCH9c6NqICZef4kZjFOQ5.jpg", "/8xV47NDrjdZDxaVCQAl3LuRE8iO.jpg", "/qJ2tW6WMUDux911r6m7haRef0WH.jpg", "/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg", "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"]
+          posters: validPosters
         },
         {
           id: 9,
@@ -243,7 +347,7 @@ exports.getPublicLists = async (req, res) => {
           moviesCount: 62,
           likes: 850,
           description: "La evolución del cine negro en ambientes futuristas y urbanos contemporáneos.",
-          posters: ["/RYMX2wcKCBAr24UyPD7xwaq11U.jpg", "/or06FN3Dka5tukK1e9sl16pB3iy.jpg", "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", "/qAZ0pzat24kLdO3o8cgjpIQFO8C.jpg", "/cezWGskPA5mKy2ylI61Y2GkGFU4.jpg"]
+          posters: validPosters
         }
       ],
       crewPicks: [
@@ -252,21 +356,21 @@ exports.getPublicLists = async (req, res) => {
           title: "Premios Oscar 2024: Ganadoras",
           creator: "Oscars",
           moviesCount: 15,
-          posters: ["/a2tys4sD7EGUQRO4YL24X1p7E6c.jpg", "/gLh42K30x5sP6lM659p7H2v8L1T.jpg", "/1U2zY9v2wZ6q2T2u1X3W4L9T8R.jpg", "/9M4N8w9Z5T1J2K3R4L6S7Q8P1V.jpg"]
+          posters: validPosters
         },
         {
           id: 13,
           title: "Joyas del Cine Europeo",
           creator: "Oscars",
           moviesCount: 50,
-          posters: ["/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg", "/w7WeH0hR31j0qU4w5UaFp8m6tU6.jpg", "/a2tys4sD7EGUQRO4YL24X1p7E6c.jpg", "/9L4K1Q1Z4s1J8T3W4Z6V9L2T7X.jpg"]
+          posters: validPosters
         },
         {
           id: 14,
           title: "Directoras que hicieron historia",
           creator: "Oscars",
           moviesCount: 101,
-          posters: ["/vqzNJRH4YyquRiWxCCOH0aXggHI.jpg", "/m8eFedsS7vQCZCS8WGp5L1bVDZ1.jpg", "/5KCVkau1HEl7ZzfPsKAPM0sMiKc.jpg", "/6oom5QYQ2yQTMJIhqDirM1yH863.jpg"]
+          posters: validPosters
         }
       ]
     };

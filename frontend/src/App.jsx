@@ -14,13 +14,22 @@ import Persona from './pages/Persona';
 import TodasPersonas from './pages/TodasPersonas';
 import SearchResults from './pages/SearchResults';
 import Index from './pages/Index';
+import PopularReviews from './pages/PopularReviews';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Listas from './pages/Listas';
 import CrearLista from './pages/CrearLista';
 import DetalleLista from './pages/DetalleLista';
 import Perfil from './pages/Perfil';
+import Miembros from './pages/Miembros';
 import EditarPerfil from './pages/EditarPerfil';
+import Watchlist from './pages/Watchlist';
+import UserPopularReviews from './pages/UserPopularReviews';
+import UserFilms from './pages/UserFilms';
+import UserReviews from './pages/UserReviews';
+import UserLists from './pages/UserLists';
+import UserLikes from './pages/UserLikes';
+import Social from './pages/Social';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
@@ -93,6 +102,8 @@ function App() {
               </ProtectedRoute>
             } />
 
+            <Route path="/perfil/:username" element={<Perfil />} />
+
             <Route path="/perfil/editar" element={
               <ProtectedRoute>
                 <EditarPerfil />
@@ -108,6 +119,7 @@ function App() {
             <Route path="/serie/:id" element={<Serie />} />
             <Route path="/persona/:id" element={<Persona />} />
             <Route path="/personas/todas" element={<TodasPersonas />} />
+            <Route path="/miembros" element={<Miembros />} />
             <Route path="/search" element={<SearchResults />} />
             <Route path="/listas" element={<Listas />} />
             <Route path="/listas/nueva" element={
@@ -115,7 +127,29 @@ function App() {
                 <CrearLista />
               </ProtectedRoute>
             } />
+            <Route path="/listas/editar/:id" element={
+              <ProtectedRoute>
+                <CrearLista />
+              </ProtectedRoute>
+            } />
             <Route path="/listas/:id" element={<DetalleLista />} />
+            <Route path="/reviews-populares" element={<PopularReviews />} />
+            <Route path="/watchlist" element={
+              <ProtectedRoute>
+                <Watchlist />
+              </ProtectedRoute>
+            } />
+            <Route path="/perfil/:username/watchlist" element={<Watchlist />} />
+            <Route path="/perfil/:username/reviews/populares" element={<UserPopularReviews />} />
+            <Route path="/perfil/:username/films" element={<UserFilms />} />
+            <Route path="/perfil/:username/reviews" element={<UserReviews />} />
+            <Route path="/perfil/:username/lists" element={<UserLists />} />
+            <Route path="/perfil/:username/likes" element={<UserLikes />} />
+            <Route path="/social" element={
+              <ProtectedRoute>
+                <Social />
+              </ProtectedRoute>
+            } />
           </Routes>
         </main>
 

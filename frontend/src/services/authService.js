@@ -1,0 +1,56 @@
+const SERVER_IP = window.location.hostname;
+const API_URL = `http://${SERVER_IP}:5001/api/auth`;
+
+const getHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Content-Type': 'application/json',
+    ...(token && { Authorization: `Bearer ${token}` })
+  };
+};
+
+export const getUserProfile = async (identifier) => {
+  const response = await fetch(`${API_URL}/profile/${identifier}`);
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Error al obtener el perfil');
+  }
+  return response.json();
+};
+
+export const followUser = async (userId) => {
+  const response = await fetch(`${API_URL}/follow/${userId}`, {
+    method: 'POST',
+    headers: getHeaders()
+  });
+  if (!response.ok) throw new Error('Error al seguir al usuario');
+  return response.json();
+};
+
+export const unfollowUser = async (userId) => {
+  const response = await fetch(`${API_URL}/follow/${userId}`, {
+    method: 'DELETE',
+    headers: getHeaders()
+  });
+  if (!response.ok) throw new Error('Error al dejar de seguir al usuario');
+  return response.json();
+};
+
+export const toggleFavoriteMovie = async (movieId) => {
+  const response = await fetch(`${API_URL}/toggle-favorite/${movieId}`, {
+    method: 'POST',
+    headers: getHeaders()
+  });
+  if (!response.ok) throw new Error('Error al actualizar películas favoritas');
+  return response.json();
+};
+
+export const updateProfile = async (profileData) => {
+  const response = await fetch(`${API_URL}/profile`, {
+    method: 'PUT',
+    headers: getHeaders(),
+    body: JSON.stringify(profileData)
+  });
+  if (!response.ok) throw new Error('Error al actualizar el perfil');
+  return response.json();
+};

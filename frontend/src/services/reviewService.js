@@ -22,15 +22,33 @@ export const createOrUpdateReview = async (reviewData) => {
   return response.json();
 };
 
-export const getPopularReviews = async () => {
-  const response = await fetch(`${API_URL}/popular`);
+export const getPopularReviews = async (period = 'all', page = 1, limit = 10) => {
+  const response = await fetch(`${API_URL}/popular?period=${period}&page=${page}&limit=${limit}`);
   if (!response.ok) throw new Error('Error al obtener reseñas populares');
+  return response.json();
+};
+
+export const getPopularReviewers = async () => {
+  const response = await fetch(`${API_URL}/reviewers/popular`);
+  if (!response.ok) throw new Error('Error al obtener reseñadores populares');
+  return response.json();
+};
+
+export const getWeeklyPopularReviews = async () => {
+  const response = await fetch(`${API_URL}/popular/weekly`);
+  if (!response.ok) throw new Error('Error al obtener reseñas populares de la semana');
   return response.json();
 };
 
 export const getReviewsForMedia = async (mediaType, mediaId) => {
   const response = await fetch(`${API_URL}/media/${mediaType}/${mediaId}`);
   if (!response.ok) throw new Error('Error al obtener reseñas');
+  return response.json();
+};
+
+export const getReviewsForUser = async (userId) => {
+  const response = await fetch(`${API_URL}/user/${userId}`);
+  if (!response.ok) throw new Error('Error al obtener reseñas del usuario');
   return response.json();
 };
 

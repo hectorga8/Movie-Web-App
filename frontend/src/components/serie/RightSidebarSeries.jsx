@@ -38,13 +38,16 @@ function RightSidebarSeries() {
             <Link 
               key={serie.id} 
               to={`/serie/${serie.id}`} 
-              className="border border-[#445566] hover:border-[#00e054] rounded-[3px] overflow-hidden transition-colors aspect-[2/3] bg-[#2c3440]"
+              className="border border-[#445566] hover:border-[#00e054] rounded-[3px] overflow-hidden transition-colors aspect-[2/3] bg-[#2c3440] relative group/card"
             >
               <img 
                 src={movieService.getImageUrl(serie.poster_path, 'w185')} 
                 alt={serie.name || serie.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
               />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 flex items-end justify-center z-10">
+                <span className="text-white text-[10px] text-center line-clamp-2 leading-tight drop-shadow-md w-full">{serie.title || serie.name}</span>
+              </div>
             </Link>
           ))}
         </div>

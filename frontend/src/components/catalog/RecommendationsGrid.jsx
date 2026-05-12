@@ -18,12 +18,15 @@ const RecommendationsGrid = ({ items, type, currentItemName }) => {
           
           return (
             <Link to={`/${type}/${rec.id}`} key={rec.id} className="group">
-              <div className="aspect-[2/3] rounded-[8px] overflow-hidden mb-3 shadow-2xl border border-white/10 bg-black/40">
+              <div className="aspect-[2/3] rounded-[8px] overflow-hidden mb-3 shadow-2xl border border-white/10 bg-black/40 relative group/card">
                 <img 
                   src={movieService.getImageUrl(rec.poster_path, 'w342')} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" 
                   alt={name} 
                 />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-3 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 flex items-end justify-center">
+                  <span className="text-white text-[13px] text-center line-clamp-2 leading-tight drop-shadow-md w-full">{name}</span>
+                </div>
               </div>
               <h5 className="font-bold text-[14px] text-white group-hover:text-[#1060ff] transition-colors line-clamp-1 mb-1">
                 {name}
