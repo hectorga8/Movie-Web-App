@@ -63,8 +63,12 @@ function MembersList() {
                   <div className="flex-1 flex items-center gap-4">
                     <span className="text-white/20 font-bold w-4 text-right shrink-0">{i + 1}</span>
                     <Link to={`/perfil/${user._id}`} className="shrink-0">
-                      <div className="w-10 h-10 rounded-full bg-[#1060ff]/10 border border-[#1060ff]/20 text-[#1060ff] flex items-center justify-center font-bold">
-                        {(user.username || 'U')[0].toUpperCase()}
+                      <div className="w-10 h-10 rounded-full bg-[#1060ff]/10 border border-[#1060ff]/20 text-[#1060ff] flex items-center justify-center font-bold overflow-hidden">
+                        {user.avatar ? (
+                          <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
+                        ) : (
+                          (user.username || 'U')[0].toUpperCase()
+                        )}
                       </div>
                     </Link>
                     <div className="flex flex-col min-w-0">

@@ -211,10 +211,12 @@ function Index() {
   const welcomeMessage = () => {
     if (!user) return "Bienvenido a CineBox. Esto es lo que has estado viendo…";
     const firstName = user.name.split(' ')[0];
+    const nameLink = <Link to="/perfil" className="text-white hover:text-[#1060ff] font-medium transition-colors border-b border-transparent hover:border-[#1060ff] pb-0.5">{firstName}</Link>;
+    
     if (user.genres && user.genres.length > 0) {
-      return `Bienvenido, ${firstName}. Listos para más dosis de cine.`;
+      return <>Bienvenido, {nameLink}. Listos para más dosis de cine.</>;
     }
-    return `Bienvenido, ${firstName}. Esto es lo que has estado viendo…`;
+    return <>Bienvenido, {nameLink}. Esto es lo que has estado viendo…</>;
   };
 
   return (
@@ -287,15 +289,26 @@ function Index() {
             <section className="flex-1 min-w-0 lg:pr-12">
               <div className="flex items-center justify-between mb-2">
                 <h2 className="text-[13px] font-bold uppercase tracking-[1.5px] text-[#00e054] truncate">Para ti: Tus géneros</h2>
-                <button className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Ver más</button>
+                <Link to="/recomendaciones?type=generos" className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Ver más</Link>
               </div>
               <div className="h-[1px] bg-[#00e054]/30 w-full mb-6"></div>
               
-              <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-2">
-                {personalizedMovies.slice(0, 4).map(movie => (
-                  <div key={movie.id} className="w-full max-w-[180px] mx-auto">
-                    <MiniMovieCard movie={movie} />
-                  </div>
+              <div className="grid grid-cols-3 gap-2">
+                {personalizedMovies.slice(0, 6).map(movie => (
+                  <Link
+                    key={movie.id}
+                    to={`/pelicula/${movie.id}`}
+                    className="border border-[#445566] hover:border-[#00e054] rounded-[3px] overflow-hidden transition-colors aspect-[2/3] bg-[#2c3440] relative group/card"
+                  >
+                    <img
+                      src={movie.image}
+                      alt={movie.title}
+                      className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 flex items-end justify-center z-10">
+                      <span className="text-white text-[10px] text-center line-clamp-2 leading-tight drop-shadow-md w-full">{movie.title}</span>
+                    </div>
+                  </Link>
                 ))}
               </div>
             </section>
@@ -309,15 +322,26 @@ function Index() {
                 <h2 className="text-[13px] font-bold uppercase tracking-[1.5px] text-[#1060ff] truncate">
                   Porque te gustó <span className="text-white">"{recommendationsByFav.title}"</span>
                 </h2>
-                <button className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Más</button>
+                <Link to="/recomendaciones?type=similares" className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Más</Link>
               </div>
               <div className="h-[1px] bg-[#1060ff]/30 w-full mb-6"></div>
 
-              <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-2">
-                {recommendationsByFav.movies.slice(0, 4).map(movie => (
-                  <div key={movie.id} className="w-full max-w-[180px] mx-auto">
-                    <MiniMovieCard movie={movie} />
-                  </div>
+              <div className="grid grid-cols-3 gap-2">
+                {recommendationsByFav.movies.slice(0, 6).map(movie => (
+                  <Link
+                    key={movie.id}
+                    to={`/pelicula/${movie.id}`}
+                    className="border border-[#445566] hover:border-[#1060ff] rounded-[3px] overflow-hidden transition-colors aspect-[2/3] bg-[#2c3440] relative group/card"
+                  >
+                    <img
+                      src={movie.image}
+                      alt={movie.title}
+                      className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 flex items-end justify-center z-10">
+                      <span className="text-white text-[10px] text-center line-clamp-2 leading-tight drop-shadow-md w-full">{movie.title}</span>
+                    </div>
+                  </Link>
                 ))}
               </div>
             </section>

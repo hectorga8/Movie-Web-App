@@ -25,6 +25,7 @@ import Miembros from './pages/Miembros';
 import MembersList from './pages/MembersList';
 import EditarPerfil from './pages/EditarPerfil';
 import Watchlist from './pages/Watchlist';
+import Recomendaciones from './pages/Recomendaciones';
 import UserPopularReviews from './pages/UserPopularReviews';
 import UserFilms from './pages/UserFilms';
 import UserReviews from './pages/UserReviews';
@@ -96,6 +97,12 @@ function App() {
             <Route path="/inicio" element={
               <ProtectedRoute>
                 <Index />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/recomendaciones" element={
+              <ProtectedRoute>
+                <Recomendaciones />
               </ProtectedRoute>
             } />
             

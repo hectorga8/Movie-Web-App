@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 5001;
 
 // Middlewares
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 // Conexión a MongoDB (con validación de URI para evitar crashes)
 if (!process.env.MONGO_URI) {

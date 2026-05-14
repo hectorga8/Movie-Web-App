@@ -16,7 +16,11 @@ const TopUserCard = ({ user }) => {
       <div className="relative mb-3">
         <Link to={`/perfil/${user._id}`}>
           <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-tr from-[#14181c] to-[#2c3440] border-2 border-transparent group-hover:border-[#00e054] transition-all flex items-center justify-center shadow-xl overflow-hidden">
-            <span className="text-white text-4xl font-bold">{avatarLetter}</span>
+            {user.avatar ? (
+              <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-white text-4xl font-bold">{avatarLetter}</span>
+            )}
           </div>
         </Link>
         {/* Botón de seguir (+) */}

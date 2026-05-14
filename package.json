@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev:backend": "pnpm -r --filter \"./backend/*\" dev",
+    "dev:frontend": "pnpm --filter \"./frontend\" dev",
+    "dev": "concurrently -n \"AUTH,MOVIE,REVIEW,WATCH,FRONT\" -c \"magenta,blue,yellow,green,cyan\" \"pnpm --filter auth-service dev\" \"pnpm --filter movie-service dev\" \"pnpm --filter review-service dev\" \"pnpm --filter watchlist-service dev\" \"pnpm --filter frontend dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/hectorga8/Book-Tracking-Web-App/issues"
   },
-  "homepage": "https://github.com/hectorga8/Book-Tracking-Web-App#readme"
+  "homepage": "https://github.com/hectorga8/Book-Tracking-Web-App#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
