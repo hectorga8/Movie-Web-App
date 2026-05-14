@@ -98,3 +98,16 @@ exports.getMovieById = async (req, res) => {
     res.status(500).json({ error: 'Error obteniendo detalles' }); 
   }
 };
+
+exports.getRecommendations = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { data } = await tmdbApi.get(`/movie/${id}/recommendations`, { 
+      params: { language: 'es-ES', page: 1 } 
+    });
+    res.json(data.results || []);
+  } catch (error) {
+    console.error("❌ Error Recomendaciones:", error.response?.data || error.message);
+    res.status(500).json({ error: 'Error obteniendo recomendaciones' });
+  }
+};

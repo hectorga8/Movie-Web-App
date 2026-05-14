@@ -44,6 +44,11 @@ export const movieService = {
     return data;
   },
 
+  getRecommendations: async (id) => {
+    const { data } = await axios.get(`${BASE_URL}/movies/${id}/recommendations`);
+    return data;
+  },
+
   searchMovies: async (query) => {
     const { data } = await axios.get(`${BASE_URL}/movies/search?query=${query}`);
     return data;

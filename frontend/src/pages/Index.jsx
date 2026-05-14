@@ -68,14 +68,39 @@ function PopularReviewItem({ initialReview }) {
   );
 }
 
+function MiniMovieCard({ movie }) {
+  return (
+    <Link to={`/pelicula/${movie.id}`} className="group block w-full">
+      <div className="aspect-[2/3] rounded-[4px] overflow-hidden mb-2 shadow-lg border border-white/5 bg-black/40 relative group/card">
+        <img 
+          src={movie.image} 
+          className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-110" 
+          alt={movie.title} 
+        />
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity"></div>
+      </div>
+      <h5 className="font-bold text-[12px] text-white/90 group-hover:text-[#1060ff] transition-colors line-clamp-1 leading-tight">
+        {movie.title}
+      </h5>
+      <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest mt-0.5">
+        {movie.date}
+      </p>
+    </Link>
+  );
+}
+
 function Index() {
   const { user } = useAuth();
   const [newMovies, setNewMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
+  const [personalizedMovies, setPersonalizedMovies] = useState([]);
+  const [recommendationsByFav, setRecommendationsByFav] = useState({ title: '', movies: [] });
   const [popularReviews, setPopularReviews] = useState([]);
   const [popularLists, setPopularLists] = useState([]);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // ... (keep the rest of the states and news constants)
 
   // Noticias de respaldo (Fallback) por si la API de noticias falla
   const fallbackNews = [
@@ -114,13 +139,34 @@ function Index() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [newData, popularData, newsData, reviewsData, listsData] = await Promise.all([
+        const fetchPromises = [
           movieService.getNowPlaying().catch(() => ({ results: [] })),
           movieService.getPopular().catch(() => ({ results: [] })),
           movieService.getNews().catch(() => []),
           getWeeklyPopularReviews().catch(() => []),
           watchlistService.getPublicLists().catch(() => ({ popular: [] }))
-        ]);
+        ];
+
+        // Personalización por géneros
+        if (user?.genres?.length > 0) {
+          const genreIds = user.genres.join('|'); // '|' significa OR en TMDb
+          fetchPromises.push(movieService.getAllMovies(1, { genre: genreIds }).catch(() => ({ results: [] })));
+        }
+
+        // Personalización por película favorita (3C)
+        if (user?.favoriteMovies?.length > 0) {
+          const randomFavId = user.favoriteMovies[Math.floor(Math.random() * user.favoriteMovies.length)];
+          fetchPromises.push(
+            Promise.all([
+              movieService.getMovieDetail(randomFavId).catch(() => ({ title: 'Tu favorita' })),
+              movieService.getRecommendations(randomFavId).catch(() => [])
+            ])
+          );
+        }
+
+        const results = await Promise.all(fetchPromises);
+        
+        const [newData, popularData, newsData, reviewsData, listsData] = results;
         
         const newItems = (newData && Array.isArray(newData)) ? newData : (newData?.results || []);
         const popularItems = (popularData && Array.isArray(popularData)) ? popularData : (popularData?.results || []);
@@ -134,8 +180,24 @@ function Index() {
           setPopularLists(sortedLists);
         }
         
-        // Si newsData llega vacío, usamos el fallback
         setNews(newsData && newsData.length > 0 ? newsData : fallbackNews);
+
+        // Resultados de personalización
+        let currentIndex = 5;
+        if (user?.genres?.length > 0) {
+          const genreData = results[currentIndex++];
+          const genreItems = (genreData && Array.isArray(genreData)) ? genreData : (genreData?.results || []);
+          setPersonalizedMovies(mapResults(genreItems));
+        }
+
+        if (user?.favoriteMovies?.length > 0) {
+          const [favDetail, recsData] = results[currentIndex];
+          setRecommendationsByFav({
+            title: favDetail.title || favDetail.name || 'Tu favorita',
+            movies: mapResults(recsData)
+          });
+        }
+
       } catch (e) {
         console.error("Error fetching data for Index:", e);
         setNews(fallbackNews);
@@ -144,7 +206,16 @@ function Index() {
       }
     };
     fetchData();
-  }, []);
+  }, [user]);
+
+  const welcomeMessage = () => {
+    if (!user) return "Bienvenido a CineBox. Esto es lo que has estado viendo…";
+    const firstName = user.name.split(' ')[0];
+    if (user.genres && user.genres.length > 0) {
+      return `Bienvenido, ${firstName}. Listos para más dosis de cine.`;
+    }
+    return `Bienvenido, ${firstName}. Esto es lo que has estado viendo…`;
+  };
 
   return (
     <div className="w-full bg-gradient-to-b from-[#0d0e12] to-[#1a1c23] text-white min-h-screen font-['Inter',sans-serif]">
@@ -153,14 +224,14 @@ function Index() {
         {/* 1. Bienvenida */}
         <section className="mb-12">
           <h1 className="text-[26px] md:text-[32px] font-light text-[#efeff1] text-center leading-tight">
-            Bienvenido, <Link to="/perfil" className="hover:text-[#1060ff] transition-colors">{user?.name ? user.name.split(' ')[0] : 'Cinéfilo'}</Link>. Esto es lo que has estado viendo…
+            {welcomeMessage()}
           </h1>
           <p className="text-white/40 text-[15px] mt-2 text-center font-light">
-            Esta página de inicio se personalizará a medida que sigas a los miembros activos de CineBox.
+            {user ? "Tu experiencia personalizada está lista." : "Esta página de inicio se personalizará a medida que sigas a los miembros activos de CineBox."}
           </p>
         </section>
 
-        {/* 2. Nuevo en CineBox */}
+        {/* 2. Nuevo en CineBox (AHORA PRIMERO) */}
         <section className="mb-16">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Nuevo en CineBox</h2>
@@ -184,7 +255,7 @@ function Index() {
           )}
         </section>
 
-        {/* 3. Populares en CineBox */}
+        {/* 3. Populares en CineBox (AHORA SEGUNDO) */}
         <section className="mb-16">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Populares en CineBox</h2>
@@ -208,7 +279,53 @@ function Index() {
           )}
         </section>
 
-        {/* 4. Noticias de la Red */}
+        {/* 4. SECCIONES PERSONALIZADAS A DOS COLUMNAS (Para ti y Porque te gustó) */}
+        {user && (personalizedMovies.length > 0 || recommendationsByFav.movies.length > 0) && (
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-0 mb-16 relative">
+            
+            {/* Para ti (Izquierda) */}
+            <section className="flex-1 min-w-0 lg:pr-12">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-[13px] font-bold uppercase tracking-[1.5px] text-[#00e054] truncate">Para ti: Tus géneros</h2>
+                <button className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Ver más</button>
+              </div>
+              <div className="h-[1px] bg-[#00e054]/30 w-full mb-6"></div>
+              
+              <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-2">
+                {personalizedMovies.slice(0, 4).map(movie => (
+                  <div key={movie.id} className="w-full max-w-[180px] mx-auto">
+                    <MiniMovieCard movie={movie} />
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Separador Vertical */}
+            <div className="hidden lg:block w-[1px] bg-white/10 absolute left-1/2 top-0 bottom-0 -translate-x-1/2"></div>
+
+            {/* Porque te gustó (Derecha) */}
+            <section className="flex-1 min-w-0 lg:pl-12">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-[13px] font-bold uppercase tracking-[1.5px] text-[#1060ff] truncate">
+                  Porque te gustó <span className="text-white">"{recommendationsByFav.title}"</span>
+                </h2>
+                <button className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Más</button>
+              </div>
+              <div className="h-[1px] bg-[#1060ff]/30 w-full mb-6"></div>
+
+              <div className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-2">
+                {recommendationsByFav.movies.slice(0, 4).map(movie => (
+                  <div key={movie.id} className="w-full max-w-[180px] mx-auto">
+                    <MiniMovieCard movie={movie} />
+                  </div>
+                ))}
+              </div>
+            </section>
+
+          </div>
+        )}
+
+        {/* 5. Noticias de la Red */}
         <section className="mb-16">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Cine en la red</h2>
