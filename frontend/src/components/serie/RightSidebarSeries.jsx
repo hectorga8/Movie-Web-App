@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import movieService from '../../services/movieService';
-
-const reviewers = [
-  { name: "Seriefilo", avatar: "https://i.pravatar.cc/150?u=21", films: "229 series", reviews: "165 reseñas" },
-  { name: "BingeWatcher", avatar: "https://i.pravatar.cc/150?u=22", films: "453 series", reviews: "347 reseñas" },
-  { name: "TV Fanatic", avatar: "https://i.pravatar.cc/150?u=23", films: "525 series", reviews: "654 reseñas", isGreen: true },
-  { name: "Maratonista", avatar: "https://i.pravatar.cc/150?u=24", films: "734 series", reviews: "808 reseñas" },
-  { name: "Episodio Piloto", avatar: "https://i.pravatar.cc/150?u=25", films: "1,055 series", reviews: "421 reseñas" }
-];
+import { getSortedMembers } from '../../services/membersService';
 
 function RightSidebarSeries() {
   const [crewPicks, setCrewPicks] = useState([]);
+  const [popularReviewers, setPopularReviewers] = useState([]);
 
   useEffect(() => {
     const fetchSeries = async () => {
@@ -26,7 +20,19 @@ function RightSidebarSeries() {
         console.error("Error", error);
       }
     };
+
+    const fetchReviewers = async () => {
+      try {
+        const data = await getSortedMembers();
+        // Skip first 5 to show different ones than movies, or just show top 5
+        setPopularReviewers(data.slice(0, 5));
+      } catch (error) {
+        console.error("Error fetching popular reviewers:", error);
+      }
+    };
+
     fetchSeries();
+    fetchReviewers();
   }, []);
 
   return (
@@ -56,26 +62,30 @@ function RightSidebarSeries() {
       <div className="mb-8">
         <div className="flex justify-between items-end border-b border-[#445566] pb-2 mb-3">
           <h2 className="text-[12px] uppercase tracking-[1px] text-[#8aa8c2]">RESEÑADORES POPULARES</h2>
-          <a href="#" className="text-[10px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</a>
+          <Link to="/miembros" className="text-[10px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</Link>
         </div>
         
         <div className="flex flex-col gap-4">
-          {reviewers.map((reviewer, i) => (
-            <div key={i} className="flex items-center gap-3">
-              {reviewer.isGreen ? (
-                 <div className="w-10 h-10 rounded-full bg-[#00e054] shrink-0 border border-[#445566]"></div>
-              ) : (
-                <img src={reviewer.avatar} alt={reviewer.name} className="w-10 h-10 rounded-full shrink-0 border border-[#445566]" />
-              )}
+          {popularReviewers.map((reviewer, i) => (
+            <div key={reviewer._id || i} className="flex items-center gap-3 group">
+              <Link to={`/perfil/${reviewer._id}`} className="w-10 h-10 rounded-full shrink-0 border border-[#445566] overflow-hidden group-hover:border-[#40bcf4] transition-colors flex items-center justify-center bg-[#1c2228]">
+                {reviewer.avatar ? (
+                  <img src={reviewer.avatar} alt={reviewer.username} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-[#8aa8c2] text-lg font-bold">{(reviewer.username || 'U')[0].toUpperCase()}</span>
+                )}
+              </Link>
               
-              <div className="flex-1 min-w-0">
-                <h4 className="text-[14px] font-bold text-[#fff] truncate hover:text-[#40bcf4] cursor-pointer">{reviewer.name}</h4>
-                <p className="text-[11px] text-[#8aa8c2] truncate">
-                  {reviewer.films}, {reviewer.reviews}
+              <div className="flex-1 min-w-0 flex flex-col justify-center">
+                <Link to={`/perfil/${reviewer._id}`} className="text-[14px] font-bold text-[#fff] truncate hover:text-[#40bcf4] transition-colors leading-tight">
+                  {reviewer.username}
+                </Link>
+                <p className="text-[11px] text-[#8aa8c2] truncate leading-tight mt-0.5">
+                  {reviewer.totalWatched || 0} series, {reviewer.reviewCount || 0} reseñas
                 </p>
               </div>
               
-              <button className="w-6 h-6 rounded-full bg-[#2c3440] hover:bg-[#fff] hover:text-[#14181c] text-[#8aa8c2] flex items-center justify-center font-bold text-lg leading-none transition-colors border border-[#445566]">
+              <button className="w-6 h-6 rounded-full bg-[#2c3440] hover:bg-[#fff] hover:text-[#14181c] text-[#8aa8c2] flex items-center justify-center font-bold text-lg leading-none transition-colors border border-[#445566] pb-0.5">
                 +
               </button>
             </div>

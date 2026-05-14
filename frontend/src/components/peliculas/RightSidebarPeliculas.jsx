@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import movieService from '../../services/movieService';
-
-const reviewers = [
-  { name: "J", avatar: "https://i.pravatar.cc/150?u=2", films: "229 películas", reviews: "165 reseñas" },
-  { name: "James (Schaffrillas)", avatar: "https://i.pravatar.cc/150?u=10", films: "1,453 películas", reviews: "1,347 reseñas" },
-  { name: "Karsten", avatar: "https://i.pravatar.cc/150?u=11", films: "2,525 películas", reviews: "1,654 reseñas", isGreen: true },
-  { name: "- ̗̀ mak ̖́-", avatar: "https://i.pravatar.cc/150?u=12", films: "734 películas", reviews: "808 reseñas" },
-  { name: "zoë rose bryant", avatar: "https://i.pravatar.cc/150?u=13", films: "5,055 películas", reviews: "2,421 reseñas" }
-];
+import { getSortedMembers } from '../../services/membersService';
 
 function RightSidebarPeliculas() {
   const [crewPicks, setCrewPicks] = useState([]);
+  const [popularReviewers, setPopularReviewers] = useState([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -26,7 +20,18 @@ function RightSidebarPeliculas() {
         console.error("Error", error);
       }
     };
+    
+    const fetchReviewers = async () => {
+      try {
+        const data = await getSortedMembers();
+        setPopularReviewers(data.slice(0, 5));
+      } catch (error) {
+        console.error("Error fetching popular reviewers:", error);
+      }
+    };
+
     fetchMovies();
+    fetchReviewers();
   }, []);
 
   return (
@@ -58,26 +63,30 @@ function RightSidebarPeliculas() {
       <div className="mb-8">
         <div className="flex justify-between items-end border-b border-[#445566] pb-2 mb-3">
           <h2 className="text-[12px] uppercase tracking-[1px] text-[#8aa8c2]">RESEÑADORES POPULARES</h2>
-          <a href="#" className="text-[10px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</a>
+          <Link to="/miembros" className="text-[10px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</Link>
         </div>
         
         <div className="flex flex-col gap-4">
-          {reviewers.map((reviewer, i) => (
-            <div key={i} className="flex items-center gap-3">
-              {reviewer.isGreen ? (
-                 <div className="w-10 h-10 rounded-full bg-[#00e054] shrink-0 border border-[#445566]"></div>
-              ) : (
-                <img src={reviewer.avatar} alt={reviewer.name} className="w-10 h-10 rounded-full shrink-0 border border-[#445566]" />
-              )}
+          {popularReviewers.map((reviewer, i) => (
+            <div key={reviewer._id || i} className="flex items-center gap-3 group">
+              <Link to={`/perfil/${reviewer._id}`} className="w-10 h-10 rounded-full shrink-0 border border-[#445566] overflow-hidden group-hover:border-[#40bcf4] transition-colors flex items-center justify-center bg-[#1c2228]">
+                {reviewer.avatar ? (
+                  <img src={reviewer.avatar} alt={reviewer.username} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-[#8aa8c2] text-lg font-bold">{(reviewer.username || 'U')[0].toUpperCase()}</span>
+                )}
+              </Link>
               
-              <div className="flex-1 min-w-0">
-                <h4 className="text-[14px] font-bold text-[#fff] truncate hover:text-[#40bcf4] cursor-pointer">{reviewer.name}</h4>
-                <p className="text-[11px] text-[#8aa8c2] truncate">
-                  {reviewer.films}, {reviewer.reviews}
+              <div className="flex-1 min-w-0 flex flex-col justify-center">
+                <Link to={`/perfil/${reviewer._id}`} className="text-[14px] font-bold text-[#fff] truncate hover:text-[#40bcf4] transition-colors leading-tight">
+                  {reviewer.username}
+                </Link>
+                <p className="text-[11px] text-[#8aa8c2] truncate leading-tight mt-0.5">
+                  {reviewer.totalWatched || 0} películas, {reviewer.reviewCount || 0} reseñas
                 </p>
               </div>
               
-              <button className="w-6 h-6 rounded-full bg-[#2c3440] hover:bg-[#fff] hover:text-[#14181c] text-[#8aa8c2] flex items-center justify-center font-bold text-lg leading-none transition-colors border border-[#445566]">
+              <button className="w-6 h-6 rounded-full bg-[#2c3440] hover:bg-[#fff] hover:text-[#14181c] text-[#8aa8c2] flex items-center justify-center font-bold text-lg leading-none transition-colors border border-[#445566] pb-0.5">
                 +
               </button>
             </div>

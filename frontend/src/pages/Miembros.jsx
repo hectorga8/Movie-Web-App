@@ -24,7 +24,7 @@ const TopUserCard = ({ user }) => {
           </div>
         </Link>
         {/* Botón de seguir (+) */}
-        <button className="absolute bottom-0 right-0 w-7 h-7 bg-[#2c3440] border border-[#445566] text-[#8aa8c2] hover:bg-[#fff] hover:text-[#14181c] rounded-full flex items-center justify-center font-bold text-lg shadow-lg transition-colors cursor-pointer z-10 pb-[2px]">
+        <button className="absolute bottom-0 right-0 w-7 h-7 bg-[#2c3440] border border-[#445566] text-[#8aa8c2] hover:bg-[#fff] hover:text-[#14181c] rounded-full flex items-center justify-center font-bold text-lg shadow-lg transition-colors cursor-pointer z-10 pb-0.5">
           +
         </button>
       </div>
@@ -96,7 +96,7 @@ const ListItemUser = ({ user }) => {
           <span className="flex items-center gap-1.5"><span className="text-[#40bcf4]">☷</span> {user.totalLists || 0}</span>
           <span className="flex items-center gap-1.5"><span className="text-[#ff8000]">❤</span> {user.totalLikes || 0}</span>
         </div>
-        <button className="w-8 h-8 rounded-full bg-[#2c3440] border border-[#445566] flex items-center justify-center text-[#8aa8c2] hover:bg-white hover:text-black transition-colors font-bold pb-[2px]">
+        <button className="w-8 h-8 rounded-full bg-[#2c3440] border border-[#445566] flex items-center justify-center text-[#8aa8c2] hover:bg-white hover:text-black transition-colors font-bold pb-0.5">
           +
         </button>
       </div>
