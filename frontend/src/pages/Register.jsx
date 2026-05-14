@@ -27,7 +27,7 @@ function Register() {
           body: JSON.stringify({ token: tokenResponse.access_token })
         });
         const data = await res.json();
-        if (res.ok) { login(data.user, data.token); navigate('/inicio'); }
+        if (res.ok) { login(data.user, data.token); navigate('/onboarding'); }
         else { setError(data.message || 'Error con Google'); }
       } catch (err) { setError('Error de red CineBox Cloud.'); }
       finally { setLoading(false); }
@@ -46,14 +46,14 @@ function Register() {
         body: JSON.stringify({ name, email, password }),
       });
       const data = await response.json();
-      if (response.ok) { login(data.user, data.token); navigate('/inicio'); }
+      if (response.ok) { login(data.user, data.token); navigate('/onboarding'); }
       else { setError(data.message || 'Error en el registro.'); }
     } catch (err) { setError('Error de conexión.'); }
     finally { setLoading(false); }
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-[#0d0e12] py-8 px-6 relative overflow-hidden">
+    <div className="flex-1 flex flex-col items-center justify-center bg-[#111419] py-8 px-6 relative overflow-hidden">
       {/* Fondo decorativo sutil */}
       <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(123,66,188,0.05),transparent_70%)] pointer-events-none"></div>
 

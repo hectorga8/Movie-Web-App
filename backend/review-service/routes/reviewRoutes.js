@@ -8,6 +8,7 @@ router.get('/popular', reviewController.getPopularReviews);
 
 // Obtener los reseñadores más populares
 router.get('/reviewers/popular', reviewController.getPopularReviewers);
+router.get('/reviewers/all-stats', reviewController.getAllReviewersStats);
 
 // Obtener reviews populares de la semana
 router.get('/popular/weekly', reviewController.getWeeklyPopularReviews);

@@ -128,7 +128,7 @@ const CrearLista = () => {
   const pageTitle = isEditing ? 'Edit List' : isCloning ? 'Clone List' : 'New List';
 
   return (
-    <div className="min-h-screen bg-[#14181c] text-[#8b9bb4] font-sans pb-20">
+    <div className="min-h-screen bg-[#111419] text-[#8b9bb4] font-sans pb-20">
       <div className="max-w-[1200px] mx-auto px-6 py-10">
         <h1 className="text-white text-2xl font-serif mb-6 border-b border-[#2c3440] pb-2 uppercase tracking-wide">{pageTitle}</h1>
 

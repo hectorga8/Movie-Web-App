@@ -1,12 +1,15 @@
 # Imagen base ligera
 FROM node:20-alpine
 
+# Instalamos pnpm globalmente
+RUN npm install -g pnpm
+
 # Directorio de trabajo
 WORKDIR /usr/src/app
 
 # Caché de dependencias
-COPY package*.json ./
-RUN npm install
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install
 
 # Código fuente
 COPY . .
@@ -15,4 +18,4 @@ COPY . .
 EXPOSE 5173
 
 # Comando para desarrollo
-CMD ["npm", "run", "dev"]
+CMD ["pnpm", "run", "dev"]

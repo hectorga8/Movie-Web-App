@@ -381,3 +381,35 @@ exports.getPublicLists = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+exports.getAllUsersStats = async (req, res) => {
+  try {
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+
+    const items = await WatchlistItem.aggregate([
+      {
+        $group: {
+          _id: "$userId",
+          addedThisWeek: { $sum: { $cond: [{ $gte: ["$addedAt", lastWeek] }, 1, 0] } },
+          favoritesThisWeek: { $sum: { $cond: [{ $and: [{ $gte: ["$addedAt", lastWeek] }, { $eq: ["$isFavorite", true] }] }, 1, 0] } },
+          totalWatched: { $sum: { $cond: [{ $eq: ["$status", "watched"] }, 1, 0] } }
+        }
+      }
+    ]);
+
+    const lists = await CustomList.aggregate([
+      {
+        $group: {
+          _id: "$userId",
+          totalLists: { $sum: 1 },
+          listsThisWeek: { $sum: { $cond: [{ $gte: ["$createdAt", lastWeek] }, 1, 0] } }
+        }
+      }
+    ]);
+
+    res.status(200).json({ items, lists });
+  } catch (error) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};

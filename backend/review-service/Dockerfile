@@ -1,13 +1,16 @@
 FROM node:20-alpine
 
+# Instalamos pnpm globalmente
+RUN npm install -g pnpm
+
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
 
-RUN npm install
+RUN pnpm install
 
 COPY . .
 
 EXPOSE 5004
 
-CMD ["npm", "run", "dev"]
+CMD ["pnpm", "run", "dev"]

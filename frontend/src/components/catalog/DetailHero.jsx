@@ -93,10 +93,10 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
     || item.videos?.results?.[0];
 
   return (
-    <section className="relative w-full bg-[#0d0e12] pt-24 pb-16 overflow-hidden flex justify-center">
+    <section className="relative w-full bg-[#111419] pt-24 pb-16 overflow-hidden flex justify-center">
       <div className="absolute inset-0 opacity-30 pointer-events-none">
         <img src={movieService.getBackdropUrl(item.backdrop_path)} className="w-full h-full object-cover grayscale brightness-50" alt="" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e12] via-[#0d0e12]/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111419] via-[#0d0e12]/80 to-transparent"></div>
       </div>
 
       <div className="w-full max-w-[1200px] px-6 relative z-10">

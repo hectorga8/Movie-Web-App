@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import HomeMovieCard from "../components/index/HomeMovieCard";
 import movieService from '../services/movieService';
 import { getWeeklyPopularReviews, toggleLikeReview } from '../services/reviewService';
+import watchlistService from '../services/watchlistService';
 
 function PopularReviewItem({ initialReview }) {
   const { user } = useAuth();
@@ -59,7 +60,7 @@ function PopularReviewItem({ initialReview }) {
             className={`flex items-center gap-1.5 font-bold uppercase tracking-wider transition-colors cursor-pointer ${isLiked ? 'text-[#ff4e4e]' : 'text-white/40 hover:text-white'}`}
           >
             <span className={`text-[20px] leading-none ${isLiked ? '' : 'grayscale'}`}>❤</span>
-            {review.likes} {review.likes === 1 ? 'Like' : 'Likes'}
+            {review.likes} {review.likes === 1 ? 'Me gusta' : 'Me gusta'}
           </button>
         </div>
       </div>
@@ -72,6 +73,7 @@ function Index() {
   const [newMovies, setNewMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [popularReviews, setPopularReviews] = useState([]);
+  const [popularLists, setPopularLists] = useState([]);
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -112,11 +114,12 @@ function Index() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [newData, popularData, newsData, reviewsData] = await Promise.all([
+        const [newData, popularData, newsData, reviewsData, listsData] = await Promise.all([
           movieService.getNowPlaying().catch(() => ({ results: [] })),
           movieService.getPopular().catch(() => ({ results: [] })),
           movieService.getNews().catch(() => []),
-          getWeeklyPopularReviews().catch(() => [])
+          getWeeklyPopularReviews().catch(() => []),
+          watchlistService.getPublicLists().catch(() => ({ popular: [] }))
         ]);
         
         const newItems = (newData && Array.isArray(newData)) ? newData : (newData?.results || []);
@@ -125,6 +128,11 @@ function Index() {
         setNewMovies(mapResults(newItems));
         setPopularMovies(mapResults(popularItems));
         setPopularReviews(reviewsData);
+        
+        if (listsData && listsData.popular) {
+          const sortedLists = [...listsData.popular].sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 3);
+          setPopularLists(sortedLists);
+        }
         
         // Si newsData llega vacío, usamos el fallback
         setNews(newsData && newsData.length > 0 ? newsData : fallbackNews);
@@ -241,10 +249,10 @@ function Index() {
         {/* 5 y 6. Layout a dos columnas con separador */}
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-0 mb-16 relative">
           
-          {/* 5. Reviews Populares */}
+          {/* 5. Reseñas Populares */}
           <section className="flex-1 lg:pr-12">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Reviews Populares</h2>
+              <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Reseñas Populares</h2>
               <Link to="/reviews-populares" className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors">Más</Link>
             </div>
             <div className="h-[1px] bg-white/10 w-full mb-6"></div>
@@ -266,22 +274,25 @@ function Index() {
           <section className="flex-1 lg:pl-12">
             <div className="flex items-center justify-between mb-2">
               <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Listas Populares</h2>
+              <Link to="/listas" className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors">Más</Link>
             </div>
             <div className="h-[1px] bg-white/10 w-full mb-6"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[1, 2].map(i => (
-                <div key={i} className="group cursor-pointer">
+              {popularLists.length > 0 ? popularLists.map(lista => (
+                <Link to={`/lista/${lista.id}`} key={lista.id} className="group cursor-pointer block">
                   <div className="flex -space-x-8 mb-3">
-                    {[1, 2, 3, 4, 5].map(j => (
-                      <div key={j} className="w-16 h-24 border border-black rounded-[2px] overflow-hidden shadow-xl transform group-hover:-translate-y-1 transition-transform">
-                         <img src={`https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg`} alt="" className="w-full h-full object-cover" />
+                    {(lista.posters || []).slice(0, 5).map((poster, j) => (
+                      <div key={j} className="w-16 h-24 border border-black rounded-[2px] overflow-hidden shadow-xl transform group-hover:-translate-y-1 transition-transform relative z-[1]">
+                         <img src={poster ? `https://image.tmdb.org/t/p/w200${poster}` : 'https://via.placeholder.com/200x300?text=No+Poster'} alt="" className="w-full h-full object-cover" />
                       </div>
                     ))}
                   </div>
-                  <h4 className="text-[14px] font-bold text-white group-hover:text-[#1060ff] transition-colors line-clamp-1">Las 100 mejores películas de Ciencia Ficción</h4>
-                  <p className="text-white/40 text-[11px] uppercase tracking-wider mt-1 font-light">Por Cinefilo_Pro · 1.2k likes</p>
-                </div>
-              ))}
+                  <h4 className="text-[14px] font-bold text-white group-hover:text-[#1060ff] transition-colors line-clamp-1">{lista.title}</h4>
+                  <p className="text-white/40 text-[11px] uppercase tracking-wider mt-1 font-light">Por {lista.creator || 'Usuario'} · {(lista.likes/1000).toFixed(1)}k likes</p>
+                </Link>
+              )) : (
+                <div className="text-white/40 text-[13px] italic">Aún no hay listas populares.</div>
+              )}
             </div>
           </section>
 

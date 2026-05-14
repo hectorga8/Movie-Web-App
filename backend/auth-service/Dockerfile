@@ -1,14 +1,17 @@
 # Usamos una imagen de Node.js ligera
 FROM node:20-alpine
 
+# Instalamos pnpm globalmente
+RUN npm install -g pnpm
+
 # Directorio de trabajo en el contenedor
 WORKDIR /usr/src/app
 
 # Copiamos solo los archivos de dependencias primero (optimización de caché)
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
 
-# Instalamos dependencias
-RUN npm install
+# Instalamos dependencias usando pnpm
+RUN pnpm install
 
 # Copiamos el resto del código
 COPY . .
@@ -17,4 +20,4 @@ COPY . .
 EXPOSE 5001
 
 # Comando para desarrollo (con nodemon)
-CMD ["npm", "run", "dev"]
+CMD ["pnpm", "run", "dev"]

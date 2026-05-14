@@ -47,14 +47,21 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      if (response.ok) { login(data.user, data.token); navigate('/inicio'); }
+      if (response.ok) { 
+        login(data.user, data.token); 
+        if (data.user.onboardingCompleted === false) {
+          navigate('/onboarding');
+        } else {
+          navigate('/inicio');
+        }
+      }
       else { setError(data.message || 'Credenciales no reconocidas.'); }
     } catch (err) { setError('Error de conexión.'); }
     finally { setLoading(false); }
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-[#0d0e12] py-8 px-6 relative overflow-hidden">
+    <div className="flex-1 flex flex-col items-center justify-center bg-[#111419] py-8 px-6 relative overflow-hidden">
       {/* Fondo decorativo sutil */}
       <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(16,96,255,0.05),transparent_70%)] pointer-events-none"></div>
 
@@ -151,3 +158,4 @@ function Login() {
 }
 
 export default Login;
+Login;

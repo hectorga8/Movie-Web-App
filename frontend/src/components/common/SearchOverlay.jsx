@@ -5,7 +5,7 @@ function SearchOverlay({ visible }) {
   
   return createPortal(
     <div 
-      className="fixed inset-0 bg-[#0d0e12]/70 transition-opacity duration-300 pointer-events-none"
+      className="fixed inset-0 bg-[#111419]/70 transition-opacity duration-300 pointer-events-none"
       style={{ zIndex: 45 }}
     />,
     document.body

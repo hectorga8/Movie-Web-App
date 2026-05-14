@@ -22,6 +22,7 @@ import CrearLista from './pages/CrearLista';
 import DetalleLista from './pages/DetalleLista';
 import Perfil from './pages/Perfil';
 import Miembros from './pages/Miembros';
+import MembersList from './pages/MembersList';
 import EditarPerfil from './pages/EditarPerfil';
 import Watchlist from './pages/Watchlist';
 import UserPopularReviews from './pages/UserPopularReviews';
@@ -30,6 +31,7 @@ import UserReviews from './pages/UserReviews';
 import UserLists from './pages/UserLists';
 import UserLikes from './pages/UserLikes';
 import Social from './pages/Social';
+import Onboarding from './pages/Onboarding';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import { useAuth } from './context/AuthContext';
 
@@ -56,7 +58,7 @@ function App() {
 
   // Mientras se carga el estado de autenticación (JWT check), no renderizamos nada para evitar parpadeos
   if (loading) return (
-    <div className="min-h-screen bg-[#0d0e12] flex items-center justify-center">
+    <div className="min-h-screen bg-[#111419] flex items-center justify-center">
       <div className="w-8 h-8 border-2 border-[#1060ff] border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
@@ -64,7 +66,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen bg-[#0d0e12]">
+      <div className="flex flex-col min-h-screen bg-[#111419]">
         <HeaderWrapper />
         
         <main className="flex-1 flex flex-col">
@@ -74,16 +76,23 @@ function App() {
               user ? <Navigate to="/inicio" replace /> : <Landing />
             } />
 
-            {/* Rutas de Autenticación: Redirigen al inicio si ya hay sesión */}
+            {/* Rutas de Autenticación */}
             <Route path="/login" element={
               user ? <Navigate to="/inicio" replace /> : <Login />
             } />
             
             <Route path="/registro" element={
-              user ? <Navigate to="/inicio" replace /> : <Register />
+              user ? (
+                user.onboardingCompleted === false ? <Navigate to="/onboarding" replace /> : <Navigate to="/inicio" replace />
+              ) : <Register />
             } />
 
             {/* Rutas Protegidas */}
+            <Route path="/onboarding" element={
+              <ProtectedRoute>
+                <Onboarding />
+              </ProtectedRoute>
+            } />
             <Route path="/inicio" element={
               <ProtectedRoute>
                 <Index />
@@ -120,6 +129,7 @@ function App() {
             <Route path="/persona/:id" element={<Persona />} />
             <Route path="/personas/todas" element={<TodasPersonas />} />
             <Route path="/miembros" element={<Miembros />} />
+            <Route path="/miembros/populares" element={<MembersList />} />
             <Route path="/search" element={<SearchResults />} />
             <Route path="/listas" element={<Listas />} />
             <Route path="/listas/nueva" element={

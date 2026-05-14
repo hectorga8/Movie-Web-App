@@ -180,7 +180,7 @@ function SearchBar() {
         <div ref={portalRef}>
           {(isFocused || isMobileExpanded) && (
             <div
-              className="fixed inset-0 bg-[#0d0e12]/80 md:bg-[#0d0e12]/60 pointer-events-none"
+              className="fixed inset-0 bg-[#111419]/80 md:bg-[#111419]/60 pointer-events-none"
               style={{ zIndex: 999997 }}
             />
           )}

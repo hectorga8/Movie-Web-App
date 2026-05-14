@@ -11,7 +11,7 @@ function Social() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#14181c] text-[#8b9bb4] font-sans pt-10 pb-20">
+    <div className="min-h-screen bg-[#111419] text-[#8b9bb4] font-sans pt-10 pb-20">
       <div className="max-w-[1200px] mx-auto px-4">
         
         {/* Header */}

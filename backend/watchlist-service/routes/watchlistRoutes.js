@@ -5,6 +5,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 // Rutas públicas
 router.get('/public-lists', watchlistController.getPublicLists);
+router.get('/users/all-stats', watchlistController.getAllUsersStats);
 router.get('/custom-lists/user/:userId', watchlistController.getUserCustomLists);
 router.get('/user/:userId', watchlistController.getUserListById);
 router.get('/user/:userId/stats', watchlistController.getUserStats);

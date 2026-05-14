@@ -34,6 +34,12 @@ export const getPopularReviewers = async () => {
   return response.json();
 };
 
+export const getAllReviewersStats = async () => {
+  const response = await fetch(`${API_URL}/reviewers/all-stats`);
+  if (!response.ok) throw new Error('Error al obtener estadísticas de todos los reseñadores');
+  return response.json();
+};
+
 export const getWeeklyPopularReviews = async () => {
   const response = await fetch(`${API_URL}/popular/weekly`);
   if (!response.ok) throw new Error('Error al obtener reseñas populares de la semana');

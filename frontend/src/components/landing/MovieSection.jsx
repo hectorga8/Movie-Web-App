@@ -39,7 +39,7 @@ function MovieSection({ title, items, type = "pelicula" }) {
   };
 
   return (
-    <section className="w-full py-8 md:py-14 relative group bg-[#0d0e12] text-white">
+    <section className="w-full py-8 md:py-14 relative group bg-[#111419] text-white">
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 relative">
         
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6 mb-6 md:mb-8 text-left">

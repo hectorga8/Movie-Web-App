@@ -65,7 +65,6 @@ export const watchlistService = {
       const { data } = await watchlistApi.get('/watchlist/public-lists');
       return data;
     } catch (error) {
-      // FALLBACK: Si el backend no responde, devolvemos datos para que puedas navegar
       const validPosters = [
         "/qJ2tW6WMUDux911r6m7haRef0WH.jpg", "/8xV47NDrjdZDxaVCQAl3LuRE8iO.jpg", 
         "/rSPw7tgCH9c6NqICZef4kZjFOQ5.jpg", "/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", 
@@ -91,6 +90,16 @@ export const watchlistService = {
           { id: '10', title: 'Oscar-winning films: International', creator: 'Oscars', posters: validPosters, moviesCount: 78 }
         ]
       };
+    }
+  },
+
+  getAllUsersStats: async () => {
+    try {
+      const { data } = await watchlistApi.get('/watchlist/users/all-stats');
+      return data;
+    } catch (error) {
+      console.error('Error fetching user stats:', error);
+      return { items: [], lists: [] };
     }
   },
 

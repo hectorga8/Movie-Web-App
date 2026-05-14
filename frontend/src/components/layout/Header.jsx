@@ -38,7 +38,7 @@ function Header({ variant = "landing" }) {
 
   return (
     <>
-      <header className="sticky top-0 z-[110] w-full border-b border-white/5 bg-[#0d0e12]/80 backdrop-blur-md h-16 md:h-20">
+      <header className="sticky top-0 z-[110] w-full border-b border-white/5 bg-[#111419]/80 backdrop-blur-md h-16 md:h-20">
         <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 h-full flex items-center justify-between gap-4">
           
           {/* Lado Izquierdo: Logo + Nav Desktop */}
@@ -86,7 +86,7 @@ function Header({ variant = "landing" }) {
                     <div className="absolute right-0 mt-4 w-56 bg-[#1a1c23] border border-white/10 rounded-md shadow-xl py-2 z-[60]">
                       <Link to="/perfil" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mi perfil</Link>
                       <Link to="/dashboard" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mi Videoteca</Link>
-                      <Link to={`/perfil/${user.name}/reviews`} className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis reviews</Link>
+                      <Link to={`/perfil/${user.name}/reviews`} className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis reseñas</Link>
                       <Link to="/watchlist" className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Pendientes</Link>
                       <Link to={`/perfil/${user.name}/lists`} className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis Listas</Link>
                       <Link to={`/perfil/${user.name}/likes`} className="block px-4 py-2 text-sm text-white/80 hover:bg-[#1060ff] hover:text-white transition-colors">Mis me gusta</Link>
@@ -133,7 +133,7 @@ function Header({ variant = "landing" }) {
 
       {/* Menú Móvil */}
       <div className={`fixed inset-0 z-[100] lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-[#0d0e12]/95 backdrop-blur-xl pt-24 px-6 pb-10 flex flex-col h-full">
+        <div className="absolute inset-0 bg-[#111419]/95 backdrop-blur-xl pt-24 px-6 pb-10 flex flex-col h-full">
           <nav className="flex flex-col gap-6 mb-12">
             {user && navLinks.map((link) => (
               <Link 

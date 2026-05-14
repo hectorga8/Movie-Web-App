@@ -2,11 +2,12 @@
 // ProtectedRoute.jsx
 // El guardia de seguridad de tus rutas
 // ─────────────────────────────────────────────────────────────
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
+  const location = useLocation();
 
   // Mientras se comprueba si hay sesión en localStorage, mostramos un vacío o un spinner
   if (loading) return null;

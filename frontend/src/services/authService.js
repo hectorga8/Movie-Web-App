@@ -18,6 +18,16 @@ export const getUserProfile = async (identifier) => {
   return response.json();
 };
 
+export const getBulkUsers = async (userIds) => {
+  const response = await fetch(`${API_URL}/users/bulk`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userIds })
+  });
+  if (!response.ok) throw new Error('Error al obtener usuarios');
+  return response.json();
+};
+
 export const followUser = async (userId) => {
   const response = await fetch(`${API_URL}/follow/${userId}`, {
     method: 'POST',

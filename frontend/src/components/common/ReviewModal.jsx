@@ -53,7 +53,7 @@ function ReviewModal({ media, mediaType, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-      <div className="bg-[#14181c] border border-white/10 max-w-4xl w-full rounded-[8px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row">
+      <div className="bg-[#111419] border border-white/10 max-w-4xl w-full rounded-[8px] shadow-2xl overflow-hidden relative flex flex-col md:flex-row">
         
         {/* Botón Cerrar */}
         <button onClick={onClose} className="absolute top-4 right-4 z-10 text-white/40 hover:text-white transition-colors cursor-pointer">
@@ -61,7 +61,7 @@ function ReviewModal({ media, mediaType, onClose }) {
         </button>
 
         {/* Izquierda: Portada */}
-        <div className="w-full md:w-1/3 bg-[#0d0e12] border-r border-white/10 p-6 flex items-center justify-center relative">
+        <div className="w-full md:w-1/3 bg-[#111419] border-r border-white/10 p-6 flex items-center justify-center relative">
           {posterUrl ? (
             <div className="relative w-[180px] md:w-full max-w-[240px]">
               <img 

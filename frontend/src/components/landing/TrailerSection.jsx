@@ -62,7 +62,7 @@ function TrailerSection({ movies = [] }) {
   }, [movies]);
 
   return (
-    <section className="w-full py-8 md:py-14 bg-[#0d0e12] text-white relative overflow-hidden">
+    <section className="w-full py-8 md:py-14 bg-[#111419] text-white relative overflow-hidden">
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div className="w-full h-full bg-[radial-gradient(circle_at_center,rgba(1,180,228,0.3),transparent_70%)]"></div>
       </div>

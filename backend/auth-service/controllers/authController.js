@@ -124,6 +124,12 @@ exports.updateProfile = async (req, res) => {
     user.bio = req.body.bio !== undefined ? req.body.bio : user.bio;
     user.pronoun = req.body.pronoun || user.pronoun;
     user.avatar = req.body.avatar || user.avatar;
+    user.onboardingCompleted = req.body.onboardingCompleted !== undefined ? req.body.onboardingCompleted : user.onboardingCompleted;
+    
+    if (req.body.genres) {
+      user.genres = req.body.genres;
+    }
+    
     if (req.body.favoriteMovies) {
       user.favoriteMovies = req.body.favoriteMovies;
     }
@@ -266,5 +272,20 @@ exports.unfollowUser = async (req, res) => {
   } catch (error) {
     console.error('❌ Error dejando de seguir usuario:', error);
     res.status(500).json({ message: 'Error al dejar de seguir usuario' });
+  }
+};
+
+// Obtener múltiples usuarios a la vez (para avatares y datos en lista)
+exports.getBulkUsers = async (req, res) => {
+  try {
+    const { userIds } = req.body;
+    if (!userIds || !Array.isArray(userIds)) {
+      return res.status(400).json({ message: 'Se requiere un array de userIds' });
+    }
+    const users = await User.find({ _id: { $in: userIds } }).select('_id name avatar');
+    res.status(200).json(users);
+  } catch (error) {
+    console.error('❌ Error en getBulkUsers:', error);
+    res.status(500).json({ message: 'Error obteniendo usuarios en bulk' });
   }
 };

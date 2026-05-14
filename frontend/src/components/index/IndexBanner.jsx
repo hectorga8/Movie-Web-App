@@ -5,7 +5,7 @@ function IndexBanner() {
   const { user } = useAuth();
 
   return (
-    <section className="w-full bg-[#0d0e12] pt-12 pb-8 border-b border-white/5">
+    <section className="w-full bg-[#111419] pt-12 pb-8 border-b border-white/5">
       <div className="w-full max-w-[1200px] mx-auto px-6">
         <div className="flex flex-col md:flex-row items-end justify-between gap-6">
           <div>

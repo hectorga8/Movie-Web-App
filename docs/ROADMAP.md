@@ -17,7 +17,7 @@ Este documento refleja el estado actual de **CineSaaS**. Puedes copiar este cont
 
 ## 🎬 Fase 2: Movie Service (Avanzado)
 - [x] Lógica principal de integración con API externa (TMDb).
-- [ ] Refactorización de `index.js` en controladores/rutas para escalabilidad.
+- [x] Refactorización de `index.js` en controladores/rutas para escalabilidad.
 - [ ] Sistema de búsqueda y filtrado avanzado.
 - [ ] Implementación de caché para optimizar llamadas a TMDb.
 

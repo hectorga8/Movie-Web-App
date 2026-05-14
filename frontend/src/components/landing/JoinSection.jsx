@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function JoinSection() {
   return (
-    <section className="w-full py-12 md:py-20 bg-[#0d0e12] relative overflow-hidden border-t border-white/5">
+    <section className="w-full py-12 md:py-20 bg-[#111419] relative overflow-hidden border-t border-white/5">
       <div className="absolute top-0 right-0 w-full md:w-[600px] h-full bg-[radial-gradient(circle_at_top_right,rgba(16,96,255,0.05),transparent_70%)] pointer-events-none"></div>
       
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 flex flex-col lg:flex-row items-center justify-between gap-12 md:gap-16 relative z-10">

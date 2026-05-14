@@ -93,14 +93,14 @@ function SearchResults() {
   };
 
   if (loading) return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-[#0d0e12] py-20">
+    <div className="flex-1 flex flex-col items-center justify-center bg-[#111419] py-20">
       <div className="w-10 h-10 border-4 border-[#1060ff]/20 border-t-[#1060ff] rounded-full animate-spin mb-4"></div>
       <p className="label-uppercase text-xs opacity-50 tracking-[2px] text-white">Analizando datos globales...</p>
     </div>
   );
 
   return (
-    <div className="flex-1 bg-[#0d0e12] flex flex-col items-center text-white">
+    <div className="flex-1 bg-[#111419] flex flex-col items-center text-white">
       <div className="w-full max-w-[1200px] px-6 py-12">
         
         <header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/5 pb-8">
@@ -121,10 +121,10 @@ function SearchResults() {
               className="bg-transparent text-[13px] font-bold text-white focus:outline-none pr-8 py-1.5 cursor-pointer appearance-none"
               style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%231060ff\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\' /%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right center', backgroundSize: '16px' }}
              >
-               <option value="relevance" className="bg-[#0d0e12]">Por Relevancia</option>
-               <option value="popularity" className="bg-[#0d0e12]">Por Popularidad</option>
-               <option value="rating" className="bg-[#0d0e12]">Mejor Valoradas</option>
-               <option value="newest" className="bg-[#0d0e12]">Más Recientes (Global)</option>
+               <option value="relevance" className="bg-[#111419]">Por Relevancia</option>
+               <option value="popularity" className="bg-[#111419]">Por Popularidad</option>
+               <option value="rating" className="bg-[#111419]">Mejor Valoradas</option>
+               <option value="newest" className="bg-[#111419]">Más Recientes (Global)</option>
              </select>
           </div>
         </header>

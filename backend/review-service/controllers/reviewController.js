@@ -91,16 +91,35 @@ exports.getPopularReviews = async (req, res) => {
 exports.getPopularReviewers = async (req, res) => {
   try {
     const reviewers = await Review.aggregate([
+      // Sort reviews by date descending first so that $push captures the most recent ones
+      { $sort: { watchedOn: -1 } },
       {
         $group: {
           _id: "$userId",
           username: { $first: "$username" },
           totalLikes: { $sum: "$likes" },
-          reviewCount: { $sum: 1 }
+          reviewCount: { $sum: 1 },
+          recentReviews: { 
+            $push: {
+              mediaId: "$mediaId",
+              mediaPoster: "$mediaPoster",
+              rating: "$rating"
+            } 
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          username: 1,
+          totalLikes: 1,
+          reviewCount: 1,
+          // Solo devolvemos las 4 últimas
+          recentReviews: { $slice: ["$recentReviews", 4] }
         }
       },
       { $sort: { totalLikes: -1 } },
-      { $limit: 10 }
+      { $limit: 20 }
     ]);
     res.status(200).json(reviewers);
   } catch (error) {
@@ -159,6 +178,63 @@ exports.toggleLikeReview = async (req, res) => {
     res.status(200).json({ message: 'Like actualizado', likes: review.likes, likedBy: review.likedBy });
   } catch (error) {
     console.error('Error al hacer toggle like:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+// Obtener estadísticas de todos los reseñadores (all-time + esta semana)
+exports.getAllReviewersStats = async (req, res) => {
+  try {
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+
+    const stats = await Review.aggregate([
+      {
+        $group: {
+          _id: "$userId",
+          username: { $first: "$username" },
+          totalWatched: { $sum: 1 },
+          reviewCount: { $sum: 1 },
+          totalLikes: { $sum: "$likes" },
+          watchedThisWeek: { 
+            $sum: { $cond: [{ $gte: ["$createdAt", lastWeek] }, 1, 0] } 
+          },
+          likesThisWeek: { 
+            $sum: { $cond: [{ $gte: ["$createdAt", lastWeek] }, "$likes", 0] } 
+          },
+          recentReviews: { 
+            $push: {
+              mediaId: "$mediaId",
+              mediaPoster: "$mediaPoster",
+              rating: "$rating",
+              createdAt: "$createdAt"
+            } 
+          }
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          username: 1,
+          totalWatched: 1,
+          reviewCount: 1,
+          totalLikes: 1,
+          watchedThisWeek: 1,
+          likesThisWeek: 1,
+          recentReviews: {
+            $slice: [
+              {
+                $sortArray: { input: "$recentReviews", sortBy: { createdAt: -1 } }
+              }, 
+              4
+            ]
+          }
+        }
+      }
+    ]);
+    res.status(200).json(stats);
+  } catch (error) {
+    console.error('Error in getAllReviewersStats:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };

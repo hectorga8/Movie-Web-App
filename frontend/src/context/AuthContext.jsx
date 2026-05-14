@@ -17,9 +17,15 @@ export const AuthProvider = ({ children }) => {
     const savedUser = localStorage.getItem('user');
 
     if (savedToken && savedUser) {
-      setToken(savedToken);
-      setUser(JSON.parse(savedUser));
-      fetchUserProfile(savedToken);
+      try {
+        setToken(savedToken);
+        setUser(JSON.parse(savedUser));
+        fetchUserProfile(savedToken);
+      } catch (error) {
+        console.error("Error parsing saved user", error);
+        logout();
+        setLoading(false);
+      }
     } else {
       setLoading(false);
     }
