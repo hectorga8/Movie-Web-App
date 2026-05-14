@@ -64,3 +64,15 @@ export const updateProfile = async (profileData) => {
   if (!response.ok) throw new Error('Error al actualizar el perfil');
   return response.json();
 };
+
+export const deleteAccount = async () => {
+  const response = await fetch(`${API_URL}/account`, {
+    method: 'DELETE',
+    headers: getHeaders()
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Error al eliminar la cuenta');
+  }
+  return response.json();
+};

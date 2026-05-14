@@ -259,6 +259,30 @@ exports.removeItem = async (req, res) => {
   }
 };
 
+// Eliminar todos los datos de un usuario (Watchlist y Custom Lists)
+exports.deleteUserData = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // 1. Eliminar todos los items de la watchlist del usuario
+    await WatchlistItem.deleteMany({ userId });
+
+    // 2. Eliminar todas las listas personalizadas creadas por el usuario
+    await CustomList.deleteMany({ userId });
+
+    // 3. Quitar el rastro de likes del usuario en otras listas
+    await CustomList.updateMany(
+      { likes: userId },
+      { $pull: { likes: userId } }
+    );
+
+    res.status(200).json({ message: 'Datos del usuario eliminados correctamente del servicio de watchlist' });
+  } catch (error) {
+    console.error('Error al eliminar datos del usuario en Watchlist Service:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 exports.getPublicLists = async (req, res) => {
   try {
     const validPosters = [

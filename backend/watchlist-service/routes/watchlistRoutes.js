@@ -11,6 +11,9 @@ router.get('/user/:userId', watchlistController.getUserListById);
 router.get('/user/:userId/stats', watchlistController.getUserStats);
 router.get('/media/:mediaType/:mediaId/stats', watchlistController.getMediaStats);
 
+// Eliminar todos los datos de un usuario
+router.delete('/user/:userId', watchlistController.deleteUserData);
+
 // Rutas protegidas
 router.use(authMiddleware);
 

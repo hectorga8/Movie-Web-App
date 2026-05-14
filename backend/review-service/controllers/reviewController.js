@@ -154,6 +154,30 @@ exports.getReviewsForUser = async (req, res) => {
   }
 };
 
+// Eliminar todos los datos de un usuario (Reviews y likes dados)
+exports.deleteUserData = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // 1. Eliminar todas las reseñas del usuario
+    await Review.deleteMany({ userId });
+
+    // 2. Quitar el rastro de likes del usuario en otras reseñas
+    await Review.updateMany(
+      { likedBy: userId },
+      { 
+        $pull: { likedBy: userId },
+        $inc: { likes: -1 }
+      }
+    );
+
+    res.status(200).json({ message: 'Datos del usuario eliminados correctamente del servicio de reseñas' });
+  } catch (error) {
+    console.error('Error al eliminar datos del usuario en Review Service:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 // Dar/Quitar like a una review
 exports.toggleLikeReview = async (req, res) => {
   try {

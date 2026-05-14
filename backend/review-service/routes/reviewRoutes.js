@@ -19,6 +19,9 @@ router.get('/media/:mediaType/:mediaId', reviewController.getReviewsForMedia);
 // Obtener reseñas de un usuario específico
 router.get('/user/:userId', reviewController.getReviewsForUser);
 
+// Eliminar todos los datos de un usuario
+router.delete('/user/:userId', reviewController.deleteUserData);
+
 // Crear o actualizar una review (requiere autenticación)
 router.post('/', authMiddleware, reviewController.createOrUpdateReview);
 

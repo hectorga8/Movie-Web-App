@@ -193,11 +193,42 @@ exports.changePassword = async (req, res) => {
 // Eliminar cuenta
 exports.deleteAccount = async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.user._id);
-    res.status(200).json({ message: 'Cuenta eliminada con éxito' });
+    const userId = req.user._id;
+
+    // 1. Limpiar rastro social en Auth Service (seguidores/siguiendo)
+    // Quitamos al usuario de las listas de seguidores de otros
+    await User.updateMany(
+      { followers: userId },
+      { $pull: { followers: userId } }
+    );
+    // Quitamos al usuario de las listas de "siguiendo" de otros
+    await User.updateMany(
+      { following: userId },
+      { $pull: { following: userId } }
+    );
+
+    // 2. Llamar a otros microservicios para eliminar datos en cascada
+    const REVIEW_SERVICE_URL = process.env.REVIEW_SERVICE_URL || 'http://review-service:5004';
+    const WATCHLIST_SERVICE_URL = process.env.WATCHLIST_SERVICE_URL || 'http://watchlist-service:5003';
+
+    // Ejecutamos las llamadas en paralelo para mayor eficiencia
+    await Promise.allSettled([
+      fetch(`${REVIEW_SERVICE_URL}/api/reviews/user/${userId}`, { method: 'DELETE' })
+        .catch(err => console.error('⚠️ Error llamando a Review Service:', err.message)),
+      
+      fetch(`${WATCHLIST_SERVICE_URL}/api/watchlist/user/${userId}`, { method: 'DELETE' })
+        .catch(err => console.error('⚠️ Error llamando a Watchlist Service:', err.message))
+    ]);
+
+    // 3. Finalmente eliminar el usuario de la base de datos de Auth
+    await User.findByIdAndDelete(userId);
+
+    res.status(200).json({ 
+      message: 'Cuenta y todos sus datos asociados (reseñas, listas, likes) han sido eliminados con éxito' 
+    });
   } catch (error) {
     console.error('❌ Error eliminando cuenta:', error);
-    res.status(500).json({ message: 'Error al eliminar cuenta' });
+    res.status(500).json({ message: 'Error al eliminar cuenta y sus datos asociados' });
   }
 };
 
