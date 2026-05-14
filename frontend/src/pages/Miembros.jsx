@@ -130,7 +130,7 @@ function Miembros() {
   const otherMembers = reviewers.slice(10, 20);
 
   return (
-    <div className="min-h-screen bg-[#111419] font-sans pb-20 pt-8">
+    <div className="min-h-screen bg-transparent font-sans pb-20 pt-8">
       
       {/* Título Principal */}
       <div className="max-w-[1200px] mx-auto px-4 text-center mb-12">

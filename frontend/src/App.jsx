@@ -59,7 +59,7 @@ function App() {
 
   // Mientras se carga el estado de autenticación (JWT check), no renderizamos nada para evitar parpadeos
   if (loading) return (
-    <div className="min-h-screen bg-[#111419] flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-b from-[#0d0e12] to-[#1a1c23] flex items-center justify-center">
       <div className="w-8 h-8 border-2 border-[#1060ff] border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
@@ -67,7 +67,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="flex flex-col min-h-screen bg-[#111419]">
+      <div className="flex flex-col min-h-screen bg-gradient-to-b from-[#0d0e12] to-[#1a1c23]">
         <HeaderWrapper />
         
         <main className="flex-1 flex flex-col">

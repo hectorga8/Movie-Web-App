@@ -57,7 +57,7 @@ function UserLikes() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#111419] flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-[#1060ff] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
@@ -65,7 +65,7 @@ function UserLikes() {
 
   if (error || !profileUser) {
     return (
-      <div className="min-h-screen bg-[#111419] text-[#8b9bb4] flex flex-col items-center justify-center pb-20">
+      <div className="min-h-screen bg-transparent text-[#8b9bb4] flex flex-col items-center justify-center pb-20">
         <h2 className="text-2xl font-bold text-white mb-2">Error</h2>
         <p>{error || 'Usuario no encontrado.'}</p>
         <Link to="/inicio" className="mt-4 text-[#1060ff] hover:text-white transition-colors">Volver al inicio</Link>
@@ -81,7 +81,7 @@ function UserLikes() {
   };
 
   return (
-    <div className="w-full bg-[#111419] text-white min-h-screen font-['Inter',sans-serif]">
+    <div className="w-full bg-transparent text-white min-h-screen font-['Inter',sans-serif]">
       <div className="max-w-[1200px] mx-auto px-6 py-12">
         
         {/* Header */}

@@ -48,14 +48,14 @@ function Pelicula() {
   };
 
   if (loading) return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-[#111419] text-white py-16">
+    <div className="flex-1 flex flex-col items-center justify-center bg-transparent text-white py-16">
       <div className="w-8 h-8 border-4 border-[#1060ff]/20 border-t-[#1060ff] rounded-full animate-spin mb-4"></div>
       <p className="label-uppercase text-[10px] opacity-50 tracking-[2px]">Cargando Película...</p>
     </div>
   );
 
   if (error || !movie || movie.error) return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-[#111419] text-white p-6 text-center min-h-[60vh]">
+    <div className="flex-1 flex flex-col items-center justify-center bg-transparent text-white p-6 text-center min-h-[60vh]">
       <h2 className="font-brand text-3xl mb-4">Película no encontrada</h2>
       <button onClick={() => navigate('/')} className="bg-white/10 px-4 py-2 hover:bg-white/20 transition-colors">VOLVER AL INICIO</button>
     </div>
@@ -70,7 +70,7 @@ function Pelicula() {
             || 'N/R';
 
   return (
-    <div className="flex-1 bg-[#111419] flex flex-col items-center text-white">
+    <div className="flex-1 bg-transparent flex flex-col items-center text-white">
       
       <DetailHero 
         item={movie} 

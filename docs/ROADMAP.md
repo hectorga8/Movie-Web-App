@@ -8,18 +8,18 @@ Este documento refleja el estado actual de **CineSaaS**. Puedes copiar este cont
 - [x] Configuración inicial del Frontend con React 19 + Vite + Tailwind CSS.
 - [x] Instalación de dependencias críticas (Axios, Framer Motion, Lucide, React Router).
 
-## 🔐 Fase 1: Auth Service (En Progreso)
+## 🔐 Fase 1: Auth Service (Completado)
 - [x] Estructura de controladores, modelos (User) y rutas.
 - [x] Middleware de autenticación base.
-- [ ] Implementación completa de Registro/Login con JWT.
-- [ ] Integración con Google OAuth (Preparado en Frontend).
-- [ ] Validación de perfiles de usuario.
+- [x] Implementación completa de Registro/Login con JWT.
+- [x] Integración con Google OAuth (Preparado en Frontend).
+- [x] Validación de perfiles de usuario.
 
-## 🎬 Fase 2: Movie Service (Avanzado)
+## 🎬 Fase 2: Movie Service (Completado)
 - [x] Lógica principal de integración con API externa (TMDb).
 - [x] Refactorización de `index.js` en controladores/rutas para escalabilidad.
-- [ ] Sistema de búsqueda y filtrado avanzado.
-- [ ] Implementación de caché para optimizar llamadas a TMDb.
+- [x] Sistema de búsqueda y filtrado avanzado.
+- [x] Implementación de caché para optimizar llamadas a TMDb.
 
 ## 📱 Fase 3: Frontend y UI/UX (En Desarrollo)
 - [x] Sistema de rutas con `react-router-dom`.

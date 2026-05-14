@@ -121,7 +121,7 @@ function PopularReviews() {
   }, [period, page]);
 
   return (
-    <div className="w-full bg-[#111419] text-white min-h-screen font-['Inter',sans-serif]">
+    <div className="w-full bg-transparent text-white min-h-screen font-['Inter',sans-serif]">
       <div className="max-w-[950px] mx-auto px-6 py-12">
         <div className="flex flex-col md:flex-row gap-12">
           

@@ -53,7 +53,7 @@ function Register() {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-[#111419] py-8 px-6 relative overflow-hidden">
+    <div className="flex-1 flex flex-col items-center justify-center bg-transparent py-8 px-6 relative overflow-hidden">
       {/* Fondo decorativo sutil */}
       <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(123,66,188,0.05),transparent_70%)] pointer-events-none"></div>
 

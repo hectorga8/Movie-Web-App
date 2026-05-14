@@ -7,7 +7,7 @@ import RightSidebarPeliculas from '../components/peliculas/RightSidebarPeliculas
 
 function Peliculas() {
   return (
-    <div className="min-h-screen bg-[#111419] text-[#8aa8c2] font-sans pt-6 pb-20">
+    <div className="min-h-screen bg-transparent text-[#8aa8c2] font-sans pt-6 pb-20">
       <div className="max-w-[1200px] mx-auto px-4">
         
         <div className="mt-8 mb-4 flex justify-between items-end border-b border-[#445566] pb-2">

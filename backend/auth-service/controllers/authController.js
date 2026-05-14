@@ -14,10 +14,28 @@ exports.register = async (req, res) => {
     const { name, email, password } = req.body;
     console.log(`📝 Intentando registro para: ${email}`);
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-        console.warn(`⚠️ El usuario ${email} ya existe.`);
-        return res.status(400).json({ message: 'El usuario ya existe' });
+    // Validaciones básicas
+    if (!name || name.length < 3) {
+      return res.status(400).json({ message: 'El nombre de usuario debe tener al menos 3 caracteres' });
+    }
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!email || !emailRegex.test(email)) {
+      return res.status(400).json({ message: 'El formato del email no es válido' });
+    }
+    if (!password || password.length < 6) {
+      return res.status(400).json({ message: 'La contraseña debe tener al menos 6 caracteres' });
+    }
+
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+        console.warn(`⚠️ El email ${email} ya está registrado.`);
+        return res.status(400).json({ message: 'El email ya está registrado' });
+    }
+
+    const existingName = await User.findOne({ name });
+    if (existingName) {
+        console.warn(`⚠️ El nombre de usuario ${name} ya existe.`);
+        return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -115,7 +133,17 @@ exports.updateProfile = async (req, res) => {
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
 
-    user.name = req.body.username || user.name;
+    if (req.body.username && req.body.username !== user.name) {
+      if (req.body.username.length < 3) {
+        return res.status(400).json({ message: 'El nombre de usuario debe tener al menos 3 caracteres' });
+      }
+      const existingName = await User.findOne({ name: req.body.username });
+      if (existingName) {
+        return res.status(400).json({ message: 'El nombre de usuario ya está en uso' });
+      }
+      user.name = req.body.username;
+    }
+
     user.givenName = req.body.givenName !== undefined ? req.body.givenName : user.givenName;
     user.familyName = req.body.familyName !== undefined ? req.body.familyName : user.familyName;
     user.email = req.body.email || user.email;

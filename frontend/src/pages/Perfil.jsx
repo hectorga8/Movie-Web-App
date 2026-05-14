@@ -67,7 +67,7 @@ function Perfil() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-[#111419] flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-[#1060ff] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
@@ -79,7 +79,7 @@ function Perfil() {
 
   if (error || !profileUser) {
     return (
-      <div className="min-h-screen bg-[#111419] text-[#8b9bb4] flex flex-col items-center justify-center pb-20">
+      <div className="min-h-screen bg-transparent text-[#8b9bb4] flex flex-col items-center justify-center pb-20">
         <h2 className="text-2xl font-bold text-white mb-2">Error</h2>
         <p>{error || 'Perfil no encontrado.'}</p>
       </div>
@@ -89,7 +89,7 @@ function Perfil() {
   const isOwnProfile = currentUser?._id === profileUser?._id;
 
   return (
-    <div className="min-h-screen bg-[#111419] text-[#8b9bb4] font-sans pb-20">
+    <div className="min-h-screen bg-transparent text-[#8b9bb4] font-sans pb-20">
       {/* El fondo oscuro y la estructura max-width de Letterboxd */}
       <div className="max-w-[1200px] mx-auto px-4 pt-8">
         

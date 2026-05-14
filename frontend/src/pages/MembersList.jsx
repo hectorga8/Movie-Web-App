@@ -25,7 +25,7 @@ function MembersList() {
   const popularReviewersSidebar = members.slice(0, 5); 
 
   return (
-    <div className="min-h-screen bg-[#111419] font-sans pb-24 pt-12 text-white">
+    <div className="min-h-screen bg-transparent font-sans pb-24 pt-12 text-white">
       
       {/* Cabecera */}
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 mb-12">

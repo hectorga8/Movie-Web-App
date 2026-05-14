@@ -77,7 +77,7 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center bg-[#111419] py-12 px-6 relative overflow-hidden min-h-screen">
+    <div className="flex-1 flex flex-col items-center justify-center bg-transparent py-12 px-6 relative overflow-hidden min-h-screen">
       {/* Fondo decorativo sutil */}
       <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(16,96,255,0.05),transparent_70%)] pointer-events-none"></div>
       

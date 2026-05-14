@@ -40,9 +40,18 @@ function EditarPerfil() {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (!file.type.startsWith('image/')) {
+        setMessage({ type: 'error', text: 'Por favor, selecciona un archivo de imagen válido.' });
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        setMessage({ type: 'error', text: 'La imagen es demasiado grande. El tamaño máximo es 5MB.' });
+        return;
+      }
       const reader = new FileReader();
       reader.onloadend = () => {
         setFormData({ ...formData, avatar: reader.result });
+        setMessage(null);
       };
       reader.readAsDataURL(file);
     }
@@ -158,7 +167,7 @@ function EditarPerfil() {
   };
 
   return (
-    <div className="min-h-screen bg-[#111419] text-[#8b9bb4] font-sans pt-10 pb-20">
+    <div className="min-h-screen bg-transparent text-[#8b9bb4] font-sans pt-10 pb-20">
       <div className="max-w-[1000px] mx-auto px-6">
         
         {/* Header: Title + Upgrade */}
