@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import movieService from '../../services/movieService';
+import MediaCard from './MediaCard';
 
 function MediaGrid({ items, type }) {
   if (!items || items.length === 0) return null;
@@ -8,18 +7,14 @@ function MediaGrid({ items, type }) {
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 mb-10">
       {items.map(item => (
-        <Link key={item.id} to={`/${type}/${item.id}`} className="group">
-          <div className={`aspect-[2/3] bg-[#2c3440] rounded-[3px] border border-transparent transition-all overflow-hidden shadow-md group-hover:shadow-lg relative ${type === 'pelicula' ? 'group-hover:border-[#00e054]' : 'group-hover:border-[#ff8000]'}`}>
-            <img 
-              src={movieService.getImageUrl(item.poster_path, 'w300')} 
-              alt={item.title || item.name} 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex items-end justify-center">
-              <span className="text-white text-[13px] text-center line-clamp-2 leading-tight drop-shadow-md w-full">{item.title || item.name}</span>
-            </div>
-          </div>
-        </Link>
+        <MediaCard 
+          key={item.id}
+          id={item.id}
+          type={type}
+          imagePath={item.poster_path}
+          title={item.title || item.name}
+          titlePosition="inside"
+        />
       ))}
     </div>
   );

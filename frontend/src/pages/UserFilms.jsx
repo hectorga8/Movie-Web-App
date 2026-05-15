@@ -3,6 +3,7 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { watchlistService } from '../services/watchlistService';
 import { getUserProfile } from '../services/authService';
 import movieService from '../services/movieService';
+import MediaCard from '../components/common/MediaCard';
 
 function UserFilms() {
   const { username } = useParams();
@@ -81,25 +82,16 @@ function UserFilms() {
         {movies.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
             {movies.map(item => (
-              <div key={item._id} className="group relative">
-                <Link to={`/pelicula/${item.mediaId}`} className="block">
-                  <div className="aspect-[2/3] bg-[#2c3440] rounded-[4px] border border-transparent group-hover:border-[#00e054] transition-all overflow-hidden shadow-md group-hover:shadow-lg relative">
-                    <img 
-                      src={item.image ? movieService.getImageUrl(item.image, 'w400') : "https://via.placeholder.com/400x600?text=No+Image"} 
-                      alt={item.title || "Sin título"} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    {item.isFavorite && (
-                       <div className="absolute top-2 left-2 bg-red-500 text-white p-1 rounded-full shadow-md">
-                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                       </div>
-                    )}
-                  </div>
-                  <div className="mt-2 px-1">
-                    <h3 className="text-white text-[13px] font-bold truncate group-hover:text-[#00e054] transition-colors">{item.title || "Sin título"}</h3>
-                  </div>
-                </Link>
-              </div>
+              <MediaCard 
+                key={item._id}
+                id={item.mediaId}
+                type={item.mediaType || 'movie'}
+                imagePath={item.image}
+                title={item.title}
+                isFavorite={item.isFavorite}
+                showTypeBadge={false}
+                titlePosition="outside"
+              />
             ))}
           </div>
         ) : (

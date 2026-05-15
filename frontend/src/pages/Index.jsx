@@ -3,91 +3,9 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import HomeMovieCard from "../components/index/HomeMovieCard";
 import movieService from '../services/movieService';
-import { getWeeklyPopularReviews, toggleLikeReview } from '../services/reviewService';
+import { getWeeklyPopularReviews } from '../services/reviewService';
 import watchlistService from '../services/watchlistService';
-
-function PopularReviewItem({ initialReview }) {
-  const { user } = useAuth();
-  const [review, setReview] = useState(initialReview);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [loadingLike, setLoadingLike] = useState(false);
-  
-  const isLiked = review.likedBy?.includes(user?._id) || false;
-  const isLong = review.reviewText && review.reviewText.length > 130;
-  const displayContent = isExpanded || !isLong 
-    ? review.reviewText 
-    : review.reviewText.substring(0, 130) + '...';
-
-  const handleLike = async () => {
-    if (!user || loadingLike) return;
-    try {
-      setLoadingLike(true);
-      const data = await toggleLikeReview(review._id);
-      setReview({ ...review, likes: data.likes, likedBy: data.likedBy });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoadingLike(false);
-    }
-  };
-
-  return (
-    <div className="flex gap-4 p-4 bg-white/5 rounded-[4px] border border-white/5 relative overflow-hidden group transition-all">
-      <Link to={`/${review.mediaType}/${review.mediaId}`} className="w-16 md:w-20 shrink-0 rounded-[2px] overflow-hidden aspect-[2/3] block bg-white/10 h-max cursor-pointer">
-         <img src={review.mediaPoster ? `https://image.tmdb.org/t/p/w200${review.mediaPoster}` : 'https://via.placeholder.com/200x300?text=No+Poster'} alt={review.mediaTitle} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-      </Link>
-      <div className="flex-1 min-w-0 flex flex-col justify-start">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="font-bold text-[14px] truncate">{review.username}</span>
-          <div className="flex text-[#00e054] text-lg">
-            {'★'.repeat(Math.max(0, review.rating || 0))}{'☆'.repeat(Math.max(0, 5 - (review.rating || 0)))}
-          </div>
-        </div>
-        <Link to={`/${review.mediaType}/${review.mediaId}`} className="text-white/80 text-[12px] font-bold mb-1 hover:text-[#1060ff] transition-colors cursor-pointer">{review.mediaTitle} <span className="font-normal opacity-50">{review.mediaYear}</span></Link>
-        <p className="text-white/60 text-[13px] italic font-light break-words mb-2">
-          "{displayContent}"
-          {isLong && !isExpanded && (
-            <button onClick={() => setIsExpanded(true)} className="ml-1 text-white font-bold bg-transparent border-none text-[12px] hover:text-[#1060ff] cursor-pointer">Leer más</button>
-          )}
-        </p>
-        {isLong && isExpanded && (
-            <button onClick={() => setIsExpanded(false)} className="mt-1 mb-2 self-start text-white font-bold bg-transparent border-none text-[12px] hover:text-[#1060ff] cursor-pointer">Encoger review</button>
-        )}
-        <div className="mt-auto pt-2 text-[13px] text-white/30 font-light flex items-center gap-3 border-t border-white/5">
-          <button 
-            onClick={handleLike}
-            disabled={!user || loadingLike}
-            className={`flex items-center gap-1.5 font-bold uppercase tracking-wider transition-colors cursor-pointer ${isLiked ? 'text-[#ff4e4e]' : 'text-white/40 hover:text-white'}`}
-          >
-            <span className={`text-[20px] leading-none ${isLiked ? '' : 'grayscale'}`}>❤</span>
-            {review.likes} {review.likes === 1 ? 'Me gusta' : 'Me gusta'}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MiniMovieCard({ movie }) {
-  return (
-    <Link to={`/pelicula/${movie.id}`} className="group block w-full">
-      <div className="aspect-[2/3] rounded-[4px] overflow-hidden mb-2 shadow-lg border border-white/5 bg-black/40 relative group/card">
-        <img 
-          src={movie.image} 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-110" 
-          alt={movie.title} 
-        />
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/card:opacity-100 transition-opacity"></div>
-      </div>
-      <h5 className="font-bold text-[12px] text-white/90 group-hover:text-[#1060ff] transition-colors line-clamp-1 leading-tight">
-        {movie.title}
-      </h5>
-      <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest mt-0.5">
-        {movie.date}
-      </p>
-    </Link>
-  );
-}
+import PopularReviewItem from '../components/index/PopularReviewItem';
 
 function Index() {
   const { user } = useAuth();
