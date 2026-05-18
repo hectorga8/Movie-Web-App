@@ -40,7 +40,7 @@ function Watchlist() {
   });
 
   return (
-    <div className="min-h-screen bg-transparent text-[#8b9bb4] font-sans pt-10 pb-20">
+    <div className="min-h-screen bg-transparent text-white pt-10 pb-20">
       <div className="max-w-[1200px] mx-auto px-4">
         
         {/* Header */}
@@ -50,7 +50,7 @@ function Watchlist() {
           </Link>
           <div>
             <h1 className="text-white text-[32px] font-bold leading-none mb-1">Watchlist</h1>
-            <p className="text-[13px] uppercase tracking-widest font-bold">Pendientes de ver</p>
+            <p className="text-[13px] uppercase font-normal">Pendientes de ver</p>
           </div>
         </div>
 
@@ -58,19 +58,19 @@ function Watchlist() {
         <div className="flex flex-wrap items-center gap-3 mb-8 border-b border-[#2c3440] pb-4">
           <button 
             onClick={() => setFilter('all')}
-            className={`text-[13px] font-bold px-5 py-2.5 rounded-[3px] transition-colors uppercase tracking-widest ${filter === 'all' ? 'bg-[#00e054] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
+            className={`text-[13px] font-normal px-5 py-2.5 rounded-[3px] transition-colors uppercase ${filter === 'all' ? 'bg-[#00e054] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
           >
             Todo
           </button>
           <button 
             onClick={() => setFilter('movie')}
-            className={`text-[13px] font-bold px-5 py-2.5 rounded-[3px] transition-colors uppercase tracking-widest ${filter === 'movie' ? 'bg-[#1060ff] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
+            className={`text-[13px] font-normal px-5 py-2.5 rounded-[3px] transition-colors uppercase ${filter === 'movie' ? 'bg-[#1060ff] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
           >
             Películas
           </button>
           <button 
             onClick={() => setFilter('tv')}
-            className={`text-[13px] font-bold px-5 py-2.5 rounded-[3px] transition-colors uppercase tracking-widest ${filter === 'tv' ? 'bg-[#ff8000] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
+            className={`text-[13px] font-normal px-5 py-2.5 rounded-[3px] transition-colors uppercase ${filter === 'tv' ? 'bg-[#ff8000] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
           >
             Series
           </button>
@@ -97,7 +97,7 @@ function Watchlist() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     {/* Indicador visual del tipo de contenido sobre la imagen */}
-                    <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
+                    <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-normal uppercase text-white border border-white/10">
                       {item.mediaType === 'movie' ? 'Cine' : 'TV'}
                     </div>
                   </div>

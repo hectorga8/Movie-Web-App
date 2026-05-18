@@ -25,7 +25,7 @@ function MembersList() {
   const popularReviewersSidebar = members.slice(0, 5); 
 
   return (
-    <div className="min-h-screen bg-transparent font-sans pb-24 pt-12 text-white">
+    <div className="min-h-screen bg-transparent pb-24 pt-12 text-white">
       
       {/* Cabecera */}
       <div className="max-w-[1200px] mx-auto px-4 md:px-6 mb-12">
@@ -49,7 +49,7 @@ function MembersList() {
           ) : (
             <div className="flex flex-col">
               {/* Header Tabla */}
-              <div className="flex text-[12px] uppercase tracking-wider font-semibold text-white/40 border-b border-white/10 pb-4 mb-2 px-4">
+              <div className="flex text-[12px] uppercase font-normal text-white/40 border-b border-white/10 pb-4 mb-2 px-4">
                 <div className="flex-1">Usuario</div>
                 <div className="w-[100px] text-right hidden sm:block">Vistos</div>
                 <div className="w-[100px] text-right hidden sm:block">Listas</div>
@@ -61,9 +61,9 @@ function MembersList() {
               {popularMembersList.map((user, i) => (
                 <div key={user.uniqueKey} className="flex items-center py-4 px-4 border-b border-white/5 hover:bg-white/[0.02] transition-colors rounded-xl -mx-4">
                   <div className="flex-1 flex items-center gap-4">
-                    <span className="text-white/20 font-bold w-4 text-right shrink-0">{i + 1}</span>
+                    <span className="text-white/20 font-normal w-4 text-right shrink-0">{i + 1}</span>
                     <Link to={`/perfil/${user._id}`} className="shrink-0">
-                      <div className="w-10 h-10 rounded-full bg-[#1060ff]/10 border border-[#1060ff]/20 text-[#1060ff] flex items-center justify-center font-bold overflow-hidden">
+                      <div className="w-10 h-10 rounded-full bg-[#1060ff]/10 border border-[#1060ff]/20 text-[#1060ff] flex items-center justify-center font-normal overflow-hidden">
                         {user.avatar ? (
                           <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
                         ) : (
@@ -74,7 +74,7 @@ function MembersList() {
                     <div className="flex flex-col min-w-0">
                       <Link to={`/perfil/${user._id}`} className="text-white font-medium text-[15px] hover:text-[#1060ff] transition-colors truncate flex items-center gap-2">
                         {user.username}
-                        {i === 0 && <span className="text-[10px] bg-yellow-500/20 text-yellow-500 px-2 py-0.5 rounded-full font-bold">#1</span>}
+                        {i === 0 && <span className="text-[10px] bg-yellow-500/20 text-yellow-500 px-2 py-0.5 rounded-full font-normal">#1</span>}
                       </Link>
                       <span className="text-white/40 text-[12px] font-light truncate">{user.reviewCount || 0} reseñas totales</span>
                     </div>
@@ -114,7 +114,7 @@ function MembersList() {
               {popularReviewersSidebar.map((user, i) => (
                 <div key={user.uniqueKey} className="flex items-center gap-4 group">
                   <Link to={`/perfil/${user._id}`} className="shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/70 font-bold group-hover:bg-[#1060ff] group-hover:text-white transition-colors overflow-hidden">
+                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/70 font-normal group-hover:bg-[#1060ff] group-hover:text-white transition-colors overflow-hidden">
                       {user.avatar ? (
                         <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
                       ) : (

@@ -167,7 +167,7 @@ function EditarPerfil() {
   };
 
   return (
-    <div className="min-h-screen bg-transparent text-[#8b9bb4] font-sans pt-10 pb-20">
+    <div className="min-h-screen bg-transparent text-white pt-10 pb-20">
       <div className="max-w-[1000px] mx-auto px-6">
         
         {/* Header: Title + Upgrade */}
@@ -180,24 +180,24 @@ function EditarPerfil() {
           <nav className="flex items-center gap-6">
             <button 
               onClick={() => setActiveTab('Profile')} 
-              className={`text-[13px] uppercase tracking-[1px] py-3 border-b-2 mt-[2px] transition-colors ${activeTab === 'Profile' ? 'text-white font-bold border-[#00e054]' : 'text-[#8b9bb4] hover:text-white border-transparent'}`}
+              className={`text-[13px] uppercase py-3 border-b-2 mt-[2px] transition-colors ${activeTab === 'Profile' ? 'text-white font-normal border-[#00e054]' : 'text-[#8b9bb4] hover:text-white border-transparent'}`}
             >
               Perfil
             </button>
             <button 
               onClick={() => setActiveTab('Auth')} 
-              className={`text-[13px] uppercase tracking-[1px] py-3 border-b-2 mt-[2px] transition-colors ${activeTab === 'Auth' ? 'text-white font-bold border-[#00e054]' : 'text-[#8b9bb4] hover:text-white border-transparent'}`}
+              className={`text-[13px] uppercase py-3 border-b-2 mt-[2px] transition-colors ${activeTab === 'Auth' ? 'text-white font-normal border-[#00e054]' : 'text-[#8b9bb4] hover:text-white border-transparent'}`}
             >
               Autenticación
             </button>
             <button 
               onClick={() => setActiveTab('Avatar')} 
-              className={`text-[13px] uppercase tracking-[1px] py-3 border-b-2 mt-[2px] transition-colors ${activeTab === 'Avatar' ? 'text-white font-bold border-[#00e054]' : 'text-[#8b9bb4] hover:text-white border-transparent'}`}
+              className={`text-[13px] uppercase py-3 border-b-2 mt-[2px] transition-colors ${activeTab === 'Avatar' ? 'text-white font-normal border-[#00e054]' : 'text-[#8b9bb4] hover:text-white border-transparent'}`}
             >
               Avatar
             </button>
           </nav>
-          <button onClick={handleDeactivate} className="text-[12px] text-red-500 hover:text-red-400 transition-colors uppercase tracking-widest font-bold">
+          <button onClick={handleDeactivate} className="text-[12px] text-red-500 hover:text-red-400 transition-colors uppercase font-normal">
             Desactivar cuenta
           </button>
         </div>
@@ -219,7 +219,7 @@ function EditarPerfil() {
                 <h2 className="text-white text-2xl font-light mb-6">Perfil</h2>
                 <form onSubmit={handleProfileSubmit} className="space-y-5">
                   <div>
-                    <label className="block text-white text-[13px] font-bold mb-2">Nombre de Usuario</label>
+                    <label className="block text-white text-[13px] font-normal mb-2">Nombre de Usuario</label>
                     <input
                       type="text"
                       name="username"
@@ -231,7 +231,7 @@ function EditarPerfil() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-white text-[13px] font-bold mb-2">Nombre</label>
+                      <label className="block text-white text-[13px] font-normal mb-2">Nombre</label>
                       <input
                         type="text"
                         name="givenName"
@@ -241,7 +241,7 @@ function EditarPerfil() {
                       />
                     </div>
                     <div>
-                      <label className="block text-white text-[13px] font-bold mb-2">Apellidos</label>
+                      <label className="block text-white text-[13px] font-normal mb-2">Apellidos</label>
                       <input
                         type="text"
                         name="familyName"
@@ -254,7 +254,7 @@ function EditarPerfil() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-white text-[13px] font-bold mb-2">Ubicación</label>
+                      <label className="block text-white text-[13px] font-normal mb-2">Ubicación</label>
                       <input
                         type="text"
                         name="location"
@@ -264,7 +264,7 @@ function EditarPerfil() {
                       />
                     </div>
                     <div>
-                      <label className="block text-white text-[13px] font-bold mb-2">Sitio Web</label>
+                      <label className="block text-white text-[13px] font-normal mb-2">Sitio Web</label>
                       <input
                         type="url"
                         name="website"
@@ -276,7 +276,7 @@ function EditarPerfil() {
                   </div>
 
                   <div>
-                    <label className="block text-white text-[13px] font-bold mb-2">Biografía</label>
+                    <label className="block text-white text-[13px] font-normal mb-2">Biografía</label>
                     <textarea
                       name="bio"
                       value={formData.bio}
@@ -286,7 +286,7 @@ function EditarPerfil() {
                   </div>
 
                   <div>
-                    <label className="block text-white text-[13px] font-bold mb-2">Pronombre</label>
+                    <label className="block text-white text-[13px] font-normal mb-2">Pronombre</label>
                     <select
                       name="pronoun"
                       value={formData.pronoun}
@@ -303,7 +303,7 @@ function EditarPerfil() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="bg-[#00e054] hover:bg-[#00c048] text-white font-bold text-[13px] px-4 py-2.5 rounded-[3px] uppercase tracking-widest transition-colors disabled:opacity-50"
+                      className="bg-[#00e054] hover:bg-[#00c048] text-white font-normal text-[13px] px-4 py-2.5 rounded-[3px] uppercase transition-colors disabled:opacity-50"
                     >
                       {loading ? 'Guardando...' : 'Guardar Cambios'}
                     </button>
@@ -322,7 +322,7 @@ function EditarPerfil() {
                     </p>
                   </div>
                   <div>
-                    <label className="block text-white text-[13px] font-bold mb-2">Contraseña Actual (Dejar en blanco si usas Google)</label>
+                    <label className="block text-white text-[13px] font-normal mb-2">Contraseña Actual (Dejar en blanco si usas Google)</label>
                     <input
                       type="password"
                       name="currentPassword"
@@ -332,7 +332,7 @@ function EditarPerfil() {
                     />
                   </div>
                   <div>
-                    <label className="block text-white text-[13px] font-bold mb-2">Nueva Contraseña</label>
+                    <label className="block text-white text-[13px] font-normal mb-2">Nueva Contraseña</label>
                     <input
                       type="password"
                       name="newPassword"
@@ -343,7 +343,7 @@ function EditarPerfil() {
                     />
                   </div>
                   <div>
-                    <label className="block text-white text-[13px] font-bold mb-2">Confirmar Nueva Contraseña</label>
+                    <label className="block text-white text-[13px] font-normal mb-2">Confirmar Nueva Contraseña</label>
                     <input
                       type="password"
                       name="confirmPassword"
@@ -357,7 +357,7 @@ function EditarPerfil() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="bg-[#00e054] hover:bg-[#00c048] text-white font-bold text-[13px] px-4 py-2.5 rounded-[3px] uppercase tracking-widest transition-colors disabled:opacity-50"
+                      className="bg-[#00e054] hover:bg-[#00c048] text-white font-normal text-[13px] px-4 py-2.5 rounded-[3px] uppercase transition-colors disabled:opacity-50"
                     >
                       {loading ? 'Cambiando...' : 'Cambiar Contraseña'}
                     </button>
@@ -371,7 +371,7 @@ function EditarPerfil() {
                 <h2 className="text-white text-2xl font-light mb-6">Avatar</h2>
                 <form onSubmit={handleProfileSubmit} className="space-y-5">
                   <div>
-                    <label className="block text-white text-[13px] font-bold mb-4">Selecciona un Avatar</label>
+                    <label className="block text-white text-[13px] font-normal mb-4">Selecciona un Avatar</label>
                     <div className="flex flex-wrap gap-4 mb-6">
                       {predefinedAvatars.map((url, index) => (
                         <div 
@@ -386,7 +386,7 @@ function EditarPerfil() {
                     
                     <div className="flex flex-col sm:flex-row sm:items-center gap-4 mt-6">
                       <div className="text-[13px] text-[#8b9bb4]">O sube tu propia imagen:</div>
-                      <label className="bg-[#445566] hover:bg-[#556677] text-white text-[12px] font-bold px-4 py-2 rounded-[3px] uppercase tracking-widest cursor-pointer transition-colors inline-block text-center">
+                      <label className="bg-[#445566] hover:bg-[#556677] text-white text-[12px] font-normal px-4 py-2 rounded-[3px] uppercase cursor-pointer transition-colors inline-block text-center">
                         Cargar Imagen
                         <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                       </label>
@@ -395,7 +395,7 @@ function EditarPerfil() {
 
                   {formData.avatar && !predefinedAvatars.includes(formData.avatar) && (
                     <div className="mt-6 border-t border-[#2c3440] pt-6">
-                      <p className="text-[13px] text-[#8b9bb4] font-bold mb-3 uppercase tracking-widest">Vista Previa:</p>
+                      <p className="text-[13px] text-[#8b9bb4] font-normal mb-3 uppercase">Vista Previa:</p>
                       <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-2 border-[#00e054]">
                         <img src={formData.avatar} alt="Vista previa del avatar" className="w-full h-full object-cover" />
                       </div>
@@ -406,7 +406,7 @@ function EditarPerfil() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="bg-[#00e054] hover:bg-[#00c048] text-white font-bold text-[13px] px-4 py-2.5 rounded-[3px] uppercase tracking-widest transition-colors disabled:opacity-50"
+                      className="bg-[#00e054] hover:bg-[#00c048] text-white font-normal text-[13px] px-4 py-2.5 rounded-[3px] uppercase transition-colors disabled:opacity-50"
                     >
                       {loading ? 'Guardando...' : 'Guardar Avatar'}
                     </button>

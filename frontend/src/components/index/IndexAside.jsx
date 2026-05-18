@@ -18,7 +18,7 @@ function IndexAside() {
           <h3 className="text-lg font-bold text-white group-hover/news:text-[#1060ff] transition-colors leading-tight mb-2">
             Las 10 películas más esperadas de este verano
           </h3>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-white/30 font-black">Hace 2 días</p>
+          <p className="text-[10px] uppercase .2em] text-white/30 font-normal">Hace 2 días</p>
         </article>
 
         <div className="space-y-5 pt-6 border-t border-white/5">
@@ -26,11 +26,11 @@ function IndexAside() {
             <img src="https://image.tmdb.org/t/p/w200/8GxvynZpEJq9S1nOzSLnfbvMvS9.jpg" alt="" className="w-14 h-20 object-cover shrink-0 rounded-xl shadow-xl border border-white/5 group-hover/article:scale-105 transition-transform" />
             <div>
               <h3 className="text-sm font-bold text-white/80 group-hover/article:text-[#1060ff] transition-colors leading-snug">Entrevista exclusiva con Christopher Nolan</h3>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-white/30 mt-2 font-black">Hace 4 días</p>
+              <p className="text-[10px] uppercase .2em] text-white/30 mt-2 font-normal">Hace 4 días</p>
             </div>
           </article>
         </div>
-        <button className="w-full mt-6 py-3 rounded-xl border border-white/5 text-xs font-bold text-white/40 hover:text-white hover:bg-white/5 transition-all uppercase tracking-widest">
+        <button className="w-full mt-6 py-3 rounded-xl border border-white/5 text-xs font-normal text-white/40 hover:text-white hover:bg-white/5 transition-all uppercase">
           Ver todas las noticias
         </button>
       </div>
@@ -48,14 +48,14 @@ function IndexAside() {
         </div>
 
         <div className="space-y-3 mb-6">
-          <a href="#" className="flex items-center gap-3 text-sm font-bold text-white/60 hover:text-[#1060ff] transition-colors group/link">
+          <a href="#" className="flex items-center gap-3 text-sm font-normal text-white/60 hover:text-[#1060ff] transition-colors group/link">
             <span className="w-1.5 h-1.5 rounded-full bg-[#1060ff] group-hover:scale-150 transition-transform"></span> Mejores del Siglo XXI
           </a>
-          <a href="#" className="flex items-center gap-3 text-sm font-bold text-white/60 hover:text-[#7b42bc] transition-colors group/link">
+          <a href="#" className="flex items-center gap-3 text-sm font-normal text-white/60 hover:text-[#7b42bc] transition-colors group/link">
             <span className="w-1.5 h-1.5 rounded-full bg-[#7b42bc] group-hover:scale-150 transition-transform"></span> Cine de Autor
           </a>
         </div>
-        <button className="text-xs font-black text-[#1060ff] hover:text-[#7b42bc] transition-colors uppercase tracking-widest">
+        <button className="text-xs font-normal text-[#1060ff] hover:text-[#7b42bc] transition-colors uppercase">
           Explorar Listas →
         </button>
       </div>
@@ -65,7 +65,7 @@ function IndexAside() {
         <h2 className="text-lg font-bold text-white mb-6">Explorar por género</h2>
         <div className="flex flex-wrap gap-2">
           {["🎬 Acción", "🚀 Sci-Fi", "🐉 Fantasía", "🔦 Thriller", "📽️ Documental"].map(genre => (
-            <a key={genre} href="#" className="inline-block text-[10px] font-black tracking-widest py-2 px-4 rounded-xl bg-white/5 border border-white/5 text-white/60 hover:border-[#1060ff]/40 hover:text-white transition-all uppercase">
+            <a key={genre} href="#" className="inline-block text-[10px] font-normal py-2 px-4 rounded-xl bg-white/5 border border-white/5 text-white/60 hover:border-[#1060ff]/40 hover:text-white transition-all uppercase">
               {genre}
             </a>
           ))}

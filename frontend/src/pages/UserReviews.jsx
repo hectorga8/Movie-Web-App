@@ -44,7 +44,7 @@ function UserReviewCard({ initialReview, username, avatar }) {
       
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline gap-2 mb-1">
-          <Link to={`/pelicula/${review.mediaId}`} className="text-white text-[20px] font-bold hover:text-[#40bcf4] transition-colors leading-tight">
+          <Link to={`/pelicula/${review.mediaId}`} className="text-white text-[20px] font-normal hover:text-[#40bcf4] transition-colors leading-tight">
             {review.mediaTitle}
           </Link>
           <span className="text-white/40 text-[18px] font-normal">{review.mediaYear}</span>
@@ -56,13 +56,13 @@ function UserReviewCard({ initialReview, username, avatar }) {
               {avatar ? (
                 <img src={avatar} alt={username} className="w-full h-full object-cover" />
               ) : (
-                <span className="text-[10px] font-bold uppercase">{username?.substring(0, 1)}</span>
+                <span className="text-[10px] font-normal uppercase">{username?.substring(0, 1)}</span>
               )}
             </div>
-            <span className="text-white/60 text-[13px] font-bold group-hover/user:text-white transition-colors">{username}</span>
+            <span className="text-white/60 text-[13px] font-normal group-hover/user:text-white transition-colors">{username}</span>
           </Link>
           {renderStars(review.rating)}
-          <span className="text-white/20 text-[11px] font-bold uppercase tracking-wider ml-2">
+          <span className="text-white/20 text-[11px] font-normal uppercase ml-2">
             {new Date(review.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
           </span>
         </div>
@@ -71,7 +71,7 @@ function UserReviewCard({ initialReview, username, avatar }) {
           "{review.reviewText}"
         </p>
 
-        <div className="flex items-center gap-4 text-[12px] font-bold uppercase tracking-wider">
+        <div className="flex items-center gap-4 text-[12px] font-normal uppercase">
           <button 
             onClick={handleLike}
             disabled={!user || loadingLike}
@@ -127,7 +127,7 @@ function UserReviews() {
 
   if (error || !profileUser) {
     return (
-      <div className="min-h-screen bg-transparent text-[#8b9bb4] flex flex-col items-center justify-center pb-20">
+      <div className="min-h-screen bg-transparent text-white flex flex-col items-center justify-center pb-20">
         <h2 className="text-2xl font-bold text-white mb-2">Error</h2>
         <p>{error || 'Usuario no encontrado.'}</p>
         <Link to="/inicio" className="mt-4 text-[#1060ff] hover:text-white transition-colors">Volver al inicio</Link>
@@ -136,7 +136,7 @@ function UserReviews() {
   }
 
   return (
-    <div className="w-full bg-transparent text-white min-h-screen font-['Inter',sans-serif]">
+    <div className="w-full bg-transparent text-white min-h-screen font-['Arimo',sans-serif]">
       <div className="max-w-[1200px] mx-auto px-6 py-12">
         
         {/* Header */}
@@ -149,14 +149,14 @@ function UserReviews() {
               {profileUser.avatar ? (
                 <img src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-white/40 font-bold">
+                <div className="w-full h-full flex items-center justify-center text-white/40 font-normal">
                   {profileUser.name.substring(0,1).toUpperCase()}
                 </div>
               )}
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white leading-none mb-1">Reseñas de {profileUser.name}</h1>
-              <p className="text-[12px] uppercase tracking-[1px] font-bold text-[#8b9bb4]">Ordenadas por fecha</p>
+              <p className="text-[12px] uppercase font-normal text-[#8b9bb4]">Ordenadas por fecha</p>
             </div>
           </div>
         </div>

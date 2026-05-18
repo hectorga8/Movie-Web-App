@@ -19,8 +19,8 @@ function RecentActivity({ profileUser, isOwnProfile, reviews = [] }) {
       {/* Recent Reviews Section */}
       <section>
         <div className="flex items-center justify-between mb-2 border-b border-white/10 pb-1">
-          <h2 className="text-[12px] uppercase tracking-[1.5px] text-white/40 font-bold">Reseñas Recientes</h2>
-          <Link to={`/perfil/${profileUser?.name}/reviews`} className="text-[10px] font-bold uppercase tracking-widest text-white/20 hover:text-white transition-colors">Más</Link>
+          <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/40">Reseñas Recientes</h2>
+          <Link to={`/perfil/${profileUser?.name}/reviews`} className="text-[10px] font-normal uppercase text-white/20 hover:text-white transition-colors">Más</Link>
         </div>
 
         <div className="mt-4 space-y-6">
@@ -38,14 +38,14 @@ function RecentActivity({ profileUser, isOwnProfile, reviews = [] }) {
                 </Link>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline gap-2 mb-1">
-                    <Link to={`/pelicula/${review.mediaId}`} className="text-white text-[18px] font-bold hover:text-[#40bcf4] transition-colors truncate">
+                    <Link to={`/pelicula/${review.mediaId}`} className="text-white text-[18px] font-normal hover:text-[#40bcf4] transition-colors truncate">
                       {review.mediaTitle}
                     </Link>
                     <span className="text-white/40 text-[16px]">{review.mediaYear}</span>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
                     {renderStars(review.rating)}
-                    <span className="text-white/20 text-[11px] font-bold uppercase tracking-wider">
+                    <span className="text-white/20 text-[11px] font-normal uppercase">
                       {new Date(review.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
                     </span>
                   </div>
@@ -64,8 +64,8 @@ function RecentActivity({ profileUser, isOwnProfile, reviews = [] }) {
       {/* Popular Reviews */}
       <section>
         <div className="flex items-center justify-between mb-2 border-b border-white/10 pb-1">
-          <h2 className="text-[12px] uppercase tracking-[1.5px] text-white/40 font-bold">Reseñas Populares</h2>
-          <Link to={`/perfil/${profileUser?.name}/reviews/populares`} className="text-[10px] font-bold uppercase tracking-widest text-white/20 hover:text-white transition-colors">Más</Link>
+          <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/40">Reseñas Populares</h2>
+          <Link to={`/perfil/${profileUser?.name}/reviews/populares`} className="text-[10px] font-normal uppercase text-white/20 hover:text-white transition-colors">Más</Link>
         </div>
         
         <div className="mt-4 space-y-6">
@@ -84,14 +84,14 @@ function RecentActivity({ profileUser, isOwnProfile, reviews = [] }) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-white text-[18px] font-bold group-hover:text-[#40bcf4] transition-colors truncate relative z-20">
+                    <span className="text-white text-[18px] font-normal group-hover:text-[#40bcf4] transition-colors truncate relative z-20">
                       {review.mediaTitle}
                     </span>
                     <span className="text-white/40 text-[16px]">{review.mediaYear}</span>
                   </div>
                   <div className="flex items-center gap-2 mb-2">
                     {renderStars(review.rating)}
-                    <span className="text-white/40 text-[11px] font-bold flex items-center gap-1">
+                    <span className="text-white/40 text-[11px] font-normal flex items-center gap-1">
                       <span className="text-red-500">❤</span> {review.likes || 0}
                     </span>
                   </div>

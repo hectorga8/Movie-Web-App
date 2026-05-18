@@ -33,7 +33,7 @@ function MediaCard({
           />
           
           {showTypeBadge && (
-            <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold uppercase tracking-widest text-white border border-white/10 z-10">
+            <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-normal uppercase text-white border border-white/10 z-10">
               {displayType}
             </div>
           )}
@@ -53,7 +53,7 @@ function MediaCard({
         
         {titlePosition === 'outside' && (
           <div className="mt-2 px-1">
-            <h3 className={`text-white text-[13px] font-bold truncate ${textHoverColor} transition-colors`}>{title || "Sin título"}</h3>
+            <h3 className={`text-white text-[13px] md:text-[15px] font-bold truncate ${textHoverColor} transition-colors`}>{title || "Sin título"}</h3>
           </div>
         )}
       </Link>

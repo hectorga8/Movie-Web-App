@@ -27,9 +27,7 @@ function ProfileNav({ profileUser }) {
             <li key={i}>
               <Link 
                 to={item.path}
-                className={`block px-4 py-3 text-[12px] font-bold uppercase tracking-widest transition-colors whitespace-nowrap ${
-                  isActive ? 'text-white border-b-2 border-[#40bcf4]' : 'text-white/40 hover:text-white'
-                }`}
+                className={`block px-4 py-3 text-[12px] font-normal uppercase transition-colors whitespace-nowrap ${ isActive ? 'text-white border-b-2 border-[#40bcf4]' : 'text-white/40 hover:text-white' }`}
               >
                 {item.label}
               </Link>

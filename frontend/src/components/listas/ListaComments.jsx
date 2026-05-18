@@ -24,7 +24,7 @@ const ListaComments = () => {
 
   return (
     <div className="pt-12 border-t border-white/5">
-      <h3 className="text-[#8b9bb4] text-[11px] font-bold uppercase tracking-[0.2em] mb-8">
+      <h3 className="text-[#8b9bb4] text-[11px] font-bold uppercase .2em] mb-8">
         Comentarios
       </h3>
 
@@ -43,7 +43,7 @@ const ListaComments = () => {
           />
           <button 
             type="submit"
-            className="bg-[#2c3440] hover:bg-[#445566] text-white px-6 py-2 rounded-sm text-[11px] font-bold uppercase tracking-widest transition-colors"
+            className="bg-[#2c3440] hover:bg-[#445566] text-white px-6 py-2 rounded-sm text-[11px] font-normal uppercase transition-colors"
           >
             Publicar
           </button>
@@ -59,7 +59,7 @@ const ListaComments = () => {
               <img src={c.avatar} alt={c.author} className="w-10 h-10 rounded-full border border-white/10 shrink-0 bg-[#2c3440]" />
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-white font-bold text-[14px]">{c.author}</span>
+                  <span className="text-white font-normal text-[14px]">{c.author}</span>
                   <span className="text-[#8b9bb4] text-[11px]">{c.date}</span>
                 </div>
                 <p className="text-[#8b9bb4] text-[14px]">{c.text}</p>

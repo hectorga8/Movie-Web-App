@@ -28,7 +28,7 @@ export const ListMeta = ({
           alt="avatar" 
         />
       ) : badge ? (
-        <div className="w-3.5 h-3.5 rounded-full bg-orange-600 flex items-center justify-center text-[7px] text-white font-black">
+        <div className="w-3.5 h-3.5 rounded-full bg-orange-600 flex items-center justify-center text-[7px] text-white font-normal">
           A
         </div>
       ) : (
@@ -37,7 +37,7 @@ export const ListMeta = ({
 
       <span className="truncate">
         {!showAvatar && !badge && <span className="text-[#67778b] mr-1 font-light">Creado por</span>}
-        <span className="font-bold text-white">{creator}</span>
+        <span className="font-normal text-white">{creator}</span>
       </span>
 
       {moviesCount !== undefined && (

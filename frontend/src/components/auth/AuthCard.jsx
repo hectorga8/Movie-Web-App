@@ -11,7 +11,7 @@ function AuthCard({ children, title, subtitle }) {
       
       <div className="p-10 md:p-12 flex flex-col items-center">
         <header className="mb-10 text-center w-full">
-          <h2 className="text-[28px] font-bold text-white h-tight mb-3 tracking-tight">
+          <h2 className="text-[28px] font-bold text-white h-tight mb-3">
             {title}
           </h2>
           <p className="text-[15px] text-[#b2b6bd] leading-relaxed max-w-[300px] mx-auto">
@@ -26,7 +26,7 @@ function AuthCard({ children, title, subtitle }) {
       
       {/* Footer de tarjeta con estilo de estado de sistema */}
       <div className="px-10 py-5 bg-black/30 border-t border-white/5 flex justify-center">
-        <span className="text-[10px] font-bold text-[#656a76] uppercase tracking-[3px]">
+        <span className="text-[10px] font-normal text-[#656a76] uppercase">
           CineBox Security Protocol v1.0
         </span>
       </div>

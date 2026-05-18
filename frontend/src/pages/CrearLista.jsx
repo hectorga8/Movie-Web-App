@@ -128,16 +128,16 @@ const CrearLista = () => {
   const pageTitle = isEditing ? 'Edit List' : isCloning ? 'Clone List' : 'New List';
 
   return (
-    <div className="min-h-screen bg-transparent text-[#8b9bb4] font-sans pb-20">
+    <div className="min-h-screen bg-transparent text-white pb-20">
       <div className="max-w-[1200px] mx-auto px-6 py-10">
-        <h1 className="text-white text-2xl font-serif mb-6 border-b border-[#2c3440] pb-2 uppercase tracking-wide">{pageTitle}</h1>
+        <h1 className="text-white text-2xl font-serif mb-6 border-b border-[#2c3440] pb-2 uppercase">{pageTitle}</h1>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-[1fr_400px] gap-10">
             {/* Columna Izquierda */}
             <div className="space-y-6">
               <div>
-                <label className="block text-white text-[13px] font-bold mb-2 flex items-center gap-1">
+                <label className="block text-white text-[13px] font-normal mb-2 flex items-center gap-1">
                   <span className="text-[#00e054]">•</span> Name
                 </label>
                 <input
@@ -151,7 +151,7 @@ const CrearLista = () => {
               </div>
 
               <div>
-                <label className="block text-white text-[13px] font-bold mb-2">
+                <label className="block text-white text-[13px] font-normal mb-2">
                   Tags <span className="text-[11px] font-normal text-[#8b9bb4] ml-2">Press Tab to complete, Enter to create</span>
                 </label>
                 <input
@@ -165,7 +165,7 @@ const CrearLista = () => {
               </div>
 
               <div className="relative">
-                <label className="block text-white text-[13px] font-bold mb-2 flex items-center gap-1">
+                <label className="block text-white text-[13px] font-normal mb-2 flex items-center gap-1">
                   Who can view <span className="text-[#8b9bb4] bg-[#445566] rounded-full w-4 h-4 flex items-center justify-center text-[10px] cursor-help">?</span>
                 </label>
                 <select
@@ -193,7 +193,7 @@ const CrearLista = () => {
                   onChange={handleChange}
                   className="w-4 h-4 rounded bg-[#2c3440] border-[#445566] text-[#00e054] focus:ring-0 focus:ring-offset-0"
                 />
-                <label htmlFor="isRanked" className="text-white text-[13px] font-bold">
+                <label htmlFor="isRanked" className="text-white text-[13px] font-normal">
                   Ranked list <span className="text-[11px] font-normal text-[#8b9bb4] ml-2">Show position for each film.</span>
                 </label>
               </div>
@@ -202,7 +202,7 @@ const CrearLista = () => {
             {/* Columna Derecha */}
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="text-white text-[13px] font-bold">Description</label>
+                <label className="text-white text-[13px] font-normal">Description</label>
                 <span className="text-[11px] text-[#8b9bb4] hover:text-white cursor-pointer">Show supported HTML</span>
               </div>
               <textarea
@@ -217,12 +217,12 @@ const CrearLista = () => {
           {/* Buscador de Películas */}
           <div className="pt-6 border-t border-[#2c3440]">
             <div className="flex items-center gap-0 mb-6">
-              <div className="flex items-center bg-[#00e054] text-black font-bold text-[11px] px-3 py-2 rounded-l-[3px] h-[36px] uppercase tracking-wider whitespace-nowrap">
+              <div className="flex items-center bg-[#00e054] text-black font-normal text-[11px] px-3 py-2 rounded-l-[3px] h-[36px] uppercase whitespace-nowrap">
                 Add a film
               </div>
               <MovieSearchAutocomplete onSelect={handleSelectMovie} />
               <div className="flex items-center px-4 text-[#8b9bb4] text-[13px]">or</div>
-              <button type="button" className="bg-[#445566] hover:bg-[#556677] text-white text-[11px] font-bold px-4 py-2 rounded-[3px] h-[36px] uppercase tracking-wider transition-colors">
+              <button type="button" className="bg-[#445566] hover:bg-[#556677] text-white text-[11px] font-normal px-4 py-2 rounded-[3px] h-[36px] uppercase transition-colors">
                 Import
               </button>
             </div>
@@ -231,7 +231,7 @@ const CrearLista = () => {
             <div className="bg-[#1b2228] border border-white/5 rounded-[3px] overflow-hidden">
               {movies.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-[300px] text-center p-10">
-                  <p className="text-white text-lg font-bold mb-2">Your list is empty.</p>
+                  <p className="text-white text-lg font-normal mb-2">Your list is empty.</p>
                   <p className="text-[#8b9bb4] text-sm">Add films using the field above, or from the links on a film poster or page.</p>
                 </div>
               ) : (
@@ -257,7 +257,7 @@ const CrearLista = () => {
                             {movie.releaseDate ? movie.releaseDate.split('-')[0] : 'N/A'}
                           </span>
                         </div>
-                        <button type="button" className="bg-[#2c3440]/50 border border-white/5 text-[10px] font-bold text-[#8b9bb4] px-2 py-1 rounded-[2px] uppercase tracking-widest hover:bg-[#445566] hover:text-white transition-all">
+                        <button type="button" className="bg-[#2c3440]/50 border border-white/5 text-[10px] font-normal text-[#8b9bb4] px-2 py-1 rounded-[2px] uppercase hover:bg-[#445566] hover:text-white transition-all">
                           Add Note
                         </button>
                       </div>
@@ -290,16 +290,14 @@ const CrearLista = () => {
             <button
               type="button"
               onClick={() => navigate(isEditing ? `/listas/${editData._id || editData.id}` : '/listas')}
-              className="bg-[#445566] hover:bg-[#556677] text-[#8b9bb4] hover:text-white font-bold text-[12px] px-6 py-2 rounded-[3px] uppercase tracking-widest transition-colors"
+              className="bg-[#445566] hover:bg-[#556677] text-[#8b9bb4] hover:text-white font-normal text-[12px] px-6 py-2 rounded-[3px] uppercase transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !formData.name}
-              className={`bg-[#00e054] hover:bg-[#00c048] text-black font-bold text-[12px] px-6 py-2 rounded-[3px] uppercase tracking-widest transition-colors ${
-                (isSubmitting || !formData.name) ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
+              className={`bg-[#00e054] hover:bg-[#00c048] text-black font-normal text-[12px] px-6 py-2 rounded-[3px] uppercase transition-colors ${ (isSubmitting || !formData.name) ? 'opacity-50 cursor-not-allowed' : '' }`}
             >
               {isSubmitting ? 'Saving...' : 'Save'}
             </button>

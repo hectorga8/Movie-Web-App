@@ -29,7 +29,7 @@ function Persona() {
   if (loading) return (
     <div className="flex-1 flex flex-col items-center justify-center bg-transparent text-white py-16 min-h-screen">
       <div className="w-8 h-8 border-4 border-[#1060ff]/20 border-t-[#1060ff] rounded-full animate-spin mb-4"></div>
-      <p className="label-uppercase text-[10px] opacity-50 tracking-[2px]">Cargando...</p>
+      <p className="label-uppercase text-[10px] opacity-50">Cargando...</p>
     </div>
   );
 
@@ -64,7 +64,7 @@ function Persona() {
   const hasSocials = externals.instagram_id || externals.twitter_id || externals.facebook_id || externals.tiktok_id || externals.imdb_id;
 
   return (
-    <div className="flex-1 bg-transparent text-[#8b9bb4] min-h-screen font-sans pb-20">
+    <div className="flex-1 bg-transparent text-white min-h-screen pb-20">
       <div className="max-w-[1200px] mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
         
         {/* Columna Izquierda: Foto e Info Personal */}
@@ -111,7 +111,7 @@ function Persona() {
           <div className="space-y-4 text-[14px] mb-8">
             <div>
               <strong className="block text-white">Créditos Totales</strong>
-              <span className="text-[#1060ff] font-bold text-[20px]">{participationsCount}</span>
+              <span className="text-[#1060ff] font-normal text-[20px]">{participationsCount}</span>
             </div>
             {highestRatedMovie && (
               <div>
@@ -122,8 +122,8 @@ function Persona() {
                 >
                   <img src={movieService.getImageUrl(highestRatedMovie.poster_path, 'w92')} className="w-8 h-12 object-cover rounded-[2px]" alt="" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-white font-bold truncate group-hover:text-[#1060ff] transition-colors">{highestRatedMovie.title || highestRatedMovie.name}</p>
-                    <p className="text-[12px] text-[#21d07a] font-bold mt-0.5 flex items-center gap-1">
+                    <p className="text-white font-normal truncate group-hover:text-[#1060ff] transition-colors">{highestRatedMovie.title || highestRatedMovie.name}</p>
+                    <p className="text-[12px] text-[#21d07a] font-normal mt-0.5 flex items-center gap-1">
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                       {highestRatedMovie.vote_average.toFixed(1)} / 10
                     </p>
@@ -159,7 +159,7 @@ function Persona() {
 
         {/* Columna Derecha: Biografía y Filmografía */}
         <div className="flex-1 min-w-0">
-          <h1 className="text-white text-4xl md:text-5xl font-bold tracking-tight mb-8">
+          <h1 className="text-white text-4xl md:text-5xl font-bold mb-8">
             {person.name}
           </h1>
 
@@ -187,7 +187,7 @@ function Persona() {
                           className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-2 text-center"
                           onClick={() => navigate(`/${item.media_type === 'movie' ? 'pelicula' : 'serie'}/${item.id}`)}
                         >
-                          <span className="text-white font-bold text-[13px] line-clamp-2">{item.title || item.name}</span>
+                          <span className="text-white font-normal text-[13px] line-clamp-2">{item.title || item.name}</span>
                           <span className="text-[#8b9bb4] text-[11px] mt-1 line-clamp-2 italic">{movieService.translateRole(item.character, person.gender)}</span>
                         </div>
                       </div>
@@ -198,7 +198,7 @@ function Persona() {
                   <div className="flex justify-center mt-8">
                     <button 
                       onClick={() => setVisibleCount(prev => Math.min(prev + 20, allCredits.length))}
-                      className="bg-[#2c3440] hover:bg-[#445566] text-white px-6 py-2.5 rounded-[3px] text-[13px] font-bold uppercase tracking-widest transition-colors cursor-pointer"
+                      className="bg-[#2c3440] hover:bg-[#445566] text-white px-6 py-2.5 rounded-[3px] text-[13px] font-normal uppercase transition-colors cursor-pointer"
                     >
                       Mostrar más ({allCredits.length - visibleCount} restantes)
                     </button>

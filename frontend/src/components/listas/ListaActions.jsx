@@ -5,14 +5,10 @@ import { useAuth } from '../../context/AuthContext';
 const ActionButton = ({ icon, label, count, onClick, variant = 'default' }) => (
   <button 
     onClick={onClick}
-    className={`flex items-center gap-2.5 px-5 py-2.5 rounded-[5px] border border-[#b2b6bd]/20 transition-all active:scale-[0.98] ${
-      variant === 'primary' 
-        ? 'bg-[#1060ff] text-white hover:bg-[#2b89ff]' 
-        : 'bg-[#15181e] text-[#8b9bb4] hover:text-white hover:bg-black'
-    }`}
+    className={`flex items-center gap-2.5 px-5 py-2.5 rounded-[5px] border border-[#b2b6bd]/20 transition-all active:scale-[0.98] ${ variant === 'primary' ? 'bg-[#1060ff] text-white hover:bg-[#2b89ff]' : 'bg-[#15181e] text-[#8b9bb4] hover:text-white hover:bg-black' }`}
   >
     {icon}
-    <span className="text-[11px] font-bold uppercase tracking-widest">{label}</span>
+    <span className="text-[11px] font-normal uppercase">{label}</span>
     {count !== undefined && (
       <span className="text-[11px] font-light bg-white/10 px-1.5 rounded-sm">{count}</span>
     )}

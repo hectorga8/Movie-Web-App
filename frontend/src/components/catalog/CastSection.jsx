@@ -49,7 +49,7 @@ const CastSection = ({ cast }) => {
             </div>
           ))}
           <div className="min-w-[140px] flex items-center justify-center h-[220px]">
-            <button className="text-[11px] font-bold text-white/40 hover:text-white transition-colors tracking-[2px] uppercase cursor-pointer">
+            <button className="text-[11px] font-normal text-white/40 hover:text-white transition-colors uppercase cursor-pointer">
               Todo el reparto
             </button>
           </div>

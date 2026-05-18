@@ -38,7 +38,7 @@ function RightSidebarPeliculas() {
     <div className="flex flex-col">
       {/* Crew Picks */}
       <div className="mb-8">
-        <h2 className="text-[12px] uppercase tracking-[1px] text-[#8aa8c2] border-b border-[#445566] pb-2 mb-3">RECOMENDACIONES</h2>
+        <h2 className="text-[13px] md:text-[15px] font-light uppercase text-[#8aa8c2] border-b border-[#445566] pb-2 mb-3">RECOMENDACIONES</h2>
         <div className="grid grid-cols-3 gap-1">
           {crewPicks.map((movie) => (
             <Link 
@@ -62,7 +62,7 @@ function RightSidebarPeliculas() {
       {/* Popular Reviewers */}
       <div className="mb-8">
         <div className="flex justify-between items-end border-b border-[#445566] pb-2 mb-3">
-          <h2 className="text-[12px] uppercase tracking-[1px] text-[#8aa8c2]">RESEÑADORES POPULARES</h2>
+          <h2 className="text-[13px] md:text-[15px] font-light uppercase text-[#8aa8c2]">RESEÑADORES POPULARES</h2>
           <Link to="/miembros" className="text-[10px] text-[#8aa8c2] hover:text-[#fff] transition-colors">MÁS</Link>
         </div>
         
@@ -73,12 +73,12 @@ function RightSidebarPeliculas() {
                 {reviewer.avatar ? (
                   <img src={reviewer.avatar} alt={reviewer.username} className="w-full h-full object-cover" />
                 ) : (
-                  <span className="text-[#8aa8c2] text-lg font-bold">{(reviewer.username || 'U')[0].toUpperCase()}</span>
+                  <span className="text-[#8aa8c2] text-lg font-normal">{(reviewer.username || 'U')[0].toUpperCase()}</span>
                 )}
               </Link>
               
               <div className="flex-1 min-w-0 flex flex-col justify-center">
-                <Link to={`/perfil/${reviewer._id}`} className="text-[14px] font-bold text-[#fff] truncate hover:text-[#40bcf4] transition-colors leading-tight">
+                <Link to={`/perfil/${reviewer._id}`} className="text-[14px] font-normal text-[#fff] truncate hover:text-[#40bcf4] transition-colors leading-tight">
                   {reviewer.username}
                 </Link>
                 <p className="text-[11px] text-[#8aa8c2] truncate leading-tight mt-0.5">
@@ -96,10 +96,10 @@ function RightSidebarPeliculas() {
 
       {/* Can't find a film */}
       <div>
-        <h2 className="text-[12px] uppercase tracking-[1px] text-[#8aa8c2] border-b border-[#445566] pb-2 mb-3">¿NO ENCUENTRAS UNA PELÍCULA?</h2>
+        <h2 className="text-[13px] md:text-[15px] font-light uppercase text-[#8aa8c2] border-b border-[#445566] pb-2 mb-3">¿NO ENCUENTRAS UNA PELÍCULA?</h2>
         <p className="text-[13px] text-[#8aa8c2] leading-relaxed">
           Ayuda a mantener la base de datos actualizada.<br/>
-          Descubre cómo <a href="#" className="text-[#fff] hover:text-[#40bcf4] font-bold transition-colors">añadir o editar una película</a>.
+          Descubre cómo <a href="#" className="text-[#fff] hover:text-[#40bcf4] font-normal transition-colors">añadir o editar una película</a>.
         </p>
       </div>
     </div>

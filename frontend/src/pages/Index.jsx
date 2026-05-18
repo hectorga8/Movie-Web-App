@@ -129,7 +129,8 @@ function Index() {
   const welcomeMessage = () => {
     if (!user) return "Bienvenido a CineBox. Esto es lo que has estado viendo…";
     const firstName = user.name.split(' ')[0];
-    const nameLink = <Link to="/perfil" className="text-white hover:text-[#1060ff] font-medium transition-colors border-b border-transparent hover:border-[#1060ff] pb-0.5">{firstName}</Link>;
+    const nameLink = <Link to="/perfil" className="text-white hover:text-[#1060ff] font-light transition-colors 
+    border-b border-transparent hover:border-[#1060ff] pb-0.5">{firstName}</Link>;
     
     if (user.genres && user.genres.length > 0) {
       return <>Bienvenido, {nameLink}. Listos para más dosis de cine.</>;
@@ -138,15 +139,15 @@ function Index() {
   };
 
   return (
-    <div className="w-full bg-gradient-to-b from-[#0d0e12] to-[#1a1c23] text-white min-h-screen font-['Inter',sans-serif]">
+    <div className="w-full bg-gradient-to-b from-[#0d0e12] to-[#1a1c23] text-white min-h-screen font-['Arimo',sans-serif]">
       <div className="max-w-[1200px] mx-auto px-6 py-12">
         
         {/* 1. Bienvenida */}
         <section className="mb-12">
-          <h1 className="text-[26px] md:text-[32px] font-light text-[#efeff1] text-center leading-tight">
+          <h1 className="text-[26px] md:text-[36px] font-light text-[#efeff1] text-center leading-tight">
             {welcomeMessage()}
           </h1>
-          <p className="text-white/40 text-[15px] mt-2 text-center font-light">
+          <p className="text-blue-100/80 text-[15px] md:text-[17px] mt-2 text-center font-light">
             {user ? "Tu experiencia personalizada está lista." : "Esta página de inicio se personalizará a medida que sigas a los miembros activos de CineBox."}
           </p>
         </section>
@@ -154,8 +155,8 @@ function Index() {
         {/* 2. Nuevo en CineBox (AHORA PRIMERO) */}
         <section className="mb-16">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Nuevo en CineBox</h2>
-            <button className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors">Más</button>
+            <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/50">Nuevo en CineBox</h2>
+            <button className="text-[11px] md:text-[13px] font-light uppercase text-white/30 hover:text-white transition-colors">Más</button>
           </div>
           <div className="h-[1px] bg-white/10 w-full mb-6"></div>
           {loading ? (
@@ -178,8 +179,8 @@ function Index() {
         {/* 3. Populares en CineBox (AHORA SEGUNDO) */}
         <section className="mb-16">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Populares en CineBox</h2>
-            <button className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors">Más</button>
+            <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/50">Populares en CineBox</h2>
+            <button className="text-[11px] md:text-[13px] font-light uppercase text-white/30 hover:text-white transition-colors">Más</button>
           </div>
           <div className="h-[1px] bg-white/10 w-full mb-6"></div>
           {loading ? (
@@ -206,8 +207,8 @@ function Index() {
             {/* Para ti (Izquierda) */}
             <section className="flex-1 min-w-0 lg:pr-12">
               <div className="flex items-center justify-between mb-2">
-                <h2 className="text-[13px] font-bold uppercase tracking-[1.5px] text-[#00e054] truncate">Para ti: Tus géneros</h2>
-                <Link to="/recomendaciones?type=generos" className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Ver más</Link>
+                <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/50">Para ti: Tus géneros</h2>
+                <Link to="/recomendaciones?type=generos" className="text-[11px] md:text-[13px] font-light uppercase text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Más</Link>
               </div>
               <div className="h-[1px] bg-[#00e054]/30 w-full mb-6"></div>
               
@@ -237,10 +238,10 @@ function Index() {
             {/* Porque te gustó (Derecha) */}
             <section className="flex-1 min-w-0 lg:pl-12">
               <div className="flex items-center justify-between mb-2">
-                <h2 className="text-[13px] font-bold uppercase tracking-[1.5px] text-[#1060ff] truncate">
-                  Porque te gustó <span className="text-white">"{recommendationsByFav.title}"</span>
+                <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/50">
+                  Porque te gustó <span className="text-blue-500 font-medium">"{recommendationsByFav.title}"</span>
                 </h2>
-                <Link to="/recomendaciones?type=similares" className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Más</Link>
+                <Link to="/recomendaciones?type=similares" className="text-[11px] md:text-[13px] font-light uppercase text-white/30 hover:text-white transition-colors whitespace-nowrap ml-4">Más</Link>
               </div>
               <div className="h-[1px] bg-[#1060ff]/30 w-full mb-6"></div>
 
@@ -270,7 +271,7 @@ function Index() {
         {/* 5. Noticias de la Red */}
         <section className="mb-16">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Cine en la red</h2>
+            <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/50">Cine en la red</h2>
           </div>
           <div className="h-[1px] bg-white/10 w-full mb-6"></div>
           {news.length > 0 && (
@@ -284,16 +285,16 @@ function Index() {
               </div>
               <div className="flex flex-col justify-center p-4 md:p-2">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-[10px] font-bold text-[#1060ff] uppercase tracking-widest">{news[0].date}</span>
-                  <span className="text-[10px] text-white/20 font-bold uppercase tracking-widest">vía {news[0].source}</span>
+                  <span className="text-[10px] md:text-[12px] font-normal text-[#1060ff] uppercase">{news[0].date}</span>
+                  <span className="text-[10px] md:text-[12px] text-white/20 font-normal uppercase">vía {news[0].source}</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-[#1060ff] transition-colors">{news[0].title}</h3>
-                <p className="text-white/50 text-[14px] leading-relaxed mb-4 font-light line-clamp-3">
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-3 leading-tight group-hover:text-[#1060ff] transition-colors">{news[0].title}</h3>
+                <p className="text-blue-100/80 text-[14px] md:text-[16px] leading-relaxed mb-4 font-light line-clamp-3">
                   {news[0].excerpt}
                 </p>
                 <a 
                   href={news[0].url} 
-                  className="text-white/80 text-[12px] font-bold hover:text-white flex items-center gap-1 group/link" 
+                  className="text-white/80 text-[12px] md:text-[14px] font-normal hover:text-white flex items-center gap-1 group/link" 
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
@@ -311,8 +312,9 @@ function Index() {
           {/* 5. Reseñas Populares */}
           <section className="flex-1 lg:pr-12">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Reseñas Populares</h2>
-              <Link to="/reviews-populares" className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors">Más</Link>
+              <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/50">Reseñas Populares</h2>
+              <Link to="/reviews-populares" className="text-[11px] md:text-[13px] font-light uppercase text-white/30 
+              hover:text-white transition-colors">Más</Link>
             </div>
             <div className="h-[1px] bg-white/10 w-full mb-6"></div>
             <div className="space-y-4">
@@ -332,8 +334,8 @@ function Index() {
           {/* 6. Listas Populares */}
           <section className="flex-1 lg:pl-12">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="text-[13px] font-light uppercase tracking-[1.5px] text-white/50">Listas Populares</h2>
-              <Link to="/listas" className="text-[11px] font-light uppercase tracking-[1px] text-white/30 hover:text-white transition-colors">Más</Link>
+              <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/50">Listas Populares</h2>
+              <Link to="/listas" className="text-[11px] md:text-[13px] font-light uppercase text-white/30 hover:text-white transition-colors">Más</Link>
             </div>
             <div className="h-[1px] bg-white/10 w-full mb-6"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -347,7 +349,7 @@ function Index() {
                     ))}
                   </div>
                   <h4 className="text-[14px] font-bold text-white group-hover:text-[#1060ff] transition-colors line-clamp-1">{lista.title}</h4>
-                  <p className="text-white/40 text-[11px] uppercase tracking-wider mt-1 font-light">Por {lista.creator || 'Usuario'} · {(lista.likes/1000).toFixed(1)}k likes</p>
+                  <p className="text-white/40 text-[11px] uppercase mt-1 font-light">Por {lista.creator || 'Usuario'} · {(lista.likes/1000).toFixed(1)}k likes</p>
                 </Link>
               )) : (
                 <div className="text-white/40 text-[13px] italic">Aún no hay listas populares.</div>

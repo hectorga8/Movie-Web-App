@@ -39,12 +39,12 @@ export default function Phase3Profile({ onComplete, initialData, isSubmitting })
         </div>
 
         <div className="w-full space-y-2 text-center">
-          <p className="text-white font-bold text-xl">{user?.name}</p>
-          <p className="text-white/40 text-xs tracking-widest uppercase">Nombre de Usuario</p>
+          <p className="text-white font-normal text-xl">{user?.name}</p>
+          <p className="text-white/40 text-xs uppercase">Nombre de Usuario</p>
         </div>
 
         <div className="w-full space-y-2">
-          <label className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 block text-center">Bio Corta</label>
+          <label className="text-[10px] font-normal uppercase text-white/40 block text-center">Bio Corta</label>
           <textarea 
             name="bio"
             value={profile.bio}
@@ -59,12 +59,7 @@ export default function Phase3Profile({ onComplete, initialData, isSubmitting })
       <button
         onClick={() => onComplete(profile)}
         disabled={isSubmitting}
-        className={`
-          w-full py-4 rounded-[8px] font-bold text-[13px] tracking-[1.5px] uppercase transition-all
-          ${!isSubmitting
-            ? 'bg-[#1060ff] hover:bg-[#2b89ff] text-white shadow-lg shadow-[#1060ff]/20 cursor-pointer' 
-            : 'bg-white/5 text-white/20 cursor-not-allowed'}
-        `}
+        className={`w-full py-4 rounded-[8px] font-normal text-[13px] uppercase transition-all ${!isSubmitting ? 'bg-[#1060ff] hover:bg-[#2b89ff] text-white shadow-lg shadow-[#1060ff]/20 cursor-pointer' : 'bg-white/5 text-white/20 cursor-not-allowed'}`}
       >
         {isSubmitting ? 'Finalizando...' : 'Entrar a CineSaaS'}
       </button>

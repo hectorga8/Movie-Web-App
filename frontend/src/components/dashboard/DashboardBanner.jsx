@@ -13,11 +13,11 @@ function DashboardBanner({ userName = "Usuario", moviesRead = 0, moviesGoal = 12
       <div className="pointer-events-none absolute -right-10 -top-10 w-48 h-48 bg-[#606C38] rounded-full blur-3xl opacity-40"></div>
       
       <div className="relative z-10 flex-1">
-        <div className="inline-flex items-center gap-1.5 bg-[#BC6C25] text-white text-[0.65rem] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full mb-4 shadow-sm">
+        <div className="inline-flex items-center gap-1.5 bg-[#BC6C25] text-white text-[0.65rem] font-normal uppercase px-2.5 py-1 rounded-full mb-4 shadow-sm">
           <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse shadow-[0_0_5px_rgba(255,255,255,0.8)]"></span>
           Reto de cine {year}
         </div>
-        <h2 className="font-['Playfair_Display',Georgia,serif] text-3xl font-bold text-[#FDFCF7] leading-tight mb-2">¡Hola de nuevo, {userName}!</h2>
+        <h2 className="font-['Arimo',sans-serif] text-3xl font-bold text-[#FDFCF7] leading-tight mb-2">¡Hola de nuevo, {userName}!</h2>
         <p className="text-[#FDFCF7]/80 text-sm max-w-sm leading-relaxed">
           {moviesRead >= moviesGoal 
             ? "¡Objetivo cumplido! Has visto todas las películas que te propusiste. 🎉" 
@@ -32,8 +32,8 @@ function DashboardBanner({ userName = "Usuario", moviesRead = 0, moviesGoal = 12
             <circle cx="48" cy="48" r="44" stroke="currentColor" strokeWidth="8" fill="none" className="text-[#BC6C25]" strokeDasharray={circumference} strokeDashoffset={strokeDashoffset} strokeLinecap="round shadow-sm"></circle>
           </svg>
           <div className="text-center">
-            <span className="block text-2xl font-bold text-[#FDFCF7] leading-none">{moviesRead}</span>
-            <span className="block text-[10px] text-[#FDFCF7]/60 uppercase tracking-widest mt-1">de {moviesGoal}</span>
+            <span className="block text-2xl font-normal text-[#FDFCF7] leading-none">{moviesRead}</span>
+            <span className="block text-[10px] text-[#FDFCF7]/60 uppercase mt-1">de {moviesGoal}</span>
           </div>
         </div>
       </div>

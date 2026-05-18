@@ -18,10 +18,10 @@ function FriendActivity() {
               <img src="https://image.tmdb.org/t/p/w200/8GxvynZpEJq9S1nOzSLnfbvMvS9.jpg" alt="" className="w-10 h-14 object-cover border border-white/10 absolute left-8 top-0 z-20 rounded-lg shadow-xl" />
             </div>
             <div className="flex-1 min-w-0 pl-12 flex flex-col justify-center">
-              <p className="text-sm text-white/70 leading-relaxed">
-                <span className="font-bold text-white">Carlos</span> y 2 amigos más han guardado <span className="font-bold text-[#1060ff]">Dune: Parte Dos</span>.
+              <p className="text-sm text-blue-100/80 leading-relaxed">
+                <span className="font-normal text-white">Carlos</span> y 2 amigos más han guardado <span className="font-normal text-[#1060ff]">Dune: Parte Dos</span>.
               </p>
-              <span className="text-[10px] text-white/30 font-bold uppercase tracking-widest mt-2 block">Hace 15 min</span>
+              <span className="text-[10px] text-white/30 font-normal uppercase mt-2 block">Hace 15 min</span>
             </div>
           </div>
 
@@ -31,13 +31,13 @@ function FriendActivity() {
           <div className="flex gap-4 items-center">
             <img src="https://image.tmdb.org/t/p/w200/8Vtpi9BDTeC9mSjXmYpYp9S1sQ3.jpg" alt="" className="w-12 h-16 object-cover border border-white/10 shadow-xl rounded-lg" />
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-white/70 leading-relaxed">
-                <span className="font-bold text-white">Ana</span> ha puntuado <span className="font-bold text-[#7b42bc]">Across the Spider-Verse</span>.
+              <p className="text-sm text-blue-100/80 leading-relaxed">
+                <span className="font-normal text-white">Ana</span> ha puntuado <span className="font-normal text-[#7b42bc]">Across the Spider-Verse</span>.
               </p>
               <div className="flex text-[#1060ff] text-xs mt-1 gap-0.5">
                 <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
               </div>
-              <span className="text-[10px] text-white/30 font-bold uppercase tracking-widest mt-2 block">Ayer</span>
+              <span className="text-[10px] text-white/30 font-normal uppercase mt-2 block">Ayer</span>
             </div>
           </div>
 

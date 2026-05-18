@@ -14,10 +14,10 @@ const DetailSidebar = ({ item, type, externalIds }) => {
         
         {/* GÉNEROS */}
         <div>
-          <h4 className="label-uppercase text-[10px] mb-5 opacity-30 font-bold tracking-[2.5px] text-white">GÉNEROS</h4>
+          <h4 className="label-uppercase text-[10px] mb-5 opacity-30 font-bold text-white">GÉNEROS</h4>
           <div className="flex flex-wrap gap-2.5">
             {item.genres?.map(g => (
-              <span key={g.id} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-[6px] text-[11px] font-bold text-white/80 hover:bg-white/10 transition-colors">
+              <span key={g.id} className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-[6px] text-[11px] font-normal text-white/80 hover:bg-white/10 transition-colors">
                 {g.name}
               </span>
             ))}
@@ -26,7 +26,7 @@ const DetailSidebar = ({ item, type, externalIds }) => {
 
         {/* REDES SOCIALES */}
         <div>
-          <h4 className="label-uppercase text-[10px] mb-5 opacity-30 font-bold tracking-[2.5px] text-white">CONEXIONES</h4>
+          <h4 className="label-uppercase text-[10px] mb-5 opacity-30 font-bold text-white">CONEXIONES</h4>
           <div className="flex gap-4">
             {externalIds?.instagram_id && (
               <a href={`https://instagram.com/${externalIds.instagram_id}`} target="_blank" rel="noreferrer" className="w-11 h-11 rounded-[8px] border border-white/10 bg-white/5 flex items-center justify-center hover:bg-[#1060ff] hover:border-transparent transition-all group shadow-lg">
@@ -44,35 +44,35 @@ const DetailSidebar = ({ item, type, externalIds }) => {
         {/* INFO TÉCNICA */}
         <div className="space-y-6 pt-8 border-t border-white/5">
           <div className="flex justify-between items-baseline border-b border-white/5 pb-4 text-left">
-            <p className="label-uppercase text-[9px] opacity-30 font-bold text-white tracking-[1.5px]">ESTADO</p>
-            <p className="font-bold text-white/90 text-[13px]">{item.status === 'Released' || item.status === 'Ended' ? (type === 'movie' ? 'Estrenada' : 'Terminada') : 'En emisión'}</p>
+            <p className="label-uppercase text-[9px] opacity-30 font-normal text-white">ESTADO</p>
+            <p className="font-normal text-white/90 text-[13px]">{item.status === 'Released' || item.status === 'Ended' ? (type === 'movie' ? 'Estrenada' : 'Terminada') : 'En emisión'}</p>
           </div>
           <div className="flex justify-between items-baseline border-b border-white/5 pb-4 text-left">
-            <p className="label-uppercase text-[9px] opacity-30 font-bold text-white tracking-[1.5px]">IDIOMA</p>
-            <p className="font-bold text-white/90 text-[13px] uppercase">{item.original_language}</p>
+            <p className="label-uppercase text-[9px] opacity-30 font-normal text-white">IDIOMA</p>
+            <p className="font-normal text-white/90 text-[13px] uppercase">{item.original_language}</p>
           </div>
           {type === 'tv' && item.networks?.[0] && (
             <div className="flex justify-between items-baseline border-b border-white/5 pb-4 text-left">
-              <p className="label-uppercase text-[9px] opacity-30 font-bold text-white tracking-[1.5px]">RED</p>
-              <p className="font-bold text-white/90 text-[13px]">{item.networks[0].name}</p>
+              <p className="label-uppercase text-[9px] opacity-30 font-normal text-white">RED</p>
+              <p className="font-normal text-white/90 text-[13px]">{item.networks[0].name}</p>
             </div>
           )}
           <div className="flex justify-between items-baseline border-b border-white/5 pb-4 text-left">
-            <p className="label-uppercase text-[9px] opacity-30 font-bold text-white tracking-[1.5px]">{type === 'movie' ? 'DIRECTOR' : 'CREADOR'}</p>
-            <p className="font-bold text-white/90 text-[13px] text-right max-w-[150px] leading-tight">{director || creator || 'N/A'}</p>
+            <p className="label-uppercase text-[9px] opacity-30 font-normal text-white">{type === 'movie' ? 'DIRECTOR' : 'CREADOR'}</p>
+            <p className="font-normal text-white/90 text-[13px] text-right max-w-[150px] leading-tight">{director || creator || 'N/A'}</p>
           </div>
           
           {type === 'movie' && item.runtime && (
              <div className="flex justify-between items-baseline border-b border-white/5 pb-4 text-left">
-                <p className="label-uppercase text-[9px] opacity-30 font-bold text-white tracking-[1.5px]">DURACIÓN</p>
-                <p className="font-bold text-white/90 text-[13px]">{item.runtime} min</p>
+                <p className="label-uppercase text-[9px] opacity-30 font-normal text-white">DURACIÓN</p>
+                <p className="font-normal text-white/90 text-[13px]">{item.runtime} min</p>
              </div>
           )}
 
           {type === 'tv' && item.next_episode_to_air && (
             <div className="p-6 bg-[#1060ff]/10 border border-[#1060ff]/20 rounded-[12px] text-center shadow-[0_0_20px_rgba(16,96,255,0.1)]">
-              <p className="label-uppercase text-[9px] text-[#1060ff] font-bold tracking-[2px] mb-3">PRÓXIMO DESPLIEGUE</p>
-              <p className="font-bold text-xl text-white leading-none">{new Date(item.next_episode_to_air.air_date).toLocaleDateString()}</p>
+              <p className="label-uppercase text-[9px] text-[#1060ff] font-normal mb-3">PRÓXIMO DESPLIEGUE</p>
+              <p className="font-normal text-xl text-white leading-none">{new Date(item.next_episode_to_air.air_date).toLocaleDateString()}</p>
             </div>
           )}
         </div>

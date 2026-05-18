@@ -11,13 +11,13 @@ const ListaHeader = ({ list }) => {
           className="w-10 h-10 rounded-full border border-white/10"
         />
         <div>
-          <span className="text-[#8b9bb4] text-[12px] font-light uppercase tracking-widest block mb-0.5">Una lista de</span>
-          <span className="text-white text-[16px] font-bold">{list.creator}</span>
+          <span className="text-[#8b9bb4] text-[12px] font-light uppercase block mb-0.5">Una lista de</span>
+          <span className="text-white text-[16px] font-normal">{list.creator}</span>
         </div>
       </div>
 
       {/* Título de la Lista */}
-      <h1 className="text-[32px] md:text-[42px] font-bold text-white leading-tight mb-4 tracking-tight">
+      <h1 className="text-[32px] md:text-[42px] font-bold text-white leading-tight mb-4">
         {list.title}
       </h1>
 

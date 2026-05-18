@@ -34,16 +34,16 @@ const SeasonSection = ({ seasons, seriesOverview }) => {
               {/* Rating alineado con el título */}
               <div className="flex items-center gap-2 px-2.5 py-1 bg-white/5 rounded-[6px] border border-white/10 shadow-sm">
                 <span className="text-[#ffcf25] text-sm">★</span>
-                <span className="text-[13px] font-bold text-white">{currentSeason.vote_average || 'N/A'}</span>
+                <span className="text-[13px] font-normal text-white">{currentSeason.vote_average || 'N/A'}</span>
               </div>
             </div>
             
             <div className="flex items-center gap-4 mb-6">
-              <span className="text-sm font-bold text-white/60">
+              <span className="text-sm font-normal text-white/60">
                 {currentSeason.air_date?.split('-')[0] || 'Próximamente'}
               </span>
               <div className="w-px h-3 bg-white/10"></div>
-              <span className="text-[11px] label-uppercase opacity-30 font-bold tracking-widest text-white">
+              <span className="text-[11px] label-uppercase opacity-30 font-normal text-white">
                 {currentSeason.episode_count} episodios
               </span>
             </div>
@@ -53,7 +53,7 @@ const SeasonSection = ({ seasons, seriesOverview }) => {
             </p>
             
             <div className="flex flex-wrap gap-4">
-              <button className="px-6 py-2.5 rounded-[8px] border border-white/10 bg-white/5 text-white text-[11px] font-bold tracking-[2px] hover:bg-[#1060ff] transition-all uppercase cursor-pointer">
+              <button className="px-6 py-2.5 rounded-[8px] border border-white/10 bg-white/5 text-white text-[11px] font-normal hover:bg-[#1060ff] transition-all uppercase cursor-pointer">
                 VER TODAS LAS TEMPORADAS
               </button>
             </div>

@@ -44,7 +44,7 @@ function UserFilms() {
 
   if (error || !profileUser) {
     return (
-      <div className="min-h-screen bg-transparent text-[#8b9bb4] flex flex-col items-center justify-center pb-20">
+      <div className="min-h-screen bg-transparent text-white flex flex-col items-center justify-center pb-20">
         <h2 className="text-2xl font-bold text-white mb-2">Error</h2>
         <p>{error || 'Usuario no encontrado.'}</p>
         <Link to="/inicio" className="mt-4 text-[#1060ff] hover:text-white transition-colors">Volver al inicio</Link>
@@ -53,7 +53,7 @@ function UserFilms() {
   }
 
   return (
-    <div className="w-full bg-transparent text-white min-h-screen font-['Inter',sans-serif]">
+    <div className="w-full bg-transparent text-white min-h-screen font-['Arimo',sans-serif]">
       <div className="max-w-[1200px] mx-auto px-6 py-12">
         
         {/* Header */}
@@ -66,14 +66,14 @@ function UserFilms() {
               {profileUser.avatar ? (
                 <img src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
               ) : (
-                <div className="w-full h-full flex items-center justify-center text-white/40 font-bold">
+                <div className="w-full h-full flex items-center justify-center text-white/40 font-normal">
                   {profileUser.name.substring(0,1).toUpperCase()}
                 </div>
               )}
             </div>
             <div>
               <h1 className="text-2xl font-bold text-white leading-none mb-1">Películas vistas por {profileUser.name}</h1>
-              <p className="text-[12px] uppercase tracking-[1px] font-bold text-[#8b9bb4]">{movies.length} películas</p>
+              <p className="text-[12px] uppercase font-normal text-[#8b9bb4]">{movies.length} películas</p>
             </div>
           </div>
         </div>

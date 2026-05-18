@@ -55,7 +55,7 @@ function Recomendaciones() {
   }, [page, type, user]);
 
   return (
-    <div className="min-h-screen bg-transparent text-[#8b9bb4] font-sans pt-10 pb-20">
+    <div className="min-h-screen bg-transparent text-white pt-10 pb-20">
       <div className="max-w-[1200px] mx-auto px-4">
         
         {/* Header */}
@@ -68,7 +68,7 @@ function Recomendaciones() {
               <h1 className="text-white text-[32px] font-bold leading-none mb-1">
                 {type === 'generos' ? 'Para ti: Tus géneros' : (type === 'similares' ? 'Porque te gustaron' : 'Recomendaciones')}
               </h1>
-              <p className="text-[13px] uppercase tracking-widest font-bold text-[#00e054]">Sugerencias Personalizadas</p>
+              <p className="text-[13px] uppercase font-normal text-[#00e054]">Sugerencias Personalizadas</p>
             </div>
           </div>
         </div>

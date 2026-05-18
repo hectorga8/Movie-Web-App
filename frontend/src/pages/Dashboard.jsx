@@ -36,7 +36,7 @@ function Dashboard() {
   });
 
   return (
-    <div className="min-h-screen bg-transparent text-[#8b9bb4] font-sans pt-10 pb-20">
+    <div className="min-h-screen bg-transparent text-white pt-10 pb-20">
       <div className="max-w-[1200px] mx-auto px-6">
         
         {/* Header */}
@@ -49,19 +49,19 @@ function Dashboard() {
         <div className="flex flex-wrap items-center gap-3 mb-8 border-b border-[#2c3440] pb-4">
           <button 
             onClick={() => setFilter('all')}
-            className={`text-[13px] font-bold px-5 py-2.5 rounded-[3px] transition-colors uppercase tracking-widest ${filter === 'all' ? 'bg-[#00e054] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
+            className={`text-[13px] md:text-[15px] font-normal px-5 py-2.5 rounded-[3px] transition-colors uppercase ${filter === 'all' ? 'bg-[#00e054] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
           >
             Todo
           </button>
           <button 
             onClick={() => setFilter('movie')}
-            className={`text-[13px] font-bold px-5 py-2.5 rounded-[3px] transition-colors uppercase tracking-widest ${filter === 'movie' ? 'bg-[#1060ff] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
+            className={`text-[13px] font-normal px-5 py-2.5 rounded-[3px] transition-colors uppercase ${filter === 'movie' ? 'bg-[#1060ff] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
           >
             Películas
           </button>
           <button 
             onClick={() => setFilter('tv')}
-            className={`text-[13px] font-bold px-5 py-2.5 rounded-[3px] transition-colors uppercase tracking-widest ${filter === 'tv' ? 'bg-[#ff8000] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
+            className={`text-[13px] font-normal px-5 py-2.5 rounded-[3px] transition-colors uppercase ${filter === 'tv' ? 'bg-[#ff8000] text-white' : 'bg-[#2c3440] text-[#8b9bb4] hover:text-white hover:bg-[#445566]'}`}
           >
             Series
           </button>
@@ -71,7 +71,7 @@ function Dashboard() {
         {loading ? (
           <div className="text-center py-20">
             <div className="w-8 h-8 border-4 border-[#00e054]/20 border-t-[#00e054] rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-[14px] text-[#8b9bb4] uppercase tracking-widest font-bold">Cargando tu videoteca...</p>
+            <p className="text-[14px] text-[#8b9bb4] uppercase font-normal">Cargando tu videoteca...</p>
           </div>
         ) : filteredItems.length === 0 ? (
           <div className="text-center py-20 border border-[#2c3440] rounded-[4px] bg-[#1c2228]">

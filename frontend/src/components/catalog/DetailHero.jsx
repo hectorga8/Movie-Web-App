@@ -109,20 +109,20 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
           </div>
 
           <div className="flex-1 text-white text-center md:text-left text-pretty">
-            <nav className="label-uppercase text-[10px] mb-4 flex items-center justify-center md:justify-start gap-2 opacity-40 font-bold tracking-[2px]">
-              <Link to="/" className="hover:text-white transition-colors">Infraestructura</Link>
+            <nav className="label-uppercase text-[10px] md:text-[14px] mb-4 flex items-center justify-center md:justify-start gap-2  font-normal">
+              <Link to="/" className="hover:text-white transition-colors">Inicio</Link>
               <span>/</span>
               <span className="text-white/60 uppercase">{type === 'movie' ? 'Película' : 'TV'}</span>
             </nav>
 
-            <h1 className="font-brand text-4xl md:text-6xl lg:text-[72px] leading-[1.1] mb-6 tracking-tighter font-bold">{title}</h1>
+            <h1 className="font-brand text-4xl md:text-6xl lg:text-[72px] leading-[1.1] mb-6 font-bold">{title}</h1>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-5 mb-8">
               <div className="scale-110"><RatingCircle rating={item.vote_average} size={60} /></div>
               <div className="h-6 w-px bg-white/10"></div>
               <div className="flex items-center gap-4">
-                <span className="text-md text-white/60 font-bold">{year}</span>
-                <div className="px-2 py-0.5 border border-white/20 rounded-[4px] text-[10px] font-bold bg-white/5">{pegi}</div>
+                <span className="text-md text-white/60 font-normal">{year}</span>
+                <div className="px-2 py-0.5 border border-white/20 rounded-[4px] text-[10px] font-normal bg-white/5">{pegi}</div>
               </div>
 
               {providers && (
@@ -133,21 +133,21 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
                   className="flex items-center gap-3 ml-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition-all cursor-pointer"
                 >
                   <img src={`https://image.tmdb.org/t/p/original${providers.logo_path}`} className="w-6 h-6 rounded-[4px]" alt={providers.provider_name} />
-                  <span className="text-[10px] font-bold label-uppercase tracking-wider text-white/80">Ver en {providers.provider_name}</span>
+                  <span className="text-[10px] font-normal label-uppercase text-white/80">Ver en {providers.provider_name}</span>
                 </a>
               )}
             </div>
 
             <div className="mb-10 max-w-2xl text-left">
-              <h3 className="label-uppercase text-[10px] mb-3 opacity-30 font-bold tracking-[2px]">SINOPSIS</h3>
+              <h3 className="label-uppercase md:text-[13px] mb-3 font-bold ">SINOPSIS</h3>
               <p className="body-relaxed text-[15px] md:text-[16px] text-white/70 leading-[1.7] italic opacity-90 line-clamp-4">
                 {item.overview || "No hay sinopsis disponible en la red CineBox."}
               </p>
               {creatorOrDirector && (
                 <div className="mt-6 flex items-center justify-center md:justify-start gap-4">
                   <div className="w-1 h-6 bg-[#1060ff] rounded-full shadow-[0_0_10px_rgba(16,96,255,0.5)]"></div>
-                  <p className="text-[13px] font-bold text-white flex items-center">
-                    <span className="opacity-40 font-normal uppercase tracking-wider text-[11px] mr-2">
+                  <p className="text-[15px] font-normal text-white flex items-center">
+                    <span className="opacity-40 font-normal uppercase text-[13px]  mr-2">
                       {type === 'movie' ? 'Director' : 'Creador'}
                     </span> 
                     <Link to={`/persona/${creatorOrDirector.id}`} className="hover:text-[#1060ff] transition-colors">
@@ -189,9 +189,13 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
               </button>
 
               {trailer && (
-                <button onClick={() => setTrailerKey(trailer.key)} className="ml-4 flex items-center gap-4 group text-[11px] font-bold label-uppercase tracking-[2px] opacity-60 hover:opacity-100 transition-all cursor-pointer">
-                  <div className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center group-hover:border-[#1060ff] group-hover:bg-[#1060ff]/10 transition-all"><svg className="w-4 h-4 fill-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-                  VER TRÁILER
+                <button onClick={() => setTrailerKey(trailer.key)} className="ml-4 flex items-center gap-4 group text-[11px] md:text-[13px]
+                font-normal label-uppercase opacity-60 hover:opacity-100 transition-all cursor-pointer">
+                  <div className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center 
+                  group-hover:border-[#1060ff] group-hover:bg-[#1060ff]/10 transition-all">
+                    <svg className="w-4 h-4 fill-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                  TRÁILER
                 </button>
               )}
 
@@ -200,7 +204,7 @@ const DetailHero = ({ item, type, providers, onActionClick, pegi }) => {
                   if (!user) return onActionClick();
                   setIsReviewModalOpen(true);
                 }}
-                className="ml-auto md:ml-4 px-6 py-2 bg-white/10 hover:bg-[#1060ff] border border-white/20 hover:border-transparent rounded-full text-[12px] font-bold label-uppercase tracking-[2px] transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(16,96,255,0.4)]"
+                className="ml-auto md:ml-4 px-6 py-2 bg-white/10 hover:bg-[#1060ff] border border-white/20 hover:border-transparent rounded-full text-[12px] md:text-[14px] font-normal label-uppercase transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(16,96,255,0.4)]"
               >
                 Escribir Reseña
               </button>

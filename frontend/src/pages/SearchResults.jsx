@@ -21,13 +21,13 @@ const ResultCard = ({ item }) => {
       <div className="flex-1 py-4 pr-6 flex flex-col justify-center text-left">
         <div className="flex items-baseline gap-3 mb-1">
           <h3 className="font-bold text-lg md:text-xl text-white group-hover:text-[#1060ff] transition-colors line-clamp-1">{title}</h3>
-          <span className="text-sm font-bold text-white/40">{year}</span>
+          <span className="text-sm font-normal text-white/40">{year}</span>
         </div>
         <div className="flex items-center gap-3 mb-3">
-           <span className={`text-[10px] font-bold label-uppercase px-2 py-0.5 rounded-[4px] border ${isMovie ? 'border-[#1060ff] text-[#1060ff]' : 'border-[#7b42bc] text-[#7b42bc]'}`}>
+           <span className={`text-[10px] font-normal label-uppercase px-2 py-0.5 rounded-[4px] border ${isMovie ? 'border-[#1060ff] text-[#1060ff]' : 'border-[#7b42bc] text-[#7b42bc]'}`}>
              {isMovie ? 'Película' : 'Serie TV'}
            </span>
-           <div className="flex items-center gap-1 text-[11px] font-bold text-[#21d07a]">
+           <div className="flex items-center gap-1 text-[11px] font-normal text-[#21d07a]">
              <span>★</span>
              <span>{item.vote_average > 0 ? `${Math.round(item.vote_average * 10)}%` : 'S/C'}</span>
            </div>
@@ -95,7 +95,7 @@ function SearchResults() {
   if (loading) return (
     <div className="flex-1 flex flex-col items-center justify-center bg-transparent py-20">
       <div className="w-10 h-10 border-4 border-[#1060ff]/20 border-t-[#1060ff] rounded-full animate-spin mb-4"></div>
-      <p className="label-uppercase text-xs opacity-50 tracking-[2px] text-white">Analizando datos globales...</p>
+      <p className="label-uppercase text-xs opacity-50 text-white">Analizando datos globales...</p>
     </div>
   );
 
@@ -105,7 +105,7 @@ function SearchResults() {
         
         <header className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/5 pb-8">
           <div className="text-left">
-            <h2 className="text-sm font-bold label-uppercase opacity-30 tracking-[2px] mb-2">Power Search CineBox</h2>
+            <h2 className="text-sm font-bold label-uppercase opacity-30 mb-2">Power Search CineBox</h2>
             <h1 className="text-3xl font-brand text-white font-bold">
               "{query}" <span className="text-[#1060ff] text-xl opacity-60 ml-2">({filteredData.length} resultados)</span>
             </h1>
@@ -113,12 +113,12 @@ function SearchResults() {
 
           <div className="flex items-center gap-3 bg-white/5 border border-white/10 p-1.5 rounded-[8px] shadow-sm">
              <div className="flex items-center gap-2 px-3 border-r border-white/5">
-                <span className="text-[11px] font-bold label-uppercase opacity-40">Orden Global</span>
+                <span className="text-[11px] font-normal label-uppercase opacity-40">Orden Global</span>
              </div>
              <select 
               value={sortBy} 
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-transparent text-[13px] font-bold text-white focus:outline-none pr-8 py-1.5 cursor-pointer appearance-none"
+              className="bg-transparent text-[13px] font-normal text-white focus:outline-none pr-8 py-1.5 cursor-pointer appearance-none"
               style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'%231060ff\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\' /%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right center', backgroundSize: '16px' }}
              >
                <option value="relevance" className="bg-transparent">Por Relevancia</option>
@@ -134,26 +134,26 @@ function SearchResults() {
           <aside className="w-full lg:w-[260px] shrink-0">
             <div className="bg-white/5 border border-white/10 rounded-[12px] shadow-2xl overflow-hidden sticky top-24">
               <div className="bg-black/40 p-5">
-                <h3 className="text-white font-bold text-sm label-uppercase tracking-widest text-left opacity-60">Filtrar por</h3>
+                <h3 className="text-white font-bold text-sm label-uppercase text-left opacity-60">Filtrar por</h3>
               </div>
               <div className="p-2">
                 <button 
                   onClick={() => setActiveFilter('all')}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-[6px] font-bold text-[13px] transition-all cursor-pointer ${activeFilter === 'all' ? 'bg-[#1060ff] text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-[6px] font-normal text-[13px] transition-all cursor-pointer ${activeFilter === 'all' ? 'bg-[#1060ff] text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
                 >
                   <span>Todos</span>
                   <span className="opacity-40 text-[11px]">{allResults.length}</span>
                 </button>
                 <button 
                   onClick={() => setActiveFilter('movie')}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-[6px] font-bold text-[13px] transition-all cursor-pointer ${activeFilter === 'movie' ? 'bg-[#1060ff] text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-[6px] font-normal text-[13px] transition-all cursor-pointer ${activeFilter === 'movie' ? 'bg-[#1060ff] text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
                 >
                   <span>Películas</span>
                   <span className="opacity-40 text-[11px]">{movieCount}</span>
                 </button>
                 <button 
                   onClick={() => setActiveFilter('tv')}
-                  className={`w-full flex items-center justify-between px-4 py-3 rounded-[6px] font-bold text-[13px] transition-all cursor-pointer ${activeFilter === 'tv' ? 'bg-[#1060ff] text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
+                  className={`w-full flex items-center justify-between px-4 py-3 rounded-[6px] font-normal text-[13px] transition-all cursor-pointer ${activeFilter === 'tv' ? 'bg-[#1060ff] text-white' : 'text-white/60 hover:bg-white/5 hover:text-white'}`}
                 >
                   <span>Series de TV</span>
                   <span className="opacity-40 text-[11px]">{tvCount}</span>
@@ -180,9 +180,9 @@ function SearchResults() {
                     </button>
 
                     <div className="flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full text-white">
-                      <span className="text-sm font-bold">{currentPage}</span>
-                      <span className="text-xs font-bold opacity-30 uppercase tracking-widest">de</span>
-                      <span className="text-sm font-bold opacity-60">{totalPages}</span>
+                      <span className="text-sm font-normal">{currentPage}</span>
+                      <span className="text-xs font-normal opacity-30 uppercase">de</span>
+                      <span className="text-sm font-normal opacity-60">{totalPages}</span>
                     </div>
 
                     <button 
@@ -198,7 +198,7 @@ function SearchResults() {
             ) : (
               <div className="bg-white/5 border border-white/10 rounded-[12px] p-16 text-center shadow-2xl">
                 <p className="text-3xl font-brand mb-4 opacity-20 text-white">No hay contenido bajo este filtro</p>
-                <p className="text-sm text-white/40 uppercase tracking-[2px] font-bold">Intenta cambiar el tipo o el criterio de ordenación.</p>
+                <p className="text-sm text-white/40 uppercase font-normal">Intenta cambiar el tipo o el criterio de ordenación.</p>
               </div>
             )}
           </main>

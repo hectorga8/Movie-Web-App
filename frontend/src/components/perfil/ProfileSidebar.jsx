@@ -47,8 +47,8 @@ function ProfileSidebar({ profileUser, isOwnProfile, reviews = [] }) {
       {/* Watchlist Section */}
       <section>
         <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-1">
-          <h2 className="text-[12px] uppercase tracking-[1.5px] text-white/40 font-bold">Pendientes</h2>
-          <span className="text-[11px] text-white/30 font-bold">{watchlist.length}</span>
+          <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/40">Pendientes</h2>
+          <span className="text-[11px] text-white/30 font-normal">{watchlist.length}</span>
         </div>
         {watchlist.length > 0 ? (
           <Link to={`/perfil/${profileUser?.name}/watchlist`} className="block border border-white/10 rounded-[3px] overflow-hidden transition-all duration-300 hover:border-[#1060ff]/50 cursor-pointer">
@@ -64,15 +64,15 @@ function ProfileSidebar({ profileUser, isOwnProfile, reviews = [] }) {
       {/* Diary Section */}
       <section>
         <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-1">
-          <h2 className="text-[12px] uppercase tracking-[1.5px] text-white/40 font-bold">Diario</h2>
-          <Link to={`/perfil/${profileUser?.name}/diary`} className="text-[10px] font-bold uppercase tracking-widest text-white/20 hover:text-white transition-colors">Más</Link>
+          <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/40">Diario</h2>
+          <Link to={`/perfil/${profileUser?.name}/diary`} className="text-[10px] font-normal uppercase text-white/20 hover:text-white transition-colors">Más</Link>
         </div>
         <div className="space-y-3">
           {diary.length > 0 ? diary.map((entry, i) => (
             <div key={i} className="flex items-baseline gap-3 group">
-              <div className="text-[10px] font-bold text-white/20 uppercase whitespace-nowrap">{entry.date}</div>
+              <div className="text-[10px] font-normal text-white/20 uppercase whitespace-nowrap">{entry.date}</div>
               <div className="flex-1 truncate">
-                <Link to={`/pelicula/${entry.mediaId}`} className="text-[13px] font-bold text-white/80 group-hover:text-[#40bcf4] transition-colors">{entry.title}</Link>
+                <Link to={`/pelicula/${entry.mediaId}`} className="text-[13px] font-normal text-white/80 group-hover:text-[#40bcf4] transition-colors">{entry.title}</Link>
                 <span className="ml-1 text-[11px] text-white/30">{entry.year}</span>
               </div>
             </div>
@@ -85,8 +85,8 @@ function ProfileSidebar({ profileUser, isOwnProfile, reviews = [] }) {
       {/* Ratings Section */}
       <section>
         <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-1">
-          <h2 className="text-[12px] uppercase tracking-[1.5px] text-white/40 font-bold">Calificaciones</h2>
-          <span className="text-[11px] text-white/30 font-bold">{reviews.filter(r => r.rating > 0).length}</span>
+          <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/40">Calificaciones</h2>
+          <span className="text-[11px] text-white/30 font-normal">{reviews.filter(r => r.rating > 0).length}</span>
         </div>
         <div className="flex items-end gap-1 h-12 px-1">
           {ratings.map((val, i) => (
@@ -98,7 +98,7 @@ function ProfileSidebar({ profileUser, isOwnProfile, reviews = [] }) {
             />
           ))}
         </div>
-        <div className="flex justify-between mt-1 text-[10px] text-white/20 font-bold">
+        <div className="flex justify-between mt-1 text-[10px] text-white/20 font-normal">
           <span>★</span>
           <span>★★★★★</span>
         </div>
@@ -107,8 +107,8 @@ function ProfileSidebar({ profileUser, isOwnProfile, reviews = [] }) {
       {/* Following Section */}
       <section>
         <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-1">
-          <h2 className="text-[12px] uppercase tracking-[1.5px] text-white/40 font-bold">Siguiendo</h2>
-          <span className="text-[11px] text-white/30 font-bold">{profileUser?.following?.length || 0}</span>
+          <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/40">Siguiendo</h2>
+          <span className="text-[11px] text-white/30 font-normal">{profileUser?.following?.length || 0}</span>
         </div>
         <div className="flex flex-wrap gap-2">
           {profileUser?.following?.slice(0, 12).map((followId, i) => (
@@ -117,7 +117,7 @@ function ProfileSidebar({ profileUser, isOwnProfile, reviews = [] }) {
             </Link>
           ))}
           {profileUser?.following?.length > 12 && (
-             <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[10px] font-bold text-white/30">
+             <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-[10px] font-normal text-white/30">
                +{profileUser.following.length - 12}
              </div>
           )}

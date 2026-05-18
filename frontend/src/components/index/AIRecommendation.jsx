@@ -33,11 +33,11 @@ function AIRecommendation() {
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-white tracking-tight">Recomendado por IA</h2>
+            <h2 className="text-2xl font-bold text-white">Recomendado por IA</h2>
             <p className="text-sm text-white/40 mt-1 font-medium">Analizando tus preferencias en tiempo real</p>
           </div>
         </div>
-        <span className="inline-block text-[10px] font-black tracking-[0.2em] uppercase py-1.5 px-4 rounded-full bg-[#1060ff]/10 border border-[#1060ff]/30 text-[#1060ff]">SISTEMA ACTIVO</span>
+        <span className="inline-block text-[10px] font-normal .2em] uppercase py-1.5 px-4 rounded-full bg-[#1060ff]/10 border border-[#1060ff]/30 text-[#1060ff]">SISTEMA ACTIVO</span>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
@@ -50,7 +50,7 @@ function AIRecommendation() {
             <div className="min-w-0 flex flex-col justify-center">
               <h4 className="text-lg font-bold text-white leading-tight mb-1 group-hover/card:text-[#1060ff] transition-colors line-clamp-1">{rec.title}</h4>
               <p className="text-xs text-white/40 mb-3 font-medium">{rec.director}</p>
-              <div className="inline-flex py-1 px-2.5 rounded-lg bg-[#1060ff]/5 text-[10px] font-bold text-[#1060ff] uppercase tracking-wider w-fit">
+              <div className="inline-flex py-1 px-2.5 rounded-lg bg-[#1060ff]/5 text-[10px] font-normal text-[#1060ff] uppercase w-fit">
                 {rec.reason}
               </div>
             </div>

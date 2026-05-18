@@ -69,12 +69,12 @@ function TrailerSection({ movies = [] }) {
       
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6 mb-6 md:mb-8">
-          <h3 className="text-xl md:text-3xl font-bold tracking-tight md:tracking-tighter">Últimos trailers</h3>
+          <h3 className="text-xl md:text-3xl font-bold md:">Últimos trailers</h3>
           <div className="flex border border-white/10 rounded-full overflow-hidden bg-white/5 w-fit">
-            <button className="px-4 md:px-6 py-1 md:py-1.5 bg-[#1060ff] text-white font-bold text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
+            <button className="px-4 md:px-6 py-1 md:py-1.5 bg-[#1060ff] text-white font-normal text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
               Streaming
             </button>
-            <button className="px-4 md:px-6 py-1 md:py-1.5 text-white/60 font-bold text-[12px] md:text-sm cursor-pointer hover:text-white transition-colors whitespace-nowrap">
+            <button className="px-4 md:px-6 py-1 md:py-1.5 text-white/60 font-normal text-[12px] md:text-sm cursor-pointer hover:text-white transition-colors whitespace-nowrap">
               En TV
             </button>
           </div>
@@ -118,10 +118,10 @@ function TrailerSection({ movies = [] }) {
                   />
 
                   <div className="absolute top-0 left-0 w-full p-5 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
-                    <h5 className="font-bold text-lg text-[#d5d7db] group-hover:text-white transition-colors truncate max-w-[90%] tracking-tight">
+                    <h5 className="font-bold text-lg text-[#d5d7db] group-hover:text-white transition-colors truncate max-w-[90%]">
                       {movie.title}
                     </h5>
-                    <p className="text-[#d5d7db]/60 text-xs font-bold uppercase tracking-widest mt-0.5">Tráiler Oficial</p>
+                    <p className="text-[#d5d7db]/60 text-xs font-normal uppercase mt-0.5">Tráiler Oficial</p>
                   </div>
 
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -140,7 +140,7 @@ function TrailerSection({ movies = [] }) {
               className="min-w-[140px] flex items-center justify-center group/more h-[160px] cursor-pointer pr-4"
               onClick={() => window.location.href = '/search'}
             >
-               <span className="font-bold text-lg text-white/40 group-hover/more:text-mds-color-waypoint transition-colors whitespace-nowrap flex items-center gap-2">
+               <span className="font-normal text-lg text-white/40 group-hover/more:text-mds-color-waypoint transition-colors whitespace-nowrap flex items-center gap-2">
                 Ver más
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
               </span>

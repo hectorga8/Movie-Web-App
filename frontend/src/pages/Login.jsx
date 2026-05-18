@@ -73,7 +73,7 @@ function Login() {
           
           <div className="p-8 md:p-10">
             <header className="mb-8 text-center">
-              <h2 className="text-[32px] font-bold text-white h-tight mb-3 tracking-tight">
+              <h2 className="text-[32px] font-bold text-white h-tight mb-3">
                 Inicia Sesión
               </h2>
               <p className="text-[14px] text-white/50 leading-relaxed">
@@ -85,8 +85,7 @@ function Login() {
               <button 
                 onClick={() => handleGoogleLogin()}
                 disabled={loading}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 rounded-[8px] bg-white/5 
-                hover:bg-white/10 border border-white/10 text-white text-[12px] font-bold transition-all active:scale-[0.98] cursor-pointer"
+                className="w-full flex items-center justify-center gap-3 px-4 py-3.5 rounded-[8px] bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[12px] font-normal transition-all active:scale-[0.98] cursor-pointer"
               >
                 <svg className="w-4 h-4 shrink-0" viewBox="0 0 32 32">
                   <path d="M31.107 16.31c0-1.072-.096-2.102-.275-3.093H15.867v5.85h8.552c-.368 1.986-1.442 3.668-3.123 4.843v4.025h5.059c2.96-2.724 4.752-6.735 4.752-11.625z" fill="#4285F4"/>
@@ -99,7 +98,7 @@ function Login() {
 
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-[1px] bg-white/5"></div>
-                <span className="text-[9px] font-bold text-white/20 uppercase tracking-[2px]">o acceso local</span>
+                <span className="text-[9px] font-normal text-white/20 uppercase">o acceso local</span>
                 <div className="flex-1 h-[1px] bg-white/5"></div>
               </div>
 
@@ -111,7 +110,7 @@ function Login() {
                 )}
 
                 <div className="w-full space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 block text-center">Email</label>
+                  <label className="text-[10px] font-normal uppercase text-white/40 block text-center">Email</label>
                   <input 
                     type="email" 
                     placeholder="usuario@ejemplo.com"
@@ -123,7 +122,7 @@ function Login() {
                 </div>
 
                 <div className="w-full space-y-2">
-                  <label className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 block text-center">Contraseña</label>
+                  <label className="text-[10px] font-normal uppercase text-white/40 block text-center">Contraseña</label>
                   <input 
                     type="password" 
                     placeholder="••••••••"
@@ -137,7 +136,7 @@ function Login() {
                 <button 
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 rounded-[8px] bg-[#1060ff] hover:bg-[#2b89ff] text-white text-[12px] font-bold transition-all mt-4 tracking-[1.5px] uppercase active:scale-[0.99] shadow-lg shadow-[#1060ff]/20 cursor-pointer"
+                  className="w-full py-4 rounded-[8px] bg-[#1060ff] hover:bg-[#2b89ff] text-white text-[12px] font-normal transition-all mt-4 uppercase active:scale-[0.99] shadow-lg shadow-[#1060ff]/20 cursor-pointer"
                 >
                   {loading ? 'AUTENTICANDO...' : 'INICIAR SESIÓN'}
                 </button>
@@ -146,7 +145,7 @@ function Login() {
               <div className="text-center pt-8 border-t border-white/5">
                 <p className="text-[13px] text-white/40">
                   ¿No tienes una cuenta?{' '}
-                  <Link to="/registro" className="text-[#1060ff] font-bold hover:text-[#2b89ff] transition-colors">Crear cuenta</Link>
+                  <Link to="/registro" className="text-[#1060ff] font-normal hover:text-[#2b89ff] transition-colors">Crear cuenta</Link>
                 </p>
               </div>
             </div>

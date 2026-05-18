@@ -51,14 +51,14 @@ function Serie() {
   if (loading) return (
     <div className="flex-1 flex flex-col items-center justify-center bg-transparent text-white py-16">
       <div className="w-8 h-8 border-4 border-[#1060ff]/20 border-t-[#1060ff] rounded-full animate-spin mb-4"></div>
-      <p className="label-uppercase text-[10px] opacity-50 tracking-[2px]">Cargando Serie...</p>
+      <p className="label-uppercase text-[10px] opacity-50">Cargando Serie...</p>
     </div>
   );
 
   if (error || !serie) return (
     <div className="flex-1 flex flex-col items-center justify-center bg-transparent text-white p-6 text-center min-h-[60vh]">
-      <h2 className="font-brand text-3xl mb-4 text-white">Error de Sistema</h2>
-      <button onClick={() => navigate('/')} className="btn-secondary-white text-[12px]">VOLVER AL INICIO</button>
+      <h2 className="font-brand text-3xl md:text-4xl mb-4 text-white">Error de Sistema</h2>
+      <button onClick={() => navigate('/')} className="btn-secondary-white text-[12px] md:text-[14px]">VOLVER AL INICIO</button>
     </div>
   );
 
@@ -84,9 +84,9 @@ function Serie() {
       <div className="w-full max-w-[1200px] px-6 py-12 flex flex-col lg:flex-row gap-12 lg:gap-16">
         <div className="flex-1 min-w-0">
           
-          <div className="mb-10 py-4 px-6 bg-white/5 border-l-4 border-[#7b42bc] rounded-r-[8px] flex items-center gap-4 text-[14px] font-medium text-white/80">
+          <div className="mb-10 py-4 px-6 bg-white/5 border-l-4 border-[#7b42bc] rounded-r-[8px] flex items-center gap-4 text-[14px] md:text-[16px] font-medium text-white/80">
             <span className="text-2xl">🏆</span>
-            <p><span className="font-bold text-[#7b42bc] uppercase mr-2 tracking-widest text-[11px]">Reconocimiento</span>Esta obra es contenido premium CineBox.</p>
+            <p><span className="font-normal text-[#7b42bc] uppercase mr-2 text-[11px] md:text-[13px]">Reconocimiento</span>Esta obra es contenido premium CineBox.</p>
           </div>
 
           <hr className="border-white/5 mb-12" />
@@ -100,22 +100,22 @@ function Serie() {
           <hr className="border-white/5 mb-12" />
 
           <div className="mb-16">
-            <h3 className="font-brand text-3xl text-white mb-8 leading-tight font-bold">Reseñas de Usuarios</h3>
+            <h3 className="font-brand text-3xl md:text-4xl text-white mb-8 leading-tight font-bold">Reseñas de Usuarios</h3>
             
             {internalReviews.length > 0 && (
               <div className="space-y-4 mb-8">
-                <h4 className="text-sm uppercase tracking-widest text-[#1060ff] font-bold mb-4">Comunidad CineBox</h4>
+                <h4 className="text-sm md:text-base uppercase text-[#1060ff] font-bold mb-4">Comunidad CineBox</h4>
                 {internalReviews.map(rev => <ReviewCard key={rev._id} review={rev} internal={true} />)}
               </div>
             )}
 
             {serie.reviews?.results?.length > 0 ? (
               <div className="space-y-4">
-                {internalReviews.length > 0 && <h4 className="text-sm uppercase tracking-widest text-white/40 font-bold mb-4">De toda la red</h4>}
+                {internalReviews.length > 0 && <h4 className="text-sm md:text-base uppercase text-white/40 font-bold mb-4">De toda la red</h4>}
                 {serie.reviews.results.slice(0, 2).map(rev => <ReviewCard key={rev.id} review={rev} />)}
               </div>
             ) : (
-              internalReviews.length === 0 && <p className="text-[14px] text-white/40 italic">Aún no hay reseñas registradas para esta serie.</p>
+              internalReviews.length === 0 && <p className="text-[14px] md:text-[16px] text-white/40 italic">Aún no hay reseñas registradas para esta serie.</p>
             )}
           </div>
 

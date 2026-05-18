@@ -43,7 +43,7 @@ const RatingCircle = ({ rating, size = 50 }) => {
           />
         )}
       </svg>
-      <span className="relative text-white font-bold" style={{ fontSize: isUnrated ? size * 0.25 : size * 0.3 }}>
+      <span className="relative text-white font-normal" style={{ fontSize: isUnrated ? size * 0.25 : size * 0.3 }}>
         {isUnrated ? 'S/C' : `${percentage}%`}
       </span>
     </div>

@@ -114,7 +114,7 @@ const MovieSearchAutocomplete = ({ onSelect }) => {
                 className="w-10 h-14 object-cover rounded-sm bg-black/40"
               />
               <div className="flex-1 overflow-hidden">
-                <p className="text-white text-[14px] font-bold leading-tight truncate">
+                <p className="text-white text-[14px] font-normal leading-tight truncate">
                   {movie.title}
                 </p>
                 <p className="text-[#8b9bb4] text-[12px] group-hover:text-white/70">

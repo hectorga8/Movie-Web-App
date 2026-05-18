@@ -35,7 +35,7 @@ function FavoriteFilms({ profileUser, isOwnProfile }) {
   return (
     <section className="mb-10">
       <div className="flex items-center justify-between mb-2 border-b border-white/10 pb-1">
-        <h2 className="text-[12px] uppercase tracking-[1.5px] text-white/40 font-bold">Películas Favoritas</h2>
+        <h2 className="text-[13px] md:text-[15px] font-light uppercase text-white/40">Películas Favoritas</h2>
       </div>
 
       <div className="flex flex-col sm:flex-row items-center gap-4 mt-4 w-full">
@@ -67,7 +67,7 @@ function FavoriteFilms({ profileUser, isOwnProfile }) {
             return (
               <div key={`empty-${i}`} className="aspect-[2/3] rounded-[3px] bg-white/5 border border-white/5 border-dashed flex items-center justify-center">
                 {isAddSlot ? (
-                  <Link to="/peliculas/todas" className="text-[10px] font-bold uppercase tracking-widest text-white/20 hover:text-white transition-colors">
+                  <Link to="/peliculas/todas" className="text-[10px] font-normal uppercase text-white/20 hover:text-white transition-colors">
                     Añadir
                   </Link>
                 ) : null}
@@ -82,7 +82,7 @@ function FavoriteFilms({ profileUser, isOwnProfile }) {
           <div className="shrink-0 pl-4">
             <Link 
               to={`/perfil/${profileUser.name}/likes`}
-              className="text-red-500 hover:text-red-400 text-sm font-medium tracking-widest uppercase transition-colors"
+              className="text-red-500 hover:text-red-400 text-sm font-medium uppercase transition-colors"
             >
               MÁS {'>'}
             </Link>

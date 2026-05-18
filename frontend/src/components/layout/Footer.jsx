@@ -71,7 +71,7 @@ function Footer() {
             <a href="#" className="hover:text-white transition-colors">GitHub</a>
             <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
           </div>
-          <div className="text-[11px] font-bold uppercase tracking-[1px] text-[#656a76] flex items-center gap-4">
+          <div className="text-[11px] font-normal uppercase text-[#656a76] flex items-center gap-4">
             <span>Built by Hector G.</span>
             <span className="w-4 h-4 text-white">
               <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>

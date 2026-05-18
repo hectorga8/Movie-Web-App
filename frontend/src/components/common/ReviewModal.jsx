@@ -72,7 +72,7 @@ function ReviewModal({ media, mediaType, onClose }) {
             </div>
           ) : (
             <div className="w-full aspect-[2/3] bg-white/5 border border-white/10 border-dashed rounded-[4px] flex items-center justify-center shadow-md">
-              <span className="text-white/40 text-sm font-bold uppercase tracking-widest">Sin póster</span>
+              <span className="text-white/40 text-sm font-normal uppercase">Sin póster</span>
             </div>
           )}
         </div>
@@ -80,7 +80,7 @@ function ReviewModal({ media, mediaType, onClose }) {
         {/* Derecha/Centro: Formulario */}
         <div className="w-full md:w-2/3 p-8 flex flex-col">
           <div className="mb-6 border-b border-white/10 pb-4">
-            <h2 className="text-3xl font-brand text-white flex items-baseline gap-3 tracking-tighter">
+            <h2 className="text-3xl font-brand text-white flex items-baseline gap-3">
               {title} <span className="text-xl text-white/40 font-normal font-sans">{year}</span>
             </h2>
           </div>
@@ -88,7 +88,7 @@ function ReviewModal({ media, mediaType, onClose }) {
           <form onSubmit={handleSubmit} className="flex-1 flex flex-col space-y-5">
             {/* Visto en */}
             <div className="flex flex-col">
-              <label className="text-[10px] font-bold text-white/40 uppercase tracking-[2px] mb-2">Visto en</label>
+              <label className="text-[10px] font-normal text-white/40 uppercase mb-2">Visto en</label>
               <input 
                 type="date" 
                 value={watchedOn}
@@ -99,7 +99,7 @@ function ReviewModal({ media, mediaType, onClose }) {
 
             {/* Texto de la Review */}
             <div className="flex flex-col flex-1">
-              <label className="text-[10px] font-bold text-white/40 uppercase tracking-[2px] mb-2">Escribe tu reseña</label>
+              <label className="text-[10px] font-normal text-white/40 uppercase mb-2">Escribe tu reseña</label>
               <textarea 
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
@@ -112,7 +112,7 @@ function ReviewModal({ media, mediaType, onClose }) {
             {/* Puntuación y Like */}
             <div className="flex items-center justify-between mt-4">
               <div className="flex flex-col">
-                <label className="text-[10px] font-bold text-white/40 uppercase tracking-[2px] mb-2">Puntuación</label>
+                <label className="text-[10px] font-normal text-white/40 uppercase mb-2">Puntuación</label>
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button 
@@ -142,14 +142,14 @@ function ReviewModal({ media, mediaType, onClose }) {
                 <button 
                   type="submit" 
                   disabled={loading}
-                  className="px-6 py-3 bg-[#1060ff] hover:bg-[#1060ff]/80 text-white text-[12px] font-bold uppercase tracking-[2px] rounded-[4px] shadow-lg transition-colors disabled:opacity-50 cursor-pointer"
+                  className="px-6 py-3 bg-[#1060ff] hover:bg-[#1060ff]/80 text-white text-[12px] font-normal uppercase rounded-[4px] shadow-lg transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {loading ? 'Guardando...' : 'Guardar Reseña'}
                 </button>
               </div>
             </div>
             
-            {error && <p className="text-red-500 text-[13px] font-bold mt-2">{error}</p>}
+            {error && <p className="text-red-500 text-[13px] font-normal mt-2">{error}</p>}
           </form>
         </div>
       </div>

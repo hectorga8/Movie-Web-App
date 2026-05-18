@@ -45,7 +45,7 @@ function Listas() {
   }
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto px-6 py-10 md:py-16 text-white font-sans">
+    <div className="w-full max-w-[1200px] mx-auto px-6 py-10 md:py-16 text-white">
       
       {/* Header Section */}
       <div className="text-center mb-16">
@@ -54,7 +54,7 @@ function Listas() {
         </h1>
         <Link 
           to="/listas/nueva"
-          className="inline-block bg-[#2c3440] hover:bg-[#445566] text-[#8b9bb4] hover:text-white px-5 py-2 rounded-sm text-[11px] font-bold uppercase tracking-widest transition-colors"
+          className="inline-block bg-[#2c3440] hover:bg-[#445566] text-[#8b9bb4] hover:text-white px-5 py-2 rounded-sm text-[11px] font-normal uppercase transition-colors"
         >
           Crea tu propia lista
         </Link>

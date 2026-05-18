@@ -38,7 +38,7 @@ const ReviewCard = ({ review, author, content, created_at, date, rating, interna
           </div>
           <div>
             <h5 className="font-bold text-[16px] text-white mb-1">{displayAuthor}</h5>
-            <p className="text-[11px] label-uppercase opacity-30 tracking-[1.5px] font-bold">
+            <p className="text-[11px] label-uppercase opacity-30 font-normal">
               {displayDate}
             </p>
           </div>
@@ -47,7 +47,7 @@ const ReviewCard = ({ review, author, content, created_at, date, rating, interna
         {displayRating && (
           <div className="px-3 py-1.5 bg-white/5 rounded-[6px] border border-white/10 flex items-center gap-2">
             <span className="text-[#ffcf25] text-sm">★</span>
-            <span className="text-[13px] font-bold text-white">{displayRating}</span>
+            <span className="text-[13px] font-normal text-white">{displayRating}</span>
           </div>
         )}
       </div>
@@ -66,7 +66,7 @@ const ReviewCard = ({ review, author, content, created_at, date, rating, interna
           <button 
             onClick={handleLike}
             disabled={!user || loadingLike}
-            className={`flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider transition-colors ${isLiked ? 'text-[#ff4e4e]' : 'text-white/40 hover:text-white'}`}
+            className={`flex items-center gap-1.5 text-[12px] font-normal uppercase transition-colors ${isLiked ? 'text-[#ff4e4e]' : 'text-white/40 hover:text-white'}`}
           >
             <span className={`text-[16px] ${isLiked ? '' : 'grayscale'}`}>❤</span>
             {likesCount} {likesCount === 1 ? 'Like' : 'Likes'}

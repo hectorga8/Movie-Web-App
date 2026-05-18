@@ -47,7 +47,7 @@ function ProfileHeader({ profileUser, isOwnProfile }) {
         {profileUser?.avatar ? (
           <img src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
         ) : (
-          <span className="text-3xl font-bold text-white/20">{profileUser?.name?.substring(0, 1).toUpperCase()}</span>
+          <span className="text-3xl font-normal text-white/20">{profileUser?.name?.substring(0, 1).toUpperCase()}</span>
         )}
       </div>
 
@@ -60,17 +60,13 @@ function ProfileHeader({ profileUser, isOwnProfile }) {
               <button
                 onClick={handleFollow}
                 disabled={loading}
-                className={`px-4 py-1 rounded text-[12px] font-bold uppercase tracking-widest transition-all ${
-                  isFollowing 
-                    ? 'bg-white/10 text-white/60 hover:bg-white/20' 
-                    : 'bg-[#00e054] text-[#14181c] hover:bg-[#00c048]'
-                }`}
+                className={`px-4 py-1 rounded text-[12px] font-normal uppercase transition-all ${ isFollowing ? 'bg-white/10 text-white/60 hover:bg-white/20' : 'bg-[#00e054] text-[#14181c] hover:bg-[#00c048]' }`}
               >
                 {isFollowing ? 'Siguiendo' : 'Seguir'}
               </button>
             )}
             {isOwnProfile && (
-              <Link to="/perfil/editar" className="text-[11px] font-bold uppercase tracking-widest text-white/30 hover:text-white transition-colors">Editar Perfil</Link>
+              <Link to="/perfil/editar" className="text-[11px] font-normal uppercase text-white/30 hover:text-white transition-colors">Editar Perfil</Link>
             )}
           </div>
           
@@ -79,7 +75,7 @@ function ProfileHeader({ profileUser, isOwnProfile }) {
             {stats.map((stat, i) => (
               <div key={i} className="text-center group cursor-pointer">
                 <div className="text-lg font-bold text-white group-hover:text-[#40bcf4] transition-colors">{stat.value.toLocaleString()}</div>
-                <div className="text-[10px] uppercase tracking-[1.5px] text-white/30 font-bold">{stat.label}</div>
+                <div className="text-[10px] uppercase text-white/30 font-normal">{stat.label}</div>
               </div>
             ))}
           </div>

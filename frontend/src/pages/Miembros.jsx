@@ -19,7 +19,7 @@ const TopUserCard = ({ user }) => {
             {user.avatar ? (
               <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
             ) : (
-              <span className="text-white text-4xl font-bold">{avatarLetter}</span>
+              <span className="text-white text-4xl font-normal">{avatarLetter}</span>
             )}
           </div>
         </Link>
@@ -30,10 +30,10 @@ const TopUserCard = ({ user }) => {
       </div>
       
       {/* Info */}
-      <Link to={`/perfil/${user._id}`} className="text-white font-bold text-[15px] md:text-[16px] mb-1 hover:text-[#40bcf4] transition-colors truncate w-full text-center">
+      <Link to={`/perfil/${user._id}`} className="text-white font-normal text-[15px] md:text-[16px] mb-1 hover:text-[#40bcf4] transition-colors truncate w-full text-center">
         {user.username}
       </Link>
-      <div className="text-[#8aa8c2] text-[11px] mb-3 uppercase tracking-wider font-light flex items-center gap-1">
+      <div className="text-[#8aa8c2] text-[11px] mb-3 uppercase font-light flex items-center gap-1">
         <span>{user.reviewCount || 0} reseñas</span>
         <span className="opacity-50">•</span>
         <span>{user.totalLikes || 0} likes</span>
@@ -74,13 +74,13 @@ const ListItemUser = ({ user }) => {
             {user.avatar ? (
               <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
             ) : (
-              <span className="text-[#8aa8c2] text-lg font-bold">{avatarLetter}</span>
+              <span className="text-[#8aa8c2] text-lg font-normal">{avatarLetter}</span>
             )}
           </div>
         </Link>
         {/* Info */}
         <div className="flex flex-col">
-          <Link to={`/perfil/${user._id}`} className="text-white font-bold text-[14px] hover:text-[#40bcf4] transition-colors">
+          <Link to={`/perfil/${user._id}`} className="text-white font-normal text-[14px] hover:text-[#40bcf4] transition-colors">
             {user.username}
           </Link>
           <span className="text-[#8aa8c2] text-[11px] font-light">
@@ -96,7 +96,7 @@ const ListItemUser = ({ user }) => {
           <span className="flex items-center gap-1.5"><span className="text-[#40bcf4]">☷</span> {user.totalLists || 0}</span>
           <span className="flex items-center gap-1.5"><span className="text-[#ff8000]">❤</span> {user.totalLikes || 0}</span>
         </div>
-        <button className="w-8 h-8 rounded-full bg-[#2c3440] border border-[#445566] flex items-center justify-center text-[#8aa8c2] hover:bg-white hover:text-black transition-colors font-bold pb-0.5">
+        <button className="w-8 h-8 rounded-full bg-[#2c3440] border border-[#445566] flex items-center justify-center text-[#8aa8c2] hover:bg-white hover:text-black transition-colors font-normal pb-0.5">
           +
         </button>
       </div>
@@ -130,11 +130,11 @@ function Miembros() {
   const otherMembers = reviewers.slice(10, 20);
 
   return (
-    <div className="min-h-screen bg-transparent font-sans pb-20 pt-8">
+    <div className="min-h-screen bg-transparent pb-20 pt-8">
       
       {/* Título Principal */}
       <div className="max-w-[1200px] mx-auto px-4 text-center mb-12">
-        <h1 className="text-[#8aa8c2] text-[18px] md:text-[22px] font-light tracking-wide">
+        <h1 className="text-[#8aa8c2] text-[18px] md:text-[22px] font-light">
           Amantes del cine, críticos y amigos — encuentra miembros populares.
         </h1>
       </div>
@@ -150,7 +150,7 @@ function Miembros() {
             {/* SECCIÓN 1: MIEMBROS DESTACADOS */}
             <section className="mb-14">
               <div className="flex items-center mb-6">
-                <h2 className="text-[#9ab] text-[12px] uppercase tracking-[1.5px] whitespace-nowrap">Miembros Destacados</h2>
+                <h2 className="text-[#9ab] text-[12px] uppercase whitespace-nowrap">Miembros Destacados</h2>
                 <div className="h-[1px] bg-[#2c3440] w-full ml-4"></div>
               </div>
               
@@ -164,7 +164,7 @@ function Miembros() {
             {/* SECCIÓN 2: POPULARES ESTA SEMANA */}
             <section className="mb-14">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-[#9ab] text-[12px] uppercase tracking-[1.5px] whitespace-nowrap">Populares esta semana</h2>
+                <h2 className="text-[#9ab] text-[12px] uppercase whitespace-nowrap">Populares esta semana</h2>
                 <div className="h-[1px] bg-[#2c3440] flex-1 mx-4"></div>
                 <Link to="/miembros/populares" className="text-[#9ab] text-[11px] uppercase hover:text-white transition-colors">Más</Link>
               </div>
@@ -179,7 +179,7 @@ function Miembros() {
             {/* SECCIÓN 3: LISTA DE OTROS MIEMBROS */}
             <section className="mb-14">
               <div className="flex items-center mb-4">
-                <h2 className="text-[#9ab] text-[12px] uppercase tracking-[1.5px] whitespace-nowrap">Todos los miembros</h2>
+                <h2 className="text-[#9ab] text-[12px] uppercase whitespace-nowrap">Todos los miembros</h2>
                 <div className="h-[1px] bg-[#2c3440] w-full ml-4"></div>
               </div>
 
@@ -190,7 +190,7 @@ function Miembros() {
               </div>
 
               <div className="flex justify-center mt-8">
-                <Link to="/miembros/populares" className="bg-[#2c3440] hover:bg-[#445566] text-[#8aa8c2] hover:text-white transition-colors border border-[#445566] rounded-[3px] py-2 px-12 text-[13px] font-bold uppercase tracking-wider inline-block">
+                <Link to="/miembros/populares" className="bg-[#2c3440] hover:bg-[#445566] text-[#8aa8c2] hover:text-white transition-colors border border-[#445566] rounded-[3px] py-2 px-12 text-[13px] font-normal uppercase inline-block">
                   Ver más
                 </Link>
               </div>

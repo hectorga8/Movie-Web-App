@@ -31,7 +31,7 @@ const RecommendationsGrid = ({ items, type, currentItemName }) => {
               <h5 className="font-bold text-[14px] text-white group-hover:text-[#1060ff] transition-colors line-clamp-1 mb-1">
                 {name}
               </h5>
-              <p className="text-[11px] text-white/40 font-bold uppercase tracking-widest">
+              <p className="text-[11px] text-white/40 font-normal uppercase">
                 {year}
               </p>
             </Link>

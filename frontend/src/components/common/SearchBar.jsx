@@ -229,7 +229,7 @@ function SearchBar() {
                 {query.length === 0 ? (
                   <div className="space-y-5">
                     <div>
-                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-3">Recientes</p>
+                      <p className="text-[10px] font-normal text-white/30 uppercase mb-3">Recientes</p>
                       {recentSearches.length > 0 ? (
                         <div className="space-y-1">
                           {recentSearches.map((term, i) => (
@@ -251,14 +251,14 @@ function SearchBar() {
                     </div>
 
                     <div>
-                      <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-3">Tendencias</p>
+                      <p className="text-[10px] font-normal text-white/30 uppercase mb-3">Tendencias</p>
                       <div className="flex flex-wrap gap-2">
                         {trending.length > 0 ? (
                           trending.map((item) => (
                             <button
                               key={item.id}
                               onClick={() => handleTrendingClick(item)}
-                              className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[12px] font-bold text-white/60 hover:bg-[#1060ff] hover:text-white hover:border-transparent transition-all"
+                              className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[12px] font-normal text-white/60 hover:bg-[#1060ff] hover:text-white hover:border-transparent transition-all"
                             >
                               {item.title || item.name}
                             </button>
@@ -275,7 +275,7 @@ function SearchBar() {
                   <div className="space-y-4">
                     {results.media.length > 0 && (
                       <div>
-                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-2">Mejores coincidencias</p>
+                        <p className="text-[10px] font-normal text-white/30 uppercase mb-2">Mejores coincidencias</p>
                         <div className="space-y-1">
                           {results.media.map((item) => (
                             <Link
@@ -292,7 +292,7 @@ function SearchBar() {
                                 <img src={movieService.getImageUrl(item.poster_path, 'w92')} className="w-full h-full object-cover" alt="" />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-white font-bold text-sm truncate group-hover:text-[#1060ff] transition-colors">
+                                <p className="text-white font-normal text-sm truncate group-hover:text-[#1060ff] transition-colors">
                                   {item.title || item.name}
                                 </p>
                                 <p className="text-white/40 text-xs mt-0.5">
@@ -307,7 +307,7 @@ function SearchBar() {
 
                     {results.people.length > 0 && (
                       <div>
-                        <p className="text-[10px] font-bold text-white/30 uppercase tracking-[2px] mb-2">Actores y Directores</p>
+                        <p className="text-[10px] font-normal text-white/30 uppercase mb-2">Actores y Directores</p>
                         <div className="space-y-1">
                           {results.people.map((person) => (
                             <Link
@@ -324,7 +324,7 @@ function SearchBar() {
                                 <img src={movieService.getImageUrl(person.profile_path, 'w92')} className="w-full h-full object-cover" alt="" />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-white font-bold text-sm truncate group-hover:text-[#1060ff] transition-colors">
+                                <p className="text-white font-normal text-sm truncate group-hover:text-[#1060ff] transition-colors">
                                   {person.name}
                                 </p>
                                 <p className="text-white/40 text-xs mt-0.5 truncate">
@@ -344,7 +344,7 @@ function SearchBar() {
                     <div className="pt-3 border-t border-white/5">
                       <button
                         onClick={handleSearchSubmit}
-                        className="text-[#1060ff] text-[13px] font-bold hover:underline underline-offset-4 w-full text-center py-2"
+                        className="text-[#1060ff] text-[13px] font-normal hover:underline underline-offset-4 w-full text-center py-2"
                       >
                         Ver todos los resultados para "{query}"
                       </button>

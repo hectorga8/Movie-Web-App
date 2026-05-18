@@ -21,7 +21,7 @@ function Dropdown({ label, options, selectedValue, onSelect }) {
   return (
     <div className="relative group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <div className="flex items-center gap-1 cursor-pointer hover:text-[#fff] transition-colors py-2">
-        <span className={`uppercase tracking-[1px] ${selectedValue ? 'text-[#fff] font-bold' : 'text-[#9ab] group-hover:text-[#fff]'}`}>
+        <span className={`uppercase ${selectedValue ? 'text-[#fff] font-normal' : 'text-[#9ab] group-hover:text-[#fff]'}`}>
           {selectedValue || label}
         </span>
         <svg className="w-3 h-3 text-[#678]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@ function ContentFilterBar({ variant = 'peliculas', onFilterChange }) {
   return (
     <div className="flex flex-col md:flex-row md:items-center pb-2 mb-6 z-40 relative">
       <div className="flex flex-wrap items-center gap-4 text-[12px] relative z-40">
-        <span className="text-[#8aa8c2] uppercase tracking-[1px] py-2">EXPLORAR POR</span>
+        <span className="text-[#8aa8c2] uppercase py-2">EXPLORAR POR</span>
         
         <Dropdown 
           label="AÑO" 
@@ -142,7 +142,7 @@ function ContentFilterBar({ variant = 'peliculas', onFilterChange }) {
                setFilters(clear);
                onFilterChange(clear);
              }}
-             className="text-[10px] uppercase text-red-400 hover:text-red-300 ml-4 tracking-[1px]"
+             className="text-[10px] uppercase text-red-400 hover:text-red-300 ml-4"
            >
              Limpiar filtros
            </button>

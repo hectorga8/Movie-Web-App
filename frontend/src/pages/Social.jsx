@@ -11,7 +11,7 @@ function Social() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-transparent text-[#8b9bb4] font-sans pt-10 pb-20">
+    <div className="min-h-screen bg-transparent text-white pt-10 pb-20">
       <div className="max-w-[1200px] mx-auto px-4">
         
         {/* Header */}
@@ -21,7 +21,7 @@ function Social() {
           </Link>
           <div>
             <h1 className="text-white text-[32px] font-bold leading-none mb-1">Social</h1>
-            <p className="text-[13px] uppercase tracking-widest font-bold">Actividad de tu red</p>
+            <p className="text-[13px] uppercase font-normal">Actividad de tu red</p>
           </div>
         </div>
 
@@ -43,9 +43,9 @@ function Social() {
           {/* Sidebar */}
           <aside className="w-full lg:w-[320px] shrink-0 space-y-6">
             <div className="bg-[#1c2228] border border-[#2c3440] rounded-[4px] p-5">
-              <h3 className="text-white font-bold text-[14px] uppercase tracking-widest mb-4">Sugerencias</h3>
+              <h3 className="text-white font-bold text-[14px] uppercase mb-4">Sugerencias</h3>
               <p className="text-[13px] text-[#8b9bb4] italic mb-4">Encuentra a más cinéfilos como tú.</p>
-              <Link to="/miembros" className="block text-center w-full py-2 bg-[#1060ff] text-white text-[13px] font-bold uppercase tracking-widest rounded-[3px] hover:bg-[#2b89ff] transition-colors">
+              <Link to="/miembros" className="block text-center w-full py-2 bg-[#1060ff] text-white text-[13px] font-normal uppercase rounded-[3px] hover:bg-[#2b89ff] transition-colors">
                 Explorar Miembros
               </Link>
             </div>

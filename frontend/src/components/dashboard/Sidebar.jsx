@@ -13,12 +13,12 @@ function Sidebar({ counts = { total: 0, reading: 0, pending: 0, read: 0 } }) {
           <h3 className="label-uppercase mb-4 px-3">Colecciones</h3>
           <nav className="flex flex-row md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
             
-            <a href="#" className="flex items-center justify-between gap-3 px-3 py-2 rounded-[4px] bg-[#15181e] text-[#efeff1] font-bold transition-all shrink-0 shadow-whisper">
+            <a href="#" className="flex items-center justify-between gap-3 px-3 py-2 rounded-[4px] bg-[#15181e] text-[#efeff1] font-normal transition-all shrink-0 shadow-whisper">
               <div className="flex items-center gap-3">
                 <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h4m10 0h4M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" /></svg>
                 Todas las películas
               </div>
-              <span className="text-[11px] font-bold bg-white/10 px-2 py-0.5 rounded-[2px]">{counts.total}</span>
+              <span className="text-[11px] font-normal bg-white/10 px-2 py-0.5 rounded-[2px]">{counts.total}</span>
             </a>
 
             <a href="#" className="flex items-center justify-between gap-3 px-3 py-2 rounded-[4px] text-[#3b3d45] hover:bg-[#f1f2f3] font-medium transition-all shrink-0">
@@ -26,7 +26,7 @@ function Sidebar({ counts = { total: 0, reading: 0, pending: 0, read: 0 } }) {
                 <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 Viendo
               </div>
-              <span className="text-[11px] font-bold text-[#656a76] bg-[#d5d7db]/30 px-2 py-0.5 rounded-[2px]">{counts.reading}</span>
+              <span className="text-[11px] font-normal text-[#656a76] bg-[#d5d7db]/30 px-2 py-0.5 rounded-[2px]">{counts.reading}</span>
             </a>
 
             <a href="#" className="flex items-center justify-between gap-3 px-3 py-2 rounded-[4px] text-[#3b3d45] hover:bg-[#f1f2f3] font-medium transition-all shrink-0">
@@ -34,7 +34,7 @@ function Sidebar({ counts = { total: 0, reading: 0, pending: 0, read: 0 } }) {
                 <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
                 Pendientes
               </div>
-              <span className="text-[11px] font-bold text-[#656a76] bg-[#d5d7db]/30 px-2 py-0.5 rounded-[2px]">{counts.pending}</span>
+              <span className="text-[11px] font-normal text-[#656a76] bg-[#d5d7db]/30 px-2 py-0.5 rounded-[2px]">{counts.pending}</span>
             </a>
 
             <a href="#" className="flex items-center justify-between gap-3 px-3 py-2 rounded-[4px] text-[#3b3d45] hover:bg-[#f1f2f3] font-medium transition-all shrink-0">
@@ -42,7 +42,7 @@ function Sidebar({ counts = { total: 0, reading: 0, pending: 0, read: 0 } }) {
                 <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 Vistas
               </div>
-              <span className="text-[11px] font-bold text-[#656a76] bg-[#d5d7db]/30 px-2 py-0.5 rounded-[2px]">{counts.read}</span>
+              <span className="text-[11px] font-normal text-[#656a76] bg-[#d5d7db]/30 px-2 py-0.5 rounded-[2px]">{counts.read}</span>
             </a>
 
           </nav>

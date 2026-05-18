@@ -81,7 +81,7 @@ const DetalleLista = () => {
         {/* Botón de retroceso */}
         <Link 
           to="/listas" 
-          className="inline-flex items-center gap-2 text-[#8b9bb4] hover:text-white mb-10 text-[11px] font-bold uppercase tracking-widest transition-colors group"
+          className="inline-flex items-center gap-2 text-[#8b9bb4] hover:text-white mb-10 text-[11px] font-normal uppercase transition-colors group"
         >
           <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"/>

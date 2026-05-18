@@ -18,10 +18,10 @@ function IndexBanner() {
           </div>
           
           <div className="flex items-center gap-3">
-            <button className="px-5 py-2 rounded-[4px] border border-white/10 text-white/80 text-[13px] font-bold hover:bg-white/5 transition-all">
+            <button className="px-5 py-2 rounded-[4px] border border-white/10 text-white/80 text-[13px] font-normal hover:bg-white/5 transition-all">
               Mi Actividad
             </button>
-            <button className="px-5 py-2 rounded-[4px] bg-[#1060ff] text-white text-[13px] font-bold hover:bg-[#2b89ff] transition-all">
+            <button className="px-5 py-2 rounded-[4px] bg-[#1060ff] text-white text-[13px] font-normal hover:bg-[#2b89ff] transition-all">
               Añadir Película
             </button>
           </div>

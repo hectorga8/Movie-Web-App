@@ -43,12 +43,12 @@ function MovieSection({ title, items, type = "pelicula" }) {
       <div className="w-full max-w-[1200px] mx-auto px-4 md:px-6 relative">
         
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 md:gap-6 mb-6 md:mb-8 text-left">
-          <h3 className="text-xl md:text-3xl font-bold tracking-tight md:tracking-tighter">{title}</h3>
+          <h3 className="text-xl md:text-3xl font-bold md:">{title}</h3>
           <div className="flex border border-white/10 rounded-full overflow-hidden bg-white/5 w-fit">
-            <button className="px-4 md:px-6 py-1 md:py-1.5 bg-[#1060ff] text-white font-bold text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
+            <button className="px-4 md:px-6 py-1 md:py-1.5 bg-[#1060ff] text-white font-normal text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
               Hoy
             </button>
-            <button className="px-4 md:px-6 py-1 md:py-1.5 text-white/60 hover:text-white font-bold text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
+            <button className="px-4 md:px-6 py-1 md:py-1.5 text-white/60 hover:text-white font-normal text-[12px] md:text-sm cursor-pointer transition-colors whitespace-nowrap">
               Esta semana
             </button>
           </div>
@@ -93,7 +93,7 @@ function MovieSection({ title, items, type = "pelicula" }) {
                     className="w-full h-[270px] object-cover group-hover/card:opacity-90 transition-opacity" 
                   />
                   <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  <div className={`absolute bottom-3 left-3 w-10 h-10 bg-[#081c22] border-2 ${getRatingColor(item.rating)} rounded-full flex items-center justify-center text-white text-[11px] font-bold shadow-md`}>
+                  <div className={`absolute bottom-3 left-3 w-10 h-10 bg-[#081c22] border-2 ${getRatingColor(item.rating)} rounded-full flex items-center justify-center text-white text-[11px] font-normal shadow-md`}>
                     {item.rating > 0 ? (
                        <>{item.rating}<span className="text-[6px] font-normal">%</span></>
                     ) : 'S/C'}
@@ -111,7 +111,7 @@ function MovieSection({ title, items, type = "pelicula" }) {
               to="/search" 
               className="min-w-[140px] flex items-center justify-center group/more h-[270px] pr-4"
             >
-              <span className="font-bold text-lg text-white/40 group-hover/more:text-[#1060ff] transition-colors whitespace-nowrap flex items-center gap-2">
+              <span className="font-normal text-lg text-white/40 group-hover/more:text-[#1060ff] transition-colors whitespace-nowrap flex items-center gap-2">
                 Ver más
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
               </span>

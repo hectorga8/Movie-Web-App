@@ -43,27 +43,27 @@ function LandingHero({ movies = [] }) {
       {/* CAPA 3: CONTENIDO PRINCIPAL CENTRADO */}
       <div className="relative z-20 w-full max-w-[1200px] mx-auto px-4 sm:px-6 text-center text-white -mt-10 md:-mt-16">
         <div className="max-w-[900px] mx-auto">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.1]">
             Bienvenidos.
           </h1>
           <p className="mt-4 md:mt-8 text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium leading-relaxed max-w-[700px] mx-auto opacity-90">
             Millones de películas, series y gente por descubrir. <br className="hidden md:block" />
-            <span className="text-[#01b4e4] font-bold">Explora ahora</span> la infraestructura definitiva.
+            <span className="text-[#01b4e4] font-normal">Explora ahora</span> la infraestructura definitiva.
           </p>
         </div>
 
         {/* ESTADÍSTICAS */}
         <div className="flex flex-row items-center justify-center mt-10 md:mt-16 gap-8 sm:gap-16 md:gap-24">
           <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
-            <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">+1M</p>
-            <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-bold leading-tight text-center sm:text-left uppercase tracking-widest">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-normal text-white">+1M</p>
+            <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-normal leading-tight text-center sm:text-left uppercase">
               Películas <br className="hidden sm:block" /> & Series
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
-            <p className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">12k</p>
-            <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-bold leading-tight text-center sm:text-left uppercase tracking-widest">
+            <p className="text-3xl sm:text-4xl md:text-5xl font-normal text-white">12k</p>
+            <p className="text-[10px] sm:text-xs md:text-sm text-white/50 font-normal leading-tight text-center sm:text-left uppercase">
               Usuarios <br className="hidden sm:block" /> Activos
             </p>
           </div>

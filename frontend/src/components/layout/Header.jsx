@@ -48,14 +48,15 @@ function Header({ variant = "landing" }) {
               className="mr-2 md:mr-10 group" 
               onClick={() => setIsMenuOpen(false)}
             >
-              <span className="font-brand text-[24px] md:text-[32px] font-bold text-white tracking-tighter group-hover:text-[#1060ff] transition-colors leading-none">
+              <span className="font-brand text-[24px] md:text-[32px] font-bold text-white group-hover:text-[#1060ff] transition-colors leading-none">
                 CineBox
               </span>
             </Link>
 
             <nav className="hidden lg:flex items-center gap-8 xl:gap-12">
               {navLinks.map((link) => (
-                <Link key={link.name} to={link.path} className="text-[15px] font-bold text-white/80 hover:text-white transition-colors leading-none">
+                <Link key={link.name} to={link.path} className="font-original text-[16px] font-normal text-white/80 hover:text-white 
+                transition-colors leading-none">
                   {link.name}
                 </Link>
               ))}
@@ -74,13 +75,14 @@ function Header({ variant = "landing" }) {
                 <div className="relative" ref={dropdownRef}>
                   <button 
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center gap-2 text-sm font-semibold text-white hover:text-[#1060ff] transition-colors cursor-pointer uppercase tracking-wider"
+                    className="flex items-center gap-2 text-sm font-normal text-white hover:text-[#1060ff] transition-colors cursor-pointer uppercase -"
                   >
                     {user.avatar && (
                       <img src={user.avatar} alt={user.name} className="w-6 h-6 rounded-full object-cover border border-white/20" />
                     )}
                     {user.name}
-                    <svg className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" 
+                    stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
@@ -109,10 +111,10 @@ function Header({ variant = "landing" }) {
                 </div>
               ) : (
                 <>
-                  <Link to="/login" className="text-[15px] font-bold text-white/80 hover:text-white transition-colors">
+                  <Link to="/login" className="text-[15px] font-normal text-white/80 hover:text-white transition-colors">
                     Entrar
                   </Link>
-                  <Link to="/registro" className="px-5 py-2.5 rounded-[5px] bg-[#1060ff] text-white text-[13px] font-bold hover:bg-[#2b89ff] transition-all shadow-md shadow-[#1060ff]/20">
+                  <Link to="/registro" className="px-5 py-2.5 rounded-[5px] bg-[#1060ff] text-white text-[13px] font-normal hover:bg-[#2b89ff] transition-all shadow-md shadow-[#1060ff]/20">
                     Empezar
                   </Link>
                 </>
@@ -143,7 +145,7 @@ function Header({ variant = "landing" }) {
                 key={link.name} 
                 to={link.path} 
                 onClick={() => setIsMenuOpen(false)}
-                className="text-2xl font-bold text-white/90"
+                className="text-2xl font-normal text-white/90"
               >
                 {link.name}
               </Link>
@@ -158,21 +160,21 @@ function Header({ variant = "landing" }) {
                     {user.avatar ? <img src={user.avatar} className="w-full h-full object-cover" alt={user.name} /> : user.name[0].toUpperCase()}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-white font-bold text-lg truncate">{user.name}</p>
+                    <p className="text-white font-normal text-lg truncate">{user.name}</p>
                     <p className="text-white/40 text-sm truncate">{user.email}</p>
                   </div>
                 </Link>
                 <button 
                   onClick={handleLogout}
-                  className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-colors"
+                  className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-normal hover:bg-white/10 transition-colors"
                 >
                   Cerrar Sesión
                 </button>
               </div>
             ) : (
               <div className="flex flex-col gap-4">
-                <Link to="/login" onClick={() => setIsMenuOpen(false)} className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold text-center">Entrar</Link>
-                <Link to="/registro" onClick={() => setIsMenuOpen(false)} className="w-full py-4 rounded-xl bg-[#1060ff] text-white font-bold text-center">Registrarse Gratis</Link>
+                <Link to="/login" onClick={() => setIsMenuOpen(false)} className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-normal text-center">Entrar</Link>
+                <Link to="/registro" onClick={() => setIsMenuOpen(false)} className="w-full py-4 rounded-xl bg-[#1060ff] text-white font-normal text-center">Registrarse Gratis</Link>
               </div>
             )}
           </div>

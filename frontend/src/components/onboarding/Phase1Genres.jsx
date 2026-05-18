@@ -47,12 +47,7 @@ export default function Phase1Genres({ onNext, initialData }) {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => toggleGenre(genre.id)}
-              className={`
-                relative flex flex-col items-center justify-center p-6 rounded-xl border transition-all overflow-hidden
-                ${isSelected 
-                  ? 'bg-[#1060ff]/10 border-[#1060ff] shadow-[0_0_20px_rgba(16,96,255,0.3)]' 
-                  : 'bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10'}
-              `}
+              className={`relative flex flex-col items-center justify-center p-6 rounded-xl border transition-all overflow-hidden ${isSelected ? 'bg-[#1060ff]/10 border-[#1060ff] shadow-[0_0_20px_rgba(16,96,255,0.3)]' : 'bg-white/5 border-white/10 hover:border-white/30 hover:bg-white/10'}`}
             >
               {isSelected && (
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#1060ff]/20 to-transparent pointer-events-none" />
@@ -69,12 +64,7 @@ export default function Phase1Genres({ onNext, initialData }) {
       <button
         onClick={() => onNext(selected)}
         disabled={selected.length < 3}
-        className={`
-          w-full max-w-xs py-4 rounded-[8px] font-bold text-[13px] tracking-[1.5px] uppercase transition-all
-          ${selected.length >= 3 
-            ? 'bg-[#1060ff] hover:bg-[#2b89ff] text-white shadow-lg shadow-[#1060ff]/20 cursor-pointer' 
-            : 'bg-white/5 text-white/20 cursor-not-allowed'}
-        `}
+        className={`w-full max-w-xs py-4 rounded-[8px] font-normal text-[13px] uppercase transition-all ${selected.length >= 3 ? 'bg-[#1060ff] hover:bg-[#2b89ff] text-white shadow-lg shadow-[#1060ff]/20 cursor-pointer' : 'bg-white/5 text-white/20 cursor-not-allowed'}`}
       >
         Continuar ({selected.length}/3)
       </button>

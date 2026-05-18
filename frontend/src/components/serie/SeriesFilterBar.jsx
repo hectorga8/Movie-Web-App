@@ -6,7 +6,7 @@ function Dropdown({ label, options }) {
   return (
     <div className="relative group" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <div className="flex items-center gap-1 cursor-pointer hover:text-[#fff] transition-colors py-2">
-        <span className="uppercase tracking-[1px] text-[#9ab] group-hover:text-[#fff]">{label}</span>
+        <span className="uppercase text-[#9ab] group-hover:text-[#fff]">{label}</span>
         <svg className="w-3 h-3 text-[#678]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
         </svg>
@@ -39,7 +39,7 @@ function SeriesFilterBar() {
   return (
     <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-[#445566] pb-2 mb-6 z-40 relative">
       <div className="flex flex-wrap items-center gap-4 text-[12px] relative z-40">
-        <span className="text-[#8aa8c2] uppercase tracking-[1px] py-2">EXPLORAR POR</span>
+        <span className="text-[#8aa8c2] uppercase py-2">EXPLORAR POR</span>
         
         {filterConfigs.map((filter, index) => (
           <Dropdown key={index} label={filter.label} options={filter.options} />
@@ -47,7 +47,7 @@ function SeriesFilterBar() {
       </div>
 
       <div className="flex items-center gap-3 mt-4 md:mt-0 relative z-30">
-        <span className="text-[12px] text-[#8aa8c2] uppercase tracking-[1px]">BUSCAR SERIE</span>
+        <span className="text-[12px] text-[#8aa8c2] uppercase">BUSCAR SERIE</span>
         <div className="relative">
           <input 
             type="text" 

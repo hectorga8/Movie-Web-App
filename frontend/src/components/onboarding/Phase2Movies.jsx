@@ -65,10 +65,7 @@ export default function Phase2Movies({ onNext, initialData }) {
               <div className="flex items-center gap-2">
                 <button 
                   onClick={() => toggleStatus(movie.id)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-colors
-                    ${movie.status === 'vistas' 
-                      ? 'bg-[#1060ff]/20 text-[#1060ff] border border-[#1060ff]/30' 
-                      : 'bg-green-500/20 text-green-400 border border-green-500/30'}`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-normal flex items-center gap-1.5 transition-colors ${movie.status === 'vistas' ? 'bg-[#1060ff]/20 text-[#1060ff] border border-[#1060ff]/30' : 'bg-green-500/20 text-green-400 border border-green-500/30'}`}
                 >
                   {movie.status === 'vistas' ? <CheckCircle className="w-3.5 h-3.5" /> : <PlusCircle className="w-3.5 h-3.5" />}
                   {movie.status === 'vistas' ? 'Ya la vi' : 'Quiero verla'}
@@ -95,12 +92,7 @@ export default function Phase2Movies({ onNext, initialData }) {
       <button
         onClick={() => onNext(selectedMovies)}
         disabled={selectedMovies.length < 3}
-        className={`
-          w-full py-4 rounded-[8px] font-bold text-[13px] tracking-[1.5px] uppercase transition-all
-          ${selectedMovies.length >= 3 
-            ? 'bg-[#1060ff] hover:bg-[#2b89ff] text-white shadow-lg shadow-[#1060ff]/20 cursor-pointer' 
-            : 'bg-white/5 text-white/20 cursor-not-allowed'}
-        `}
+        className={`w-full py-4 rounded-[8px] font-normal text-[13px] uppercase transition-all ${selectedMovies.length >= 3 ? 'bg-[#1060ff] hover:bg-[#2b89ff] text-white shadow-lg shadow-[#1060ff]/20 cursor-pointer' : 'bg-white/5 text-white/20 cursor-not-allowed'}`}
       >
         Continuar ({selectedMovies.length}/3)
       </button>

@@ -39,26 +39,26 @@
 
 @layer base {
   body {
-    @apply bg-white text-black antialiased tracking-normal;
-    font-family: 'Roboto Flex', sans-serif;
+    @apply bg-white text-black antialiased tracking-normal font-normal;
+    font-family: 'Arimo', sans-serif;
   }
 
   h1, h2, h4 {
-    @apply tracking-wide;
-    font-family: 'Roboto Flex', sans-serif;
+    @apply tracking-normal font-bold;
+    font-family: 'DM Sans', sans-serif;
     font-variant-ligatures: common-ligatures;
     font-kerning: normal;
   }
 
   h3 {
-    @apply tracking-wider;
-    font-family: 'Roboto Flex', sans-serif;
+    @apply tracking-normal font-bold;
+    font-family: 'DM Sans', sans-serif;
     font-variant-ligatures: common-ligatures;
     font-kerning: normal;
   }
 
   .font-brand {
-    @apply tracking-widest;
+    @apply tracking-normal font-bold;
     font-family: 'Roboto Flex', sans-serif;
   }
 }
@@ -70,24 +70,24 @@
   }
   
   .body-relaxed {
-    @apply leading-[1.63] text-[#3b3d45];
+    @apply leading-[1.63] text-[#3b3d45] font-normal;
   }
 
   .btn-primary-dark {
-    @apply bg-[#15181e] text-[#d5d7db] px-[15px] py-[9px] rounded-[5px] border border-[#b2b6bd]/40 font-bold text-[13px] hover:bg-black transition-all active:scale-[0.98];
+    @apply bg-[#15181e] text-[#d5d7db] px-[15px] py-[9px] rounded-[5px] border border-[#b2b6bd]/40 font-normal text-[13px] hover:bg-black transition-all active:scale-[0.98];
     box-shadow: var(--shadow-mds-shadow-whisper);
   }
 
   .btn-secondary-white {
-    @apply bg-white text-[#3b3d45] px-4 py-2 rounded-[4px] border border-[#d5d7db] font-bold text-[13px] hover:bg-[#f1f2f3] transition-all;
+    @apply bg-white text-[#3b3d45] px-4 py-2 rounded-[4px] border border-[#d5d7db] font-normal text-[13px] hover:bg-[#f1f2f3] transition-all;
   }
 
   .input-mds {
-    @apply w-full bg-[#f1f2f3] border border-[#d5d7db] rounded-[5px] px-3 py-2.5 text-sm text-black focus:outline-none focus:border-[#1060ff] focus:ring-2 focus:ring-[#1060ff]/10 transition-all;
+    @apply w-full bg-[#f1f2f3] border border-[#d5d7db] rounded-[5px] px-3 py-2.5 text-sm text-black focus:outline-none focus:border-[#1060ff] focus:ring-2 focus:ring-[#1060ff]/10 transition-all font-normal;
   }
 
   .input-mds-dark {
-    @apply w-full bg-[#0d0e12] border border-[#656a76] rounded-[5px] px-3 py-2.5 text-sm text-[#efeff1] focus:outline-none focus:border-[#1060ff] transition-all;
+    @apply w-full bg-[#0d0e12] border border-[#656a76] rounded-[5px] px-3 py-2.5 text-sm text-[#efeff1] focus:outline-none focus:border-[#1060ff] transition-all font-normal;
   }
 
   .card-mds {
@@ -96,7 +96,7 @@
   }
 
   .label-uppercase {
-    @apply text-[13px] font-bold uppercase tracking-[1.3px] text-[#656a76];
+    @apply text-[13px] font-normal uppercase tracking-normal text-[#656a76];
   }
 
   /* Estilos para el Stack de Pósters */
@@ -121,3 +121,9 @@
 .delay-1 { animation-delay: 0.1s; }
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; }
+
+@layer utilities {
+  .font-original {
+    font-family: 'Roboto Flex', sans-serif;
+  }
+}
