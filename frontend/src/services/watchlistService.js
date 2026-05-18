@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = '/api/watchlist';
+const API_BASE = import.meta.env.VITE_API_URL || '';
+const BASE_URL = `${API_BASE}/api/watchlist`;
 
 const watchlistApi = axios.create({
   baseURL: BASE_URL
