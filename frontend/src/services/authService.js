@@ -1,5 +1,4 @@
-const SERVER_IP = window.location.hostname;
-const API_URL = `http://${SERVER_IP}:5001/api/auth`;
+const API_URL = '/api/auth';
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');

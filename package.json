@@ -2,15 +2,29 @@
   "name": "app-libros",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "dev:backend": "pnpm -r --filter \"./backend/*\" dev",
     "dev:frontend": "pnpm --filter \"./frontend\" dev",
     "dev": "concurrently -n \"AUTH,MOVIE,REVIEW,WATCH,FRONT\" -c \"magenta,blue,yellow,green,cyan\" \"pnpm --filter auth-service dev\" \"pnpm --filter movie-service dev\" \"pnpm --filter review-service dev\" \"pnpm --filter watchlist-service dev\" \"pnpm --filter frontend dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
+  "dependencies": {
+    "axios": "^1.15.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.4.1",
+    "node-cache": "^5.1.2",
+    "rss-parser": "^3.13.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.14"
+  },
+
     "url": "git+https://github.com/hectorga8/Book-Tracking-Web-App.git"
   },
   "keywords": [],
@@ -23,5 +37,10 @@
   "homepage": "https://github.com/hectorga8/Book-Tracking-Web-App#readme",
   "devDependencies": {
     "concurrently": "^9.2.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "puppeteer"
+    ]
   }
 }

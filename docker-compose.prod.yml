@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      context: ./backend/auth-service
+      dockerfile: ../../Dockerfile.backend.prod
+    container_name: cinesaas-auth-prod
+    restart: always
+    environment:
+      - PORT=5001
+      - MONGO_URI=${MONGO_URI_AUTH}
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - cinesaas-prod-network
+
+  movie-service:
+    build:
+      context: ./backend/movie-service
+      dockerfile: ../../Dockerfile.backend.prod
+    container_name: cinesaas-movies-prod
+    restart: always
+    environment:
+      - PORT=5002
+      - TMDB_API_KEY=${TMDB_API_KEY}
+    networks:
+      - cinesaas-prod-network
+
+  watchlist-service:
+    build:
+      context: ./backend/watchlist-service
+      dockerfile: ../../Dockerfile.backend.prod
+    container_name: cinesaas-watchlist-prod
+    restart: always
+    environment:
+      - PORT=5003
+      - MONGO_URI=${MONGO_URI_WATCHLIST}
+    networks:
+      - cinesaas-prod-network
+
+  review-service:
+    build:
+      context: ./backend/review-service
+      dockerfile: ../../Dockerfile.backend.prod
+    container_name: cinesaas-reviews-prod
+    restart: always
+    environment:
+      - PORT=5004
+      - MONGO_URI=${MONGO_URI_REVIEWS}
+    networks:
+      - cinesaas-prod-network
+
+  gateway:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: cinesaas-gateway-prod
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - auth-service
+      - movie-service
+      - watchlist-service
+      - review-service
+    networks:
+      - cinesaas-prod-network
+
+networks:
+  cinesaas-prod-network:
+    driver: bridge

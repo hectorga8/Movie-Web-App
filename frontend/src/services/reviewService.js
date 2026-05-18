@@ -1,5 +1,4 @@
-const SERVER_IP = window.location.hostname;
-const API_URL = `http://${SERVER_IP}:5004/api/reviews`;
+const API_URL = '/api/reviews';
 
 const getHeaders = () => {
   const token = localStorage.getItem('token');

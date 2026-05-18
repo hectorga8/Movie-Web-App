@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const SERVER_IP = window.location.hostname;
-const BASE_URL = `http://${SERVER_IP}:5003/api`;
+const BASE_URL = '/api/watchlist';
 
 const watchlistApi = axios.create({
   baseURL: BASE_URL
@@ -18,22 +17,22 @@ watchlistApi.interceptors.request.use((config) => {
 export const watchlistService = {
   getUserList: async (filters = {}) => {
     const params = new URLSearchParams(filters).toString();
-    const { data } = await watchlistApi.get(`/watchlist?${params}`);
+    const { data } = await watchlistApi.get(`/?${params}`);
     return data;
   },
 
   addItem: async (mediaId, mediaType, status = 'plan_to_watch', isFavorite = false, rating = null, title = null, image = null, inWatchlist = false) => {
-    const { data } = await watchlistApi.post('/watchlist', { mediaId, mediaType, status, isFavorite, rating, title, image, inWatchlist });
+    const { data } = await watchlistApi.post('/', { mediaId, mediaType, status, isFavorite, rating, title, image, inWatchlist });
     return data;
   },
 
   removeItem: async (mediaId, mediaType) => {
-    const { data } = await watchlistApi.delete(`/watchlist/${mediaType}/${mediaId}`);
+    const { data } = await watchlistApi.delete(`/${mediaType}/${mediaId}`);
     return data;
   },
 
   checkStatus: async (mediaId, mediaType) => {
-    const { data } = await watchlistApi.get(`/watchlist/check/${mediaType}/${mediaId}`);
+    const { data } = await watchlistApi.get(`/check/${mediaType}/${mediaId}`);
     return data;
   },
 
@@ -42,18 +41,18 @@ export const watchlistService = {
     if (options.inWatchlist) params.append('inWatchlist', 'true');
     if (options.status) params.append('status', options.status);
     
-    const { data } = await watchlistApi.get(`/watchlist/user/${userId}?${params.toString()}`);
+    const { data } = await watchlistApi.get(`/user/${userId}?${params.toString()}`);
     return data;
   },
 
   getUserStats: async (userId) => {
-    const { data } = await watchlistApi.get(`/watchlist/user/${userId}/stats`);
+    const { data } = await watchlistApi.get(`/user/${userId}/stats`);
     return data;
   },
 
   getMediaStats: async (mediaId, mediaType) => {
     try {
-      const { data } = await watchlistApi.get(`/watchlist/media/${mediaType}/${mediaId}/stats`);
+      const { data } = await watchlistApi.get(`/media/${mediaType}/${mediaId}/stats`);
       return data;
     } catch (e) {
       return { watched: 0, favorites: 0 };
@@ -62,7 +61,7 @@ export const watchlistService = {
 
   getPublicLists: async () => {
     try {
-      const { data } = await watchlistApi.get('/watchlist/public-lists');
+      const { data } = await watchlistApi.get('/public-lists');
       return data;
     } catch (error) {
       const validPosters = [
@@ -95,7 +94,7 @@ export const watchlistService = {
 
   getAllUsersStats: async () => {
     try {
-      const { data } = await watchlistApi.get('/watchlist/users/all-stats');
+      const { data } = await watchlistApi.get('/users/all-stats');
       return data;
     } catch (error) {
       console.error('Error fetching user stats:', error);
@@ -105,7 +104,7 @@ export const watchlistService = {
 
   getListById: async (id) => {
     try {
-      const { data } = await watchlistApi.get(`/watchlist/list/${id}`);
+      const { data } = await watchlistApi.get(`/list/${id}`);
       return data;
     } catch (error) {
       // Fallback para detalle si falla el backend
@@ -115,7 +114,7 @@ export const watchlistService = {
 
   getUserCustomLists: async (userId) => {
     try {
-      const { data } = await watchlistApi.get(`/watchlist/custom-lists/user/${userId}`);
+      const { data } = await watchlistApi.get(`/custom-lists/user/${userId}`);
       return data;
     } catch (error) {
       console.error('Error fetching user custom lists:', error);
@@ -124,19 +123,20 @@ export const watchlistService = {
   },
 
   createList: async (listData) => {
-    const { data } = await watchlistApi.post('/watchlist/custom-list', listData);
+    const { data } = await watchlistApi.post('/custom-list', listData);
     return data;
   },
 
   updateList: async (id, listData) => {
-    const { data } = await watchlistApi.put(`/watchlist/custom-list/${id}`, listData);
+    const { data } = await watchlistApi.put(`/custom-list/${id}`, listData);
     return data;
   },
 
   getFeedLists: async (userIds) => {
-    const { data } = await watchlistApi.post('/watchlist/feed-lists', { userIds });
+    const { data } = await watchlistApi.post('/feed-lists', { userIds });
     return data;
   }
+
 };
 
 export default watchlistService;

@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+# Install pnpm
+RUN npm install -g pnpm
+
+WORKDIR /usr/src/app
+
+# Copy dependency files
+COPY package.json pnpm-lock.yaml ./
+
+# Install production dependencies only
+RUN pnpm install --prod
+
+# Copy source code
+COPY . .
+
+# Environment variables (defaults)
+ENV NODE_ENV=production
+ENV PORT=5000
+
+# Start command
+CMD ["node", "index.js"]

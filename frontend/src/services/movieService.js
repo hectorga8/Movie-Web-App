@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-// Detectamos automáticamente la IP del servidor (localhost o IP de red)
-const SERVER_IP = window.location.hostname; 
-const BASE_URL = `http://${SERVER_IP}:5002/api`;
+const BASE_URL = '/api';
 
 export const movieService = {
   // PELÍCULAS
