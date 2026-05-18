@@ -49,7 +49,7 @@ function FavoriteFilms({ profileUser, isOwnProfile }) {
               to={`/pelicula/${movie.id}`}
               className="aspect-[2/3] rounded-[3px] overflow-hidden border border-white/10 hover:border-[#00e054] transition-all group relative bg-[#2c3440]"
             >
-              <img 
+              <img loading="lazy" 
                 src={movieService.getImageUrl(movie.poster_path, 'w342')} 
                 alt={movie.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

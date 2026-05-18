@@ -33,11 +33,11 @@ function ProfileHeader({ profileUser, isOwnProfile }) {
   };
 
   const stats = [
-    { label: 'Películas', value: profileUser?.filmsCount || 0 },
+    { label: 'Películas', value: profileUser?.filmsCount || 0, path: `/perfil/${profileUser?._id}/films` },
     { label: 'Este año', value: profileUser?.thisYearCount || 0 },
-    { label: 'Listas', value: profileUser?.listsCount || 0 },
-    { label: 'Siguiendo', value: profileUser?.following?.length || 0 },
-    { label: 'Seguidores', value: profileUser?.followers?.length || 0 },
+    { label: 'Listas', value: profileUser?.listsCount || 0, path: `/perfil/${profileUser?._id}/lists` },
+    { label: 'Siguiendo', value: profileUser?.following?.length || 0, path: `/perfil/${profileUser?._id}/network?tab=following` },
+    { label: 'Seguidores', value: profileUser?.followers?.length || 0, path: `/perfil/${profileUser?._id}/network?tab=followers` },
   ];
 
   return (
@@ -45,7 +45,7 @@ function ProfileHeader({ profileUser, isOwnProfile }) {
       {/* Avatar */}
       <div className="w-24 h-24 rounded-full overflow-hidden shrink-0 border-2 border-white/10 bg-[#2c3440] flex items-center justify-center">
         {profileUser?.avatar ? (
-          <img src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
+          <img loading="lazy" src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
         ) : (
           <span className="text-3xl font-normal text-white/20">{profileUser?.name?.substring(0, 1).toUpperCase()}</span>
         )}
@@ -72,12 +72,23 @@ function ProfileHeader({ profileUser, isOwnProfile }) {
           
           {/* Stats bar */}
           <div className="flex gap-6 md:ml-auto">
-            {stats.map((stat, i) => (
-              <div key={i} className="text-center group cursor-pointer">
-                <div className="text-lg font-bold text-white group-hover:text-[#40bcf4] transition-colors">{stat.value.toLocaleString()}</div>
-                <div className="text-[10px] uppercase text-white/30 font-normal">{stat.label}</div>
-              </div>
-            ))}
+            {stats.map((stat, i) => {
+              const content = (
+                <>
+                  <div className="text-lg font-bold text-white group-hover:text-[#40bcf4] transition-colors">{stat.value.toLocaleString()}</div>
+                  <div className="text-[10px] uppercase text-white/30 font-normal">{stat.label}</div>
+                </>
+              );
+              return stat.path ? (
+                <Link to={stat.path} key={i} className="text-center group cursor-pointer block">
+                  {content}
+                </Link>
+              ) : (
+                <div key={i} className="text-center group cursor-pointer">
+                  {content}
+                </div>
+              );
+            })}
           </div>
         </div>
 

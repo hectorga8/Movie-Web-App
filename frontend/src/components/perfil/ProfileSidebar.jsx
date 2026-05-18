@@ -113,7 +113,7 @@ function ProfileSidebar({ profileUser, isOwnProfile, reviews = [] }) {
         <div className="flex flex-wrap gap-2">
           {profileUser?.following?.slice(0, 12).map((followId, i) => (
             <Link key={i} to={`/perfil/${followId}`} className="w-8 h-8 rounded-full bg-[#2c3440] border border-white/5 overflow-hidden hover:border-[#00e054] transition-colors cursor-pointer">
-              <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${followId}`} alt="" className="w-full h-full object-cover" />
+              <img loading="lazy" src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${followId}`} alt="" className="w-full h-full object-cover" />
             </Link>
           ))}
           {profileUser?.following?.length > 12 && (

@@ -19,7 +19,7 @@ const RecommendationsGrid = ({ items, type, currentItemName }) => {
           return (
             <Link to={`/${type}/${rec.id}`} key={rec.id} className="group">
               <div className="aspect-[2/3] rounded-[8px] overflow-hidden mb-3 shadow-2xl border border-white/10 bg-black/40 relative group/card">
-                <img 
+                <img loading="lazy" 
                   src={movieService.getImageUrl(rec.poster_path, 'w342')} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" 
                   alt={name} 

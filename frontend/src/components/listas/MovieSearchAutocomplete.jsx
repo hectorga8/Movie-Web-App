@@ -108,7 +108,7 @@ const MovieSearchAutocomplete = ({ onSelect }) => {
               }}
               className="flex items-center gap-3 p-2 hover:bg-[#1060ff] cursor-pointer transition-colors border-b border-white/5 last:border-0 group"
             >
-              <img 
+              <img loading="lazy" 
                 src={movieService.getImageUrl(movie.poster_path, 'w92')} 
                 alt="" 
                 className="w-10 h-14 object-cover rounded-sm bg-black/40"

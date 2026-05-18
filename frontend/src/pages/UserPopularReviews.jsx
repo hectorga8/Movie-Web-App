@@ -35,7 +35,7 @@ function UserReviewCard({ initialReview, username, avatar }) {
   return (
     <div className="flex gap-5 py-6 border-b border-white/10 last:border-0 group">
       <Link to={`/pelicula/${review.mediaId}`} className="w-[70px] shrink-0 rounded-[3px] overflow-hidden aspect-[2/3] block bg-white/5 border border-white/10 group-hover:border-[#00e054] transition-colors">
-        <img 
+        <img loading="lazy" 
           src={review.mediaPoster ? `https://image.tmdb.org/t/p/w200${review.mediaPoster}` : 'https://via.placeholder.com/200x300?text=No+Poster'} 
           alt={review.mediaTitle} 
           className="w-full h-full object-cover" 
@@ -54,7 +54,7 @@ function UserReviewCard({ initialReview, username, avatar }) {
           <Link to={`/perfil/${username}`} className="flex items-center gap-2 group/user">
             <div className="w-6 h-6 rounded-full bg-white/10 overflow-hidden flex items-center justify-center border border-white/5 group-hover/user:border-[#00e054] transition-colors">
               {avatar ? (
-                <img src={avatar} alt={username} className="w-full h-full object-cover" />
+                <img loading="lazy" src={avatar} alt={username} className="w-full h-full object-cover" />
               ) : (
                 <span className="text-[10px] font-normal uppercase">{username?.substring(0, 1)}</span>
               )}
@@ -145,7 +145,7 @@ function UserPopularReviews() {
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 bg-[#2c3440]">
               {profileUser.avatar ? (
-                <img src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
+                <img loading="lazy" src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-white/40 font-normal">
                   {profileUser.name.substring(0,1).toUpperCase()}

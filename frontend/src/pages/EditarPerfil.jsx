@@ -379,7 +379,7 @@ function EditarPerfil() {
                           onClick={() => setFormData({...formData, avatar: url})}
                           className={`w-[70px] h-[70px] rounded-full cursor-pointer overflow-hidden border-2 transition-colors ${formData.avatar === url ? 'border-[#00e054]' : 'border-[#445566] hover:border-white'}`}
                         >
-                          <img src={url} alt={`Avatar ${index + 1}`} className="w-full h-full object-cover" />
+                          <img loading="lazy" src={url} alt={`Avatar ${index + 1}`} className="w-full h-full object-cover" />
                         </div>
                       ))}
                     </div>
@@ -397,7 +397,7 @@ function EditarPerfil() {
                     <div className="mt-6 border-t border-[#2c3440] pt-6">
                       <p className="text-[13px] text-[#8b9bb4] font-normal mb-3 uppercase">Vista Previa:</p>
                       <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-2 border-[#00e054]">
-                        <img src={formData.avatar} alt="Vista previa del avatar" className="w-full h-full object-cover" />
+                        <img loading="lazy" src={formData.avatar} alt="Vista previa del avatar" className="w-full h-full object-cover" />
                       </div>
                     </div>
                   )}

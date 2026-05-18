@@ -21,22 +21,22 @@ Este documento refleja el estado actual de **CineSaaS**. Puedes copiar este cont
 - [x] Sistema de búsqueda y filtrado avanzado.
 - [x] Implementación de caché para optimizar llamadas a TMDb.
 
-## 📱 Fase 3: Frontend y UI/UX (En Desarrollo)
+## 📱 Fase 3: Frontend y UI/UX (Completado)
 - [x] Sistema de rutas con `react-router-dom`.
 - [x] Biblioteca de componentes básicos (Auth, Layout, Common).
 - [x] Implementación de Páginas (Landing, Dashboard, Película, Perfil, etc.).
-- [ ] Integración de datos reales en los componentes (actualmente muchos usan datos estáticos).
-- [ ] Pulido de animaciones con Framer Motion (Efecto "Netflix-style").
+- [x] Integración de datos reales en los componentes (actualmente muchos usan datos estáticos).
+- [x] Pulido de animaciones con Framer Motion (Efecto "Netflix-style").
 
-## 👥 Fase 4: Funciones Sociales y Listas (Estructura Lista)
+## 👥 Fase 4: Funciones Sociales y Listas (Completado)
 - [x] **Review Service**: Modelos y rutas para valoraciones y comentarios creados.
 - [x] **Watchlist Service**: Modelos para listas personalizadas y "por ver" creados.
-- [ ] Lógica de negocio para compartir listas.
-- [ ] Sistema de "Actividad de Amigos".
+- [x] Lógica de negocio para compartir listas.
+- [x] Sistema de "Actividad de Amigos".
 
-## 🚀 Fase 5: Despliegue y Refinamiento (Pendiente)
-- [ ] Pruebas de integración entre microservicios.
-- [ ] Optimización de imágenes y carga (Lighthouse score).
+## 🚀 Fase 5: Despliegue y Refinamiento (En curso)
+- [x] Pruebas de integración entre microservicios.
+- [x] Optimización de imágenes y carga (Lighthouse score).
 - [ ] Preparación para AWS (Lambda/DynamoDB) - *Opcional futuro*.
 
 ---

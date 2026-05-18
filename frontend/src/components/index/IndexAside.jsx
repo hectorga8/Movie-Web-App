@@ -12,7 +12,7 @@ function IndexAside() {
         </h2>
         <article className="mb-6 group/news cursor-pointer">
           <div className="relative overflow-hidden rounded-2xl mb-4 aspect-video shadow-2xl border border-white/5">
-            <img src="https://image.tmdb.org/t/p/w500/ovM06PdffK866PBrsBqPfwZhybi.jpg" alt="" className="w-full h-full object-cover group-hover/news:scale-110 transition-transform duration-700" />
+            <img loading="lazy" src="https://image.tmdb.org/t/p/w500/ovM06PdffK866PBrsBqPfwZhybi.jpg" alt="" className="w-full h-full object-cover group-hover/news:scale-110 transition-transform duration-700" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover/news:opacity-100 transition-opacity"></div>
           </div>
           <h3 className="text-lg font-bold text-white group-hover/news:text-[#1060ff] transition-colors leading-tight mb-2">
@@ -23,7 +23,7 @@ function IndexAside() {
 
         <div className="space-y-5 pt-6 border-t border-white/5">
           <article className="flex gap-4 group/article cursor-pointer items-center">
-            <img src="https://image.tmdb.org/t/p/w200/8GxvynZpEJq9S1nOzSLnfbvMvS9.jpg" alt="" className="w-14 h-20 object-cover shrink-0 rounded-xl shadow-xl border border-white/5 group-hover/article:scale-105 transition-transform" />
+            <img loading="lazy" src="https://image.tmdb.org/t/p/w200/8GxvynZpEJq9S1nOzSLnfbvMvS9.jpg" alt="" className="w-14 h-20 object-cover shrink-0 rounded-xl shadow-xl border border-white/5 group-hover/article:scale-105 transition-transform" />
             <div>
               <h3 className="text-sm font-bold text-white/80 group-hover/article:text-[#1060ff] transition-colors leading-snug">Entrevista exclusiva con Christopher Nolan</h3>
               <p className="text-[10px] uppercase .2em] text-white/30 mt-2 font-normal">Hace 4 días</p>
@@ -41,10 +41,10 @@ function IndexAside() {
         <p className="text-xs text-white/40 mb-6 font-medium">Colecciones curadas por la comunidad</p>
         
         <div className="grid grid-cols-4 gap-2 mb-6">
-          <img src="https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg" alt="" className="w-full object-cover aspect-[2/3] rounded-lg border border-white/5 hover:scale-105 transition-transform" />
-          <img src="https://image.tmdb.org/t/p/w200/811CcaulbxxDswZpXh9IuuIyS6H.jpg" alt="" className="w-full object-cover aspect-[2/3] rounded-lg border border-white/5 hover:scale-105 transition-transform" />
-          <img src="https://image.tmdb.org/t/p/w200/5v9OAnfS68Zp066fA509Y99pY07.jpg" alt="" className="w-full object-cover aspect-[2/3] rounded-lg border border-white/5 hover:scale-105 transition-transform" />
-          <img src="https://image.tmdb.org/t/p/w200/saF3H9Ah71S1QzG6vP9YvYlARuL.jpg" alt="" className="w-full object-cover aspect-[2/3] rounded-lg border border-white/5 hover:scale-105 transition-transform" />
+          <img loading="lazy" src="https://image.tmdb.org/t/p/w200/kuf6evRbcS3UOAfmHqnZ1O0uUQC.jpg" alt="" className="w-full object-cover aspect-[2/3] rounded-lg border border-white/5 hover:scale-105 transition-transform" />
+          <img loading="lazy" src="https://image.tmdb.org/t/p/w200/811CcaulbxxDswZpXh9IuuIyS6H.jpg" alt="" className="w-full object-cover aspect-[2/3] rounded-lg border border-white/5 hover:scale-105 transition-transform" />
+          <img loading="lazy" src="https://image.tmdb.org/t/p/w200/5v9OAnfS68Zp066fA509Y99pY07.jpg" alt="" className="w-full object-cover aspect-[2/3] rounded-lg border border-white/5 hover:scale-105 transition-transform" />
+          <img loading="lazy" src="https://image.tmdb.org/t/p/w200/saF3H9Ah71S1QzG6vP9YvYlARuL.jpg" alt="" className="w-full object-cover aspect-[2/3] rounded-lg border border-white/5 hover:scale-105 transition-transform" />
         </div>
 
         <div className="space-y-3 mb-6">

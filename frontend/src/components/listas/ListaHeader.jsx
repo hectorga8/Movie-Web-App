@@ -5,7 +5,7 @@ const ListaHeader = ({ list }) => {
     <div className="mb-10">
       {/* Información del Autor */}
       <div className="flex items-center gap-3 mb-6">
-        <img 
+        <img loading="lazy" 
           src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${list.creator}`} 
           alt={list.creator}
           className="w-10 h-10 rounded-full border border-white/10"

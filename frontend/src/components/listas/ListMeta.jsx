@@ -22,7 +22,7 @@ export const ListMeta = ({
   return (
     <div className={`flex items-center gap-2 text-[11px] text-[#8b9bb4] w-full ${className}`}>
       {showAvatar ? (
-        <img 
+        <img loading="lazy" 
           src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${creator}`} 
           className="w-4 h-4 rounded-full bg-white/10" 
           alt="avatar" 

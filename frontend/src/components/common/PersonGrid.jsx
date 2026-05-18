@@ -10,7 +10,7 @@ function PersonGrid({ items }) {
       {items.map(item => (
         <Link key={item.id} to={`/persona/${item.id}`} className="group">
           <div className="aspect-[2/3] bg-[#2c3440] rounded-[3px] border border-transparent transition-all overflow-hidden shadow-md group-hover:shadow-lg relative group-hover:border-[#1060ff]">
-            <img 
+            <img loading="lazy" 
               src={movieService.getImageUrl(item.profile_path, 'w300')} 
               alt={item.name} 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

@@ -1,3 +1,5 @@
 packages:
-  - 'backend/*' 
+  - 'backend/*'
   - 'frontend'
+allowBuilds:
+  puppeteer: set this to true or false

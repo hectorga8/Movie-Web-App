@@ -78,7 +78,7 @@ function Header({ variant = "landing" }) {
                     className="flex items-center gap-2 text-sm font-normal text-white hover:text-[#1060ff] transition-colors cursor-pointer uppercase -"
                   >
                     {user.avatar && (
-                      <img src={user.avatar} alt={user.name} className="w-6 h-6 rounded-full object-cover border border-white/20" />
+                      <img loading="lazy" src={user.avatar} alt={user.name} className="w-6 h-6 rounded-full object-cover border border-white/20" />
                     )}
                     {user.name}
                     <svg className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" 
@@ -157,7 +157,7 @@ function Header({ variant = "landing" }) {
               <div className="flex flex-col gap-6">
                 <Link to="/perfil" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 hover:opacity-80 transition-opacity">
                   <div className="w-12 h-12 rounded-full bg-[#1060ff] flex items-center justify-center font-bold text-white text-xl shrink-0 overflow-hidden">
-                    {user.avatar ? <img src={user.avatar} className="w-full h-full object-cover" alt={user.name} /> : user.name[0].toUpperCase()}
+                    {user.avatar ? <img loading="lazy" src={user.avatar} className="w-full h-full object-cover" alt={user.name} /> : user.name[0].toUpperCase()}
                   </div>
                   <div className="min-w-0">
                     <p className="text-white font-normal text-lg truncate">{user.name}</p>

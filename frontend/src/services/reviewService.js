@@ -58,6 +58,16 @@ export const getReviewsForUser = async (userId) => {
   return response.json();
 };
 
+export const getFeed = async (userIds) => {
+  const response = await fetch(`${API_URL}/feed`, {
+    method: 'POST',
+    headers: getHeaders(),
+    body: JSON.stringify({ userIds })
+  });
+  if (!response.ok) throw new Error('Error al obtener feed de actividad');
+  return response.json();
+};
+
 export const toggleLikeReview = async (reviewId) => {
   const response = await fetch(`${API_URL}/${reviewId}/like`, {
     method: 'POST',

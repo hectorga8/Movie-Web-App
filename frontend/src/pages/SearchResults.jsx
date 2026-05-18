@@ -12,7 +12,7 @@ const ResultCard = ({ item }) => {
   return (
     <Link to={`/${type}/${item.id}`} className="flex gap-6 bg-white/5 border border-white/10 rounded-[12px] overflow-hidden shadow-2xl hover:bg-white/10 transition-all group mb-4">
       <div className="w-[100px] md:w-[150px] shrink-0 aspect-[2/3] bg-black/40">
-        <img 
+        <img loading="lazy" 
           src={movieService.getImageUrl(item.poster_path, 'w185')} 
           alt={title} 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

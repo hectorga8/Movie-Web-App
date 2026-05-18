@@ -64,7 +64,7 @@ function UserFilms() {
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full overflow-hidden border border-white/10 bg-[#2c3440]">
               {profileUser.avatar ? (
-                <img src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
+                <img loading="lazy" src={profileUser.avatar} alt={profileUser.name} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-white/40 font-normal">
                   {profileUser.name.substring(0,1).toUpperCase()}

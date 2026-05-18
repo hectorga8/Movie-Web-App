@@ -52,7 +52,7 @@ export default function Phase2Movies({ onNext, initialData }) {
               exit={{ opacity: 0, scale: 0.9 }}
               className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-xl p-3"
             >
-              <img 
+              <img loading="lazy" 
                 src={movieService.getImageUrl(movie.poster_path, 'w92')} 
                 alt={movie.title}
                 className="w-12 h-16 object-cover rounded-md"

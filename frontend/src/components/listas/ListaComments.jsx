@@ -29,7 +29,7 @@ const ListaComments = () => {
       </h3>
 
       <div className="flex gap-4 items-start mb-12">
-        <img 
+        <img loading="lazy" 
           src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'Usuario'}`} 
           alt="Avatar" 
           className="w-10 h-10 rounded-full border border-white/10 shrink-0 bg-[#2c3440]" 
@@ -56,7 +56,7 @@ const ListaComments = () => {
         ) : (
           comments.map(c => (
             <div key={c.id} className="flex gap-4">
-              <img src={c.avatar} alt={c.author} className="w-10 h-10 rounded-full border border-white/10 shrink-0 bg-[#2c3440]" />
+              <img loading="lazy" src={c.avatar} alt={c.author} className="w-10 h-10 rounded-full border border-white/10 shrink-0 bg-[#2c3440]" />
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-white font-normal text-[14px]">{c.author}</span>

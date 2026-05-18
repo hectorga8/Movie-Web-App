@@ -30,7 +30,7 @@ const DetailSidebar = ({ item, type, externalIds }) => {
           <div className="flex gap-4">
             {externalIds?.instagram_id && (
               <a href={`https://instagram.com/${externalIds.instagram_id}`} target="_blank" rel="noreferrer" className="w-11 h-11 rounded-[8px] border border-white/10 bg-white/5 flex items-center justify-center hover:bg-[#1060ff] hover:border-transparent transition-all group shadow-lg">
-                <img src="https://www.svgrepo.com/show/333552/instagram.svg" className="w-5 h-5 invert opacity-70 group-hover:opacity-100 transition-opacity" alt="IG" />
+                <img loading="lazy" src="https://www.svgrepo.com/show/333552/instagram.svg" className="w-5 h-5 invert opacity-70 group-hover:opacity-100 transition-opacity" alt="IG" />
               </a>
             )}
             {item.homepage && (

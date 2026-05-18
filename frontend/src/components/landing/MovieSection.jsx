@@ -87,7 +87,7 @@ function MovieSection({ title, items, type = "pelicula" }) {
                 className="min-w-[180px] max-w-[180px] group/card cursor-pointer shrink-0 text-left"
               >
                 <div className="relative mb-6 rounded-xl overflow-hidden transition-transform duration-300 group-hover/card:scale-105 group-hover/card:shadow-lg group-hover/card:shadow-black/50">
-                  <img 
+                  <img loading="lazy" 
                     src={item.image} 
                     alt={item.title} 
                     className="w-full h-[270px] object-cover group-hover/card:opacity-90 transition-opacity" 

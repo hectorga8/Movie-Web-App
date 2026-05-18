@@ -30,7 +30,7 @@ function RecentActivity({ profileUser, isOwnProfile, reviews = [] }) {
             recentReviews.map(review => (
               <div key={review._id} className="flex gap-4 group">
                 <Link to={`/pelicula/${review.mediaId}`} className="w-12 h-[72px] shrink-0 rounded-[2px] overflow-hidden border border-white/10 group-hover:border-[#00e054] transition-colors bg-[#2c3440]">
-                  <img 
+                  <img loading="lazy" 
                     src={review.mediaPoster ? `https://image.tmdb.org/t/p/w200${review.mediaPoster}` : 'https://via.placeholder.com/200x300'} 
                     alt={review.mediaTitle}
                     className="w-full h-full object-cover"
@@ -76,7 +76,7 @@ function RecentActivity({ profileUser, isOwnProfile, reviews = [] }) {
                 <Link to={`/perfil/${profileUser?.name}/reviews/populares`} className="absolute inset-0 z-10"></Link>
                 
                 <div className="w-12 h-[72px] shrink-0 rounded-[2px] overflow-hidden border border-white/10 group-hover:border-[#00e054] transition-colors bg-[#2c3440] relative z-20">
-                  <img 
+                  <img loading="lazy" 
                     src={review.mediaPoster ? `https://image.tmdb.org/t/p/w200${review.mediaPoster}` : 'https://via.placeholder.com/200x300'} 
                     alt={review.mediaTitle}
                     className="w-full h-full object-cover"

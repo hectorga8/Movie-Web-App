@@ -111,7 +111,7 @@ function TrailerSection({ movies = [] }) {
                 onClick={() => handlePlayTrailer(movie.id)}
               >
                 <div className="h-[160px] relative rounded-2xl overflow-hidden transition-transform duration-300 group-hover:scale-[1.03] group-hover:shadow-lg group-hover:shadow-black/50">
-                  <img 
+                  <img loading="lazy" 
                     src={movie.backdrop} 
                     alt={movie.title} 
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:opacity-70" 

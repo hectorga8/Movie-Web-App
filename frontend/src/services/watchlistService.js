@@ -131,6 +131,11 @@ export const watchlistService = {
   updateList: async (id, listData) => {
     const { data } = await watchlistApi.put(`/watchlist/custom-list/${id}`, listData);
     return data;
+  },
+
+  getFeedLists: async (userIds) => {
+    const { data } = await watchlistApi.post('/watchlist/feed-lists', { userIds });
+    return data;
   }
 };
 

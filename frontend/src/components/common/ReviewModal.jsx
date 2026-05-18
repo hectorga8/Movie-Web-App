@@ -64,7 +64,7 @@ function ReviewModal({ media, mediaType, onClose }) {
         <div className="w-full md:w-1/3 bg-[#111419] border-r border-white/10 p-6 flex items-center justify-center relative">
           {posterUrl ? (
             <div className="relative w-[180px] md:w-full max-w-[240px]">
-              <img 
+              <img loading="lazy" 
                 src={posterUrl} 
                 alt={`Portada de ${title}`} 
                 className="w-full rounded-[4px] shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-white/10"

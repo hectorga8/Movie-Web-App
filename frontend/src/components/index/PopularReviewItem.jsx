@@ -49,13 +49,13 @@ function PopularReviewItem({ initialReview }) {
   return (
     <div className="flex gap-4 py-4 relative overflow-hidden transition-all">
       <Link to={`/${review.mediaType === 'movie' ? 'pelicula' : 'serie'}/${review.mediaId}`} className="w-16 md:w-20 shrink-0 rounded-[2px] overflow-hidden aspect-[2/3] block bg-white/10 h-max cursor-pointer">
-         <img src={review.mediaPoster ? `https://image.tmdb.org/t/p/w200${review.mediaPoster}` : 'https://via.placeholder.com/200x300?text=No+Poster'} alt={review.mediaTitle} className="w-full h-full object-cover" />
+         <img loading="lazy" src={review.mediaPoster ? `https://image.tmdb.org/t/p/w200${review.mediaPoster}` : 'https://via.placeholder.com/200x300?text=No+Poster'} alt={review.mediaTitle} className="w-full h-full object-cover" />
       </Link>
       <div className="flex-1 min-w-0 flex flex-col justify-start">
         <div className="flex items-center gap-2 mb-1">
           <Link to={`/perfil/${review.userId || review.user}`} className="flex items-center gap-2 group/user">
             <div className="w-5 h-5 rounded-full overflow-hidden bg-white/10 shrink-0">
-              <img 
+              <img loading="lazy" 
                 src={authorAvatar || `https://ui-avatars.com/api/?name=${review.username}&background=random`} 
                 alt={review.username} 
                 className="w-full h-full object-cover"

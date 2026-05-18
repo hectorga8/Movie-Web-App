@@ -239,7 +239,7 @@ const CrearLista = () => {
                   {movies.map((movie, index) => (
                     <div key={movie.movieId} className="flex items-center p-3 hover:bg-[#242c34] transition-colors group">
                       {/* Poster */}
-                      <img 
+                      <img loading="lazy" 
                         src={`https://image.tmdb.org/t/p/w92${movie.posterPath}`} 
                         alt="" 
                         className="w-[35px] h-[52px] object-cover rounded-sm border border-white/10 bg-[#1a1c23]"

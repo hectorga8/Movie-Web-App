@@ -29,7 +29,7 @@ function JustReviewedSeries() {
           to={`/serie/${serie.id}`} 
           className="flex-1 border border-[#445566] hover:border-[#00e054] rounded-[3px] overflow-hidden transition-colors aspect-[2/3] bg-[#2c3440] relative group/card"
         >
-          <img 
+          <img loading="lazy" 
             src={movieService.getImageUrl(serie.poster_path, 'w185')} 
             alt={serie.name || serie.title}
             className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"

@@ -70,7 +70,7 @@ function Persona() {
         {/* Columna Izquierda: Foto e Info Personal */}
         <div className="w-full md:w-[300px] shrink-0">
           <div className="rounded-[8px] overflow-hidden shadow-2xl border border-[#2c3440] bg-[#1a1c23] mb-6">
-            <img 
+            <img loading="lazy" 
               src={movieService.getImageUrl(person.profile_path, 'w500')} 
               alt={person.name} 
               className="w-full object-cover"
@@ -120,7 +120,7 @@ function Persona() {
                   className="bg-white/5 border border-white/10 rounded-[6px] p-2 hover:bg-white/10 transition-colors cursor-pointer group flex items-center gap-3"
                   onClick={() => navigate(`/${highestRatedMovie.media_type === 'movie' ? 'pelicula' : 'serie'}/${highestRatedMovie.id}`)}
                 >
-                  <img src={movieService.getImageUrl(highestRatedMovie.poster_path, 'w92')} className="w-8 h-12 object-cover rounded-[2px]" alt="" />
+                  <img loading="lazy" src={movieService.getImageUrl(highestRatedMovie.poster_path, 'w92')} className="w-8 h-12 object-cover rounded-[2px]" alt="" />
                   <div className="flex-1 min-w-0">
                     <p className="text-white font-normal truncate group-hover:text-[#1060ff] transition-colors">{highestRatedMovie.title || highestRatedMovie.name}</p>
                     <p className="text-[12px] text-[#21d07a] font-normal mt-0.5 flex items-center gap-1">
@@ -178,7 +178,7 @@ function Persona() {
                   {knownFor.map(item => (
                     <div key={`${item.media_type}-${item.id}`} className="group cursor-pointer">
                       <div className="aspect-[2/3] bg-[#2c3440] rounded-[4px] overflow-hidden border border-[#445566] group-hover:border-white transition-all shadow-md relative">
-                        <img 
+                        <img loading="lazy" 
                           src={movieService.getImageUrl(item.poster_path, 'w300')} 
                           alt={item.title || item.name} 
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

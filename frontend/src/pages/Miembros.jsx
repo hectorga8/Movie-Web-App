@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSortedMembers, fillMembersArray } from '../services/membersService';
+import FollowButton from '../components/common/FollowButton';
 
 // Componente para la Tarjeta de Usuario Destacado / Popular
 const TopUserCard = ({ user }) => {
@@ -17,16 +18,14 @@ const TopUserCard = ({ user }) => {
         <Link to={`/perfil/${user._id}`}>
           <div className="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-tr from-[#14181c] to-[#2c3440] border-2 border-transparent group-hover:border-[#00e054] transition-all flex items-center justify-center shadow-xl overflow-hidden">
             {user.avatar ? (
-              <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
+              <img loading="lazy" src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
             ) : (
               <span className="text-white text-4xl font-normal">{avatarLetter}</span>
             )}
           </div>
         </Link>
         {/* Botón de seguir (+) */}
-        <button className="absolute bottom-0 right-0 w-7 h-7 bg-[#2c3440] border border-[#445566] text-[#8aa8c2] hover:bg-[#fff] hover:text-[#14181c] rounded-full flex items-center justify-center font-bold text-lg shadow-lg transition-colors cursor-pointer z-10 pb-0.5">
-          +
-        </button>
+        <FollowButton targetUserId={user._id} className="absolute bottom-0 right-0 w-7 h-7 bg-[#2c3440] border border-[#445566] text-[#8aa8c2] hover:bg-[#fff] hover:text-[#14181c] rounded-full flex items-center justify-center font-bold text-lg shadow-lg transition-colors cursor-pointer z-10 pb-0.5" />
       </div>
       
       {/* Info */}
@@ -44,7 +43,7 @@ const TopUserCard = ({ user }) => {
         {posters.map((review, i) => (
           <Link key={i} to={review ? `/movie/${review.mediaId}` : '#'} className="w-10 h-14 md:w-12 md:h-16 rounded-[2px] border border-[#445566] overflow-hidden hover:border-white transition-colors relative z-0 hover:z-10 bg-[#1c2228]">
             {review?.mediaPoster ? (
-              <img 
+              <img loading="lazy" 
                 src={`https://image.tmdb.org/t/p/w200${review.mediaPoster}`} 
                 alt="Poster" 
                 className="w-full h-full object-cover"
@@ -72,7 +71,7 @@ const ListItemUser = ({ user }) => {
         <Link to={`/perfil/${user._id}`}>
           <div className="w-10 h-10 rounded-full bg-[#1c2228] border border-[#445566] group-hover:border-[#40bcf4] transition-colors flex items-center justify-center overflow-hidden">
             {user.avatar ? (
-              <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
+              <img loading="lazy" src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
             ) : (
               <span className="text-[#8aa8c2] text-lg font-normal">{avatarLetter}</span>
             )}
@@ -96,9 +95,7 @@ const ListItemUser = ({ user }) => {
           <span className="flex items-center gap-1.5"><span className="text-[#40bcf4]">☷</span> {user.totalLists || 0}</span>
           <span className="flex items-center gap-1.5"><span className="text-[#ff8000]">❤</span> {user.totalLikes || 0}</span>
         </div>
-        <button className="w-8 h-8 rounded-full bg-[#2c3440] border border-[#445566] flex items-center justify-center text-[#8aa8c2] hover:bg-white hover:text-black transition-colors font-normal pb-0.5">
-          +
-        </button>
+        <FollowButton targetUserId={user._id} />
       </div>
     </div>
   );

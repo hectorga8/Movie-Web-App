@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getSortedMembers, fillMembersArray } from '../services/membersService';
+import FollowButton from '../components/common/FollowButton';
 
 function MembersList() {
   const [members, setMembers] = useState([]);
@@ -65,7 +66,7 @@ function MembersList() {
                     <Link to={`/perfil/${user._id}`} className="shrink-0">
                       <div className="w-10 h-10 rounded-full bg-[#1060ff]/10 border border-[#1060ff]/20 text-[#1060ff] flex items-center justify-center font-normal overflow-hidden">
                         {user.avatar ? (
-                          <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
+                          <img loading="lazy" src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
                         ) : (
                           (user.username || 'U')[0].toUpperCase()
                         )}
@@ -90,9 +91,7 @@ function MembersList() {
                     {user.totalLikes || 0}
                   </div>
                   <div className="w-[100px] flex justify-end">
-                    <button className="text-[12px] font-medium text-[#1060ff] bg-[#1060ff]/10 hover:bg-[#1060ff]/20 px-5 py-2 rounded-full transition-colors">
-                      Seguir
-                    </button>
+                    <FollowButton targetUserId={user._id} className="text-[12px] font-medium text-[#1060ff] bg-[#1060ff]/10 hover:bg-[#1060ff]/20 px-5 py-2 rounded-full transition-colors">Seguir</FollowButton>
                   </div>
                 </div>
               ))}
@@ -116,7 +115,7 @@ function MembersList() {
                   <Link to={`/perfil/${user._id}`} className="shrink-0">
                     <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/70 font-normal group-hover:bg-[#1060ff] group-hover:text-white transition-colors overflow-hidden">
                       {user.avatar ? (
-                        <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
+                        <img loading="lazy" src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
                       ) : (
                         (user.username || 'U')[0].toUpperCase()
                       )}

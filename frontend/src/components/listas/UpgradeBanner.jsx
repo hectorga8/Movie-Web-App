@@ -17,9 +17,9 @@ export const UpgradeBanner = () => {
 
       <div className="flex items-center gap-3 relative z-10 shrink-0">
         <div className="hidden sm:flex gap-1">
-          <img src="https://image.tmdb.org/t/p/w200/8739161.jpg" className="w-10 h-[58px] object-cover rounded-sm opacity-60" alt="" />
-          <img src="https://image.tmdb.org/t/p/w200/7222246.jpg" className="w-10 h-[58px] object-cover rounded-sm opacity-80" alt="" />
-          <img src="https://image.tmdb.org/t/p/w200/8231856.jpg" className="w-10 h-[58px] object-cover rounded-sm" alt="" />
+          <img loading="lazy" src="https://image.tmdb.org/t/p/w200/8739161.jpg" className="w-10 h-[58px] object-cover rounded-sm opacity-60" alt="" />
+          <img loading="lazy" src="https://image.tmdb.org/t/p/w200/7222246.jpg" className="w-10 h-[58px] object-cover rounded-sm opacity-80" alt="" />
+          <img loading="lazy" src="https://image.tmdb.org/t/p/w200/8231856.jpg" className="w-10 h-[58px] object-cover rounded-sm" alt="" />
         </div>
         <button className="flex items-center gap-2 bg-[#1a2535] border border-bb-border hover:border-bb-blue/50 px-4 py-2 rounded-sm text-[11px] font-normal uppercase text-bb-white transition-all">
           UPGRADE TO <span className="pro-badge">PRO</span>

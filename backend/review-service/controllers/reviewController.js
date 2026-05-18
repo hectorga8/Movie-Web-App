@@ -154,6 +154,25 @@ exports.getReviewsForUser = async (req, res) => {
   }
 };
 
+// Obtener feed de actividad de amigos/seguidos
+exports.getFeed = async (req, res) => {
+  try {
+    const { userIds } = req.body;
+    if (!userIds || !Array.isArray(userIds) || userIds.length === 0) {
+      return res.status(200).json([]);
+    }
+    
+    const reviews = await Review.find({ userId: { $in: userIds } })
+      .sort({ createdAt: -1 })
+      .limit(20);
+      
+    res.status(200).json(reviews);
+  } catch (error) {
+    console.error('Error al obtener feed:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
 // Eliminar todos los datos de un usuario (Reviews y likes dados)
 exports.deleteUserData = async (req, res) => {
   try {

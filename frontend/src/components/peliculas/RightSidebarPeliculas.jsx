@@ -46,7 +46,7 @@ function RightSidebarPeliculas() {
               to={`/pelicula/${movie.id}`} 
               className="border border-[#445566] hover:border-[#00e054] rounded-[3px] overflow-hidden transition-colors aspect-[2/3] bg-[#2c3440] relative group/card"
             >
-              <img 
+              <img loading="lazy" 
                 src={movieService.getImageUrl(movie.poster_path, 'w185')} 
                 alt={movie.title}
                 className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
@@ -71,7 +71,7 @@ function RightSidebarPeliculas() {
             <div key={reviewer._id || i} className="flex items-center gap-3 group">
               <Link to={`/perfil/${reviewer._id}`} className="w-10 h-10 rounded-full shrink-0 border border-[#445566] overflow-hidden group-hover:border-[#40bcf4] transition-colors flex items-center justify-center bg-[#1c2228]">
                 {reviewer.avatar ? (
-                  <img src={reviewer.avatar} alt={reviewer.username} className="w-full h-full object-cover" />
+                  <img loading="lazy" src={reviewer.avatar} alt={reviewer.username} className="w-full h-full object-cover" />
                 ) : (
                   <span className="text-[#8aa8c2] text-lg font-normal">{(reviewer.username || 'U')[0].toUpperCase()}</span>
                 )}

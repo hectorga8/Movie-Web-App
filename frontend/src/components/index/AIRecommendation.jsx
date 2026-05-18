@@ -44,7 +44,7 @@ function AIRecommendation() {
         {recommendations.map((rec, i) => (
           <div key={i} className="flex gap-5 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-[#1060ff]/30 hover:bg-white/10 transition-all cursor-pointer group/card shadow-lg">
             <div className="relative shrink-0">
-              <img src={rec.image} alt={rec.title} className="w-16 h-24 object-cover rounded-xl shadow-2xl group-hover/card:scale-105 transition-transform duration-300" />
+              <img loading="lazy" src={rec.image} alt={rec.title} className="w-16 h-24 object-cover rounded-xl shadow-2xl group-hover/card:scale-105 transition-transform duration-300" />
               <div className="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10"></div>
             </div>
             <div className="min-w-0 flex flex-col justify-center">

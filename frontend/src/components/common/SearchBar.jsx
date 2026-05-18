@@ -289,7 +289,7 @@ function SearchBar() {
                               className="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-all group"
                             >
                               <div className="hidden md:block w-10 h-14 shrink-0 rounded-[4px] overflow-hidden bg-white/5">
-                                <img src={movieService.getImageUrl(item.poster_path, 'w92')} className="w-full h-full object-cover" alt="" />
+                                <img loading="lazy" src={movieService.getImageUrl(item.poster_path, 'w92')} className="w-full h-full object-cover" alt="" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className="text-white font-normal text-sm truncate group-hover:text-[#1060ff] transition-colors">
@@ -321,7 +321,7 @@ function SearchBar() {
                               className="flex items-center gap-4 p-2 rounded-xl hover:bg-white/5 transition-all group"
                             >
                               <div className="w-10 h-10 shrink-0 rounded-full overflow-hidden bg-white/5 border border-white/10 group-hover:border-[#1060ff] transition-colors">
-                                <img src={movieService.getImageUrl(person.profile_path, 'w92')} className="w-full h-full object-cover" alt="" />
+                                <img loading="lazy" src={movieService.getImageUrl(person.profile_path, 'w92')} className="w-full h-full object-cover" alt="" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className="text-white font-normal text-sm truncate group-hover:text-[#1060ff] transition-colors">

@@ -437,3 +437,29 @@ exports.getAllUsersStats = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+exports.getFeedLists = async (req, res) => {
+  try {
+    const { userIds } = req.body;
+    if (!userIds || !Array.isArray(userIds) || userIds.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    const lists = await CustomList.find({ userId: { $in: userIds }, isPublic: true })
+      .sort({ updatedAt: -1, createdAt: -1 })
+      .limit(10);
+
+    const formattedLists = lists.map(list => {
+      const listObj = list.toObject();
+      listObj.title = listObj.name;
+      listObj.posters = listObj.movies;
+      listObj.moviesCount = listObj.movies ? listObj.movies.length : 0;
+      return listObj;
+    });
+
+    res.status(200).json(formattedLists);
+  } catch (error) {
+    console.error('Error fetching feed lists:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import movieService from '../../services/movieService';
 
 function MediaCard({ 
@@ -23,13 +24,19 @@ function MediaCard({
     : (imagePath ? movieService.getImageUrl(imagePath, 'w400') : "https://via.placeholder.com/400x600?text=No+Image");
 
   return (
-    <div className="group relative">
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.05 }}
+      transition={{ duration: 0.3 }}
+      className="group relative"
+    >
       <Link to={`/${urlType}/${id}`} className="block">
         <div className={`aspect-[2/3] bg-[#2c3440] rounded-[4px] border border-transparent ${hoverColor} transition-all overflow-hidden shadow-md group-hover:shadow-lg relative group/card`}>
-          <img 
+          <img loading="lazy" 
             src={imageUrl} 
             alt={title || "Sin título"} 
-            className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover"
           />
           
           {showTypeBadge && (
@@ -57,7 +64,7 @@ function MediaCard({
           </div>
         )}
       </Link>
-    </div>
+    </motion.div>
   );
 }
 

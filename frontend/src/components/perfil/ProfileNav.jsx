@@ -7,7 +7,7 @@ function ProfileNav({ profileUser }) {
 
   const navItems = [
     { label: 'Perfil', path: baseUrl },
-    { label: 'Actividad', path: `${baseUrl}/activity` },
+    { label: 'Actividad', path: '/social' },
     { label: 'Películas', path: `${baseUrl}/films` },
     { label: 'Diario', path: `${baseUrl}/diary` },
     { label: 'Reseñas', path: `${baseUrl}/reviews` },

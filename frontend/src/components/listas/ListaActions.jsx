@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -18,6 +18,7 @@ const ActionButton = ({ icon, label, count, onClick, variant = 'default' }) => (
 const ListaActions = ({ list }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [isCopied, setIsCopied] = useState(false);
 
   // Es propietario si el usuario está logueado y coincide su ID o nombre con el creador
   const isOwner = user && (user._id === list.userId || user.name === list.creator);
@@ -28,6 +29,15 @@ const ListaActions = ({ list }) => {
 
   const handleEdit = () => {
     navigate(`/listas/editar/${list._id || list.id}`, { state: { listData: list } });
+  };
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      })
+      .catch((err) => console.error('Error al copiar al portapapeles:', err));
   };
 
   return (
@@ -44,8 +54,9 @@ const ListaActions = ({ list }) => {
       />
 
       <ActionButton 
-        icon={<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>}
-        label="Compartir"
+        onClick={handleShare}
+        icon={<svg className={`w-4 h-4 ${isCopied ? 'text-[#00e054]' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>}
+        label={isCopied ? 'Copiado!' : 'Compartir'}
       />
 
       {user && !isOwner && (

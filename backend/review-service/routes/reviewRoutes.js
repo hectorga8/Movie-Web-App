@@ -19,6 +19,9 @@ router.get('/media/:mediaType/:mediaId', reviewController.getReviewsForMedia);
 // Obtener reseñas de un usuario específico
 router.get('/user/:userId', reviewController.getReviewsForUser);
 
+// Obtener feed de actividad de múltiples usuarios (amigos/seguidos)
+router.post('/feed', reviewController.getFeed);
+
 // Eliminar todos los datos de un usuario
 router.delete('/user/:userId', reviewController.deleteUserData);
 

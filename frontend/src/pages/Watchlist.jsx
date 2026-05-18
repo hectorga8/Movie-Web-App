@@ -91,7 +91,7 @@ function Watchlist() {
               <div key={item._id} className="group relative">
                 <Link to={`/${item.mediaType === 'movie' ? 'pelicula' : 'serie'}/${item.mediaId}`} className="block">
                   <div className="aspect-[2/3] bg-[#2c3440] rounded-[4px] border border-transparent group-hover:border-[#00e054] transition-all overflow-hidden shadow-md group-hover:shadow-lg relative">
-                    <img 
+                    <img loading="lazy" 
                       src={item.image ? movieService.getImageUrl(item.image, 'w400') : "https://via.placeholder.com/400x600?text=No+Image"} 
                       alt={item.title || "Sin título"} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"

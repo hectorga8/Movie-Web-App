@@ -23,6 +23,7 @@ import DetalleLista from './pages/DetalleLista';
 import Perfil from './pages/Perfil';
 import Miembros from './pages/Miembros';
 import MembersList from './pages/MembersList';
+import NetworkList from './pages/NetworkList';
 import EditarPerfil from './pages/EditarPerfil';
 import Watchlist from './pages/Watchlist';
 import Recomendaciones from './pages/Recomendaciones';
@@ -34,6 +35,7 @@ import UserLikes from './pages/UserLikes';
 import Social from './pages/Social';
 import Onboarding from './pages/Onboarding';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import ErrorBoundary from './components/common/ErrorBoundary';
 import { useAuth } from './context/AuthContext';
 
 // Utilidad para subir al inicio en cada cambio de ruta
@@ -96,7 +98,9 @@ function App() {
             } />
             <Route path="/inicio" element={
               <ProtectedRoute>
-                <Index />
+                <ErrorBoundary>
+                  <Index />
+                </ErrorBoundary>
               </ProtectedRoute>
             } />
 
@@ -119,6 +123,7 @@ function App() {
             } />
 
             <Route path="/perfil/:username" element={<Perfil />} />
+            <Route path="/perfil/:userId/network" element={<NetworkList />} />
 
             <Route path="/perfil/editar" element={
               <ProtectedRoute>

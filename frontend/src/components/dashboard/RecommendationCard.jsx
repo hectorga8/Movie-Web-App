@@ -17,7 +17,7 @@ function RecommendationCard({ image, title, author, description, rating = 5, bad
       )}
 
       <div className="flex gap-4 mb-4">
-        <img src={image} alt={title} className={`book-spine object-cover shrink-0 ${isMain ? "w-14 h-20" : "w-12 h-18"}`}/>
+        <img loading="lazy" src={image} alt={title} className={`book-spine object-cover shrink-0 ${isMain ? "w-14 h-20" : "w-12 h-18"}`}/>
         <div className="flex-1 min-w-0">
           {!isMain && badge && <p className="text-[10px] font-normal uppercase text-[#606C38]/60 mb-1">{badge}</p>}
           <h3 className={`font-['Arimo',sans-serif] font-bold leading-tight mb-1 truncate ${isMain ? "text-white text-base" : "text-[#283618] text-base"}`}>{title}</h3>
