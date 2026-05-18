@@ -1,7 +1,8 @@
 {
-  "name": "app-libros",
+  "name": "cinesaas",
   "version": "1.0.0",
-  "description": "",
+  "description": "CineSaaS - Plataforma de cine unificada",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev:backend": "pnpm -r --filter \"./backend/*\" dev",
@@ -24,20 +25,18 @@
     "concurrently": "^9.2.1",
     "nodemon": "^3.1.14"
   },
-
-    "url": "git+https://github.com/hectorga8/Book-Tracking-Web-App.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hectorga8/Movie-Web-App.git"
   },
-  "keywords": [],
+  "keywords": [
+    "movies",
+    "react",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/hectorga8/Book-Tracking-Web-App/issues"
-  },
-  "homepage": "https://github.com/hectorga8/Book-Tracking-Web-App#readme",
-  "devDependencies": {
-    "concurrently": "^9.2.1"
-  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "puppeteer"
