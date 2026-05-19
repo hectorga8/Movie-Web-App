@@ -20,7 +20,8 @@ function Login() {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/google`, {
+        const API_URL = import.meta.env.VITE_AUTH_API_URL || '/api/auth';
+        const res = await fetch(`${API_URL}/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token: tokenResponse.access_token })

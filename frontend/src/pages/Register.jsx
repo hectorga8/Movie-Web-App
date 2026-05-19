@@ -21,7 +21,8 @@ function Register() {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/google`, {
+        const API_URL = import.meta.env.VITE_AUTH_API_URL || '/api/auth';
+        const res = await fetch(`${API_URL}/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ token: tokenResponse.access_token })
@@ -40,7 +41,8 @@ function Register() {
     if (!name || !email || !password) { setError('Campos obligatorios.'); return; }
     setLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/register`, {
+      const API_URL = import.meta.env.VITE_AUTH_API_URL || '/api/auth';
+      const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
