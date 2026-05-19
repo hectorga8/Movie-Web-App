@@ -8,8 +8,10 @@ exports.createOrUpdateReview = async (req, res) => {
     // Si viene en el body lo usamos, si no ponemos 'Usuario Anonimo' temporalmente para evitar el 500, o fallar limpiamente.
     const finalUsername = username || req.user.username || 'Usuario'; 
 
+    const mId = Number(mediaId);
+
     // Comprobamos si ya existe una review del usuario para este media
-    let review = await Review.findOne({ userId, mediaId, mediaType });
+    let review = await Review.findOne({ userId, mediaId: mId, mediaType });
 
     if (review) {
       // Actualizamos
@@ -26,7 +28,7 @@ exports.createOrUpdateReview = async (req, res) => {
       review = new Review({
         userId,
         username: finalUsername,
-        mediaId,
+        mediaId: mId,
         mediaType,
         mediaTitle,
         mediaPoster,
@@ -264,18 +266,21 @@ exports.getAllReviewersStats = async (req, res) => {
           totalLikes: 1,
           watchedThisWeek: 1,
           likesThisWeek: 1,
-          recentReviews: {
-            $slice: [
-              {
-                $sortArray: { input: "$recentReviews", sortBy: { createdAt: -1 } }
-              }, 
-              4
-            ]
-          }
+          recentReviews: 1
         }
       }
     ]);
-    res.status(200).json(stats);
+
+    // Post-procesamiento para ordenar y limitar las reseñas recientes (más compatible)
+    const formattedStats = stats.map(member => {
+      if (member.recentReviews && Array.isArray(member.recentReviews)) {
+        member.recentReviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        member.recentReviews = member.recentReviews.slice(0, 4);
+      }
+      return member;
+    });
+
+    res.status(200).json(formattedStats);
   } catch (error) {
     console.error('Error in getAllReviewersStats:', error);
     res.status(500).json({ error: 'Error interno del servidor' });

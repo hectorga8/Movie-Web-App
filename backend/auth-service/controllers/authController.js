@@ -292,18 +292,11 @@ exports.followUser = async (req, res) => {
       return res.status(400).json({ message: 'No puedes seguirte a ti mismo' });
     }
 
-    const userToFollow = await User.findById(userToFollowId);
-    const currentUser = await User.findById(currentUserId);
+    // Usamos addToSet para evitar duplicados y asegurar que se trate como ObjectId
+    await User.findByIdAndUpdate(currentUserId, { $addToSet: { following: userToFollowId } });
+    await User.findByIdAndUpdate(userToFollowId, { $addToSet: { followers: currentUserId } });
 
-    if (!userToFollow) return res.status(404).json({ message: 'Usuario no encontrado' });
-
-    if (!currentUser.following.includes(userToFollowId)) {
-      currentUser.following.push(userToFollowId);
-      userToFollow.followers.push(currentUserId);
-      await currentUser.save();
-      await userToFollow.save();
-    }
-
+    const currentUser = await User.findById(currentUserId).select('-password');
     res.status(200).json(currentUser);
   } catch (error) {
     console.error('❌ Error siguiendo usuario:', error);
@@ -317,24 +310,16 @@ exports.unfollowUser = async (req, res) => {
     const userToUnfollowId = req.params.id;
     const currentUserId = req.user._id;
 
-    const userToUnfollow = await User.findById(userToUnfollowId);
-    const currentUser = await User.findById(currentUserId);
+    await User.findByIdAndUpdate(currentUserId, { $pull: { following: userToUnfollowId } });
+    await User.findByIdAndUpdate(userToUnfollowId, { $pull: { followers: currentUserId } });
 
-    if (!userToUnfollow) return res.status(404).json({ message: 'Usuario no encontrado' });
-
-    currentUser.following = currentUser.following.filter(id => id.toString() !== userToUnfollowId);
-    userToUnfollow.followers = userToUnfollow.followers.filter(id => id.toString() !== currentUserId.toString());
-    
-    await currentUser.save();
-    await userToUnfollow.save();
-
+    const currentUser = await User.findById(currentUserId).select('-password');
     res.status(200).json(currentUser);
   } catch (error) {
     console.error('❌ Error dejando de seguir usuario:', error);
     res.status(500).json({ message: 'Error al dejar de seguir usuario' });
   }
 };
-
 // Obtener múltiples usuarios a la vez (para avatares y datos en lista)
 exports.getBulkUsers = async (req, res) => {
   try {

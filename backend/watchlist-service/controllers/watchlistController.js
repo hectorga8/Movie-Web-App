@@ -133,7 +133,7 @@ exports.addItem = async (req, res) => {
     }
 
     const item = await WatchlistItem.findOneAndUpdate(
-      { userId, mediaId, mediaType },
+      { userId, mediaId: Number(mediaId), mediaType },
       { $set: { status, isFavorite, rating, title, image, inWatchlist, addedAt: Date.now() } },
       { new: true, upsert: true }
     );

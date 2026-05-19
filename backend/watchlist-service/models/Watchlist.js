@@ -25,7 +25,7 @@ const WatchlistItemSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['plan_to_watch', 'watched', 'dropped'],
+    enum: ['plan_to_watch', 'watched', 'dropped', 'none'],
     default: 'plan_to_watch'
   },
   rating: {

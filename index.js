@@ -15,6 +15,14 @@ const reviewRoutes = require('./backend/review-service/routes/reviewRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// --- CONFIGURACIÓN DE MICROSERVICIOS (MODO HÍBRIDO) ---
+// Si estamos en un monolito (como en Render), las URLs de los servicios internos 
+// deben apuntar al propio proceso.
+const localUrl = `http://localhost:${PORT}`;
+process.env.REVIEW_SERVICE_URL = process.env.REVIEW_SERVICE_URL || localUrl;
+process.env.WATCHLIST_SERVICE_URL = process.env.WATCHLIST_SERVICE_URL || localUrl;
+process.env.AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || localUrl;
+
 // Configuración de CORS permisiva para producción (Evita bloqueos en móviles)
 app.use(cors({
   origin: true,
