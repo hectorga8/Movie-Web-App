@@ -45,6 +45,9 @@ importers:
 
   backend/auth-service:
     dependencies:
+      axios:
+        specifier: ^1.16.1
+        version: 1.16.1
       bcryptjs:
         specifier: ^3.0.3
         version: 3.0.3

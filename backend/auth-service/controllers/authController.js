@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const axios = require('axios');
 
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -82,8 +83,8 @@ exports.login = async (req, res) => {
 exports.googleAuth = async (req, res) => {
   try {
     const { token } = req.body;
-    const googleRes = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`);
-    const googleUser = await googleRes.json();
+    const googleRes = await axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`);
+    const googleUser = googleRes.data;
 
     if (!googleUser.email) {
       return res.status(400).json({ message: 'Token de Google inválido' });
@@ -236,15 +237,15 @@ exports.deleteAccount = async (req, res) => {
     );
 
     // 2. Llamar a otros microservicios para eliminar datos en cascada
-    const REVIEW_SERVICE_URL = process.env.REVIEW_SERVICE_URL || 'http://review-service:5004';
-    const WATCHLIST_SERVICE_URL = process.env.WATCHLIST_SERVICE_URL || 'http://watchlist-service:5003';
+    const REVIEW_SERVICE_URL = process.env.REVIEW_SERVICE_URL || 'http://localhost:5004';
+    const WATCHLIST_SERVICE_URL = process.env.WATCHLIST_SERVICE_URL || 'http://localhost:5003';
 
     // Ejecutamos las llamadas en paralelo para mayor eficiencia
     await Promise.allSettled([
-      fetch(`${REVIEW_SERVICE_URL}/api/reviews/user/${userId}`, { method: 'DELETE' })
+      axios.delete(`${REVIEW_SERVICE_URL}/api/reviews/user/${userId}`)
         .catch(err => console.error('⚠️ Error llamando a Review Service:', err.message)),
       
-      fetch(`${WATCHLIST_SERVICE_URL}/api/watchlist/user/${userId}`, { method: 'DELETE' })
+      axios.delete(`${WATCHLIST_SERVICE_URL}/api/watchlist/user/${userId}`)
         .catch(err => console.error('⚠️ Error llamando a Watchlist Service:', err.message))
     ]);
 
@@ -350,13 +351,13 @@ exports.getBulkUsers = async (req, res) => {
 };
 
 // --- SUPER-ENDPOINT: Perfil Completo ---
-// Agrega toda la información necesaria para el perfil en una sola petición a MongoDB
+// Agrega toda la información necesaria para el perfil en una sola petición coordinada
 exports.getFullProfile = async (req, res) => {
   try {
     const { identifier } = req.params;
     let user;
     
-    // 1. Obtener usuario
+    // 1. Obtener usuario de la base de datos local (Auth)
     if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
       user = await User.findById(identifier).select('-password').lean();
     } else {
@@ -367,36 +368,35 @@ exports.getFullProfile = async (req, res) => {
 
     const userId = String(user._id);
 
-    // Importaciones dinámicas para evitar dependencias circulares y mantener microservicios desacoplados pero aprovechando el orquestador unificado
-    const WatchlistItem = require('../../watchlist-service/models/Watchlist');
-    const CustomList = require('../../watchlist-service/models/CustomList');
-    const Review = require('../../review-service/models/Review');
+    // URLs de los servicios (Fallback a localhost para desarrollo manual con 'pnpm dev')
+    const REVIEW_SERVICE_URL = process.env.REVIEW_SERVICE_URL || 'http://localhost:5004';
+    const WATCHLIST_SERVICE_URL = process.env.WATCHLIST_SERVICE_URL || 'http://localhost:5003';
 
-    const currentYear = new Date().getFullYear();
-    const startOfYear = new Date(currentYear, 0, 1).getTime();
-
-    // 2. Ejecutar consultas en paralelo contra MongoDB usando Agregaciones para máximo rendimiento
-    const [reviews, watchedFilms, watchedThisYear, listsCount] = await Promise.all([
-      Review.find({ userId }).sort({ createdAt: -1 }).lean(),
-      WatchlistItem.countDocuments({ userId, status: 'watched', mediaType: 'movie' }),
-      WatchlistItem.countDocuments({ userId, status: 'watched', mediaType: 'movie', addedAt: { $gte: startOfYear } }),
-      CustomList.countDocuments({ userId })
+    // 2. Ejecutar consultas en paralelo a otros microservicios vía HTTP
+    // Se usa un .catch en cada una para que si un servicio secundario falla, el perfil principal cargue igual
+    const [reviewsRes, statsRes] = await Promise.all([
+      axios.get(`${REVIEW_SERVICE_URL}/api/reviews/user/${userId}`)
+        .then(r => r.data)
+        .catch(err => {
+          console.error("⚠️ Error llamando a Review Service (Perfil):", err.message);
+          return [];
+        }),
+      axios.get(`${WATCHLIST_SERVICE_URL}/api/watchlist/user/${userId}/stats`)
+        .then(r => r.data)
+        .catch(err => {
+          console.error("⚠️ Error llamando a Watchlist Service (Perfil):", err.message);
+          return { filmsCount: 0, thisYearCount: 0, listsCount: 0 };
+        })
     ]);
-
-    const stats = {
-      filmsCount: watchedFilms,
-      thisYearCount: watchedThisYear,
-      listsCount: listsCount
-    };
 
     res.status(200).json({
       user,
-      stats,
-      reviews
+      stats: statsRes,
+      reviews: reviewsRes
     });
   } catch (error) {
     console.error('❌ Error obteniendo perfil completo:', error);
-    res.status(500).json({ message: 'Error obteniendo perfil completo' });
+    res.status(500).json({ message: 'Error obteniendo perfil completo', error: error.message });
   }
 };
 

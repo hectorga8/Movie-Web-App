@@ -85,9 +85,10 @@ exports.getNowPlayingMovies = async (req, res) => {
 
 exports.getMovieById = async (req, res) => {
   try {
-    const Review = require('../../review-service/models/Review');
-    
-    // SUPER-ENDPOINT: Peticiones en paralelo a TMDb y MongoDB (Reseñas internas)
+    const axios = require('axios');
+    const REVIEW_SERVICE_URL = process.env.REVIEW_SERVICE_URL || 'http://localhost:5004';
+
+    // SUPER-ENDPOINT: Peticiones en paralelo a TMDb y al microservicio de Reseñas (vía HTTP)
     const [tmdbResponse, internalReviews] = await Promise.all([
       tmdbApi.get(`/movie/${req.params.id}`, { 
         params: { 
@@ -96,7 +97,12 @@ exports.getMovieById = async (req, res) => {
           include_video_language: 'es,en,null'
         } 
       }),
-      Review.find({ mediaId: req.params.id, mediaType: 'movie' }).sort({ createdAt: -1 }).lean().catch(() => [])
+      axios.get(`${REVIEW_SERVICE_URL}/api/reviews/media/movie/${req.params.id}`)
+        .then(r => r.data)
+        .catch(err => {
+          console.error("⚠️ Error llamando a Review Service (Detalle):", err.message);
+          return [];
+        })
     ]);
 
     const data = tmdbResponse.data;

@@ -11,6 +11,8 @@ services:
       - PORT=5001
       - MONGO_URI=${MONGO_URI_AUTH}
       - JWT_SECRET=${JWT_SECRET}
+      - REVIEW_SERVICE_URL=http://review-service:5004
+      - WATCHLIST_SERVICE_URL=http://watchlist-service:5003
     networks:
       - cinesaas-prod-network
 
@@ -23,6 +25,7 @@ services:
     environment:
       - PORT=5002
       - TMDB_API_KEY=${TMDB_API_KEY}
+      - REVIEW_SERVICE_URL=http://review-service:5004
     networks:
       - cinesaas-prod-network
 
@@ -35,6 +38,7 @@ services:
     environment:
       - PORT=5003
       - MONGO_URI=${MONGO_URI_WATCHLIST}
+      - JWT_SECRET=${JWT_SECRET}
     networks:
       - cinesaas-prod-network
 
@@ -47,6 +51,7 @@ services:
     environment:
       - PORT=5004
       - MONGO_URI=${MONGO_URI_REVIEWS}
+      - JWT_SECRET=${JWT_SECRET}
     networks:
       - cinesaas-prod-network
 
