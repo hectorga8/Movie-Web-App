@@ -7,10 +7,41 @@ settings:
 importers:
 
   .:
+    dependencies:
+      axios:
+        specifier: ^1.15.0
+        version: 1.16.1
+      bcryptjs:
+        specifier: ^3.0.3
+        version: 3.0.3
+      cors:
+        specifier: ^2.8.6
+        version: 2.8.6
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
+      express:
+        specifier: ^5.2.1
+        version: 5.2.1
+      jsonwebtoken:
+        specifier: ^9.0.3
+        version: 9.0.3
+      mongoose:
+        specifier: ^9.4.1
+        version: 9.6.2
+      node-cache:
+        specifier: ^5.1.2
+        version: 5.1.2
+      rss-parser:
+        specifier: ^3.13.0
+        version: 3.13.0
     devDependencies:
       concurrently:
         specifier: ^9.2.1
         version: 9.2.1
+      nodemon:
+        specifier: ^3.1.14
+        version: 3.1.14
 
   backend/auth-service:
     dependencies:

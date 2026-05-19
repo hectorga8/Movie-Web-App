@@ -32,26 +32,26 @@ function Perfil() {
       try {
         const data = await getUserProfile(targetIdentifier);
         
+        if (!data || !data._id) {
+          throw new Error('Usuario no encontrado');
+        }
+
         let finalProfileUser = { ...data };
 
-        // Fetch stats if user exists
-        if (data && data._id) {
-          try {
-            const stats = await watchlistService.getUserStats(data._id);
-            finalProfileUser = { ...finalProfileUser, ...stats };
-          } catch (statErr) {
-            console.error('Error fetching stats:', statErr);
-          }
+        // Lanzamos las peticiones en paralelo
+        const [stats, userReviews] = await Promise.all([
+          watchlistService.getUserStats(data._id).catch(err => {
+            console.error('Error fetching stats:', err);
+            return {};
+          }),
+          getReviewsForUser(data._id).catch(err => {
+            console.error('Error fetching reviews:', err);
+            return [];
+          })
+        ]);
 
-          try {
-            const userReviews = await getReviewsForUser(data._id);
-            setReviews(userReviews);
-          } catch (rErr) {
-            console.error('Error fetching reviews:', rErr);
-            setReviews([]);
-          }
-        }
-        
+        finalProfileUser = { ...finalProfileUser, ...stats };
+        setReviews(userReviews);
         setProfileUser(finalProfileUser);
         setError(null);
       } catch (err) {

@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserProfile = useCallback(async (currentToken) => {
     try {
-      const res = await fetch('http://localhost:5001/api/auth/me', {
+      const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/me`, {
         headers: {
           'Authorization': `Bearer ${currentToken}`
         }

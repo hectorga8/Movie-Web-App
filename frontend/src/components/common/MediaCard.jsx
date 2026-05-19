@@ -21,7 +21,7 @@ function MediaCard({
   // Manejar rutas relativas vs URLs completas
   const imageUrl = imagePath && imagePath.startsWith('http') 
     ? imagePath 
-    : (imagePath ? movieService.getImageUrl(imagePath, 'w400') : "https://via.placeholder.com/400x600?text=No+Image");
+    : (imagePath ? movieService.getImageUrl(imagePath, 'w342') : "https://via.placeholder.com/400x600?text=No+Image");
 
   return (
     <motion.div 
