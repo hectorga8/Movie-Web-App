@@ -61,4 +61,10 @@ const reviewSchema = new mongoose.Schema({
   }
 });
 
+// Índices para búsquedas de alto rendimiento
+reviewSchema.index({ userId: 1 });
+reviewSchema.index({ username: 1 });
+reviewSchema.index({ mediaId: 1, mediaType: 1 });
+reviewSchema.index({ createdAt: -1 }); // Para mostrar las más recientes rápido
+
 module.exports = mongoose.model('Review', reviewSchema);

@@ -80,6 +80,10 @@ const UserSchema = new mongoose.Schema({
   timestamps: true
 });
 
+// Índices para búsquedas rápidas en redes sociales
+UserSchema.index({ followers: 1 });
+UserSchema.index({ following: 1 });
+
 const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
