@@ -340,13 +340,18 @@ exports.getBulkUsers = async (req, res) => {
   try {
     const { userIds } = req.body;
     if (!userIds || !Array.isArray(userIds)) {
-      return res.status(400).json({ message: 'Se requiere un array de userIds' });
+      return res.status(200).json([]); // Devolver vacío en lugar de error para no romper la UI
     }
-    const users = await User.find({ _id: { $in: userIds } }).select('_id name avatar');
+    
+    // Solo traemos lo estrictamente necesario
+    const users = await User.find({ _id: { $in: userIds } })
+      .select('_id name avatar')
+      .lean();
+      
     res.status(200).json(users);
   } catch (error) {
     console.error('❌ Error en getBulkUsers:', error);
-    res.status(500).json({ message: 'Error obteniendo usuarios en bulk' });
+    res.status(500).json({ message: 'Error obteniendo usuarios' });
   }
 };
 

@@ -15,28 +15,35 @@ const reviewRoutes = require('./backend/review-service/routes/reviewRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Configuración de Middlewares globales
-app.use(cors());
+// Configuración de CORS más robusta para producción
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://cinebox-zrci.onrender.com',
+  /\.vercel\.app$/ // Permite cualquier subdominio de vercel.app
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Permitir peticiones sin origen (como apps móviles o curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.some(o => typeof o === 'string' ? o === origin : o.test(origin))) {
+      callback(null, true);
+    } else {
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  credentials: true
+}));
+
 app.use(express.json({ limit: '10mb' }));
 
-// --- CONEXIÓN A BASES DE DATOS ---
-// En el monolito, conectamos a una sola DB o usamos URIs separadas según .env
-const connectDB = async (uri, name) => {
-  try {
-    if (!uri) return null;
-    const conn = await mongoose.createConnection(uri).asPromise();
-    console.log(`✅ Conectado a MongoDB: ${name}`);
-    return conn;
-  } catch (err) {
-    console.error(`❌ Error en ${name}:`, err.message);
-    return null;
-  }
-};
+// Logger básico para depuración en producción
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
 
-// --- INYECCIÓN DE CONEXIONES (Para que los modelos sepan dónde guardar) ---
-// Nota: Para que el portfolio sea "Limpio", los servicios deberían usar mongoose.connection
-// Pero para el monolito, si usamos múltiples DBs, inyectamos la conexión si fuera necesario.
-// Por simplicidad en Render, usaremos la conexión global por defecto.
+// --- CONEXIÓN A BASES DE DATOS ---
 mongoose.connect(process.env.MONGO_URI_AUTH || process.env.MONGO_URI)
   .then(() => console.log('✅ Base de Datos principal conectada'))
   .catch(err => console.error('❌ Error DB:', err));
@@ -52,6 +59,11 @@ app.use('/api/reviews', reviewRoutes);
 
 app.get('/', (req, res) => {
   res.send('🚀 CineBox Monolito Híbrido - Todos los servicios operativos');
+});
+
+// Endpoint de Salud
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', uptime: process.uptime() });
 });
 
 app.listen(PORT, () => {

@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
-const BASE_URL = import.meta.env.VITE_MOVIE_API_URL ? import.meta.env.VITE_MOVIE_API_URL.replace(/\/movies$/, '') : (API_BASE ? `${API_BASE}/api` : '/api');
+const BASE_URL = import.meta.env.VITE_MOVIE_API_URL || '/api/movies';
 
 export const movieService = {
   // PELÍCULAS
@@ -14,44 +13,45 @@ export const movieService = {
     if (filters.sort_by) params.append('sort_by', filters.sort_by);
     if (filters.watch_provider) params.append('watch_provider', filters.watch_provider);
 
-    const { data } = await axios.get(`${BASE_URL}/movies/all?${params.toString()}`);
+    const { data } = await axios.get(`${BASE_URL}/all?${params.toString()}`);
     return data;
   },
 
   getTrending: async () => {
-    const { data } = await axios.get(`${BASE_URL}/movies/trending`);
+    const { data } = await axios.get(`${BASE_URL}/trending`);
     return data;
   },
 
   getPopular: async () => {
-    const { data } = await axios.get(`${BASE_URL}/movies/popular`);
+    const { data } = await axios.get(`${BASE_URL}/popular`);
     return data;
   },
 
   getNowPlaying: async () => {
-    const { data } = await axios.get(`${BASE_URL}/movies/now-playing`);
+    const { data } = await axios.get(`${BASE_URL}/now-playing`);
     return data;
   },
 
   getTopRated: async () => {
-    const { data } = await axios.get(`${BASE_URL}/movies/top-rated`);
+    const { data } = await axios.get(`${BASE_URL}/top-rated`);
     return data;
   },
 
   getMovieDetail: async (id) => {
-    const { data } = await axios.get(`${BASE_URL}/movies/${id}`);
+    const { data } = await axios.get(`${BASE_URL}/${id}`);
     return data;
   },
 
   getRecommendations: async (id) => {
-    const { data } = await axios.get(`${BASE_URL}/movies/${id}/recommendations`);
+    const { data } = await axios.get(`${BASE_URL}/${id}/recommendations`);
     return data;
   },
 
   searchMovies: async (query) => {
-    const { data } = await axios.get(`${BASE_URL}/movies/search?query=${query}`);
+    const { data } = await axios.get(`${BASE_URL}/search?query=${query}`);
     return data;
   },
+
 
   searchMulti: async (query, sortBy = 'relevance') => {
     const { data } = await axios.get(`${BASE_URL}/search/multi?query=${query}&sortBy=${sortBy}`);
