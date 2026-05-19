@@ -42,7 +42,8 @@ function Login() {
     if (!email || !password) { setError('Introduce tus credenciales.'); return; }
     setLoading(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/login`, {
+      const API_URL = import.meta.env.VITE_AUTH_API_URL || '/api/auth';
+      const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -158,4 +159,3 @@ function Login() {
 }
 
 export default Login;
-Login;
