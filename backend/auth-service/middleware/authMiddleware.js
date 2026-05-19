@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
 
 const protect = async (req, res, next) => {
   let token;
@@ -8,7 +7,11 @@ const protect = async (req, res, next) => {
     try {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select('-password');
+      
+      // En el monolito unificado, inyectamos el ID directamente para evitar 
+      // consultas constantes a la base de datos en cada middleware.
+      req.user = { _id: decoded.id, id: decoded.id };
+      
       next();
     } catch (error) {
       console.error('❌ Error en token:', error);
