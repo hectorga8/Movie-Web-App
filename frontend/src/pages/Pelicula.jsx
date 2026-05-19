@@ -23,15 +23,12 @@ function Pelicula() {
     const fetchDetail = async () => {
       try {
         setLoading(true);
+        // SUPER-ENDPOINT: Trae la info de TMDb y las reseñas internas en 1 sola llamada
         const data = await movieService.getMovieDetail(id);
         setMovie(data);
         
-        try {
-          const revs = await getReviewsForMedia('movie', id);
-          setInternalReviews(revs);
-        } catch (e) {
-          console.error('Error fetching internal reviews:', e);
-        }
+        // Las reseñas ya vienen incrustadas en el objeto principal
+        setInternalReviews(data.internalReviews || []);
         
         setLoading(false);
       } catch (err) {

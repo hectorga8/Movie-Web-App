@@ -348,3 +348,55 @@ exports.getBulkUsers = async (req, res) => {
     res.status(500).json({ message: 'Error obteniendo usuarios en bulk' });
   }
 };
+
+// --- SUPER-ENDPOINT: Perfil Completo ---
+// Agrega toda la información necesaria para el perfil en una sola petición a MongoDB
+exports.getFullProfile = async (req, res) => {
+  try {
+    const { identifier } = req.params;
+    let user;
+    
+    // 1. Obtener usuario
+    if (identifier.match(/^[0-9a-fA-F]{24}$/)) {
+      user = await User.findById(identifier).select('-password').lean();
+    } else {
+      user = await User.findOne({ name: identifier }).select('-password').lean();
+    }
+
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+
+    const userId = String(user._id);
+
+    // Importaciones dinámicas para evitar dependencias circulares y mantener microservicios desacoplados pero aprovechando el orquestador unificado
+    const WatchlistItem = require('../../watchlist-service/models/Watchlist');
+    const CustomList = require('../../watchlist-service/models/CustomList');
+    const Review = require('../../review-service/models/Review');
+
+    const currentYear = new Date().getFullYear();
+    const startOfYear = new Date(currentYear, 0, 1).getTime();
+
+    // 2. Ejecutar consultas en paralelo contra MongoDB usando Agregaciones para máximo rendimiento
+    const [reviews, watchedFilms, watchedThisYear, listsCount] = await Promise.all([
+      Review.find({ userId }).sort({ createdAt: -1 }).lean(),
+      WatchlistItem.countDocuments({ userId, status: 'watched', mediaType: 'movie' }),
+      WatchlistItem.countDocuments({ userId, status: 'watched', mediaType: 'movie', addedAt: { $gte: startOfYear } }),
+      CustomList.countDocuments({ userId })
+    ]);
+
+    const stats = {
+      filmsCount: watchedFilms,
+      thisYearCount: watchedThisYear,
+      listsCount: listsCount
+    };
+
+    res.status(200).json({
+      user,
+      stats,
+      reviews
+    });
+  } catch (error) {
+    console.error('❌ Error obteniendo perfil completo:', error);
+    res.status(500).json({ message: 'Error obteniendo perfil completo' });
+  }
+};
+

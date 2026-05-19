@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { getUserProfile } from '../services/authService';
-import { getReviewsForUser } from '../services/reviewService';
-import { watchlistService } from '../services/watchlistService';
+import { getFullProfile } from '../services/authService';
 import ProfileHeader from '../components/perfil/ProfileHeader';
 import ProfileNav from '../components/perfil/ProfileNav';
 import FavoriteFilms from '../components/perfil/FavoriteFilms';
@@ -30,28 +28,17 @@ function Perfil() {
 
       setLoading(true);
       try {
-        const data = await getUserProfile(targetIdentifier);
+        // SUPER-ENDPOINT: Carga TODO en una sola petición HTTP
+        const data = await getFullProfile(targetIdentifier);
         
-        if (!data || !data._id) {
+        if (!data || !data.user) {
           throw new Error('Usuario no encontrado');
         }
 
-        let finalProfileUser = { ...data };
-
-        // Lanzamos las peticiones en paralelo
-        const [stats, userReviews] = await Promise.all([
-          watchlistService.getUserStats(data._id).catch(err => {
-            console.error('Error fetching stats:', err);
-            return {};
-          }),
-          getReviewsForUser(data._id).catch(err => {
-            console.error('Error fetching reviews:', err);
-            return [];
-          })
-        ]);
-
-        finalProfileUser = { ...finalProfileUser, ...stats };
-        setReviews(userReviews);
+        // Combinamos la info del usuario con sus estadísticas para mantener compatibilidad con los componentes hijos
+        const finalProfileUser = { ...data.user, ...data.stats };
+        
+        setReviews(data.reviews || []);
         setProfileUser(finalProfileUser);
         setError(null);
       } catch (err) {

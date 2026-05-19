@@ -18,6 +18,15 @@ export const getUserProfile = async (identifier) => {
   return response.json();
 };
 
+export const getFullProfile = async (identifier) => {
+  const response = await fetch(`${API_URL}/profile-full/${identifier}`);
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Error al obtener el perfil completo');
+  }
+  return response.json();
+};
+
 export const getBulkUsers = async (userIds) => {
   const response = await fetch(`${API_URL}/users/bulk`, {
     method: 'POST',

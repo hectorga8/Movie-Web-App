@@ -85,13 +85,23 @@ exports.getNowPlayingMovies = async (req, res) => {
 
 exports.getMovieById = async (req, res) => {
   try {
-    const { data } = await tmdbApi.get(`/movie/${req.params.id}`, { 
-      params: { 
-        language: 'es-ES',
-        append_to_response: 'credits,videos,images,recommendations,similar,reviews,external_ids,release_dates,watch/providers',
-        include_video_language: 'es,en,null'
-      } 
-    });
+    const Review = require('../../review-service/models/Review');
+    
+    // SUPER-ENDPOINT: Peticiones en paralelo a TMDb y MongoDB (Reseñas internas)
+    const [tmdbResponse, internalReviews] = await Promise.all([
+      tmdbApi.get(`/movie/${req.params.id}`, { 
+        params: { 
+          language: 'es-ES',
+          append_to_response: 'credits,videos,images,recommendations,similar,reviews,external_ids,release_dates,watch/providers',
+          include_video_language: 'es,en,null'
+        } 
+      }),
+      Review.find({ mediaId: req.params.id, mediaType: 'movie' }).sort({ createdAt: -1 }).lean().catch(() => [])
+    ]);
+
+    const data = tmdbResponse.data;
+    data.internalReviews = internalReviews; // Inyectamos las reseñas internas en la misma respuesta
+
     res.json(data);
   } catch (error) { 
     console.error("❌ Error Detalle Película:", error.response?.data || error.message);

@@ -16,6 +16,7 @@ router.delete('/account', protect, authController.deleteAccount);
 
 // Perfiles públicos
 router.get('/profile/:identifier', authController.getUserProfile);
+router.get('/profile-full/:identifier', authController.getFullProfile);
 router.post('/users/bulk', authController.getBulkUsers);
 
 // Funcionalidad de seguir/dejar de seguir
