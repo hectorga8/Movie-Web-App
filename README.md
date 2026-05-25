@@ -1,4 +1,3 @@
-<img width="1920" height="2936" alt="Screenshot 2026-05-25 at 15-39-07 CineBox" src="https://github.com/user-attachments/assets/c0ad3385-42d6-4893-b21f-3a7a34ecece9" />
 <div align="center">
   <img src="frontend/public/favicon.svg" alt="CineSaaS Logo" width="120" />
   
@@ -29,8 +28,7 @@ CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando 
 - [📸 Galería y Demostración](#-galería-y-demostración)
 - [🏗️ Arquitectura y Microservicios](#️-arquitectura-y-microservicios)
 - [🛠️ Stack Tecnológico](#️-stack-tecnológico)
-- [🚀 Instalación Local](#-instalación-local)
-- [🔮 Roadmap](#-roadmap)
+- [🚀 Instalación Local y Docker](#-instalación-local-y-docker)
 
 ---
 
@@ -46,8 +44,6 @@ CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando 
 
 ## 📸 Galería y Demostración
 
-> **💡 Nota:** Reemplaza los enlaces `src` con las URLs reales de tus imágenes o GIFs alojados en tu repositorio o plataformas como Imgur/Giphy.
-
 ### 🎥 Demo Interactivo (GIF / Video)
 *Muestra de la navegación fluida, transiciones y experiencia de usuario.*
 <div align="center">
@@ -58,15 +54,26 @@ CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando 
 
 ### 🖥️ Capturas de Pantalla
 
-| **🏠 Página de Inicio (Dashboard)** | **🔍 Explorador y Filtros** |
-| :---: | :---: |
-| <img src="assets/Landing.png" alt="Dashboard" /> | <img src="assets/Filtros.png" alt="Explorador" /> |
-| *Estrenos, tendencias y recomendaciones.* | *Búsqueda avanzada con autocompletado y filtros.* |
+<div align="center">
+  <h4>🏠 Página de Inicio (Dashboard)</h4>
+  <img src="assets/Landing.png" alt="Dashboard" width="80%" />
+  <p><em>Estrenos, tendencias y recomendaciones.</em></p>
+  <br/>
 
-| **🎬 Detalles de Película/Serie** | **👤 Perfil y Listas Personalizadas** |
-| :---: | :---: |
-| <img src="assets/PeliculaPortada.png" alt="Detalle" /> | <img src="assets/Perfil.png" alt="Perfil" /> |
-| *Trailers, reparto, sinopsis y reseñas de la comunidad.* | *Tu biblioteca personal, actividad y estadísticas.* |
+  <h4>🔍 Explorador y Filtros</h4>
+  <img src="assets/Filtros.png" alt="Explorador" width="80%" />
+  <p><em>Búsqueda avanzada con autocompletado y filtros.</em></p>
+  <br/>
+
+  <h4>🎬 Detalles de Película/Serie</h4>
+  <img src="assets/PeliculaPortada.png" alt="Detalle" width="80%" />
+  <p><em>Trailers, reparto, sinopsis y reseñas de la comunidad.</em></p>
+  <br/>
+
+  <h4>👤 Perfil y Listas Personalizadas</h4>
+  <img src="assets/Perfil.png" alt="Perfil" width="80%" />
+  <p><em>Tu biblioteca personal, actividad y estadísticas.</em></p>
+</div>
 
 ---
 
@@ -100,13 +107,14 @@ El proyecto utiliza un enfoque de **Monorepo gestionado con pnpm workspaces**, s
 
 ---
 
-## 🚀 Instalación Local
+## 🚀 Instalación Local y Docker
 
 ### Prerrequisitos
 *   [Node.js](https://nodejs.org/) (v18 o superior)
 *   [pnpm](https://pnpm.io/installation) (Gestor de paquetes recomendado para este monorepo)
 *   Cuenta en [TMDb](https://www.themoviedb.org/documentation/api) para obtener tu API Key gratuita.
 *   Instancia local de MongoDB o clúster en MongoDB Atlas.
+*   [Docker](https://www.docker.com/) (opcional, para despliegue unificado)
 
 ### Pasos de Configuración
 
@@ -139,18 +147,6 @@ pnpm dev
 ```bash
 docker-compose up -d --build
 ```
-
----
-
-## 🔮 Roadmap
-
-- [x] Arquitectura base de microservicios.
-- [x] Integración TMDb y UI responsive.
-- [x] Sistema de Autenticación y JWT.
-- [x] Listas personalizadas y sistema de reseñas.
-- [ ] **Funciones Sociales:** Seguir usuarios, feed de actividad en tiempo real.
-- [ ] **Despliegue AWS:** Migración de microservicios a Lambda / API Gateway.
-- [ ] **Soporte PWA:** Instalable como aplicación nativa en dispositivos móviles.
 
 ---
 

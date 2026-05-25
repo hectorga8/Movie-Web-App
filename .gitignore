@@ -15,3 +15,15 @@ yarn-error.log*
 .DS_Store
 dist/
 build/
+
+# Archivos específicos que no se deben subir a GitHub (manteniendo copia local)
+.env.production.example
+.geminiignore
+GEMINI.md
+git.ignore
+docker-compose.prod.yml
+Dockerfile.backend.prod
+frontend/Dockerfile.prod
+frontend/nginx.conf
+docs/ROADMAP.md
+DEPLOY.md

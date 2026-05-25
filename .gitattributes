@@ -1,0 +1,4 @@
+# Controlar el comportamiento de lenguajes en GitHub (Linguist)
+*.jsx linguist-language=JavaScript
+*.css linguist-detectable=true
+*.html linguist-detectable=true
