@@ -1,3 +1,4 @@
+<img width="1920" height="2936" alt="Screenshot 2026-05-25 at 15-39-07 CineBox" src="https://github.com/user-attachments/assets/c0ad3385-42d6-4893-b21f-3a7a34ecece9" />
 <div align="center">
   <img src="frontend/public/favicon.svg" alt="CineSaaS Logo" width="120" />
   
@@ -50,7 +51,7 @@ CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando 
 ### 🎥 Demo Interactivo (GIF / Video)
 *Muestra de la navegación fluida, transiciones y experiencia de usuario.*
 <div align="center">
-  <img src="https://via.placeholder.com/800x400.png?text=[+Inserta+tu+GIF+de+demostracion+aqui+]" alt="Navegación CineSaaS" width="100%" />
+  <img src="assets/fullScreen.png" alt="Navegación CineSaaS" width="100%" />
 </div>
 
 <br/>
@@ -59,12 +60,12 @@ CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando 
 
 | **🏠 Página de Inicio (Dashboard)** | **🔍 Explorador y Filtros** |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Inicio+]" alt="Dashboard" /> | <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Filtros+]" alt="Explorador" /> |
+| <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Inicio+]" alt="Dashboard" /> | <img src="assets/Filtros.png" alt="Explorador" /> |
 | *Estrenos, tendencias y recomendaciones.* | *Búsqueda avanzada con autocompletado y filtros.* |
 
 | **🎬 Detalles de Película/Serie** | **👤 Perfil y Listas Personalizadas** |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Detalles+]" alt="Detalle" /> | <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Perfil+]" alt="Perfil" /> |
+| <img src="PeliculaPortada.png" alt="Detalle" /> | <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Perfil+]" alt="Perfil" /> |
 | *Trailers, reparto, sinopsis y reseñas de la comunidad.* | *Tu biblioteca personal, actividad y estadísticas.* |
 
 ---
