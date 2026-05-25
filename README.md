@@ -151,5 +151,5 @@ docker-compose up -d --build
 ---
 
 <div align="center">
-  <i>Desarrollado con pasión por el cine y la tecnología limpia.</i>
+  <i>Página desarrollada por Héctor Gómez Álvaro</i>
 </div>
