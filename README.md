@@ -61,7 +61,7 @@ CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando 
   <br/>
 
   <h4>🔍 Explorador y Filtros</h4>
-  <img src="assets/Filtros.png" alt="Explorador" width="80%" />
+  <img src="assets/Filtros.jpg" alt="Explorador" width="80%" />
   <p><em>Búsqueda avanzada con autocompletado y filtros.</em></p>
   <br/>
 
