@@ -44,13 +44,6 @@ CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando 
 
 ## 📸 Galería y Demostración
 
-### 🎥 Demo Interactivo (GIF / Video)
-*Muestra de la navegación fluida, transiciones y experiencia de usuario.*
-<div align="center">
-  <img src="assets/gifDemo.gif" alt="Navegación CineSaaS" width="100%" />
-</div>
-
-<br/>
 
 ### 🖥️ Capturas de Pantalla
 
