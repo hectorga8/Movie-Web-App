@@ -1,171 +1,158 @@
 <div align="center">
-  <img src="frontend/public/favicon.svg" alt="CineBox Logo" width="100" />
+  <img src="frontend/public/favicon.svg" alt="CineSaaS Logo" width="120" />
   
-  # 🎬 CineBox (CineSaaS)
+  # 🎬 CineSaaS (App de Películas)
 
-  **Tu biblioteca personal de cine y series.**  
-  Descubre, organiza, valora y comparte tu pasión por el séptimo arte.
+  **Tu plataforma definitiva para descubrir, organizar y compartir tu pasión por el cine.**  
+  Una experiencia de usuario impecable orientada a la comunidad, sin anuncios y enfocada en el *Product-Led Growth*.
 
   [![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
   [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
   [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
   [![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-  [![Express.js](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)](https://expressjs.com/)
+  [![Express.js](https://img.shields.io/badge/Express-Microservices-000000?logo=express&logoColor=white)](https://expressjs.com/)
   [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
   [![TMDb API](https://img.shields.io/badge/API-TMDb-01B4E4?logo=themoviedb&logoColor=white)](https://www.themoviedb.org/)
+  [![pnpm](https://img.shields.io/badge/pnpm-workspace-F69220?logo=pnpm&logoColor=white)](https://pnpm.io/)
 </div>
 
 <br />
 
-CineBox es una plataforma Full-Stack (MERN) diseñada con una estética minimalista, oscura y moderna (inspirada en Letterboxd y plataformas de streaming premium). Permite a los usuarios registrar su actividad cinéfila, crear listas personalizadas, interactuar con la comunidad y (próximamente) acceder a características exclusivas mediante una suscripción PRO.
+CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando una **Arquitectura de Microservicios** robusta y escalable. Su diseño oscuro, moderno y minimalista se inspira en las principales plataformas de *streaming* y Letterboxd, ofreciendo funcionalidades sociales avanzadas y un catálogo actualizado en tiempo real.
 
 ---
 
 ## 📋 Tabla de Contenidos
 
-- [✨ Características Principales](#-características-principales)
-- [📸 Capturas de Pantalla](#-capturas-de-pantalla)
+- [✨ Características Destacadas](#-características-destacadas)
+- [📸 Galería y Demostración](#-galería-y-demostración)
+- [🏗️ Arquitectura y Microservicios](#️-arquitectura-y-microservicios)
 - [🛠️ Stack Tecnológico](#️-stack-tecnológico)
-- [🏗️ Arquitectura de Microservicios](#️-arquitectura-de-microservicios)
-- [🚀 Instalación y Uso](#-instalación-y-uso)
-- [🔮 Próximos Pasos (Roadmap)](#-próximos-pasos-roadmap)
+- [🚀 Instalación Local](#-instalación-local)
+- [🔮 Roadmap](#-roadmap)
 
 ---
 
-## ✨ Características Principales
+## ✨ Características Destacadas
 
-- **Catálogo Infinito:** Integración en tiempo real con la API de TMDb para acceder a miles de películas y series actualizadas.
-- **Gestión de Perfil:** Crea tu cuenta, personaliza tu avatar, biografía y controla tus estadísticas de visionado.
-- **Listas Personalizadas:** Crea listas públicas o privadas, añade películas fácilmente con autocompletado y compártelas con la comunidad.
-- **Sistema de Reseñas y Ratings:** Valora películas con un sistema de estrellas (incluyendo medias estrellas) y escribe tus críticas.
-- **Buscador Global Inteligente:** Búsqueda rápida con resultados instantáneos, historial de búsquedas recientes y tendencias actuales.
-- **Diseño Responsive:** Experiencia fluida y adaptada tanto para navegadores de escritorio como para dispositivos móviles.
-- **Modo Oscuro Nativo:** Interfaz diseñada con una paleta de colores oscuros (`#14181c`, `#2c3440`) para reducir la fatiga visual, con acentos en verde (`#00e054`) y azul (`#40bcf4`).
-
-<br />
-
-<!-- Demo de Navegación -->
-<div align="center">
-  <video src="https://i.imgur.com/OQdgS0n.mp4" autoplay loop muted playsinline width="100%"></video>
-  <p><em>Ejemplo de navegación fluida entre películas, series y perfil.</em></p>
-</div>
+*   **Catálogo en Tiempo Real:** Integración con la API de TMDb para acceder a información actualizada sobre películas, series, actores, trailers y tendencias en español.
+*   **Gestión de Colecciones:** Crea listas personalizadas (públicas o privadas), marca contenido como "visto", y mantén una "Watchlist" al día.
+*   **Comunidad y Reseñas:** Valora obras con un sistema de estrellas detallado, escribe críticas y compártelas con la comunidad.
+*   **Búsqueda Avanzada:** Motor de búsqueda inteligente con filtros dinámicos (género, año, puntuación, plataforma de streaming).
+*   **Experiencia de Usuario (UX) Premium:** Modo oscuro nativo, animaciones fluidas con Framer Motion, diseño 100% *responsive* y un enfoque total en la retención de usuarios.
 
 ---
 
-## 📸 Capturas de Pantalla
+## 📸 Galería y Demostración
 
-A continuación se muestra un vistazo a las diferentes secciones de la plataforma:
+> **💡 Nota:** Reemplaza los enlaces `src` con las URLs reales de tus imágenes o GIFs alojados en tu repositorio o plataformas como Imgur/Giphy.
 
-### Landing
-Interfaz intuitiva para explorar el contenido y las funciones que ofrece la página.
+### 🎥 Demo Interactivo (GIF / Video)
+*Muestra de la navegación fluida, transiciones y experiencia de usuario.*
 <div align="center">
-  <img src="https://via.placeholder.com/800x400?text=Captura+Landing+Aqui" alt="Landing" />
+  <img src="https://via.placeholder.com/800x400.png?text=[+Inserta+tu+GIF+de+demostracion+aqui+]" alt="Navegación CineSaaS" width="100%" />
 </div>
 
-### Inicio
-Visualiza estrenos, tendencias, noticias del mundillo y la actividad reciente de la comunidad.
-<div align="center">
-  <img src="https://i.imgur.com/zdpqvrw.png" alt="CineBox Dashboard" />
-</div>
+<br/>
 
-### Explorador de Películas y Series
-Filtra el contenido por año, rating, popularidad, género y plataforma de streaming.
-<div align="center">
-  <img src="https://via.placeholder.com/800x400?text=Captura+Filtros+Aqui" alt="Filtros de CineBox" />
-</div>
+### 🖥️ Capturas de Pantalla
+
+| **🏠 Página de Inicio (Dashboard)** | **🔍 Explorador y Filtros** |
+| :---: | :---: |
+| <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Inicio+]" alt="Dashboard" /> | <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Filtros+]" alt="Explorador" /> |
+| *Estrenos, tendencias y recomendaciones.* | *Búsqueda avanzada con autocompletado y filtros.* |
+
+| **🎬 Detalles de Película/Serie** | **👤 Perfil y Listas Personalizadas** |
+| :---: | :---: |
+| <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Detalles+]" alt="Detalle" /> | <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Perfil+]" alt="Perfil" /> |
+| *Trailers, reparto, sinopsis y reseñas de la comunidad.* | *Tu biblioteca personal, actividad y estadísticas.* |
+
+---
+
+## 🏗️ Arquitectura y Microservicios
+
+El proyecto utiliza un enfoque de **Monorepo gestionado con pnpm workspaces**, separando claramente la lógica de negocio en backend mediante microservicios independientes, facilitando futuros despliegues Serverless o en contenedores Docker.
+
+1.  **Auth Service (`:5001`):** Autenticación JWT, gestión de perfiles, encriptación Bcrypt y roles.
+2.  **Movie Service (`:5002`):** Proxy/Caché para la API de TMDb. Optimiza las llamadas externas y centraliza los datos del catálogo.
+3.  **Watchlist Service (`:5003`):** Gestiona la biblioteca personal del usuario (pendientes, vistas, listas custom).
+4.  **Review Service (`:5004`):** Centraliza la interacción social, comentarios, puntuaciones y *likes*.
 
 ---
 
 ## 🛠️ Stack Tecnológico
 
-### Frontend
-- **React 18** (Librería UI)
-- **Vite** (Bundler ultrarrápido)
-- **Tailwind CSS** (Estilizado de componentes)
-- **React Router v6** (Navegación SPA)
-- **Axios** (Peticiones HTTP)
-- **Context API** (Gestión de estado global de Autenticación)
+**Frontend:**
+*   **Framework:** React 18 + Vite
+*   **Estilos:** Tailwind CSS + Framer Motion (Animaciones UI)
+*   **Estado y Peticiones:** Context API + Axios
+*   **Navegación:** React Router v6
 
-### Backend
-- **Node.js & Express.js** (Entorno y Framework)
-- **MongoDB & Mongoose** (Base de datos NoSQL y ODM)
-- **JWT (JSON Web Tokens)** (Autenticación y Autorización)
-- **Bcrypt.js** (Encriptación de contraseñas)
+**Backend (Microservicios):**
+*   **Entorno:** Node.js + Express
+*   **Base de Datos:** MongoDB Atlas + Mongoose
+*   **Seguridad:** JSON Web Tokens (JWT), Middlewares de autorización y validación.
 
-### APIs de Terceros
-- **The Movie Database (TMDb) API:** Proveedor principal de datos (imágenes, sinopsis, cast, trailers).
-- **DiceBear API:** Generación dinámica de avatares basados en el nombre de usuario.
+**Herramientas y DevOps:**
+*   **Gestor de Paquetes:** pnpm (Workspaces)
+*   **Contenedores:** Docker & Docker Compose (Despliegue unificado)
 
 ---
 
-## 🏗️ Arquitectura de Microservicios
-
-El backend de CineBox está diseñado siguiendo una arquitectura modular orientada a microservicios para facilitar su escalabilidad y despliegue en entornos Cloud (Docker/AWS).
-
-- **Auth Service (`puerto 5001`):** Gestión de usuarios, login, registro y validación JWT.
-- **Movie Service (`puerto 5002`):** Actúa como proxy/caché conectándose a la API de TMDb. Evita exponer la API Key en el frontend.
-- **Watchlist Service (`puerto 5003`):** Gestiona las listas personalizadas, el estado de visionado (pendiente/visto) y las interacciones sociales (likes, comentarios).
-
----
-
-## 🚀 Instalación y Uso
+## 🚀 Instalación Local
 
 ### Prerrequisitos
-- Node.js (v18 o superior)
-- MongoDB (Local o Atlas)
-- Una API Key gratuita de [TMDb](https://www.themoviedb.org/documentation/api)
+*   [Node.js](https://nodejs.org/) (v18 o superior)
+*   [pnpm](https://pnpm.io/installation) (Gestor de paquetes recomendado para este monorepo)
+*   Cuenta en [TMDb](https://www.themoviedb.org/documentation/api) para obtener tu API Key gratuita.
+*   Instancia local de MongoDB o clúster en MongoDB Atlas.
 
-### 1. Clonar el repositorio
+### Pasos de Configuración
+
+**1. Clonar el repositorio:**
 ```bash
-git clone https://github.com/tu-usuario/cinebox.git
-cd cinebox
+git clone https://github.com/TuUsuario/cine-saas.git
+cd cine-saas
 ```
 
-### 2. Configurar Variables de Entorno
-Deberás crear un archivo `.env` en cada servicio del backend y en el frontend. (Revisa los archivos `.env.example` de cada carpeta).
-
-Ejemplo para el Frontend (`frontend/.env`):
-```env
-VITE_TMDB_API_KEY=tu_api_key_aqui
+**2. Instalar todas las dependencias del monorepo:**
+```bash
+pnpm install
 ```
 
-Ejemplo para un microservicio (`backend/auth-service/.env`):
-```env
-PORT=5001
-MONGO_URI=mongodb+srv://...
-JWT_SECRET=tu_secreto_super_seguro
-```
+**3. Variables de Entorno:**
+Deberás configurar los archivos `.env` basándote en los `.example` proporcionados en cada directorio.
+*   En `frontend/.env`: `VITE_TMDB_API_KEY`, etc.
+*   En cada microservicio de `backend/*/.env`: `MONGO_URI`, `JWT_SECRET`, `PORT`, etc.
 
-### 3. Instalar dependencias y ejecutar
-Puedes ejecutar cada servicio individualmente o usar una herramienta como `Concurrently` o `Docker Compose` (recomendado).
+**4. Ejecutar el proyecto:**
+Gracias a pnpm workspaces o herramientas como concurrently, puedes levantar todo (o usar Docker):
 
-**Para iniciar el Frontend:**
+*Opción A: Levantar Frontend localmente*
 ```bash
 cd frontend
-npm install
-npm run dev
+pnpm dev
 ```
 
-**Para iniciar los Microservicios (Ej: Auth Service):**
+*Opción B: Levantar toda la infraestructura con Docker (Recomendado)*
 ```bash
-cd backend/auth-service
-npm install
-npm start
+docker-compose up -d --build
 ```
-
-La aplicación estará disponible en `http://localhost:5173`.
 
 ---
 
-## 🔮 Próximos Pasos (Roadmap)
+## 🔮 Roadmap
 
-- [ ] **Módulo de Billing (Stripe):** Implementación de pasarela de pagos para el nivel Premium (Suscripción PRO de 5€/mes).
-- [ ] **Funciones Sociales:** Seguir usuarios, feed de actividad en tiempo real y comentarios en reviews.
-- [ ] **Recomendaciones con IA:** Integración con OpenAI para sugerir películas basadas en el texto de las reseñas del usuario.
-- [ ] **Despliegue Completo en Docker:** Archivo `docker-compose.yml` unificado para levantar toda la infraestructura con un solo comando.
+- [x] Arquitectura base de microservicios.
+- [x] Integración TMDb y UI responsive.
+- [x] Sistema de Autenticación y JWT.
+- [x] Listas personalizadas y sistema de reseñas.
+- [ ] **Funciones Sociales:** Seguir usuarios, feed de actividad en tiempo real.
+- [ ] **Despliegue AWS:** Migración de microservicios a Lambda / API Gateway.
+- [ ] **Soporte PWA:** Instalable como aplicación nativa en dispositivos móviles.
 
 ---
 
 <div align="center">
-  <p>Construido con 🍿 por <a href="https://github.com/HectorSersi">HectorSersi</a></p>
+  <i>Desarrollado con pasión por el cine y la tecnología limpia.</i>
 </div>
