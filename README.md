@@ -60,12 +60,12 @@ CineSaaS es un proyecto Full-Stack desarrollado como un monorepo, implementando 
 
 | **🏠 Página de Inicio (Dashboard)** | **🔍 Explorador y Filtros** |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Inicio+]" alt="Dashboard" /> | <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Filtros+]" alt="Explorador" /> |
+| <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Inicio+]" alt="Dashboard" /> | <img src="assets/Filtros.png" alt="Explorador" /> |
 | *Estrenos, tendencias y recomendaciones.* | *Búsqueda avanzada con autocompletado y filtros.* |
 
 | **🎬 Detalles de Película/Serie** | **👤 Perfil y Listas Personalizadas** |
 | :---: | :---: |
-| <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Detalles+]" alt="Detalle" /> | <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Perfil+]" alt="Perfil" /> |
+| <img src="PeliculaPortada.png" alt="Detalle" /> | <img src="https://via.placeholder.com/500x280.png?text=[+Captura+Perfil+]" alt="Perfil" /> |
 | *Trailers, reparto, sinopsis y reseñas de la comunidad.* | *Tu biblioteca personal, actividad y estadísticas.* |
 
 ---
