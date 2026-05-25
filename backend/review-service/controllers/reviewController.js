@@ -291,22 +291,16 @@ exports.getAllReviewersStats = async (req, res) => {
 exports.getWeeklyPopularReviews = async (req, res) => {
   try {
     const now = new Date();
-    const dayOfWeek = now.getDay(); // 0 is Sunday, 1 is Monday
-    const distanceToMonday = (dayOfWeek === 0 ? 6 : dayOfWeek - 1);
-    
-    const startOfWeek = new Date(now);
-    startOfWeek.setDate(now.getDate() - distanceToMonday);
-    startOfWeek.setHours(0, 0, 0, 0);
-
-    const endOfWeek = new Date(startOfWeek);
-    endOfWeek.setDate(startOfWeek.getDate() + 6);
-    endOfWeek.setHours(23, 59, 59, 999);
+    // En lugar de una semana estricta, tomamos los últimos 30 días para asegurar que haya contenido
+    const last30Days = new Date(now);
+    last30Days.setDate(now.getDate() - 30);
 
     const reviews = await Review.find({
-      createdAt: { $gte: startOfWeek, $lte: endOfWeek }
+      createdAt: { $gte: last30Days }
     })
-      .sort({ likes: -1, createdAt: -1 })
-      .limit(10);
+      // Priorizamos las más recientes para que el usuario siempre vea su actividad
+      .sort({ createdAt: -1, likes: -1 })
+      .limit(50);
       
     res.status(200).json(reviews);
   } catch (error) {

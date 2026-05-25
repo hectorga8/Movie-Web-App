@@ -1,6 +1,10 @@
 import axios from 'axios';
 
+const API_BASE = import.meta.env.VITE_API_URL || '';
 const BASE_URL = import.meta.env.VITE_MOVIE_API_URL || '/api/movies';
+const TV_BASE_URL = API_BASE ? `${API_BASE}/api/tv` : '/api/tv';
+const PERSON_BASE_URL = API_BASE ? `${API_BASE}/api/person` : '/api/person';
+const SEARCH_BASE_URL = API_BASE ? `${API_BASE}/api/search` : '/api/search';
 
 export const movieService = {
   // PELÍCULAS
@@ -54,18 +58,18 @@ export const movieService = {
 
 
   searchMulti: async (query, sortBy = 'relevance') => {
-    const { data } = await axios.get(`${BASE_URL}/search/multi?query=${query}&sortBy=${sortBy}`);
+    const { data } = await axios.get(`${SEARCH_BASE_URL}/multi?query=${query}&sortBy=${sortBy}`);
     return data;
   },
 
   // PERSONAS
   getAllPersons: async (page = 1) => {
-    const { data } = await axios.get(`${BASE_URL}/person/all?page=${page}`);
+    const { data } = await axios.get(`${PERSON_BASE_URL}/all?page=${page}`);
     return data;
   },
 
   getPersonDetail: async (id) => {
-    const { data } = await axios.get(`${BASE_URL}/person/${id}`);
+    const { data } = await axios.get(`${PERSON_BASE_URL}/${id}`);
     return data;
   },
 
@@ -79,24 +83,24 @@ export const movieService = {
     if (filters.sort_by) params.append('sort_by', filters.sort_by);
     if (filters.watch_provider) params.append('watch_provider', filters.watch_provider);
 
-    const { data } = await axios.get(`${BASE_URL}/tv/all?${params.toString()}`);
+    const { data } = await axios.get(`${TV_BASE_URL}/all?${params.toString()}`);
     return data;
   },
 
   getTVDetail: async (id) => {
-    const { data } = await axios.get(`${BASE_URL}/tv/${id}`);
+    const { data } = await axios.get(`${TV_BASE_URL}/${id}`);
     return data;
   },
 
   getTVTrending: async () => {
-    const { data } = await axios.get(`${BASE_URL}/tv/list/trending`);
+    const { data } = await axios.get(`${TV_BASE_URL}/list/trending`);
     return data;
   },
 
   // NOTICIAS
   getNews: async () => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/movies/news`);
+      const { data } = await axios.get(`${BASE_URL}/news`);
       return data;
     } catch (error) {
       console.error("Error fetching news:", error);
