@@ -27,3 +27,8 @@ frontend/Dockerfile.prod
 frontend/nginx.conf
 docs/ROADMAP.md
 DEPLOY.md
+temp.json
+lazy.js
+index.js
+.npmrc
+vercel.json
